@@ -65,11 +65,11 @@
 	<key>Hotkey</key>
 	<false/>
 	<key>HotkeyChar</key>
-	<integer>0</integer>
+	<integer>32</integer>
 	<key>HotkeyCode</key>
-	<integer>0</integer>
+	<integer>49</integer>
 	<key>HotkeyModifiers</key>
-	<integer>0</integer>
+	<integer>524288</integer>
 	<key>IRMemory</key>
 	<integer>4</integer>
 	<key>JobName</key>
@@ -123,7 +123,7 @@
 	<key>NSWindow Frame Preferences</key>
 	<string>239 181 924 485 0 0 1280 778 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>4 22 1273 756 0 0 1280 778 </string>
+	<string>4 24 1273 754 0 0 1280 778 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
 	<string>1280 402 505 376 1280 -250 1680 1028 </string>
 	<key>NeverWarnAboutShortLivedSessions_2DA9503D-1114-4817-B90C-1A03976CCA0C</key>
@@ -305,7 +305,7 @@
 			<key>Blinking Cursor</key>
 			<false/>
 			<key>Blur</key>
-			<false/>
+			<true/>
 			<key>Blur Radius</key>
 			<real>2</real>
 			<key>Bold Color</key>
@@ -864,7 +864,7 @@
 		</dict>
 	</array>
 	<key>OnlyWhenMoreTabs</key>
-	<true/>
+	<false/>
 	<key>OpenArrangementAtStartup</key>
 	<false/>
 	<key>OpenBookmark</key>
@@ -909,11 +909,11 @@
 		</dict>
 	</dict>
 	<key>PrefsCustomFolder</key>
-	<string>~/projects</string>
+	<string></string>
 	<key>PromptOnClose</key>
 	<true/>
 	<key>PromptOnQuit</key>
-	<true/>
+	<false/>
 	<key>QuitWhenAllWindowsClosed</key>
 	<true/>
 	<key>RightCommand</key>
@@ -955,9 +955,9 @@
 	<key>URLHandlersByGuid</key>
 	<dict/>
 	<key>UseBorder</key>
-	<false/>
-	<key>UseCompactLabel</key>
 	<true/>
+	<key>UseCompactLabel</key>
+	<false/>
 	<key>UseLionStyleFullscreen</key>
 	<true/>
 	<key>WebKitDefaultFontSize</key>
