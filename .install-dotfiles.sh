@@ -1,16 +1,18 @@
 #!/bin/bash
 
+function abspath() { pushd . > /dev/null; if [ -d "$1" ]; then cd "$1"; dirs -l +0; else cd "`dirname \"$1\"`"; cur_dir=`dirs -l +0`; if [ "$cur_dir" == "/" ]; then echo "$cur_dir`basename \"$1\"`"; else echo "$cur_dir/`basename \"$1\"`"; fi; fi; popd > /dev/null; }
 function title() {
     tput setaf 1
     echo "$1"
     tput sgr 0
 }
-
 function info() {
     tput setaf 3
     echo "   $1"
     tput sgr 0
 }
+
+cd $(dirname $(abspath $0))
 
 # iTerm
 title "iTerm"
@@ -111,5 +113,7 @@ EOF
 /Applications/Karabiner.app/Contents/Library/bin/karabiner enable custom.correct_shift_keys
 /Applications/Karabiner.app/Contents/Library/bin/karabiner enable custom.shifts_to_parentheses
 /Applications/Karabiner.app/Contents/Library/bin/karabiner reloadxml
+
+./.set-defaults.sh
 
 exit 0
