@@ -115,6 +115,11 @@ EOF
 /Applications/Karabiner.app/Contents/Library/bin/karabiner enable custom.shifts_to_parentheses
 /Applications/Karabiner.app/Contents/Library/bin/karabiner reloadxml
 
+# Git
+git config --global user.name "Daniel Stefaniuk"
+git config --global user.email "dainel.stefaniuk@gmail.com"
+git config --global push.default simple
+
 ./.set-defaults.sh
 
 exit 0
