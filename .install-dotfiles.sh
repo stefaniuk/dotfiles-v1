@@ -117,7 +117,7 @@ EOF
 
 # Git
 git config --global user.name "Daniel Stefaniuk"
-git config --global user.email "dainel.stefaniuk@gmail.com"
+git config --global user.email "daniel.stefaniuk@gmail.com"
 git config --global push.default simple
 
 ./.set-defaults.sh
