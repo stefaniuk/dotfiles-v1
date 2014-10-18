@@ -1,14 +1,13 @@
 #!/bin/bash
 
-# SEE: https://gist.github.com/benfrain/7434600
-
-exit 0
-
-# make keyboard keys repeat properly when held down
+# repeat keyboard keys when held down
 defaults write -g ApplePressAndHoldEnabled -bool false
 
 # no animation when new window is created
 defaults write NSGlobalDomain NSAutomaticWindowAnimationsEnabled -bool false
+
+# increase window resize speed for Cocoa applications
+defaults write -g NSWindowResizeTime -float 0.001
 
 # always show scrollbars
 defaults write NSGlobalDomain AppleShowScrollBars -string "Always"
@@ -16,10 +15,15 @@ defaults write NSGlobalDomain AppleShowScrollBars -string "Always"
 # speed up dock animation
 defaults write com.apple.dock autohide-delay -float 0.1
 defaults write com.apple.dock autohide-time-modifier -float 0.5
+
 # automatically hide and show the Dock
 defaults write com.apple.dock autohide -bool true
+
 # make Dock icons of hidden applications translucent
 defaults write com.apple.dock showhidden -bool true
+
+# don't animate opening applications from the Dock
+defaults write com.apple.dock launchanim -bool false
 
 # speed up mission control animation
 defaults write com.apple.dock expose-animation-duration -float 0.1
@@ -37,6 +41,9 @@ defaults write com.apple.dock dashboard-in-overlay -bool true
 # disable dashboard
 defaults write com.apple.dashboard mcx-disabled -bool true
 
+# remove Spotlight from the menubar
+sudo chmod 600 /System/Library/CoreServices/Search.bundle/Contents/MacOS/Search
+
 # automatically quit printer app once the print jobs complete
 defaults write com.apple.print.PrintingPrefs "Quit When Finished" -bool true
 
@@ -46,42 +53,17 @@ defaults write com.apple.LaunchServices LSQuarantine -bool false
 # disable auto-correct
 defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
 
-# disable the warning before emptying the Trash
-defaults write com.apple.finder WarnOnEmptyTrash -bool false
-# empty Trash securely by default
-defaults write com.apple.finder EmptyTrashSecurely -bool true
+# expand save panel by default
+defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true
 
-# Finder: show hidden files by default
-defaults write com.apple.finder AppleShowAllFiles -bool true
-# Finder: show all filename extensions
-defaults write NSGlobalDomain AppleShowAllExtensions -bool true
-# Finder: show status bar
-defaults write com.apple.finder ShowStatusBar -bool true
-# Finder: allow text selection in Quick Look
-defaults write com.apple.finder QLEnableTextSelection -bool true
-# Finder: display full POSIX path as window title
-defaults write com.apple.finder _FXShowPosixPathInTitle -bool true
-
-# disable the warning when changing a file extension
-defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
-
-# avoid creating .DS_Store files on network volumes
-defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
-
-# use list view in all Finder windows by default
-defaults write com.apple.finder FXPreferredViewStyle -string "Nlsv"
-
-# showing and hiding sheets, resizing preference windows, zooming windows
-defaults write -g NSWindowResizeTime -float 0.001
+# expand print panel by default
+defaults write NSGlobalDomain PMPrintingExpandedStateForPrint -bool true
 
 # enable single application mode
 defaults write com.apple.dock single-app -bool true
 
-# copy text from quick look
-defaults write com.apple.finder QLEnableTextSelection -bool true
-
 # disable notification center
-launchctl unload -w /System/Library/LaunchAgents/com.apple.notificationcenterui.plist && killall NotificationCenter
+launchctl unload -w /System/Library/LaunchAgents/com.apple.notificationcenterui.plist > /dev/null 2>&1
 
 # set language and text formats
 #if you're in the US, replace EUR with USD, Centimeters with Inches, and true with false.
@@ -90,7 +72,101 @@ launchctl unload -w /System/Library/LaunchAgents/com.apple.notificationcenterui.
 #defaults write NSGlobalDomain AppleMeasurementUnits -string “Centimeters”
 #defaults write NSGlobalDomain AppleMetricUnits -bool true
 
-killall Dock
-killall Finder
+# check for software updates daily, not just once per week
+defaults write com.apple.SoftwareUpdate ScheduleFrequency -int 1
+
+################################################################################
+# Finder                                                                       #
+################################################################################
+
+# disable window animations and Get Info animations
+defaults write com.apple.finder DisableAllAnimations -bool true
+
+# show icons for hard drives, servers, and removable media on the desktop
+defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -bool true
+defaults write com.apple.finder ShowHardDrivesOnDesktop -bool true
+defaults write com.apple.finder ShowMountedServersOnDesktop -bool true
+defaults write com.apple.finder ShowRemovableMediaOnDesktop -bool true
+
+# use list view in all Finder windows by default
+defaults write com.apple.finder FXPreferredViewStyle -string "Nlsv"
+
+# show hidden files by default
+defaults write com.apple.finder AppleShowAllFiles -bool true
+
+# show all filename extensions
+defaults write NSGlobalDomain AppleShowAllExtensions -bool true
+
+# show status bar
+defaults write com.apple.finder ShowStatusBar -bool true
+
+# show path bar
+defaults write com.apple.finder ShowPathbar -bool true
+
+# allow text selection in Quick Look
+defaults write com.apple.finder QLEnableTextSelection -bool true
+
+# display full POSIX path as Finder window title
+defaults write com.apple.finder _FXShowPosixPathInTitle -bool true
+
+# when performing a search, search the current folder by default
+defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"
+
+# disable the warning when changing a file extension
+defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
+
+# save to disk (not to iCloud) by default
+defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false
+
+# enable spring loading for directories
+defaults write NSGlobalDomain com.apple.springing.enabled -bool true
+
+# remove the spring loading delay for directories
+defaults write NSGlobalDomain com.apple.springing.delay -float 0
+
+# avoid creating .DS_Store files on network volumes
+defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
+
+# disable the warning before emptying the Trash
+defaults write com.apple.finder WarnOnEmptyTrash -bool false
+
+# empty Trash securely by default
+defaults write com.apple.finder EmptyTrashSecurely -bool true
+
+# show the ~/Library folder
+chflags nohidden ~/Library
+
+################################################################################
+# Safari & WebKit                                                              #
+################################################################################
+
+# set home page
+defaults write com.apple.Safari HomePage -string "about:blank"
+
+# prevent from opening 'safe' files automatically after downloading
+defaults write com.apple.Safari AutoOpenSafeDownloads -bool false
+
+# allow hitting the Backspace key to go to the previous page in history
+defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2BackspaceKeyNavigationEnabled -bool true
+
+# show bookmarks by default
+defaults write com.apple.Safari ShowFavoritesBar -bool true
+
+# disable thumbnail cache for History and Top Sites
+defaults write com.apple.Safari DebugSnapshotsUpdatePolicy -int 2
+
+# set up Safari for development
+defaults write com.apple.Safari IncludeInternalDebugMenu -bool true
+defaults write com.apple.Safari IncludeDevelopMenu -bool true
+defaults write com.apple.Safari WebKitDeveloperExtrasEnabledPreferenceKey -bool true
+defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled -bool true
+defaults write NSGlobalDomain WebKitDeveloperExtras -bool true
+
+################################################################################
+
+killall NotificationCenter > /dev/null 2>&1
+killall Finder > /dev/null 2>&1
+killall Dock > /dev/null 2>&1
+killall SystemUIServer > /dev/null 2>&1
 
 exit 0

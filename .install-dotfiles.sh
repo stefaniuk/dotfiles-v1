@@ -109,7 +109,7 @@ cat << EOF > /Users/daniel/Library/Application\ Support/Karabiner/private.xml
 </root>
 EOF
 /Applications/Karabiner.app/Contents/Library/bin/karabiner set repeat.initial_wait 333
-/Applications/Karabiner.app/Contents/Library/bin/karabiner set repeat.wait 66
+/Applications/Karabiner.app/Contents/Library/bin/karabiner set repeat.wait 33
 /Applications/Karabiner.app/Contents/Library/bin/karabiner enable custom.remap_caps_lock
 /Applications/Karabiner.app/Contents/Library/bin/karabiner enable custom.correct_shift_keys
 /Applications/Karabiner.app/Contents/Library/bin/karabiner enable custom.shifts_to_parentheses
