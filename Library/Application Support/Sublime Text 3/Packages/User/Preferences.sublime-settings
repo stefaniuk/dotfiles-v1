@@ -8,7 +8,7 @@
     "draw_white_space": "all",
     "ensure_newline_at_eof_on_save": true,
     "fade_fold_buttons": false,
-    "font_size": 10.0,
+    "font_size": 12.0,
     "highlight_line": true,
     "highlight_modified_tabs": true,
     "open_files_in_new_window": false,
