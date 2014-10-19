@@ -1,5 +1,14 @@
 {
     "installed_packages": [
-        "Package Control"
+        "All Autocomplete",
+        "Git",
+        "GitGutter",
+        "Markdown Preview",
+        "MoveTab",
+        "Package Control",
+        "SideBarEnhancements",
+        "SublimeLinter",
+        "SublimeREPL",
+        "Terminal"
     ]
 }

@@ -20,7 +20,6 @@ cp -f ./Library/Preferences/com.googlecode.iterm2.plist ~/Library/Preferences
 
 # Vim
 title "Vim"
-#rm -rf ~/.vim
 mkdir -p ~/.vim
 cp -Rf ./.vim/* ~/.vim
 cp -f ./.vimrc ~
@@ -32,18 +31,28 @@ fi
 
 # Midnight Commander
 title "Midnight Commander"
-#rm -rf ~/.config/mc
 mkdir -p ~/.config
 cp -R ./.config/mc ~/.config
 
 # Sublime Text
 title "Sublime Text"
-#rm -rf ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/User
-mkdir -p ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/User
+mkdir -p ~/Library/Application\ Support/Sublime\ Text\ 3/{Installed\ Packages,Packages/User}
+# install packages
+curl --url http://sublime.wbond.net/Package%20Control.sublime-package --output ~/Library/Application\ Support/Sublime\ Text\ 3/Installed\ Packages/Package\ Control.sublime-package
+if [ ! -d ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/Theme\ -\ Tomorrow ]; then
+    git clone https://github.com/theymaybecoders/sublime-tomorrow-theme ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/Theme\ -\ Tomorrow
+else
+    (cd ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/Theme\ -\ Tomorrow; git pull -v)
+fi
+if [ ! -d ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/Theme\ -\ Soda ]; then
+    git clone https://github.com/buymeasoda/soda-theme ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/Theme\ -\ Soda
+else
+    (cd ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/Theme\ -\ Soda; git pull -v)
+fi
+# copy settings
 cp -f ./Library/Application\ Support/Sublime\ Text\ 3/Packages/User/Preferences.sublime-settings ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/User
 cp -f ./Library/Application\ Support/Sublime\ Text\ 3/Packages/User/Default\ \(OSX\).sublime-keymap ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/User
 cp -f ./Library/Application\ Support/Sublime\ Text\ 3/Packages/User/Package\ Control.sublime-settings ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/User
-curl --url http://sublime.wbond.net/Package%20Control.sublime-package --output ~/Library/Application\ Support/Sublime\ Text\ 3/Installed\ Packages/Package\ Control.sublime-package
 
 # Seil
 title "Seil"
