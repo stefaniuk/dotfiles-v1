@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# disable the sound effects on boot
+sudo nvram SystemAudioVolume=%00
+
 # repeat keyboard keys when held down
 defaults write -g ApplePressAndHoldEnabled -bool false
 
@@ -41,9 +44,6 @@ defaults write com.apple.dock dashboard-in-overlay -bool true
 # disable dashboard
 defaults write com.apple.dashboard mcx-disabled -bool true
 
-# remove Spotlight from the menubar
-sudo chmod 600 /System/Library/CoreServices/Search.bundle/Contents/MacOS/Search
-
 # automatically quit printer app once the print jobs complete
 defaults write com.apple.print.PrintingPrefs "Quit When Finished" -bool true
 
@@ -61,6 +61,9 @@ defaults write NSGlobalDomain PMPrintingExpandedStateForPrint -bool true
 
 # enable single application mode
 defaults write com.apple.dock single-app -bool true
+
+# remove Spotlight from the menubar
+sudo chmod 600 /System/Library/CoreServices/Search.bundle/Contents/MacOS/Search
 
 # disable notification center
 launchctl unload -w /System/Library/LaunchAgents/com.apple.notificationcenterui.plist > /dev/null 2>&1
