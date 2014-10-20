@@ -44,15 +44,11 @@ if [ ! -d ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/Theme\ -\ Tom
 else
     (cd ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/Theme\ -\ Tomorrow; git pull -v)
 fi
-if [ ! -d ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/Theme\ -\ Soda ]; then
-    git clone https://github.com/buymeasoda/soda-theme ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/Theme\ -\ Soda
-else
-    (cd ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/Theme\ -\ Soda; git pull -v)
-fi
 # copy settings
 cp -f ./Library/Application\ Support/Sublime\ Text\ 3/Packages/User/Preferences.sublime-settings ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/User
 cp -f ./Library/Application\ Support/Sublime\ Text\ 3/Packages/User/Default\ \(OSX\).sublime-keymap ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/User
 cp -f ./Library/Application\ Support/Sublime\ Text\ 3/Packages/User/Package\ Control.sublime-settings ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/User
+cp -f ./Library/Application\ Support/Sublime\ Text\ 3/Packages/User/Blackboard\ \(SL\).tmTheme ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/User
 
 # Seil
 title "Seil"
