@@ -29,26 +29,24 @@ else
     (cd ~/.vim/bundle/Vundle.vim; git pull -v)
 fi
 
-# Midnight Commander
-title "Midnight Commander"
-mkdir -p ~/.config
-cp -R ./.config/mc ~/.config
-
 # Sublime Text
 title "Sublime Text"
 mkdir -p ~/Library/Application\ Support/Sublime\ Text\ 3/{Installed\ Packages,Packages/User}
-# install packages
+# install package control plug-in
 curl --url http://sublime.wbond.net/Package%20Control.sublime-package --output ~/Library/Application\ Support/Sublime\ Text\ 3/Installed\ Packages/Package\ Control.sublime-package
+# install tomorrow theme
 if [ ! -d ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/Theme\ -\ Tomorrow ]; then
     git clone https://github.com/theymaybecoders/sublime-tomorrow-theme ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/Theme\ -\ Tomorrow
 else
     (cd ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/Theme\ -\ Tomorrow; git pull -v)
 fi
 # copy settings
-cp -f ./Library/Application\ Support/Sublime\ Text\ 3/Packages/User/Preferences.sublime-settings ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/User
-cp -f ./Library/Application\ Support/Sublime\ Text\ 3/Packages/User/Default\ \(OSX\).sublime-keymap ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/User
-cp -f ./Library/Application\ Support/Sublime\ Text\ 3/Packages/User/Package\ Control.sublime-settings ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/User
-cp -f ./Library/Application\ Support/Sublime\ Text\ 3/Packages/User/Blackboard\ \(SL\).tmTheme ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/User
+cp -f ./Library/Application\ Support/Sublime\ Text\ 3/Packages/User/* ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/User
+
+# Midnight Commander
+title "Midnight Commander"
+mkdir -p ~/.config
+cp -R ./.config/mc ~/.config
 
 # Seil
 title "Seil"
