@@ -14,4 +14,6 @@ This project supports:
 
 To install configuration settings clone the repository and run the following command from within the `dotfiles` directory:
 
-    ./.install-dotfiles.sh
+    ./install.sh
+
+Check [dotfiles](https://github.com/mathiasbynens/dotfiles) project.

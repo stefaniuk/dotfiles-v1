@@ -16,7 +16,7 @@ cd $(dirname $(abspath $0))
 
 # iTerm
 title "iTerm"
-cp -f ./Library/Preferences/com.googlecode.iterm2.plist ~/Library/Preferences
+cp -f ./.iterm/com.googlecode.iterm2.plist ~/Library/Preferences
 
 # Vim
 title "Vim"
@@ -41,12 +41,12 @@ else
     (cd ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/Theme\ -\ Tomorrow; git pull -v)
 fi
 # copy settings
-cp -f ./Library/Application\ Support/Sublime\ Text\ 3/Packages/User/* ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/User
+cp -f ./.sublime/* ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/User
 
 # Midnight Commander
 title "Midnight Commander"
-mkdir -p ~/.config
-cp -R ./.config/mc ~/.config
+mkdir -p ~/.config/mc
+cp -f ./.mc/* ~/.config/mc
 
 # Seil
 title "Seil"
@@ -124,6 +124,6 @@ git config --global user.name "Daniel Stefaniuk"
 git config --global user.email "daniel.stefaniuk@gmail.com"
 git config --global push.default simple
 
-./.set-defaults.sh
+./config-osx.sh
 
 exit 0
