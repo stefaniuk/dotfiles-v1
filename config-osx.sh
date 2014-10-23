@@ -10,7 +10,7 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 ################################################################################
 
 print_title "iTerm"
-cp -f ../.iterm/com.googlecode.iterm2.plist ~/Library/Preferences
+cp -f ./.iterm/com.googlecode.iterm2.plist ~/Library/Preferences
 
 ################################################################################
 # Vim                                                                          #
@@ -18,8 +18,8 @@ cp -f ../.iterm/com.googlecode.iterm2.plist ~/Library/Preferences
 
 print_title "Vim"
 mkdir -p ~/.vim
-cp -Rf ../.vim/* ~/.vim
-cp -f ../.vimrc ~
+cp -Rf ./.vim/* ~/.vim
+cp -f ./.vimrc ~
 if [ ! -d ~/.vim/bundle/Vundle.vim ]; then
     git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim > /dev/null 2>&1
 else
@@ -41,7 +41,7 @@ else
     (cd ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/Theme\ -\ Tomorrow; git pull) > /dev/null 2>&1
 fi
 # copy settings
-cp -f ../.sublime/* ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/User
+cp -f ./.sublime/* ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/User
 
 ################################################################################
 # Midnight Commander                                                           #
@@ -49,7 +49,7 @@ cp -f ../.sublime/* ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/Use
 
 print_title "Midnight Commander"
 mkdir -p ~/.config/mc
-cp -f ../.mc/* ~/.config/mc
+cp -f ./.mc/* ~/.config/mc
 
 ################################################################################
 # Seil                                                                         #
@@ -127,19 +127,6 @@ EOF
 /Applications/Karabiner.app/Contents/Library/bin/karabiner enable custom.correct_shift_keys
 /Applications/Karabiner.app/Contents/Library/bin/karabiner enable custom.shifts_to_parentheses
 /Applications/Karabiner.app/Contents/Library/bin/karabiner reloadxml
-
-################################################################################
-# Git                                                                          #
-################################################################################
-
-print_title "Git"
-GIT_AUTHOR_NAME="$USER_NAME"
-GIT_COMMITTER_NAME="$GIT_AUTHOR_NAME"
-git config --global user.name "$GIT_AUTHOR_NAME"
-GIT_AUTHOR_EMAIL="$USER_EMAIL"
-GIT_COMMITTER_EMAIL="$GIT_AUTHOR_EMAIL"
-git config --global user.email "$GIT_AUTHOR_EMAIL"
-git config --global push.default simple
 
 ################################################################################
 # defaults                                                                     #
