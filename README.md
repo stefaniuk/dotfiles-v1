@@ -5,4 +5,4 @@ To install configuration settings clone the repository and run the following com
 
     ./install.sh
 
-Check [dotfiles](https://github.com/mathiasbynens/dotfiles) project.
+TODO: [dotfiles](https://github.com/mathiasbynens/dotfiles)
