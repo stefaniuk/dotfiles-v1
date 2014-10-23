@@ -1,0 +1,63 @@
+<settings>
+    <servers>
+
+        <!-- ... -->
+
+        <!-- artefact deployment Nexus server credential (snapshot) -->
+        <server>
+            <id>${project}-artefact-deployment-snapshot</id>
+            <username>${project}-deployment-snapshot</username>
+            <password>******</password>
+        </server>
+        <!-- artefact deployment Nexus server credential (release) -->
+        <server>
+            <id>${project}-artefact-deployment-release</id>
+            <username>${project}-deployment-release</username>
+            <password>******</password>
+        </server>
+        <!-- project's site deployment Nexus server credential -->
+        <server>
+            <id>${project}-site-deployment</id>
+            <username>${project}-deployment-site</username>
+            <password>******</password>
+        </server>
+
+        <!-- ... -->
+
+    </servers>
+    <mirrors>
+        <!-- redirect any request to the Nexus server -->
+        <mirror>
+            <id>nexus</id>
+            <url>http://nexus:8081/nexus/content/groups/release/</url>
+            <mirrorOf>*</mirrorOf>
+        </mirror>
+    </mirrors>
+    <profiles>
+        <profile>
+            <id>nexus</id>
+            <repositories>
+                <!-- override repository in the Super POM -->
+                <repository>
+                    <id>central</id>
+                    <url>http://central</url>
+                    <releases><enabled>true</enabled></releases>
+                    <snapshots><enabled>true</enabled></snapshots>
+                </repository>
+            </repositories>
+            <pluginRepositories>
+                <!-- override plug-in repository in the Super POM -->
+                <pluginRepository>
+                    <id>central</id>
+                    <url>http://central</url>
+                    <releases><enabled>true</enabled></releases>
+                    <snapshots><enabled>true</enabled></snapshots>
+                </pluginRepository>
+            </pluginRepositories>
+        </profile>
+    </profiles>
+    <activeProfiles>
+        <!-- make the profile active -->
+        <activeProfile>nexus</activeProfile>
+    </activeProfiles>
+</settings>

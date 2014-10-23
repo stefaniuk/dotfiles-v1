@@ -1,19 +1,22 @@
 #!/bin/bash
 
+# update the user's cached credentials, authenticating the user if necessary
 sudo -v
+# keep-alive: update existing `sudo` time stamp until script has finished
+while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 ################################################################################
 # iTerm                                                                        #
 ################################################################################
 
-title "iTerm"
+print_title "iTerm"
 cp -f ../.iterm/com.googlecode.iterm2.plist ~/Library/Preferences
 
 ################################################################################
 # Vim                                                                          #
 ################################################################################
 
-title "Vim"
+print_title "Vim"
 mkdir -p ~/.vim
 cp -Rf ../.vim/* ~/.vim
 cp -f ../.vimrc ~
@@ -27,7 +30,7 @@ fi
 # Sublime Text                                                                 #
 ################################################################################
 
-title "Sublime Text"
+print_title "Sublime Text"
 mkdir -p ~/Library/Application\ Support/Sublime\ Text\ 3/{Installed\ Packages,Packages/User}
 # install package control plug-in
 curl --url http://sublime.wbond.net/Package%20Control.sublime-package --output ~/Library/Application\ Support/Sublime\ Text\ 3/Installed\ Packages/Package\ Control.sublime-package > /dev/null 2>&1
@@ -44,7 +47,7 @@ cp -f ../.sublime/* ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/Use
 # Midnight Commander                                                           #
 ################################################################################
 
-title "Midnight Commander"
+print_title "Midnight Commander"
 mkdir -p ~/.config/mc
 cp -f ../.mc/* ~/.config/mc
 
@@ -52,16 +55,16 @@ cp -f ../.mc/* ~/.config/mc
 # Seil                                                                         #
 ################################################################################
 
-title "Seil"
+print_title "Seil"
 /Applications/Seil.app/Contents/Library/bin/seil set keycode_capslock 80
-info "Open 'System Preferences > Keyboard > Keyboard > Modifier Keys...'"
-info "and change 'Caps Lock Key' configuration to 'No Action' to reduce delay."
+print_info "Open 'System Preferences > Keyboard > Keyboard > Modifier Keys...'"
+print_info "and change 'Caps Lock Key' configuration to 'No Action' to reduce delay."
 
 ################################################################################
 # Karabiner                                                                    #
 ################################################################################
 
-title "Karabiner"
+print_title "Karabiner"
 cat << EOF > /Users/daniel/Library/Application\ Support/Karabiner/private.xml
 <?xml version="1.0"?>
 <root>
@@ -129,16 +132,20 @@ EOF
 # Git                                                                          #
 ################################################################################
 
-title "Git"
-git config --global user.name "$USER_NAME"
-git config --global user.email "$USER_EMAIL"
+print_title "Git"
+GIT_AUTHOR_NAME="$USER_NAME"
+GIT_COMMITTER_NAME="$GIT_AUTHOR_NAME"
+git config --global user.name "$GIT_AUTHOR_NAME"
+GIT_AUTHOR_EMAIL="$USER_EMAIL"
+GIT_COMMITTER_EMAIL="$GIT_AUTHOR_EMAIL"
+git config --global user.email "$GIT_AUTHOR_EMAIL"
 git config --global push.default simple
 
 ################################################################################
 # defaults                                                                     #
 ################################################################################
 
-title "defaults"
+print_title "defaults"
 
 # disable the sound effects on boot
 sudo nvram SystemAudioVolume=%00

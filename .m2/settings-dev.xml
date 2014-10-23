@@ -1,0 +1,37 @@
+<settings>
+    <mirrors>
+        <!-- redirect any request to the Nexus server -->
+        <mirror>
+            <id>nexus</id>
+            <url>http://nexus:8081/nexus/content/groups/public/</url>
+            <mirrorOf>central</mirrorOf>
+        </mirror>
+    </mirrors>
+    <profiles>
+        <profile>
+            <id>nexus</id>
+            <repositories>
+                <!-- override repository in the Super POM -->
+                <repository>
+                    <id>central</id>
+                    <url>http://central</url>
+                    <releases><enabled>true</enabled></releases>
+                    <snapshots><enabled>true</enabled></snapshots>
+                </repository>
+            </repositories>
+            <pluginRepositories>
+                <!-- override plug-in repository in the Super POM -->
+                <pluginRepository>
+                    <id>central</id>
+                    <url>http://central</url>
+                    <releases><enabled>true</enabled></releases>
+                    <snapshots><enabled>true</enabled></snapshots>
+                </pluginRepository>
+            </pluginRepositories>
+        </profile>
+    </profiles>
+    <activeProfiles>
+        <!-- make the profile active -->
+        <activeProfile>nexus</activeProfile>
+    </activeProfiles>
+</settings>
