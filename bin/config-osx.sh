@@ -7,7 +7,7 @@ sudo -v
 ################################################################################
 
 title "iTerm"
-cp -f ./.iterm/com.googlecode.iterm2.plist ~/Library/Preferences
+cp -f ../.iterm/com.googlecode.iterm2.plist ~/Library/Preferences
 
 ################################################################################
 # Vim                                                                          #
@@ -15,8 +15,8 @@ cp -f ./.iterm/com.googlecode.iterm2.plist ~/Library/Preferences
 
 title "Vim"
 mkdir -p ~/.vim
-cp -Rf ./.vim/* ~/.vim
-cp -f ./.vimrc ~
+cp -Rf ../.vim/* ~/.vim
+cp -f ../.vimrc ~
 if [ ! -d ~/.vim/bundle/Vundle.vim ]; then
     git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim > /dev/null 2>&1
 else
@@ -38,7 +38,7 @@ else
     (cd ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/Theme\ -\ Tomorrow; git pull) > /dev/null 2>&1
 fi
 # copy settings
-cp -f ./.sublime/* ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/User
+cp -f ../.sublime/* ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/User
 
 ################################################################################
 # Midnight Commander                                                           #
@@ -46,7 +46,7 @@ cp -f ./.sublime/* ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/User
 
 title "Midnight Commander"
 mkdir -p ~/.config/mc
-cp -f ./.mc/* ~/.config/mc
+cp -f ../.mc/* ~/.config/mc
 
 ################################################################################
 # Seil                                                                         #
@@ -311,3 +311,5 @@ killall NotificationCenter > /dev/null 2>&1
 killall Finder > /dev/null 2>&1
 killall Dock > /dev/null 2>&1
 killall SystemUIServer > /dev/null 2>&1
+
+exit 0

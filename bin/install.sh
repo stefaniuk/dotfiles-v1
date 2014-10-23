@@ -29,7 +29,7 @@ fi
 
 # Mac OS X
 if [[ "$OSTYPE" == "darwin"* ]]; then
-    . ./config-osx
+    (. ./config-osx)
 else
     error "System not supported"
     exit 1
