@@ -1,18 +1,51 @@
 #!/bin/bash
 
+# `readlink -f` alternative
+function abspath() { pushd . > /dev/null; if [ -d "$1" ]; then cd "$1"; dirs -l +0; else cd "`dirname \"$1\"`"; cur_dir=`dirs -l +0`; if [ "$cur_dir" == "/" ]; then echo "$cur_dir`basename \"$1\"`"; else echo "$cur_dir/`basename \"$1\"`"; fi; fi; popd > /dev/null; }
+
+################################################################################
+# constants                                                                    #
+################################################################################
+
+GITHUB_REPOSITORY_ACCOUNT="stefaniuk"
+GITHUB_REPOSITORY_NAME="dotfiles"
+[ -z "$USER_NAME" ] && USER_NAME="Daniel Stefaniuk"
+[ -z "$USER_EMAIL" ] && USER_EMAIL="daniel.stefaniuk@gmail.com"
+
+################################################################################
+# download                                                                     #
+################################################################################
+
+echo $$ $(dirname $(abspath $0))
+dir=$(dirname $(abspath $0))
+if [ ! -f $dir/config-ubuntu ] || [ ! -f $dir/config-macosx ]; then
+
+    dir=/tmp/dotfiles-$RANDOM
+
+    rm -rf $dir
+    mkdir -p $dir
+    wget -O $dir/$GITHUB_REPOSITORY_NAME.tar.gz "https://github.com/$GITHUB_REPOSITORY_ACCOUNT/$GITHUB_REPOSITORY_NAME/tarball/master"
+    tar zxf $dir/$GITHUB_REPOSITORY_NAME.tar.gz -C $dir
+    cd $(ls -d -1 $dir/$GITHUB_REPOSITORY_ACCOUNT-$GITHUB_REPOSITORY_NAME-*)
+
+    chmod +x ./install.sh
+    ./install.sh $*
+    result=${PIPESTATUS[0]}
+    rm -rf $dir
+    exit $result
+fi
+cd $dir
+echo done
+exit 0
+
+################################################################################
+# initialise                                                                   #
+################################################################################
+
 # update the user's cached credentials, authenticating the user if necessary
 sudo -v
 # keep-alive: update existing `sudo` time stamp until script has finished
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
-
-cd $(dirname $BASH_SOURCE)
-
-################################################################################
-# variables                                                                    #
-################################################################################
-
-[ -z "$USER_NAME" ] && USER_NAME="Daniel Stefaniuk"
-[ -z "$USER_EMAIL" ] && USER_EMAIL="daniel.stefaniuk@gmail.com"
 
 ################################################################################
 # functions                                                                    #
