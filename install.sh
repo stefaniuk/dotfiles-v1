@@ -16,7 +16,6 @@ GITHUB_REPOSITORY_NAME="dotfiles"
 # download                                                                     #
 ################################################################################
 
-echo $$ $(dirname $(abspath $0))
 dir=$(dirname $(abspath $0))
 if [ ! -f $dir/config-ubuntu ] || [ ! -f $dir/config-macosx ]; then
 
@@ -35,8 +34,6 @@ if [ ! -f $dir/config-ubuntu ] || [ ! -f $dir/config-macosx ]; then
     exit $result
 fi
 cd $dir
-echo done
-exit 0
 
 ################################################################################
 # initialise                                                                   #
