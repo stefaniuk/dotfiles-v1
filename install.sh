@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# `readlink -f` alternative
-function abspath() { pushd . > /dev/null; if [ -d "$1" ]; then cd "$1"; dirs -l +0; else cd "`dirname \"$1\"`"; cur_dir=`dirs -l +0`; if [ "$cur_dir" == "/" ]; then echo "$cur_dir`basename \"$1\"`"; else echo "$cur_dir/`basename \"$1\"`"; fi; fi; popd > /dev/null; }
-
 ################################################################################
 # constants                                                                    #
 ################################################################################
@@ -13,40 +10,11 @@ GITHUB_REPOSITORY_NAME="dotfiles"
 [ -z "$USER_EMAIL" ] && USER_EMAIL="daniel.stefaniuk@gmail.com"
 
 ################################################################################
-# download                                                                     #
-################################################################################
-
-dir=$(dirname $(abspath $0))
-if [ ! -f $dir/config-ubuntu ] || [ ! -f $dir/config-macosx ]; then
-
-    dir=/tmp/dotfiles-$RANDOM
-
-    rm -rf $dir
-    mkdir -p $dir
-    wget -O $dir/$GITHUB_REPOSITORY_NAME.tar.gz "https://github.com/$GITHUB_REPOSITORY_ACCOUNT/$GITHUB_REPOSITORY_NAME/tarball/master"
-    tar zxf $dir/$GITHUB_REPOSITORY_NAME.tar.gz -C $dir
-    cd $(ls -d -1 $dir/$GITHUB_REPOSITORY_ACCOUNT-$GITHUB_REPOSITORY_NAME-*)
-
-    chmod +x ./install.sh
-    ./install.sh $*
-    result=${PIPESTATUS[0]}
-    rm -rf $dir
-    exit $result
-fi
-cd $dir
-
-################################################################################
-# initialise                                                                   #
-################################################################################
-
-# update the user's cached credentials, authenticating the user if necessary
-sudo -v
-# keep-alive: update existing `sudo` time stamp until script has finished
-while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
-
-################################################################################
 # functions                                                                    #
 ################################################################################
+
+# `readlink -f` alternative
+function abspath() { pushd . > /dev/null; if [ -d "$1" ]; then cd "$1"; dirs -l +0; else cd "`dirname \"$1\"`"; cur_dir=`dirs -l +0`; if [ "$cur_dir" == "/" ]; then echo "$cur_dir`basename \"$1\"`"; else echo "$cur_dir/`basename \"$1\"`"; fi; fi; popd > /dev/null; }
 
 function print_progress() {
     tput bold
@@ -75,8 +43,38 @@ function print_error() {
 }
 
 ################################################################################
+# download                                                                     #
+################################################################################
+
+cd $(dirname $(abspath $0))
+if [ ! -f ./config-ubuntu ] || [ ! -f ./config-macosx ]; then
+
+    print_progress "Downloading dotfiles..."
+
+    dir=/tmp/dotfiles-$RANDOM
+
+    rm -rf $dir
+    mkdir -p $dir
+    wget -O $dir/$GITHUB_REPOSITORY_NAME.tar.gz "https://github.com/$GITHUB_REPOSITORY_ACCOUNT/$GITHUB_REPOSITORY_NAME/tarball/master"
+    tar zxf $dir/$GITHUB_REPOSITORY_NAME.tar.gz -C $dir
+    cd $(ls -d -1 $dir/$GITHUB_REPOSITORY_ACCOUNT-$GITHUB_REPOSITORY_NAME-*)
+
+    chmod +x ./install.sh
+    ./install.sh $*
+    result=${PIPESTATUS[0]}
+    rm -rf $dir
+    exit $result
+
+fi
+
+################################################################################
 # main                                                                         #
 ################################################################################
+
+# update the user's cached credentials, authenticating the user if necessary
+sudo -v
+# keep-alive: update existing `sudo` time stamp until script has finished
+while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 # check operating system
 print_progress "Checking OS..."
@@ -110,18 +108,24 @@ fi
 # install and configure system components
 if [ "$DIST" == "ubuntu" ]; then
     print_progress "Installing system components..."
-    (. $MINTLEAF_HOME/bin/install.sh \
-        --git \
-        --java8)
+    [ -z "$MINTLEAF_HOME" ] && (. $MINTLEAF_HOME/bin/install.sh \
+        --git
+    )
     print_progress "Configuring system components..."
     (. ./config-ubuntu)
-elif [ "$DIST" == "macosx" ]; then
+elif [ "$DIST" == "macosx" ] && [ -z "$MINTLEAF_HOME" ]; then
     print_progress "Installing system components..."
-    (. $MINTLEAF_HOME/bin/install.sh \
-        --git --ruby \
-        --java8 --groovy --spring-cli --maven --gradle \
-        --virtualbox --vagrant --packer \
-        --spring-sts)
+    [ -z "$MINTLEAF_HOME" ] && (. $MINTLEAF_HOME/bin/install.sh \
+        --git \
+        --groovy \
+        --java8 \
+        --nodejs \
+        --packer \
+        --ruby \
+        --spring-cli \
+        --vagrant \
+        --virtualbox
+    )
     print_progress "Configuring system components..."
     (. ./config-macosx)
 fi
