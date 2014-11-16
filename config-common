@@ -1,0 +1,30 @@
+#!/bin/bash
+
+################################################################################
+# resources                                                                    #
+################################################################################
+
+print_progress "Copy resources"
+cp ./{.exports,.functions,.aliases} ~/
+mkdir -p ~/bin/
+cp ./bin/* ~/bin/
+[ -f ~/.bash_profile ] && file_remove_str "\n# BEGIN: load dotfiles\n(.)*# END: load dotfiles\n" ~/.bash_profile --multiline
+cat << EOF >> ~/.bash_profile
+
+# BEGIN: load dotfiles
+source ~/bin/bootstrap
+# END: load dotfiles
+EOF
+
+################################################################################
+# Git                                                                          #
+################################################################################
+
+print_title "Configure Git"
+git config --global user.name "$USER_NAME"
+git config --global user.email "$USER_EMAIL"
+git config --global push.default simple
+
+################################################################################
+
+exit 0

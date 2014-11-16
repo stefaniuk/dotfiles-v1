@@ -47,7 +47,7 @@ function print_error() {
 ################################################################################
 
 cd $(dirname $(abspath $0))
-if [ ! -f ./config-ubuntu ] || [ ! -f ./config-macosx ]; then
+if [ ! -f ./install.sh ] || [ ! -f ./config-common ]; then
 
     print_progress "Downloading dotfiles..."
 
@@ -99,7 +99,7 @@ if [ ! -f $MINTLEAF_HOME/bin/bootstrap ]; then
         --mintleaf
 fi
 if [ -f $MINTLEAF_HOME/bin/bootstrap ]; then
-    __mintleaf_loaded="no" source $MINTLEAF_HOME/bin/bootstrap
+    source $MINTLEAF_HOME/bin/bootstrap
 else
     print_error "Unable to install MintLeaf"
     exit 3
@@ -107,44 +107,50 @@ fi
 
 # install and configure system components
 if [ "$DIST" == "ubuntu" ]; then
+
     print_progress "Installing system components..."
-    [ -z "$MINTLEAF_HOME" ] && (. $MINTLEAF_HOME/bin/install.sh \
-        --git
-    )
-    print_progress "Configuring system components..."
+    if [ -z "$MINTLEAF_HOME" ]; then
+        (. $MINTLEAF_HOME/bin/install.sh \
+            --git
+        )
+        [ ${PIPESTATUS[0]} != 0 ] && exit 4
+    fi
+
+    print_progress "Configuring common system components..."
+    (. ./config-common)
+    [ ${PIPESTATUS[0]} != 0 ] && exit 5
+
+    print_progress "Configuring system specific components..."
     (. ./config-ubuntu)
-elif [ "$DIST" == "macosx" ] && [ -z "$MINTLEAF_HOME" ]; then
+    [ ${PIPESTATUS[0]} != 0 ] && exit 6
+
+elif [ "$DIST" == "macosx" ]; then
+
     print_progress "Installing system components..."
-    [ -z "$MINTLEAF_HOME" ] && (. $MINTLEAF_HOME/bin/install.sh \
-        --git \
-        --groovy \
-        --java8 \
-        --nodejs \
-        --packer \
-        --ruby \
-        --spring-cli \
-        --vagrant \
-        --virtualbox
-    )
-    print_progress "Configuring system components..."
+    if [ -z "$MINTLEAF_HOME" ]; then
+        (. $MINTLEAF_HOME/bin/install.sh \
+            --git \
+            --groovy \
+            --java8 \
+            --nodejs \
+            --packer \
+            --ruby \
+            --spring-cli \
+            --vagrant \
+            --virtualbox
+        )
+        [ ${PIPESTATUS[0]} != 0 ] && exit 4
+    fi
+
+    print_progress "Configuring common system components..."
+    (. ./config-common)
+    [ ${PIPESTATUS[0]} != 0 ] && exit 5
+
+    print_progress "Configuring system specific components..."
     (. ./config-macosx)
+    [ ${PIPESTATUS[0]} != 0 ] && exit 6
+
 fi
-
-################################################################################
-# resources                                                                    #
-################################################################################
-
-print_progress "Copying resources..."
-cp ./{.exports,.functions,.aliases} ~/
-mkdir -p ~/bin/
-cp ./bin/* ~/bin/
-[ -f ~/.bash_profile ] && file_remove_str "\n# BEGIN: load dotfiles\n(.)*# END: load dotfiles\n" ~/.bash_profile --multiline
-cat << EOF >> ~/.bash_profile
-
-# BEGIN: load dotfiles
-source ~/bin/bootstrap
-# END: load dotfiles
-EOF
 
 ################################################################################
 

@@ -1,8 +1,13 @@
 dotfiles
 ========
 
-To install configuration settings clone the repository and run the following command from within the `dotfiles` directory:
+There are two ways you can install the `dotfiles`:
 
-    ./bin/install.sh
+    git clone https://github.com/stefaniuk/dotfiles.git
+    ./dotfiles/install.sh
+
+or
+
+    wget https://raw.githubusercontent.com/stefaniuk/dotfiles/master/install.sh -O - | /bin/bash
 
 TODO: [dotfiles](https://github.com/mathiasbynens/dotfiles)
