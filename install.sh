@@ -61,7 +61,7 @@ if [ ! -f ./install.sh ] || [ ! -f ./config-common ]; then
 
     chmod +x ./install.sh
     ./install.sh $*
-    result=${PIPESTATUS[0]}
+    result=$?
     rm -rf $dir
     exit $result
 
@@ -113,16 +113,16 @@ if [ "$DIST" == "ubuntu" ]; then
         (. $MINTLEAF_HOME/bin/install.sh \
             --git
         )
-        [ ${PIPESTATUS[0]} != 0 ] && exit 4
+        [ $? != 0 ] && exit 4
     fi
 
     print_progress "Configuring common system components..."
     (. ./config-common)
-    [ ${PIPESTATUS[0]} != 0 ] && exit 5
+    [ $? != 0 ] && exit 5
 
     print_progress "Configuring system specific components..."
     (. ./config-ubuntu)
-    [ ${PIPESTATUS[0]} != 0 ] && exit 6
+    [ $? != 0 ] && exit 6
 
 elif [ "$DIST" == "macosx" ]; then
 
@@ -139,16 +139,16 @@ elif [ "$DIST" == "macosx" ]; then
             --vagrant \
             --virtualbox
         )
-        [ ${PIPESTATUS[0]} != 0 ] && exit 4
+        [ $? != 0 ] && exit 4
     fi
 
     print_progress "Configuring common system components..."
     (. ./config-common)
-    [ ${PIPESTATUS[0]} != 0 ] && exit 5
+    [ $? != 0 ] && exit 5
 
     print_progress "Configuring system specific components..."
     (. ./config-macosx)
-    [ ${PIPESTATUS[0]} != 0 ] && exit 6
+    [ $? != 0 ] && exit 6
 
 fi
 
