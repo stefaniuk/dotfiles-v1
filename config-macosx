@@ -5,21 +5,7 @@
 ################################################################################
 
 print_title "Configure iTerm"
-cp -f ./.iterm/com.googlecode.iterm2.plist ~/Library/Preferences
-
-################################################################################
-# Vim                                                                          #
-################################################################################
-
-print_title "Configure Vim"
-mkdir -p ~/.vim
-cp -Rf ./.vim/* ~/.vim
-cp -f ./.vimrc ~
-if [ ! -d ~/.vim/bundle/Vundle.vim ]; then
-    git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim > /dev/null 2>&1
-else
-    (cd ~/.vim/bundle/Vundle.vim; git pull) > /dev/null 2>&1
-fi
+cp -f ./iterm/com.googlecode.iterm2.plist ~/Library/Preferences
 
 ################################################################################
 # Sublime Text                                                                 #
@@ -36,15 +22,7 @@ else
     (cd ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/Theme\ -\ Tomorrow; git pull) > /dev/null 2>&1
 fi
 # copy settings
-cp -f ./.sublime/* ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/User
-
-################################################################################
-# Midnight Commander                                                           #
-################################################################################
-
-print_title "Configure Midnight Commander"
-mkdir -p ~/.config/mc
-cp -f ./.mc/* ~/.config/mc
+cp -f ./sublime/* ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/User
 
 ################################################################################
 # Seil                                                                         #

@@ -20,10 +20,48 @@ EOF
 # Git                                                                          #
 ################################################################################
 
-print_title "Configure Git"
-git config --global user.name "$USER_NAME"
-git config --global user.email "$USER_EMAIL"
-git config --global push.default simple
+if [ -n "$(which git)" ]; then
+    print_title "Configure Git"
+    git config --global user.name "$USER_NAME"
+    git config --global user.email "$USER_EMAIL"
+    git config --global push.default simple
+fi
+
+################################################################################
+# Vim                                                                          #
+################################################################################
+
+if [ -n "$(which vim)" ]; then
+    print_title "Configure Vim"
+    mkdir -p ~/.vim
+    cp -Rf ./vim/{autoload,colors,plugin} ~/.vim
+    cp -f ./vim/.vimrc ~
+    if [ ! -d ~/.vim/bundle/Vundle.vim ]; then
+        git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim > /dev/null 2>&1
+    else
+        (cd ~/.vim/bundle/Vundle.vim; git pull) > /dev/null 2>&1
+    fi
+fi
+
+################################################################################
+# Midnight Commander                                                           #
+################################################################################
+
+if [ -n "$(which mc)" ]; then
+    print_title "Configure Midnight Commander"
+    mkdir -p ~/.config/mc
+    cp -f ./mc/* ~/.config/mc
+fi
+
+################################################################################
+# Maven                                                                        #
+################################################################################
+
+if [ -n "$(which mvn)" ]; then
+    print_title "Configure Maven"
+    mkdir -p ~/.m2
+    cp -f ./maven/settings*.xml ~/.m2
+fi
 
 ################################################################################
 
