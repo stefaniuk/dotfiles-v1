@@ -1,13 +1,13 @@
 #!/bin/bash
 
 ################################################################################
-# constants                                                                    #
+# exports                                                                      #
 ################################################################################
 
-GITHUB_REPOSITORY_ACCOUNT="stefaniuk"
-GITHUB_REPOSITORY_NAME="dotfiles"
-[ -z "$USER_NAME" ] && USER_NAME="Daniel Stefaniuk"
-[ -z "$USER_EMAIL" ] && USER_EMAIL="daniel.stefaniuk@gmail.com"
+export GITHUB_REPOSITORY_ACCOUNT="stefaniuk"
+export GITHUB_REPOSITORY_NAME="dotfiles"
+[ -z "$USER_NAME" ] && export USER_NAME="Daniel Stefaniuk"
+[ -z "$USER_EMAIL" ] && export USER_EMAIL="daniel.stefaniuk@gmail.com"
 
 ################################################################################
 # functions                                                                    #
@@ -92,44 +92,57 @@ if [[ $? -ne 0 ]]; then
 fi
 
 # install MintLeaf
-print_progress "Installing MintLeaf..."
 [ -z "$MINTLEAF_HOME" ] && MINTLEAF_HOME=/usr/local/mintleaf
 if [ ! -f $MINTLEAF_HOME/bin/bootstrap ]; then
+    print_progress "Installing MintLeaf..."
     wget https://raw.githubusercontent.com/stefaniuk/mintleaf/master/src/bin/install.sh -O - | /bin/bash -s -- \
-        --mintleaf
+        --mintleaf \
+        --git
 fi
 if [ -f $MINTLEAF_HOME/bin/bootstrap ]; then
     source $MINTLEAF_HOME/bin/bootstrap
 else
-    print_error "Unable to install MintLeaf"
+    print_error "MintLeaf is missing"
     exit 3
+fi
+
+# install oh-my-zsh
+print_progress "Installing Oh My Zsh..."
+if [ ! -d ~/.oh-my-zsh ]; then
+    rm -rf ~/{.zcompdump-*,.zlogin,.zsh*}
+    git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
+    cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
+    sudo chsh -s /bin/zsh $USER
+fi
+if [ ! -f ~/.oh-my-zsh/oh-my-zsh.sh ]; then
+    print_error "Oh My Zsh is missing"
+    exit 4
 fi
 
 # install and configure system components
 if [ "$DIST" == "ubuntu" ]; then
 
-    print_progress "Installing system components..."
-    if [ -z "$MINTLEAF_HOME" ]; then
-        (. $MINTLEAF_HOME/bin/install.sh \
-            --git
-        )
-        [ $? != 0 ] && exit 4
-    fi
+    #if [ -z "$MINTLEAF_HOME" ]; then
+    #    print_progress "Installing system components..."
+    #    (. $MINTLEAF_HOME/bin/install.sh \
+    #        ?
+    #    )
+    #    [ $? != 0 ] && exit 5
+    #fi
 
     print_progress "Configuring common system components..."
     (. ./config-common)
-    [ $? != 0 ] && exit 5
+    [ $? != 0 ] && exit 6
 
     print_progress "Configuring system specific components..."
     (. ./config-ubuntu)
-    [ $? != 0 ] && exit 6
+    [ $? != 0 ] && exit 7
 
 elif [ "$DIST" == "macosx" ]; then
 
-    print_progress "Installing system components..."
     if [ -z "$MINTLEAF_HOME" ]; then
+        print_progress "Installing system components..."
         (. $MINTLEAF_HOME/bin/install.sh \
-            --git \
             --groovy \
             --java8 \
             --nodejs \
@@ -139,16 +152,16 @@ elif [ "$DIST" == "macosx" ]; then
             --vagrant \
             --virtualbox
         )
-        [ $? != 0 ] && exit 4
+        [ $? != 0 ] && exit 5
     fi
 
     print_progress "Configuring common system components..."
     (. ./config-common)
-    [ $? != 0 ] && exit 5
+    [ $? != 0 ] && exit 6
 
     print_progress "Configuring system specific components..."
     (. ./config-macosx)
-    [ $? != 0 ] && exit 6
+    [ $? != 0 ] && exit 7
 
 fi
 

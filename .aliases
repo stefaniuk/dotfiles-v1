@@ -6,3 +6,6 @@ alias ...="cd ../.."
 alias ....="cd ../../.."
 alias ~="cd ~"
 alias -- -="cd -"
+
+# search
+alias grep="grep --color=auto"

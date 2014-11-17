@@ -207,6 +207,10 @@ defaults write com.apple.finder AppleShowAllFiles -bool true
 # show all filename extensions
 defaults write NSGlobalDomain AppleShowAllExtensions -bool true
 
+# list directories before files
+sudo plutil -convert xml1 /System/Library/CoreServices/Finder.app/Contents/Resources/English.lproj/InfoPlist.strings
+_sudo file_replace_str "<string>Folder</string>" "<string> Folder</string>" /System/Library/CoreServices/Finder.app/Contents/Resources/English.lproj/InfoPlist.strings
+
 # show status bar
 defaults write com.apple.finder ShowStatusBar -bool true
 
