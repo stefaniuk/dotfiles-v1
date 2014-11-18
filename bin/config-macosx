@@ -5,7 +5,7 @@
 ################################################################################
 
 print_title "Configure iTerm"
-cp -f ./iterm/com.googlecode.iterm2.plist ~/Library/Preferences
+cp -f ./config/iterm/com.googlecode.iterm2.plist ~/Library/Preferences
 
 ################################################################################
 # Sublime Text                                                                 #
@@ -22,7 +22,7 @@ else
     (cd ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/Theme\ -\ Tomorrow; git pull) > /dev/null 2>&1
 fi
 # copy settings
-cp -f ./sublime/* ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/User
+cp -f ./config/sublime/* ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/User
 
 ################################################################################
 # Seil                                                                         #
