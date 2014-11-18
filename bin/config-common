@@ -8,19 +8,21 @@ print_title "Copy resources"
 cp ./{.exports,.functions,.aliases} ~/
 mkdir -p ~/bin/
 cp ./bin/* ~/bin/
-[ -f ~/.bash_profile ] && file_remove_str "\n# BEGIN: load dotfiles\n(.)*# END: load dotfiles\n" ~/.bash_profile --multiline
+rm ~/bin/{config-*,install.sh}
 
 ################################################################################
-# profiles                                                                     #
+# bash profile                                                                 #
 ################################################################################
 
-print_title "Update profiles"
-cat << EOF >> ~/.bash_profile
+print_title "Configure bash"
+cp ./.bashrc ~/
 
-# BEGIN: load dotfiles
-source ~/bin/bootstrap
-# END: load dotfiles
-EOF
+################################################################################
+# zsh profile                                                                  #
+################################################################################
+
+print_title "Configure zsh"
+cp ./.zshrc ~/
 
 ################################################################################
 # Git                                                                          #

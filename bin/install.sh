@@ -46,8 +46,8 @@ function print_error() {
 # download                                                                     #
 ################################################################################
 
-cd $(dirname $(abspath $0))
-if [ ! -f ./install.sh ] || [ ! -f ./config-common ]; then
+cd $(dirname $(dirname $(abspath $0)))
+if [ ! -f ./bin/install.sh ] || [ ! -f ./bin/config-common ]; then
 
     print_progress "Downloading dotfiles..."
 
@@ -59,8 +59,8 @@ if [ ! -f ./install.sh ] || [ ! -f ./config-common ]; then
     tar zxf $dir/$GITHUB_REPOSITORY_NAME.tar.gz -C $dir
     cd $(ls -d -1 $dir/$GITHUB_REPOSITORY_ACCOUNT-$GITHUB_REPOSITORY_NAME-*)
 
-    chmod +x ./install.sh
-    ./install.sh $*
+    chmod +x ./bin/install.sh
+    ./bin/install.sh $*
     result=$?
     rm -rf $dir
     exit $result
@@ -106,13 +106,13 @@ else
     exit 3
 fi
 
-# install oh-my-zsh
-print_progress "Installing Oh My Zsh..."
+# install Oh My Zsh
 if [ ! -d ~/.oh-my-zsh ]; then
+    print_progress "Installing Oh My Zsh..."
     rm -rf ~/{.zcompdump-*,.zlogin,.zsh*}
     git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
     cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
-    sudo chsh -s /bin/zsh $USER
+    #sudo chsh -s /bin/zsh $USER
 fi
 if [ ! -f ~/.oh-my-zsh/oh-my-zsh.sh ]; then
     print_error "Oh My Zsh is missing"
@@ -131,11 +131,11 @@ if [ "$DIST" == "ubuntu" ]; then
     #fi
 
     print_progress "Configuring common system components..."
-    (. ./config-common)
+    (. ./bin/config-common)
     [ $? != 0 ] && exit 6
 
     print_progress "Configuring system specific components..."
-    (. ./config-ubuntu)
+    (. ./bin/config-ubuntu)
     [ $? != 0 ] && exit 7
 
 elif [ "$DIST" == "macosx" ]; then
@@ -156,11 +156,11 @@ elif [ "$DIST" == "macosx" ]; then
     fi
 
     print_progress "Configuring common system components..."
-    (. ./config-common)
+    (. ./bin/config-common)
     [ $? != 0 ] && exit 6
 
     print_progress "Configuring system specific components..."
-    (. ./config-macosx)
+    (. ./bin/config-macosx)
     [ $? != 0 ] && exit 7
 
 fi
