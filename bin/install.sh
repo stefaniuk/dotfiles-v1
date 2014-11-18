@@ -72,8 +72,8 @@ fi
 ################################################################################
 
 args=$*
-_arg_force_mintleaf=$(echo "$args" | grep -- "--force-mintleaf" | wc -l)
-_arg_force_oh_my_zsh=$(echo "$args" | grep -- "--force-oh-my-zsh" | wc -l)
+arg_force_mintleaf=$(echo "$args" | grep -- "--force-mintleaf" | wc -l)
+arg_force_oh_my_zsh=$(echo "$args" | grep -- "--force-oh-my-zsh" | wc -l)
 
 ################################################################################
 # main                                                                         #
@@ -101,7 +101,7 @@ fi
 
 # install MintLeaf
 [ -z "$MINTLEAF_HOME" ] && MINTLEAF_HOME=/usr/local/mintleaf
-if [ ! -f $MINTLEAF_HOME/bin/bootstrap ] || [ $_arg_force_mintleaf -gt 0 ]; then
+if [ ! -f $MINTLEAF_HOME/bin/bootstrap ] || [ $arg_force_mintleaf -gt 0 ]; then
     print_progress "Installing MintLeaf..."
     wget https://raw.githubusercontent.com/stefaniuk/mintleaf/master/src/bin/install.sh -O - | /bin/bash -s -- \
         --mintleaf \
@@ -115,7 +115,7 @@ else
 fi
 
 # install Oh My Zsh
-if [ ! -d ~/.oh-my-zsh ] || [ $_arg_force_oh_my_zsh -gt 0 ]; then
+if [ ! -d ~/.oh-my-zsh ] || [ $arg_force_oh_my_zsh -gt 0 ]; then
     print_progress "Installing Oh My Zsh..."
     rm -rf ~/{.oh-my-zsh,.zcompdump-*,.zlogin,.zsh*}
     git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
