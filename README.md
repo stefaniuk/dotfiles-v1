@@ -11,12 +11,12 @@ There are two ways you can install the `dotfiles`:
 
 or
 
-    wget https://raw.githubusercontent.com/stefaniuk/dotfiles/master/install.sh -O - | /bin/bash
+    wget https://raw.githubusercontent.com/stefaniuk/dotfiles/master/bin/install.sh -O - | /bin/bash
 
 Why to install?
 ---------------
 
-Because this `dotfiles` project includes:
+Because this project includes:
 
  * [MintLeaf](https://github.com/stefaniuk/mintleaf) installation
  * [Oh My Zsh](https://github.com/robbyrussell/oh-my-zsh) installation
