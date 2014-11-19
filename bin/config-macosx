@@ -30,8 +30,10 @@ cp -f ./config/sublime/* ~/Library/Application\ Support/Sublime\ Text\ 3/Package
 
 print_title "Configure Seil"
 /Applications/Seil.app/Contents/Library/bin/seil set keycode_capslock 80
-print_info "Open 'System Preferences > Keyboard > Keyboard > Modifier Keys...'"
-print_info "and change 'Caps Lock Key' configuration to 'No Action' to reduce delay."
+print_info "1) Open 'System Preferences > Keyboard > Keyboard > Modifier Keys...' and"
+print_info "   change 'Caps Lock Key' configuration to 'No Action' to reduce delay."
+print_info "2) Open 'Seil > Setting > Change the caps lock key' and "
+print_info "   check 'Change the caps lock key' box."
 
 ################################################################################
 # Karabiner                                                                    #
