@@ -8,6 +8,7 @@ export GITHUB_REPOSITORY_ACCOUNT="stefaniuk"
 export GITHUB_REPOSITORY_NAME="dotfiles"
 [ -z "$USER_NAME" ] && export USER_NAME="Daniel Stefaniuk"
 [ -z "$USER_EMAIL" ] && export USER_EMAIL="daniel.stefaniuk@gmail.com"
+#[ -z "$COMP_NAME" ] && export COMP_NAME="comp"
 
 ################################################################################
 # functions                                                                    #
@@ -130,13 +131,11 @@ fi
 # install and configure system components
 if [ "$DIST" == "ubuntu" ]; then
 
-    #if [ -z "$MINTLEAF_HOME" ]; then
-    #    print_progress "Installing system components..."
-    #    (. $MINTLEAF_HOME/bin/install.sh \
-    #        ?
-    #    )
-    #    [ $? != 0 ] && exit 5
-    #fi
+    #print_progress "Installing system components..."
+    #(. $MINTLEAF_HOME/bin/install.sh \
+    #    ?
+    #)
+    #[ $? != 0 ] && exit 5
 
     print_progress "Configuring common system components..."
     (. ./bin/config-common)
@@ -148,20 +147,18 @@ if [ "$DIST" == "ubuntu" ]; then
 
 elif [ "$DIST" == "macosx" ]; then
 
-    if [ -z "$MINTLEAF_HOME" ]; then
-        print_progress "Installing system components..."
-        (. $MINTLEAF_HOME/bin/install.sh \
-            --groovy \
-            --java8 \
-            --nodejs \
-            --packer \
-            --ruby \
-            --spring-cli \
-            --vagrant \
-            --virtualbox
-        )
-        [ $? != 0 ] && exit 5
-    fi
+    print_progress "Installing system components..."
+    (. $MINTLEAF_HOME/bin/install.sh \
+        --groovy \
+        --java8 \
+        --nodejs \
+        --packer \
+        --ruby \
+        --spring-cli \
+        --vagrant \
+        --virtualbox
+    )
+    [ $? != 0 ] && exit 5
 
     print_progress "Configuring common system components..."
     (. ./bin/config-common)

@@ -16,11 +16,12 @@ rm ~/bin/{config-*,install.sh}
 
 print_title "Configure bash"
 cp ./.bashrc ~/
-# [[ -r ~/.bashrc ]] && . ~/.bashrc
-if [ $(cat ~/.bash_profile | grep .bashrc | wc -l) -eq 0 ]; then
+if [ $(cat ~/.bash_profile 2> /dev/null | grep .bashrc | wc -l) -eq 0 ]; then
     [ -f ~/.bash_profile ] && file_remove_str "\n# BEGIN: load .bashrc\n(.)*# END: load .bashrc\n" ~/.bash_profile --multiline
-    cat << EOF >> ~/.bash_profile
+    [ -f ~/.bash_profile ] && cat << EOF >> ~/.bash_profile
 
+EOF
+    cat << EOF >> ~/.bash_profile
 # BEGIN: load .bashrc
 [[ -r ~/.bashrc ]] && source ~/.bashrc
 # END: load .bashrc

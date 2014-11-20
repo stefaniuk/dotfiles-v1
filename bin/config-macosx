@@ -109,6 +109,9 @@ EOF
 
 print_title "Set defaults"
 
+# set hostname
+#sudo scutil --set HostName $COMP_NAME
+
 # disable the sound effects on boot
 sudo nvram SystemAudioVolume=%00
 
