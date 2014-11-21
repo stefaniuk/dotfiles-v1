@@ -11,29 +11,26 @@ cp ./bin/* ~/bin/
 rm ~/bin/{config-*,install.sh}
 
 ################################################################################
-# bash profile                                                                 #
+# bash                                                                         #
 ################################################################################
 
 print_title "Configure bash"
-cp ./.bashrc ~/
-if [ $(cat ~/.bash_profile 2> /dev/null | grep .bashrc | wc -l) -eq 0 ]; then
-    [ -f ~/.bash_profile ] && file_remove_str "\n# BEGIN: load .bashrc\n(.)*# END: load .bashrc\n" ~/.bash_profile --multiline
-    [ -f ~/.bash_profile ] && cat << EOF >> ~/.bash_profile
-
-EOF
-    cat << EOF >> ~/.bash_profile
+cp ./.bashrc* ~/
+[ ! -f ~/.bash_profile ] && cp ~/.bash_profile ~/.bash_profile.old
+cat << EOF > ~/.bash_profile
 # BEGIN: load .bashrc
 [[ -r ~/.bashrc ]] && source ~/.bashrc
+[[ -r ~/.bashrc.${DIST} ]] && source ~/.bashrc.${DIST}
 # END: load .bashrc
 EOF
-fi
+[ -f ~/.profile ] && mv ~/.profile ~/.profile.old
 
 ################################################################################
-# zsh profile                                                                  #
+# zsh                                                                          #
 ################################################################################
 
 print_title "Configure zsh"
-cp ./.zshrc ~/
+cp ./.zshrc* ~/
 
 ################################################################################
 # Git                                                                          #

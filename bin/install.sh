@@ -131,7 +131,7 @@ fi
 # install and configure system components
 if [ "$DIST" == "ubuntu" ]; then
 
-    print_progress "Installing system components..."
+    print_progress "Installing components via MintLeaf..."
     (. $MINTLEAF_HOME/bin/install.sh \
         --update-system \
         --update-packages \
@@ -140,7 +140,7 @@ if [ "$DIST" == "ubuntu" ]; then
     [ $? != 0 ] && exit 5
     source $MINTLEAF_HOME/bin/bootstrap
 
-    print_progress "Configuring common system components..."
+    print_progress "Configuring common components..."
     (. ./bin/config-common)
     [ $? != 0 ] && exit 6
 
@@ -150,7 +150,7 @@ if [ "$DIST" == "ubuntu" ]; then
 
 elif [ "$DIST" == "macosx" ]; then
 
-    print_progress "Installing system components..."
+    print_progress "Installing components via MintLeaf..."
     (. $MINTLEAF_HOME/bin/install.sh \
         --update-system \
         --update-packages \
@@ -171,7 +171,12 @@ elif [ "$DIST" == "macosx" ]; then
     [ $? != 0 ] && exit 5
     source $MINTLEAF_HOME/bin/bootstrap
 
-    print_progress "Configuring common system components..."
+    print_progress "Installing components via homebrew..."
+    brew install \
+        bash-completion \
+        grc
+
+    print_progress "Configuring common components..."
     (. ./bin/config-common)
     [ $? != 0 ] && exit 6
 
