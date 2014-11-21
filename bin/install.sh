@@ -131,11 +131,14 @@ fi
 # install and configure system components
 if [ "$DIST" == "ubuntu" ]; then
 
-    #print_progress "Installing system components..."
-    #(. $MINTLEAF_HOME/bin/install.sh \
-    #    ?
-    #)
-    #[ $? != 0 ] && exit 5
+    print_progress "Installing system components..."
+    (. $MINTLEAF_HOME/bin/install.sh \
+        --update-system \
+        --update-packages \
+        --skip-installed
+    )
+    [ $? != 0 ] && exit 5
+    source $MINTLEAF_HOME/bin/bootstrap
 
     print_progress "Configuring common system components..."
     (. ./bin/config-common)
@@ -149,16 +152,24 @@ elif [ "$DIST" == "macosx" ]; then
 
     print_progress "Installing system components..."
     (. $MINTLEAF_HOME/bin/install.sh \
+        --update-system \
+        --update-packages \
+        --gradle \
         --groovy \
         --java8 \
+        --maven \
         --nodejs \
         --packer \
         --ruby \
         --spring-cli \
+        --spring-sts \
+        --tomcat8 \
         --vagrant \
-        --virtualbox
+        --virtualbox \
+        --skip-installed
     )
     [ $? != 0 ] && exit 5
+    source $MINTLEAF_HOME/bin/bootstrap
 
     print_progress "Configuring common system components..."
     (. ./bin/config-common)
