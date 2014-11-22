@@ -9,3 +9,8 @@ function s() {
         subl "$@";
     fi;
 }
+
+################################################################################
+
+# load system specific functions
+[[ -r ~/.functions.$DIST ]] && source ~/.functions.$DIST

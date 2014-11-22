@@ -48,7 +48,7 @@ function print_error() {
 ################################################################################
 
 cd $(dirname $(dirname $(abspath $0)))
-if [ ! -f ./bin/install.sh ] || [ ! -f ./bin/config-common ]; then
+if [ ! -f ./bin/install.sh ] || [ ! -f ./bin/config.sh ]; then
 
     print_progress "Downloading dotfiles..."
 
@@ -128,7 +128,7 @@ if [ ! -f ~/.oh-my-zsh/oh-my-zsh.sh ]; then
     exit 4
 fi
 
-# install and configure system components
+# install components
 if [ "$DIST" == "ubuntu" ]; then
 
     print_progress "Installing components via MintLeaf..."
@@ -139,14 +139,6 @@ if [ "$DIST" == "ubuntu" ]; then
     )
     [ $? != 0 ] && exit 5
     source $MINTLEAF_HOME/bin/bootstrap
-
-    print_progress "Configuring common components..."
-    (. ./bin/config-common)
-    [ $? != 0 ] && exit 6
-
-    print_progress "Configuring system specific components..."
-    (. ./bin/config-ubuntu)
-    [ $? != 0 ] && exit 7
 
 elif [ "$DIST" == "macosx" ]; then
 
@@ -176,15 +168,17 @@ elif [ "$DIST" == "macosx" ]; then
         bash-completion \
         grc
 
-    print_progress "Configuring common components..."
-    (. ./bin/config-common)
-    [ $? != 0 ] && exit 6
-
-    print_progress "Configuring system specific components..."
-    (. ./bin/config-macosx)
-    [ $? != 0 ] && exit 7
-
 fi
+
+# configure common components
+print_progress "Configuring common components..."
+(. ./bin/config.sh)
+[ $? != 0 ] && exit 6
+
+# configure system specific components
+print_progress "Configuring system specific components..."
+(. ./bin/config.$DIST.sh)
+[ $? != 0 ] && exit 7
 
 ################################################################################
 

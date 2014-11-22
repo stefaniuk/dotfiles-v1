@@ -8,3 +8,8 @@ source $MINTLEAF_HOME/bin/bootstrap
 source ~/.exports
 source ~/.functions
 source ~/.aliases
+
+################################################################################
+
+# load system specific .bashrc
+[[ -r ~/.bashrc.$DIST ]] && source ~/.bashrc.$DIST

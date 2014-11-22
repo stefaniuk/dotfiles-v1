@@ -6,9 +6,10 @@
 
 print_title "Copy resources"
 cp ./{.exports,.functions,.aliases} ~/
+cp ./{.exports.$DIST,.functions.$DIST,.aliases.$DIST} ~/ 2> /dev/null
 mkdir -p ~/bin/
 cp ./bin/* ~/bin/
-rm ~/bin/{config-*,install.sh}
+rm ~/bin/{install.sh,config*.sh}
 
 ################################################################################
 # bash                                                                         #
@@ -20,7 +21,6 @@ cp ./.bashrc* ~/
 cat << EOF > ~/.bash_profile
 # BEGIN: load .bashrc
 [[ -r ~/.bashrc ]] && source ~/.bashrc
-[[ -r ~/.bashrc.${DIST} ]] && source ~/.bashrc.${DIST}
 # END: load .bashrc
 EOF
 [ -f ~/.profile ] && mv ~/.profile ~/.profile.old
