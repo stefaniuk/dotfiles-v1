@@ -20,10 +20,12 @@ Because this project includes:
 
  * [MintLeaf](https://github.com/stefaniuk/mintleaf) installation
  * [Oh My Zsh](https://github.com/robbyrussell/oh-my-zsh) installation
- * useful functions and aliases
+ * useful options, functions and aliases
  * common programs configuration
+ * design to be multi-platform
 
 Credits
 -------
 
- * [dotfiles](https://github.com/mathiasbynens/dotfiles)
+ * [mathiasbynens' dotfiles](https://github.com/mathiasbynens/dotfiles)
+ * [necolas' dotfiles](https://github.com/necolas/dotfiles)

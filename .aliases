@@ -32,7 +32,7 @@ alias ls="command ls ${colorflag}"
 alias grep="grep --color=auto"
 
 # enable aliases to be sudo’ed
-alias sudo='sudo '
+alias sudo="sudo "
 
 # ip address
 alias ip="ifconfig | grep -oE '192.168.[0-9]+.[0-9]+' | grep -v '.255$'"
@@ -41,7 +41,8 @@ alias ipe="net_get_external_ip"
 # canonical hex dump
 command -v hd > /dev/null || alias hd="hexdump -C"
 
-################################################################################
+# url encode strings
+alias urlencode="python -c 'import sys, urllib as ul; print ul.quote_plus(sys.argv[1]);'"
 
-# load system specific aliases
-[[ -r ~/.aliases.$DIST ]] && source ~/.aliases.$DIST
+# reload the shell
+alias reload="exec $SHELL -l"

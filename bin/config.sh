@@ -5,11 +5,11 @@
 ################################################################################
 
 print_title "Copy resources"
-cp ./{.exports,.functions,.aliases} ~/
-cp ./{.exports.$DIST,.functions.$DIST,.aliases.$DIST} ~/ 2> /dev/null
+cp ./.{bash_prompt,exports,functions,aliases} ~/
+cp ./.{exports.$DIST,functions.$DIST,aliases.$DIST} ~/ 2> /dev/null
 mkdir -p ~/bin/
 cp ./bin/* ~/bin/
-rm ~/bin/{install.sh,config*.sh}
+rm ~/bin/{install,config*}.sh
 
 ################################################################################
 # bash                                                                         #
