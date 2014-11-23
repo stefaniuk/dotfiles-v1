@@ -5,10 +5,10 @@
 ################################################################################
 
 print_title "Copy resources"
-cp ./.{bash_prompt,exports,functions,aliases} ~/
-cp ./.{exports.$DIST,functions.$DIST,aliases.$DIST} ~/ 2> /dev/null
-mkdir -p ~/bin/
-cp ./bin/* ~/bin/
+cp ./.{bash_prompt,exports,functions,aliases} ~
+cp ./.{exports.$DIST,functions.$DIST,aliases.$DIST} ~ 2> /dev/null
+mkdir -p ~/bin
+cp ./bin/* ~/bin
 rm ~/bin/{install,config*}.sh
 
 ################################################################################
@@ -16,7 +16,7 @@ rm ~/bin/{install,config*}.sh
 ################################################################################
 
 print_title "Configure bash"
-cp ./.bashrc* ~/
+cp ./.bashrc* ~
 [ ! -f ~/.bash_profile ] && cp ~/.bash_profile ~/.bash_profile.old
 cat << EOF > ~/.bash_profile
 # BEGIN: load .bashrc
@@ -30,13 +30,14 @@ EOF
 ################################################################################
 
 print_title "Configure zsh"
-cp ./.zshrc* ~/
+cp ./.zshrc* ~
 
 ################################################################################
 # Git                                                                          #
 ################################################################################
 
 print_title "Configure Git"
+cp ./config/git/.git* ~
 git config --global user.name "$USER_NAME"
 git config --global user.email "$USER_EMAIL"
 git config --global push.default simple

@@ -126,11 +126,17 @@ EOF
 
 print_title "Set defaults"
 
-# set hostname
+# set host details
+#sudo scutil --set ComputerName $COMP_NAME
 #sudo scutil --set HostName $COMP_NAME
+#sudo scutil --set LocalHostName $COMP_NAME
+#sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string $COMP_NAME
+
+# set standby delay to 24 hours (default is 1 hour)
+sudo pmset -a standbydelay 86400
 
 # disable the sound effects on boot
-sudo nvram SystemAudioVolume=%00
+sudo nvram SystemAudioVolume=" "
 
 # repeat keyboard keys when held down
 defaults write -g ApplePressAndHoldEnabled -bool false
