@@ -41,6 +41,11 @@ cp ./config/git/.git* ~
 git config --global user.name "$USER_NAME"
 git config --global user.email "$USER_EMAIL"
 git config --global push.default simple
+mkdir -p /usr/local/etc/shell-completion/{bash,zsh}
+[[ ! -f /usr/local/etc/shell-completion/bash/git-completion.bash ]] && \
+    wget https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash -O /usr/local/etc/shell-completion/bash/git-completion.bash
+[[ ! -f /usr/local/etc/shell-completion/zsh/git-completion.zsh ]] && \
+    wget https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.zsh -O /usr/local/etc/shell-completion/zsh/git-completion.zsh
 
 ################################################################################
 # Vim                                                                          #

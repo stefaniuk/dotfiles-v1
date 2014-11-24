@@ -14,8 +14,14 @@ shopt -s autocd
 shopt -s globstar
 
 # bash completion
-if [[ -f /etc/bash_completion ]]; then
+if [[ -r /etc/bash_completion ]]; then
     source /etc/bash_completion
+elif [[ -r /usr/local/etc/bash_completion ]]; then
+    source /usr/local/etc/bash_completion
+fi
+# grc
+if [[ -f $(brew --prefix grc)/etc/grc.bashrc ]]; then
+    source $(brew --prefix grc)/etc/grc.bashrc
 fi
 # ssh host names completion based on ~/.ssh/config
 [[ -e ~/.ssh/config ]] && complete -o "default" -o "nospace" -W "$(grep "^Host" ~/.ssh/config | grep -v "[?*]" | cut -d " " -f2- | tr ' ' '\n')" ssh scp sftp

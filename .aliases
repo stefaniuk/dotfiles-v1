@@ -12,6 +12,7 @@ alias dl="cd ~/Downloads"
 alias p="cd ~/projects"
 alias pd="cd ~/projects/dotfiles"
 alias pm="cd ~/projects/mintleaf/src"
+alias g="git"
 
 # list files - detect which `ls` flavour is in use
 if [ ls --color > /dev/null 2>&1 ]; then # GNU `ls`
