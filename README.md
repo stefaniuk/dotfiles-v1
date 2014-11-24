@@ -29,3 +29,8 @@ Credits
 
  * [mathiasbynens' dotfiles](https://github.com/mathiasbynens/dotfiles)
  * [necolas' dotfiles](https://github.com/necolas/dotfiles)
+
+TODO
+----
+
+ * [Generic Colouriser](http://korpus.juls.savba.sk/~garabik/software/grc.html)

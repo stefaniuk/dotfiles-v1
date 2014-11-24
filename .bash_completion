@@ -1,0 +1,11 @@
+#!/bin/sh
+
+# enable tab completion for `g` by marking it as an alias for `git`
+if type _git &> /dev/null && [ -f /usr/local/etc/bash_completion.d/git-completion.bash ]; then
+    complete -o "default" -o "nospace" -F _git g
+fi
+
+# ssh host names completion based on ~/.ssh/config
+if [ -e ~/.ssh/config ]; then
+    complete -o "default" -o "nospace" -W "$(grep "^Host" ~/.ssh/config | grep -v "[?*]" | cut -d " " -f2- | tr ' ' '\n')" ssh scp sftp
+fi

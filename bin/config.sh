@@ -1,29 +1,24 @@
 #!/bin/bash
 
 ################################################################################
-# resources                                                                    #
-################################################################################
-
-print_title "Copy resources"
-cp ./.{bash_prompt,exports,functions,aliases} ~
-cp ./.{exports.$DIST,functions.$DIST,aliases.$DIST} ~ 2> /dev/null
-mkdir -p ~/bin
-cp ./bin/* ~/bin
-rm ~/bin/{install,config*}.sh
-
-################################################################################
 # bash                                                                         #
 ################################################################################
 
 print_title "Configure bash"
-cp ./.bashrc* ~
-[ ! -f ~/.bash_profile ] && cp ~/.bash_profile ~/.bash_profile.old
+# resources
+cp ./.{bashrc,path,bash_prompt,bash_exports,bash_functions,bash_aliases,bash_completion} ~ 2> /dev/null
+cp ./.{bashrc,bash_*}.$DIST ~ 2> /dev/null
+mkdir -p ~/bin
+cp ./bin/* ~/bin
+rm ~/bin/{install,config*}.sh
+# profile
+[ -f ~/.profile ] && [ ! -f ~/.profile.old ] && mv ~/.profile ~/.profile.old
+[ -f ~/.bash_profile ] && [ ! -f ~/.bash_profile.old ] && mv ~/.bash_profile ~/.bash_profile.old
 cat << EOF > ~/.bash_profile
 # BEGIN: load .bashrc
 [[ -r ~/.bashrc ]] && source ~/.bashrc
 # END: load .bashrc
 EOF
-[ -f ~/.profile ] && mv ~/.profile ~/.profile.old
 
 ################################################################################
 # zsh                                                                          #
@@ -41,11 +36,12 @@ cp ./config/git/.git* ~
 git config --global user.name "$USER_NAME"
 git config --global user.email "$USER_EMAIL"
 git config --global push.default simple
-mkdir -p /usr/local/etc/shell-completion/{bash,zsh}
-[[ ! -f /usr/local/etc/shell-completion/bash/git-completion.bash ]] && \
-    wget https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash -O /usr/local/etc/shell-completion/bash/git-completion.bash
-[[ ! -f /usr/local/etc/shell-completion/zsh/git-completion.zsh ]] && \
-    wget https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.zsh -O /usr/local/etc/shell-completion/zsh/git-completion.zsh
+# completion
+[ -f /etc/bash_completion ] && bcpath=/etc || bcpath=/usr/local/etc
+if [ -d $bcpath/bash_completion.d ] && [ ! -f $bcpath/bash_completion.d/git-completion.bash ]; then
+    wget https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash -O $bcpath/bash_completion.d/git-completion.bash
+fi
+unset bcpath
 
 ################################################################################
 # Vim                                                                          #
