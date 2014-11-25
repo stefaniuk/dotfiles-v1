@@ -107,6 +107,7 @@ if [ ! -f $MINTLEAF_HOME/bin/bootstrap ] || [ $arg_force_mintleaf -gt 0 ]; then
     wget https://raw.githubusercontent.com/stefaniuk/mintleaf/master/src/bin/install.sh -O - | /bin/bash -s -- \
         --mintleaf \
         --git
+    # TODO: check exit code of the install script
 fi
 if [ -f $MINTLEAF_HOME/bin/bootstrap ]; then
     source $MINTLEAF_HOME/bin/bootstrap
