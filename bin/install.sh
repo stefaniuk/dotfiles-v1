@@ -128,40 +128,23 @@ if [ ! -f ~/.oh-my-zsh/oh-my-zsh.sh ]; then
     exit 4
 fi
 
+# install components via MintLeaf
+print_progress "Installing components via MintLeaf..."
+(. $MINTLEAF_HOME/bin/install.sh \
+    --update-system \
+    --update-packages \
+    --skip-installed \
+    $*
+)
+[ $? != 0 ] && exit 5
+source $MINTLEAF_HOME/bin/bootstrap
+
 # install components
 if [ "$DIST" == "ubuntu" ]; then
 
-    print_progress "Installing components via MintLeaf..."
-    (. $MINTLEAF_HOME/bin/install.sh \
-        --update-system \
-        --update-packages \
-        --skip-installed
-    )
-    [ $? != 0 ] && exit 5
-    source $MINTLEAF_HOME/bin/bootstrap
+    : # TODO
 
 elif [ "$DIST" == "macosx" ]; then
-
-    print_progress "Installing components via MintLeaf..."
-    (. $MINTLEAF_HOME/bin/install.sh \
-        --update-system \
-        --update-packages \
-        --gradle \
-        --groovy \
-        --java8 \
-        --maven \
-        --nodejs \
-        --packer \
-        --ruby \
-        --spring-cli \
-        --spring-sts \
-        --tomcat8 \
-        --vagrant \
-        --virtualbox \
-        --skip-installed
-    )
-    [ $? != 0 ] && exit 5
-    source $MINTLEAF_HOME/bin/bootstrap
 
     print_progress "Installing components via homebrew..."
     brew install \
@@ -175,8 +158,8 @@ print_progress "Configuring common components..."
 (. ./bin/config.sh)
 [ $? != 0 ] && exit 6
 
-# configure system specific components
-print_progress "Configuring system specific components..."
+# configure distribution specific components
+print_progress "Configuring distribution specific components..."
 (. ./bin/config.$DIST.sh)
 [ $? != 0 ] && exit 7
 
