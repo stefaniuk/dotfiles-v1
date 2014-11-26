@@ -2,8 +2,9 @@
 
 export PATH=~/bin:$PATH
 
-export USER_NAME="Daniel Stefaniuk"
-export USER_EMAIL="daniel.stefaniuk@gmail.com"
+# these variables are updated during the installation
+export USER_NAME="unknown"
+export USER_EMAIL="unknown"
 
 # tell `git` who you are
 export GIT_AUTHOR_NAME="$USER_NAME"
@@ -32,7 +33,7 @@ shopt -s histappend
 # keep multi line commands together
 shopt -s cmdhist
 # make ignoredups:erasedups and common history working simultaneously
-export PROMPT_COMMAND="history -n; history -w; history -c; history -r; $PROMPT_COMMAND"
+export PROMPT_COMMAND="__prompt_command; history -n; history -w; history -c; history -r"
 
 # prefer British English
 export LANG="en_GB.UTF-8"

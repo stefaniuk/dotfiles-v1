@@ -12,6 +12,8 @@ cp ./.{bashrc,bash_*}.$DIST ~ 2> /dev/null
 mkdir -p ~/bin
 cp ./bin/* ~/bin
 rm ~/bin/{install,config*}.sh
+file_replace_str "USER_NAME=\"unknown\"" "USER_NAME=\"$USER_NAME\"" ~/.bash_exports
+file_replace_str "USER_EMAIL=\"unknown\"" "USER_EMAIL=\"$USER_EMAIL\"" ~/.bash_exports
 
 # profile
 [ -f ~/.profile ] && [ ! -f ~/.profile.old ] && mv ~/.profile ~/.profile.old

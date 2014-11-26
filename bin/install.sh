@@ -131,12 +131,7 @@ fi
 
 # install components via MintLeaf
 print_progress "Installing components via MintLeaf..."
-(. $MINTLEAF_HOME/bin/install.sh \
-    --update-system \
-    --update-packages \
-    --skip-installed \
-    $*
-)
+(. $MINTLEAF_HOME/bin/install.sh $*)
 [ $? != 0 ] && exit 5
 source $MINTLEAF_HOME/bin/bootstrap
 
@@ -150,7 +145,8 @@ elif [ "$DIST" == "macosx" ]; then
     print_progress "Installing components via homebrew..."
     brew install \
         bash-completion \
-        grc
+        grc \
+        2> /dev/null
 
 fi
 

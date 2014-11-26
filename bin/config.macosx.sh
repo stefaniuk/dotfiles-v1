@@ -5,6 +5,7 @@
 ################################################################################
 
 print_title "Configure bash"
+
 _sudo file_remove_str "\n$(brew --prefix)/bin/bash" /etc/shells --multiline
 sudo bash -c "echo $(brew --prefix)/bin/bash >> /private/etc/shells"
 sudo chsh -s $(brew --prefix)/bin/bash $USER
@@ -14,6 +15,7 @@ sudo chsh -s $(brew --prefix)/bin/bash $USER
 ################################################################################
 
 print_title "Configure zsh"
+
 _sudo file_remove_str "\n$(brew --prefix)/bin/zsh" /etc/shells --multiline
 sudo bash -c "echo $(brew --prefix)/bin/zsh >> /private/etc/shells"
 
@@ -22,6 +24,7 @@ sudo bash -c "echo $(brew --prefix)/bin/zsh >> /private/etc/shells"
 ################################################################################
 
 print_title "Configure iTerm"
+
 cp -f ./config/iterm/com.googlecode.iterm2.plist ~/Library/Preferences
 
 ################################################################################
@@ -29,6 +32,7 @@ cp -f ./config/iterm/com.googlecode.iterm2.plist ~/Library/Preferences
 ################################################################################
 
 print_title "Configure Sublime Text"
+
 mkdir -p ~/Library/Application\ Support/Sublime\ Text\ 3/{Installed\ Packages,Packages/User}
 # install package control plug-in
 curl --url http://sublime.wbond.net/Package%20Control.sublime-package --output ~/Library/Application\ Support/Sublime\ Text\ 3/Installed\ Packages/Package\ Control.sublime-package > /dev/null 2>&1
@@ -46,6 +50,7 @@ cp -f ./config/sublime/* ~/Library/Application\ Support/Sublime\ Text\ 3/Package
 ################################################################################
 
 print_title "Configure Seil"
+
 /Applications/Seil.app/Contents/Library/bin/seil set keycode_capslock 80
 print_info "1) Open 'System Preferences > Keyboard > Keyboard > Modifier Keys...' and"
 print_info "   change 'Caps Lock Key' configuration to 'No Action' to reduce delay."
@@ -57,6 +62,7 @@ print_info "   check 'Change the caps lock key' box."
 ################################################################################
 
 print_title "Configure Karabiner"
+
 cat << EOF > /Users/daniel/Library/Application\ Support/Karabiner/private.xml
 <?xml version="1.0"?>
 <root>

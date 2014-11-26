@@ -6,11 +6,15 @@ Installation
 
 There are two ways you can install the `dotfiles`:
 
+    USER_NAME="Your Name"
+    USER_EMAIL="your.name@mail.com"
     git clone https://github.com/stefaniuk/dotfiles.git
     ./dotfiles/bin/install.sh
 
 or
 
+    USER_NAME="Your Name"
+    USER_EMAIL="your.name@mail.com"
     wget https://raw.githubusercontent.com/stefaniuk/dotfiles/master/bin/install.sh -O - | /bin/bash
 
 Why to install?
@@ -33,4 +37,6 @@ Credits
 TODO
 ----
 
- * [Generic Colouriser](http://korpus.juls.savba.sk/~garabik/software/grc.html)
+ * install [grc](http://korpus.juls.savba.sk/~garabik/software/grc.html)
+ * check [bash-it](https://github.com/revans/bash-it)
+ * configure [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh)
