@@ -93,7 +93,7 @@ __prompt_git() {
     fi
 }
 
-__prompt_command() {
+prompt_command() {
 
     local EXIT=$?
     local status=
@@ -101,15 +101,14 @@ __prompt_command() {
         status=" \[${red}\](${EXIT})"
     fi
 
-    PS1="\[\033]0;\w\007\]"
-    PS1+="\[${bold}\]"
-    PS1+="\[${userStyle}\]\u"
-    PS1+="\[${white}\] at "
-    PS1+="\[${hostStyle}\]\h"
-    PS1+="\[${white}\] in "
-    PS1+="\[${green}\]\w"
-    PS1+="\$(__prompt_git \"${white} on ${violet}\")"
-    PS1+="${status}"
+    PS1="\[\033]0;\w\007\]\[${bold}\]"
+    PS1+="\[${userStyle}\]\u"                           # ${user}
+    PS1+="\[${white}\] at "                             # at
+    PS1+="\[${hostStyle}\]\h"                           # ${host}
+    PS1+="\[${white}\] in "                             # in
+    PS1+="\[${green}\]\w"                               # ${dir}
+    PS1+="\$(__prompt_git \"${white} on ${violet}\")"   # on ${branch}
+    PS1+="${status}"                                    # ${status}
     PS1+="\[${white}\] \$ \[${reset}\]"
     export PS1
 

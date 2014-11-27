@@ -33,7 +33,7 @@ shopt -s histappend
 # keep multi line commands together
 shopt -s cmdhist
 # make ignoredups:erasedups and common history working simultaneously
-export PROMPT_COMMAND="__prompt_command; history -n; history -w; history -c; history -r"
+export PROMPT_COMMAND="prompt_command; history -n; history -w; history -c; history -r"
 
 # prefer British English
 export LANG="en_GB.UTF-8"
