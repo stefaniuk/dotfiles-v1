@@ -15,12 +15,12 @@ if tput setaf 1 &> /dev/null; then
     cyan=$(tput setaf 37)
     green=$(tput setaf 64)
     orange=$(tput setaf 166)
+    pink=$(tput setaf 9)
     purple=$(tput setaf 125)
     red=$(tput setaf 124)
     violet=$(tput setaf 61)
     white=$(tput setaf 15)
     yellow=$(tput setaf 136)
-    pink=$(tput setaf 9)
 else
     bold=""
     reset="\e[0m"
@@ -29,12 +29,12 @@ else
     cyan="\e[1;36m"
     green="\e[1;32m"
     orange="\e[1;33m"
+    pink="\e[1;31m"
     purple="\e[1;35m"
     red="\e[1;31m"
     violet="\e[1;35m"
     white="\e[1;37m"
     yellow="\e[1;33m"
-    pink="\e[1;31m"
 fi
 
 # highlight the user name when logged in as root
