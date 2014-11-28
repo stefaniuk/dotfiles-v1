@@ -18,6 +18,7 @@ export GITHUB_REPOSITORY_NAME="dotfiles"
 function abspath() { pushd . > /dev/null; if [ -d "$1" ]; then cd "$1"; dirs -l +0; else cd "`dirname \"$1\"`"; cur_dir=`dirs -l +0`; if [ "$cur_dir" == "/" ]; then echo "$cur_dir`basename \"$1\"`"; else echo "$cur_dir/`basename \"$1\"`"; fi; fi; popd > /dev/null; }
 
 function print_progress() {
+    tput setaf 15
     tput bold
     echo "$1"
     tput sgr 0
