@@ -105,14 +105,13 @@ prompt_command() {
     fi
 
     PS1="\[\033]0;\w\007\]"
-    PS1+="\[${bold}${userStyle}\]\u"                # ${user}
-    PS1+="\[${reset}${white}\] at "                 # at
-    PS1+="\[${bold}${hostStyle}\]\h"                # ${host}
-    PS1+="\[${reset}${white}\] in "                 # in
-    PS1+="\[${bold}${green}\]\w"                    # ${dir}
-    PS1+="\[${reset}${white}\] on "                 # on
-    PS1+="\$(__prompt_git \"${bold}${violet}\")"    # ${branch}
-    PS1+="${status}"                                # ${status}
+    PS1+="\[${bold}${userStyle}\]\u"                                    # ${user}
+    PS1+="\[${reset}${white}\] at "                                     # at
+    PS1+="\[${bold}${hostStyle}\]\h"                                    # ${host}
+    PS1+="\[${reset}${white}\] in "                                     # in
+    PS1+="\[${bold}${green}\]\w"                                        # ${dir}
+    PS1+="\$(__prompt_git \"${reset}${white} on ${bold}${violet}\")"    # on ${branch}
+    PS1+="${status}"                                                    # ${status}
     PS1+="\[${white}\] \$ \[${reset}\]"
     export PS1
 
