@@ -104,7 +104,10 @@ fi
 [ -z "$MINTLEAF_HOME" ] && MINTLEAF_HOME=/usr/local/mintleaf
 if [ ! -f $MINTLEAF_HOME/bin/bootstrap ] || [ $arg_force_mintleaf -gt 0 ]; then
     print_progress "Installing MintLeaf..."
+    arg_update_system=$(echo "$args" | grep -o -- "--update-system")
+    arg_update_packages=$(echo "$args" | grep -o -- "--update-packages")
     wget https://raw.githubusercontent.com/stefaniuk/mintleaf/master/src/bin/install.sh -O - | /bin/bash -s -- \
+        $arg_update_system $arg_update_packages \
         --mintleaf \
         --git
     # TODO: check exit code of the install script
