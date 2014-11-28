@@ -34,6 +34,18 @@ Because this project includes:
  * common programs configuration
  * design to be multi-platform
 
+Useful information
+------------------
+
+ * Bash configuration is splint into the following files that are sourced in such order:
+     - `.bashrc`
+     - `.bash_prompt`
+     - `.bash_exports`
+     - `.bash_functions`
+     - `.bash_aliases`
+     - `.bash_completion`
+ * Git configuration and aliases can be found in `.gitconfig` file
+
 Credits
 -------
 
