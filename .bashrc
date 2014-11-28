@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# must be interactive shell
+[[ "$-" != *i* ]] && return
+
 #### dependencies ##############################################################
 
 # load MintLeaf
