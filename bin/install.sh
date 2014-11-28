@@ -73,8 +73,10 @@ fi
 ################################################################################
 
 args=$*
-arg_force_mintleaf=$(echo "$args" | grep -- "--force-mintleaf" | wc -l)
-arg_force_oh_my_zsh=$(echo "$args" | grep -- "--force-oh-my-zsh" | wc -l)
+arg_force_mintleaf=$(echo "$args"   | grep -o -- "--force-mintleaf")
+arg_force_oh_my_zsh=$(echo "$args"  | grep -o -- "--force-oh-my-zsh")
+arg_update_system=$(echo "$args"    | grep -o -- "--update-system")
+arg_update_packages=$(echo "$args"  | grep -o -- "--update-packages")
 
 ################################################################################
 # main                                                                         #
@@ -102,10 +104,8 @@ fi
 
 # install MintLeaf
 [ -z "$MINTLEAF_HOME" ] && MINTLEAF_HOME=/usr/local/mintleaf
-if [ ! -f $MINTLEAF_HOME/bin/bootstrap ] || [ $arg_force_mintleaf -gt 0 ]; then
+if [ ! -f $MINTLEAF_HOME/bin/bootstrap ] || [ -n "$arg_force_mintleaf" ]; then
     print_progress "Installing MintLeaf..."
-    arg_update_system=$(echo "$args" | grep -o -- "--update-system")
-    arg_update_packages=$(echo "$args" | grep -o -- "--update-packages")
     wget https://raw.githubusercontent.com/stefaniuk/mintleaf/master/src/bin/install.sh -O - | /bin/bash -s -- \
         $arg_update_system $arg_update_packages \
         --mintleaf \
@@ -120,7 +120,7 @@ else
 fi
 
 # install Oh My Zsh
-if [ ! -d ~/.oh-my-zsh ] || [ $arg_force_oh_my_zsh -gt 0 ]; then
+if [ ! -d ~/.oh-my-zsh ] || [ -n "$arg_force_oh_my_zsh" ]; then
     print_progress "Installing Oh My Zsh..."
     rm -rf ~/{.oh-my-zsh,.zcompdump-*,.zlogin,.zsh*}
     git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
