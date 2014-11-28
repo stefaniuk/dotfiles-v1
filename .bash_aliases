@@ -15,10 +15,10 @@ alias pm="cd ~/projects/mintleaf/src"
 alias g="git"
 
 # list files - detect which `ls` flavour is in use
-if [ ls --color > /dev/null 2>&1 ]; then # GNU `ls`
-    colorflag="--color"
-else # OS X `ls`
+if [ $DIST == "macosx" ]; then # OS X `ls`
     colorflag="-G"
+else # GNU `ls`
+    colorflag="--color"
 fi
 # list all files colourised in long format
 alias ll="ls -lF ${colorflag}"
