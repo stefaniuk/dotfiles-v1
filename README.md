@@ -9,7 +9,7 @@ There are two ways you can install the `dotfiles`:
     USER_NAME="Your Name"
     USER_EMAIL="your.name@mail.com"
     git clone https://github.com/stefaniuk/dotfiles.git
-    ./dotfiles/bin/install.sh \
+    sudo ./dotfiles/bin/install.sh \
         --force-mintleaf --force-oh-my-zsh \
         --update-system --update-packages \
         --skip-installed
@@ -18,7 +18,7 @@ or
 
     USER_NAME="Your Name"
     USER_EMAIL="your.name@mail.com"
-    wget https://raw.githubusercontent.com/stefaniuk/dotfiles/master/bin/install.sh -O - | /bin/bash -s -- \
+    wget https://raw.githubusercontent.com/stefaniuk/dotfiles/master/bin/install.sh -O - | sudo bash -s -- \
         --force-mintleaf --force-oh-my-zsh \
         --update-system --update-packages \
         --skip-installed
