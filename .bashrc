@@ -32,4 +32,4 @@ done
 unset file
 
 # make sure PATH variable includes `bin` directories in the right order
-export PATH=~/bin:/usr/local/bin:$PATH
+export PATH=~/bin:$MINTLEAF_HOME/bin:$PATH
