@@ -74,6 +74,7 @@ fi
 ################################################################################
 
 args=$*
+arg_common_only=$(echo "$args"      | grep -o -- "--common-only")
 arg_force_mintleaf=$(echo "$args"   | grep -o -- "--force-mintleaf")
 arg_force_oh_my_zsh=$(echo "$args"  | grep -o -- "--force-oh-my-zsh")
 arg_update_system=$(echo "$args"    | grep -o -- "--update-system")
@@ -159,10 +160,14 @@ print_progress "Configuring common components..."
 (. ./bin/config.sh)
 [ $? != 0 ] && exit 6
 
-# configure distribution specific components
-print_progress "Configuring distribution specific components..."
-(. ./bin/config.$DIST.sh)
-[ $? != 0 ] && exit 7
+if [ -z "$arg_common_only" ]; then
+
+    # configure distribution specific components
+    print_progress "Configuring distribution specific components..."
+    (. ./bin/config.$DIST.sh)
+    [ $? != 0 ] && exit 7
+
+fi
 
 ################################################################################
 
