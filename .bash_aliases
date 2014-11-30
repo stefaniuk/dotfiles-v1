@@ -48,4 +48,4 @@ alias urlencode="python -c 'import sys, urllib as ul; print ul.quote_plus(sys.ar
 # reload bash
 alias re="exec $SHELL -l"
 # sync bash
-alias sy="(cd ~/projects/dotfiles; ./bin/install.sh --common-only; exec $SHELL -l)"
+alias sy="(cd ~/projects/dotfiles; ./bin/install.sh --common-only); exec $SHELL -l"
