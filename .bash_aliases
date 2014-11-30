@@ -45,5 +45,7 @@ command -v hd > /dev/null || alias hd="hexdump -C"
 # url encode strings
 alias urlencode="python -c 'import sys, urllib as ul; print ul.quote_plus(sys.argv[1]);'"
 
-# reload the shell
-alias reload="exec $SHELL -l"
+# reload bash
+alias re="exec $SHELL -l"
+# sync bash
+alias sy="(cd ~/projects/dotfiles; ./bin/install.sh --common-only; exec $SHELL -l)"

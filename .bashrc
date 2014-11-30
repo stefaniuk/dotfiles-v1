@@ -3,6 +3,8 @@
 # must be interactive shell
 [[ "$-" != *i* ]] && return
 
+export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
 #### dependencies ##############################################################
 
 # load MintLeaf
