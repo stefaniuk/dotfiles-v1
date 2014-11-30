@@ -8,14 +8,14 @@
     # View abbreviated SHA, description, and history graph of the latest 50 commits
     l = log --pretty=oneline -n 50 --graph --abbrev-commit
     ll = log --pretty=format:\"%C(yellow)%h%Creset %C(cyan)%ci%Creset %C(green)%ce%Creset%x09%s%C(cyan)%C(bold)%d%Creset\" -n 50 --graph
-    la = log --pretty=format:\"%C(yellow)%h%Creset %C(cyan)%ci%Creset %C(green)%ce%Creset%x09%s%C(cyan)%C(bold)%d%Creset\" -n 50 --graph
+    la = log --pretty=formatuto:\"%C(yellow)%h%Creset %C(cyan)%ci%Creset %C(green)%ce%Creset%x09%s%C(cyan)%C(bold)%d%Creset\" -n 50 --graph
     # log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
 
     # View the current working tree status using the short format
     s = status -s
 
     # Show the diff between the latest commit and the current state
-    d = !"git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat"
+    d = !"git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat -R"
 
     # `git di $number` shows the diff between the state `$number` revisions ago and the current state
     di = !"d() { git diff --patch-with-stat HEAD~$1; }; git diff-index --quiet HEAD -- || clear; d"
@@ -99,28 +99,7 @@
 
 [color]
 
-    # Use colors in Git commands that are capable of colored output when
-    # outputting to the terminal. (This is the default setting in Git ≥ 1.8.4.)
     ui = auto
-
-[color "branch"]
-
-    current = yellow reverse
-    local = yellow
-    remote = green
-
-[color "diff"]
-
-    meta = yellow bold
-    frag = magenta bold # line info
-    old = red # deletions
-    new = green # additions
-
-[color "status"]
-
-    added = yellow
-    changed = green
-    untracked = cyan
 
 [diff]
 
