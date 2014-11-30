@@ -132,6 +132,9 @@ EOF
 
 print_title "Set defaults"
 
+# link SDK's include directory to /usr/include
+sudo ln -sf /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX$(echo $VERSION | grep -oE '[0-9]+\.[0-9]+').sdk/usr/include /usr/include
+
 # set host details
 #sudo scutil --set ComputerName $COMP_NAME
 #sudo scutil --set HostName $COMP_NAME
