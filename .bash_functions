@@ -38,7 +38,13 @@ function fs() {
 # `tre` is an improved `tree`
 function tre() {
 
-    tree -aC -I ".classpath|.git|.project|.settings|bower_components|node_modules|target" --dirsfirst "$@" | less -FRNX
+    tree -aC -I "
+        |.git*|README*|LICENCE*|LICENSE*|
+        |.classpath|.project|.settings|target|
+        |vendor|*_*.po|*_*.mo|
+        |bower_components|node_modules|
+        |*.lock|*.tmp|*.bak|*.old" \
+        --dirsfirst "$@" | less -FRNX
 }
 
 # use git's coloured `diff`
@@ -84,5 +90,32 @@ function codepoint() {
     # print new line unless we're piping output to another program
     if [[ -t 1 ]]; then
         echo ""
+    fi
+}
+
+# start `php` application
+function runphp {
+
+    local port="${1:-9000}"
+
+    local dir=
+    if [ -d ./public ] && [ -f ./public/index.php ]; then
+        dir="."
+    elif [ -d ../public ] && [ -f ../public/index.php ]; then
+        dir=".."
+    elif [ -d ../../public ] && [ -f ../../public/index.php ]; then
+        dir="../.."
+    elif [ -d ../../../public ] && [ -f ../../../public/index.php ]; then
+        dir="../../.."
+    fi
+
+    if [ -n "$dir" ]; then
+        local pid=$(ps aux | grep -v 'grep' | grep 'php -S 0.0.0.0:9000 -t ./public ./public/index.php' | awk '{ print $2 }')
+        [ -n "$pid" ] && kill -s TERM $pid
+        (
+            cd ${dir}
+            nohup php -S 0.0.0.0:${port} -t ./public ./public/index.php > ~/php.log &
+        )
+        tail -f ~/php.log
     fi
 }
