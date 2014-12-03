@@ -105,5 +105,20 @@ if [ -n "$(which mvn)" ]; then
 fi
 
 ################################################################################
+# Irssi                                                                        #
+################################################################################
+
+if [ -n "$(which irssi)" ]; then
+
+    print_title "Configure Irssi"
+
+    # resources
+    mkdir -p ~/.irssi
+    cp -f ./config/irssi/config ~/.irssi
+    file_replace_str "real_name = \"\"" "real_name = \"$USER_NAME\"" ~/.irssi/config
+
+fi
+
+################################################################################
 
 exit 0

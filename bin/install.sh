@@ -151,6 +151,7 @@ elif [ "$DIST" == "macosx" ]; then
     brew install \
         bash-completion \
         grc \
+        irssi \
         2> /dev/null
 
 fi
