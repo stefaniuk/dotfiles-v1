@@ -156,6 +156,15 @@ elif [ "$DIST" == "macosx" ]; then
 
 fi
 
+# install keyboard shortcuts
+print_progress "Installing keyboard shortcuts..."
+mkdir -p ~/projects
+if [ ! -d ~/projects/shortcuts ]; then
+    git clone git@github.com:stefaniuk/shortcuts.git ~/projects/shortcuts
+else
+    (cd ~/projects/shortcuts; git pull)
+fi
+
 # configure common components
 print_progress "Configuring common components..."
 (. ./bin/config.sh)
