@@ -160,7 +160,7 @@ fi
 print_progress "Installing keyboard shortcuts..."
 mkdir -p ~/projects
 if [ ! -d ~/projects/shortcuts ]; then
-    git clone https://github.com/stefaniuk/dotfiles.git ~/projects/shortcuts
+    git clone https://github.com/stefaniuk/shortcuts.git ~/projects/shortcuts
 else
     (cd ~/projects/shortcuts; git pull)
 fi
