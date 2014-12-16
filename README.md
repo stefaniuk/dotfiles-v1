@@ -17,7 +17,7 @@ or
 
     USER_NAME="Your Name"
     USER_EMAIL="your.name@mail.com"
-    sudo wget https://raw.githubusercontent.com/stefaniuk/dotfiles/master/bin/install.sh -O - | sudo bash -s -- \
+    wget https://raw.githubusercontent.com/stefaniuk/dotfiles/master/bin/install.sh -O - | sudo bash -s -- \
         --force-mintleaf --force-oh-my-zsh \
         --update-system --update-packages
 
