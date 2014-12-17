@@ -5,12 +5,13 @@ function ss() {
 
     local file="${1:-general}"
     local desc="${2:-xxx}"
-    for i in $(ls -1 ~/projects/shortcuts/*${file}*.md 2> /dev/null); do
+    for i in $(\ls -1 ~/projects/shortcuts/*${file}*.md 2> /dev/null); do
         [[ $i == *README.md ]] && continue
         echo
         cat $i | \
             sed "s/^#### /`printf "${bold}${white}"`#### /g" | \
             sed "s/^##### /`printf "${blue}"`##### /g" | \
+            sed ":a;N;\$!ba;s/\n/${reset}\n/g" | \
             egrep --color "${desc}|$"
         echo
     done

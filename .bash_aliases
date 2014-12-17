@@ -20,17 +20,17 @@ if [ $DIST == "macosx" ]; then # OS X `ls`
 else # GNU `ls`
     colorflag="--color"
 fi
-# list all files colourised in long format
-alias ll="ls -lF ${colorflag}"
-# list all files colourised in long format, including dot files
-alias la="ls -laF ${colorflag}"
-# list only directories
-alias lsd="ls -lF ${colorflag} | grep --color=never '^d'"
 # always use colour output for `ls`
-alias ls="command ls ${colorflag}"
+alias ls="\ls ${colorflag}"
+# list all files colourised in long format
+alias ll="\ls -lF ${colorflag}"
+# list all files colourised in long format, including dot files
+alias la="\ls -laF ${colorflag}"
+# list only directories
+alias lsd="\ls -lF ${colorflag} | grep --color=never '^d'"
 
-# search
-alias grep="grep --color=auto"
+# always use colour output for `grep`
+alias grep="\grep --color=auto"
 
 # enable aliases to be sudo’ed
 alias sudo="sudo "
