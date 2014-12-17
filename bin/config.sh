@@ -64,15 +64,18 @@ if [ -n "$(which vim)" ]; then
 
     # resources
     mkdir -p ~/.vim
-    cp -Rf ./config/vim/{autoload,colors,plugin} ~/.vim
+    cp -Rf ./config/vim/{colors,plugin} ~/.vim
     cp -f ./config/vim/.vimrc ~
+    mkdir -p ~/.vim/{autoload,bundle}
 
-    # plug-ins
+    # vundle
     if [ ! -d ~/.vim/bundle/Vundle.vim ]; then
-        git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim > /dev/null 2>&1
+        git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
     else
-        (cd ~/.vim/bundle/Vundle.vim; git pull) > /dev/null 2>&1
+        (cd ~/.vim/bundle/Vundle.vim; git pull)
     fi
+    # pathogen
+    curl -LSso ~/.vim/autoload/pathogen.vim https://raw.githubusercontent.com/tpope/vim-pathogen/master/autoload/pathogen.vim
 
 fi
 
