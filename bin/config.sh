@@ -76,6 +76,12 @@ if [ -n "$(which vim)" ]; then
     fi
     # pathogen
     curl -LSso ~/.vim/autoload/pathogen.vim https://raw.githubusercontent.com/tpope/vim-pathogen/master/autoload/pathogen.vim
+    # nerdtree
+    if [ ! -d ~/.vim/bundle/nerdtree ]; then
+        git clone https://github.com/scrooloose/nerdtree.git ~/.vim/bundle/nerdtree
+    else
+        (cd ~/.vim/bundle/nerdtree; git pull)
+    fi
 
 fi
 
