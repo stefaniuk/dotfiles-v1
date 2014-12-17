@@ -11,17 +11,22 @@ There are two ways you can install the `dotfiles`:
     git clone https://github.com/stefaniuk/dotfiles.git
     sudo ./dotfiles/bin/install.sh \
         --force-mintleaf --force-oh-my-zsh \
-        --update-system --update-packages \
-        --skip-installed
+        --update-system --update-packages
 
 or
 
     USER_NAME="Your Name"
     USER_EMAIL="your.name@mail.com"
-    sudo wget https://raw.githubusercontent.com/stefaniuk/dotfiles/master/bin/install.sh -O - | sudo bash -s -- \
+    wget https://raw.githubusercontent.com/stefaniuk/dotfiles/master/bin/install.sh -O - | sudo bash -s -- \
         --force-mintleaf --force-oh-my-zsh \
-        --update-system --update-packages \
-        --skip-installed
+        --update-system --update-packages
+
+Available flags:
+
+ - `--common-only`
+ - `--force-mintleaf`
+ - `--force-oh-my-zsh`
+ - flags defined by the [MintLeaf](https://github.com/stefaniuk/mintleaf) project
 
 Why to install?
 ---------------
