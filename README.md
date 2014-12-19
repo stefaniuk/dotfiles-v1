@@ -60,6 +60,7 @@ Credits
 TODO
 ----
 
+ * set terminal emulator's colour scheme to the [Solarized](http://ethanschoonover.com/solarized) palette
  * install [grc](http://korpus.juls.savba.sk/~garabik/software/grc.html)
  * check [bash-it](https://github.com/revans/bash-it)
  * configure [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh)

@@ -76,6 +76,13 @@ if [ -n "$(which vim)" ]; then
     fi
     # pathogen
     curl -LSso ~/.vim/autoload/pathogen.vim https://raw.githubusercontent.com/tpope/vim-pathogen/master/autoload/pathogen.vim
+
+    # solarized
+    if [ ! -d ~/.vim/bundle/vim-colors-solarized ]; then
+        git clone git://github.com/altercation/vim-colors-solarized.git ~/.vim/bundle/vim-colors-solarized
+    else
+        (cd ~/.vim/bundle/vim-colors-solarized; git pull)
+    fi
     # nerdtree
     if [ ! -d ~/.vim/bundle/nerdtree ]; then
         git clone https://github.com/scrooloose/nerdtree.git ~/.vim/bundle/nerdtree
