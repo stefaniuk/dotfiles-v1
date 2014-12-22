@@ -143,7 +143,10 @@ source $MINTLEAF_HOME/bin/bootstrap
 # install components
 if [ "$DIST" == "ubuntu" ]; then
 
-    : # TODO
+    print_progress "Installing components via apt-get..."
+    apt-get --yes --force-yes --ignore-missing --no-install-recommends install \
+        bash-completion \
+        grc
 
 elif [ "$DIST" == "macosx" ]; then
 
@@ -156,8 +159,24 @@ elif [ "$DIST" == "macosx" ]; then
 
 fi
 
-# install keyboard shortcuts
-print_progress "Installing keyboard shortcuts..."
+# install dotfiles repository
+print_progress "Installing dotfiles repository..."
+mkdir -p ~/projects
+if [ ! -d ~/projects/dotfiles ]; then
+    git clone https://github.com/stefaniuk/dotfiles.git ~/projects/dotfiles
+else
+    (cd ~/projects/dotfiles; git pull)
+fi
+# install terminal commands repository
+print_progress "Installing terminal commands repository..."
+mkdir -p ~/projects
+if [ ! -d ~/projects/commands ]; then
+    git clone https://github.com/stefaniuk/commands.git ~/projects/commands
+else
+    (cd ~/projects/commands; git pull)
+fi
+# install keyboard shortcuts repository
+print_progress "Installing keyboard shortcuts repository..."
 mkdir -p ~/projects
 if [ ! -d ~/projects/shortcuts ]; then
     git clone https://github.com/stefaniuk/shortcuts.git ~/projects/shortcuts

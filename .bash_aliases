@@ -12,7 +12,10 @@ alias dl="cd ~/Downloads"
 alias p="cd ~/projects"
 alias pd="cd ~/projects/dotfiles"
 alias pm="cd ~/projects/mintleaf/src"
-alias g="git"
+alias g="\git"
+
+# remove colour codes from the output
+alias ccr='color_codes_remove'
 
 # list files - detect which `ls` flavour is in use
 if [ $DIST == "macosx" ]; then # OS X `ls`
@@ -36,7 +39,7 @@ alias grep="\grep --color=auto"
 alias sudo="sudo "
 
 # ip address
-alias ip="ifconfig | grep -oE '192.168.[0-9]+.[0-9]+' | grep -v '.255$'"
+alias ip="\ifconfig | grep -oE '192\.168\.[0-9]+\.[0-9]+' | grep -v '.255$'"
 alias ipe="net_get_external_ip"
 
 # canonical hex dump
@@ -44,6 +47,19 @@ command -v hd > /dev/null || alias hd="hexdump -C"
 
 # url encode strings
 alias urlencode="python -c 'import sys, urllib as ul; print ul.quote_plus(sys.argv[1]);'"
+
+# colourise output of some commands
+if which grc > /dev/null; then
+    for file in $(\ls -1 /usr/share/grc); do
+        prog=$(echo $file | awk 'BEGIN { FS = "." } ; { print $2 }')
+        which grc > /dev/null && alias $prog="grc $prog"
+    done
+    unset file prog
+fi
+
+# show shortcuts/commands
+alias ss="show_shortcuts"
+alias sc="show_commands"
 
 # reload bash
 alias reload="exec $SHELL -l"

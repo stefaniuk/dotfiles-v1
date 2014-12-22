@@ -1,22 +1,5 @@
 #!/bin/sh
 
-# show shortcuts
-function ss() {
-
-    local prog="${1:-general}"
-    local desc="${2:-xxx}"
-    for file in $(\ls -1 ~/projects/shortcuts/*${prog}*.md 2> /dev/null); do
-        [[ $file == *README.md ]] && continue
-        echo
-        cat $file | \
-            sed "s/^#### /`printf "${bold}${white}"`#### /g" | \
-            sed "s/^##### /`printf "${blue}"`##### /g" | \
-            sed ":a;N;\$!ba;s/\n/${reset}\n/g" | \
-            egrep --color "${desc}|$"
-        echo
-    done
-}
-
 # open directory in Vim editor
 function v() {
 
@@ -135,4 +118,34 @@ function runphp {
         )
         tail -f ~/php.log
     fi
+}
+
+# show shortcuts
+function show_shortcuts() {
+
+    local prog="${1:-general}"
+    local desc="${2:-xxx}"
+    for file in $(\ls -1 ~/projects/shortcuts/*${prog}*.md 2> /dev/null); do
+        [[ $file == *README.md ]] && continue
+        echo
+        cat $file | \
+            sed "s/^#### /`printf "${bold}${white}"`#### /g" | \
+            sed "s/^##### /`printf "${blue}"`##### /g" | \
+            sed ":a;N;\$!ba;s/\n/${reset}\n/g" | \
+            egrep --color "${desc}|$"
+        echo
+    done
+}
+
+# show commands
+function show_commands() {
+
+    local prog="${1:-general}"
+    local desc="${2:-xxx}"
+    for file in $(\ls -1 ~/projects/commands/*${prog}*.md 2> /dev/null); do
+        [[ $file == *README.md ]] && continue
+        echo
+        cat $file # TODO
+        echo
+    done
 }

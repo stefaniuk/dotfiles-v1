@@ -58,7 +58,7 @@ unset bcpath
 # Vim                                                                          #
 ################################################################################
 
-if [ -n "$(which vim)" ]; then
+if which vim > /dev/null; then
 
     print_title "Configure Vim"
 
@@ -96,7 +96,7 @@ fi
 # Midnight Commander                                                           #
 ################################################################################
 
-if [ -n "$(which mc)" ]; then
+if which mc > /dev/null; then
 
     print_title "Configure Midnight Commander"
 
@@ -110,7 +110,7 @@ fi
 # Maven                                                                        #
 ################################################################################
 
-if [ -n "$(which mvn)" ]; then
+if which mvn > /dev/null; then
 
     print_title "Configure Maven"
 
@@ -124,7 +124,7 @@ fi
 # Irssi                                                                        #
 ################################################################################
 
-if [ -n "$(which irssi)" ]; then
+if which irssi > /dev/null; then
 
     print_title "Configure Irssi"
 
