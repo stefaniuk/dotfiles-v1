@@ -3,12 +3,12 @@
 # show shortcuts
 function ss() {
 
-    local file="${1:-general}"
+    local prog="${1:-general}"
     local desc="${2:-xxx}"
-    for i in $(\ls -1 ~/projects/shortcuts/*${file}*.md 2> /dev/null); do
-        [[ $i == *README.md ]] && continue
+    for file in $(\ls -1 ~/projects/shortcuts/*${prog}*.md 2> /dev/null); do
+        [[ $file == *README.md ]] && continue
         echo
-        cat $i | \
+        cat $file | \
             sed "s/^#### /`printf "${bold}${white}"`#### /g" | \
             sed "s/^##### /`printf "${blue}"`##### /g" | \
             sed ":a;N;\$!ba;s/\n/${reset}\n/g" | \
