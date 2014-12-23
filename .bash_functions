@@ -132,7 +132,7 @@ function show_shortcuts() {
             sed "s/^#### /`printf "${bold}${white}"`#### /g" | \
             sed "s/^##### /`printf "${blue}"`##### /g" | \
             sed ":a;N;\$!ba;s/\n/${reset}\n/g" | \
-            egrep --color "${desc}|$"
+            egrep --color -i "${desc}|$"
         echo
     done
 }
@@ -145,7 +145,11 @@ function show_commands() {
     for file in $(\ls -1 ~/projects/commands/*${prog}*.md 2> /dev/null); do
         [[ $file == *README.md ]] && continue
         echo
-        cat $file # TODO
+        cat $file | \
+            sed "s/^#### /`printf "${bold}${white}"`#### /g" | \
+            sed "s/^##### /`printf "${blue}"`##### /g" | \
+            sed ":a;N;\$!ba;s/\n/${reset}\n/g" | \
+            egrep --color -i "${desc}|$"
         echo
     done
 }

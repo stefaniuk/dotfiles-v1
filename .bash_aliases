@@ -50,11 +50,12 @@ alias urlencode="python -c 'import sys, urllib as ul; print ul.quote_plus(sys.ar
 
 # colourise output of some commands
 if which grc > /dev/null; then
-    for file in $(\ls -1 /usr/share/grc); do
+    [ -d /usr/local/share/grc ] && dir=/usr/local/share/grc || dir=/usr/share/grc
+    for file in $(\ls -1 $dir); do
         prog=$(echo $file | awk 'BEGIN { FS = "." } ; { print $2 }')
         which grc > /dev/null && alias $prog="grc $prog"
     done
-    unset file prog
+    unset dir file prog
 fi
 
 # show shortcuts/commands
