@@ -1,29 +1,27 @@
 dotfiles
 ========
 
+The aim of the `dotfiles` project is to configure shell and provide a better experience while using command-line.
+
 Installation
 ------------
 
-There are two ways you can install the `dotfiles`:
+There are two ways the `dotfiles` project can be installed:
 
     USER_NAME="Your Name"
     USER_EMAIL="your.name@mail.com"
     git clone https://github.com/stefaniuk/dotfiles.git
-    sudo ./dotfiles/bin/install.sh \
-        --force-mintleaf --force-oh-my-zsh \
-        --update-system --update-packages
+    sudo ./dotfiles/bin/install.sh --update-system --update-packages
 
 or
 
     USER_NAME="Your Name"
     USER_EMAIL="your.name@mail.com"
-    wget https://raw.githubusercontent.com/stefaniuk/dotfiles/master/bin/install.sh -O - | sudo bash -s -- \
-        --force-mintleaf --force-oh-my-zsh \
-        --update-system --update-packages
+    wget https://raw.githubusercontent.com/stefaniuk/dotfiles/master/bin/install.sh -O - | sudo bash -s -- --update-system --update-packages
 
-Available flags:
+Here is the list of other installation flags:
 
- - `--common-only`
+ - `--common-only` to exclude operating system specific configuration
  - `--force-mintleaf`
  - `--force-oh-my-zsh`
  - flags defined by the [MintLeaf](https://github.com/stefaniuk/mintleaf) project
@@ -31,37 +29,24 @@ Available flags:
 Why to install?
 ---------------
 
-Because this project includes:
+During development I tried to follow the best practices and coding standards. This project includes the following:
 
- * [MintLeaf](https://github.com/stefaniuk/mintleaf) installation
- * [Oh My Zsh](https://github.com/robbyrussell/oh-my-zsh) installation
- * useful options, functions and aliases
- * common programs configuration
- * design to be multi-platform
+ * [Oh My Zsh](https://github.com/robbyrussell/oh-my-zsh)
+ * Useful shell configuration options
+ * Custom functions and aliases
+ * Configuration of common programs
 
-Useful information
-------------------
+TODO list
+---------
 
- * Bash configuration is splint into the following files that are sourced in such order:
-     - `.bashrc`
-     - `.bash_prompt`
-     - `.bash_exports`
-     - `.bash_functions`
-     - `.bash_aliases`
-     - `.bash_completion`
- * Git configuration and aliases can be found in `.gitconfig` file
+ * Make sure [grc](http://korpus.juls.savba.sk/~garabik/software/grc.html) works correctly
+ * Check Gediminas Morkevicius' [dotfiles](https://github.com/l3pp4rd/dotfiles) for anything useful
+ * Use [Solarized](http://ethanschoonover.com/solarized) colour palette in terminal
+ * Explore [bash-it](https://github.com/revans/bash-it)
+ * Configure [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh)
 
 Credits
 -------
 
- * [mathiasbynens' dotfiles](https://github.com/mathiasbynens/dotfiles)
- * [necolas' dotfiles](https://github.com/necolas/dotfiles)
-
-TODO
-----
-
- * check [dotfiles](https://github.com/l3pp4rd/dotfiles)
- * set terminal emulator's colour scheme to the [Solarized](http://ethanschoonover.com/solarized) palette
- * install [grc](http://korpus.juls.savba.sk/~garabik/software/grc.html)
- * check [bash-it](https://github.com/revans/bash-it)
- * configure [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh)
+ * [Mathias Bynens](https://github.com/mathiasbynens/dotfiles)
+ * [Nicolas Gallagher](https://github.com/necolas/dotfiles)
