@@ -20,6 +20,16 @@ function s() {
     fi
 }
 
+# open web page in Lynx browser
+function l() {
+
+    if [[ $# -eq 0 ]]; then
+        lynx "https://google.co.uk/"
+    else
+        lynx "$@"
+    fi
+}
+
 # determine size of a file or total size of a directory
 function fs() {
 
@@ -123,6 +133,13 @@ function runphp {
 # show shortcuts
 function show_shortcuts() {
 
+    if [ "$1" == "-l" ] || [ "$1" == "--list" ] || [ "$1" == "-h" ] || [ "$1" == "--help" ]; then
+        \ls -1 ~/projects/shortcuts | \
+            grep -v README.md | grep -v LICENCE | \
+            sed 's/\.md//g'
+        return
+    fi
+
     local prog="${1:-general}"
     local desc="${2:-xxx}"
     for file in $(\ls -1 ~/projects/shortcuts/*${prog}*.md 2> /dev/null); do
@@ -139,6 +156,13 @@ function show_shortcuts() {
 
 # show commands
 function show_commands() {
+
+    if [ "$1" == "-l" ] || [ "$1" == "--list" ] || [ "$1" == "-h" ] || [ "$1" == "--help" ]; then
+        \ls -1 ~/projects/commands | \
+            grep -v README.md | grep -v LICENCE | \
+            sed 's/\.md//g'
+        return
+    fi
 
     local prog="${1:-general}"
     local desc="${2:-xxx}"
