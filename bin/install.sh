@@ -159,9 +159,9 @@ elif [ "$DIST" == "macosx" ]; then
 
 fi
 
+mkdir -p ~/projects
 # install dotfiles repository
 print_progress "Installing dotfiles repository..."
-mkdir -p ~/projects
 if [ ! -d ~/projects/dotfiles ]; then
     git clone https://github.com/stefaniuk/dotfiles.git ~/projects/dotfiles
 else
@@ -169,7 +169,6 @@ else
 fi
 # install terminal commands repository
 print_progress "Installing terminal commands repository..."
-mkdir -p ~/projects
 if [ ! -d ~/projects/commands ]; then
     git clone https://github.com/stefaniuk/commands.git ~/projects/commands
 else
@@ -177,11 +176,24 @@ else
 fi
 # install keyboard shortcuts repository
 print_progress "Installing keyboard shortcuts repository..."
-mkdir -p ~/projects
 if [ ! -d ~/projects/shortcuts ]; then
     git clone https://github.com/stefaniuk/shortcuts.git ~/projects/shortcuts
 else
     (cd ~/projects/shortcuts; git pull)
+fi
+# install package manager repository
+print_progress "Installing package manager repository..."
+if [ ! -d ~/projects/pkg-manager ]; then
+    git clone https://github.com/stefaniuk/pkg-manager.git ~/projects/pkg-manager
+else
+    (cd ~/projects/pkg-manager; git pull)
+fi
+# install package utilities repository
+print_progress "Installing package utilities repository..."
+if [ ! -d ~/projects/pkg-util ]; then
+    git clone https://github.com/stefaniuk/pkg-util.git ~/projects/pkg-util
+else
+    (cd ~/projects/pkg-util; git pull)
 fi
 
 # configure common components
