@@ -11,13 +11,17 @@ There are two ways the `dotfiles` project can be installed:
     USER_NAME="Your Name"
     USER_EMAIL="your.name@mail.com"
     git clone https://github.com/stefaniuk/dotfiles.git
-    sudo ./dotfiles/bin/install.sh --update-system --update-packages
+    sudo ./dotfiles/bin/install.sh \
+        --update-system \
+        --update-packages
 
 or
 
     USER_NAME="Your Name"
     USER_EMAIL="your.name@mail.com"
-    wget https://raw.githubusercontent.com/stefaniuk/dotfiles/master/bin/install.sh -O - | sudo bash -s -- --update-system --update-packages
+    wget https://raw.githubusercontent.com/stefaniuk/dotfiles/master/bin/install.sh -O - | sudo bash -s -- \
+        --update-system \
+        --update-packages
 
 Here is the list of other installation flags:
 
