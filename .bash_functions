@@ -130,6 +130,14 @@ function runphp {
     fi
 }
 
+# change github protocol from https to git
+function fix_github_urls() {
+
+    for file in $(find ~/projects -type f -iname config | grep '\.git'); do
+        file_replace_str "url = https://github.com/stefaniuk" "url = git@github.com:stefaniuk" $file
+    done
+}
+
 # show shortcuts
 function show_shortcuts() {
 
