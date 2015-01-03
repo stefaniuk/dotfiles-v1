@@ -25,7 +25,7 @@ export HISTSIZE=4096
 export HISTFILESIZE=$HISTSIZE
 export HISTCONTROL=ignoredups:erasedups
 # make some commands not show up in history
-export HISTIGNORE="history*:pwd:ll:la:ls:lsd:cd ~:cd -:date:* --help:man *:* --version:* -version:clear:exit"
+export HISTIGNORE="history*:pwd:ll:la:ls:lsd:cd ~:cd -:date:clear:exit"
 # append history when closing multiple shells
 shopt -s histappend
 # keep multi line commands together
