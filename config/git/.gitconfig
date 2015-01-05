@@ -102,7 +102,7 @@
 
 [credential]
 
-    helper = cache
+    helper = cache --timeout 300
 
 [diff]
 
