@@ -150,7 +150,7 @@ if [ "$DIST" == "ubuntu" ]; then
 
 elif [ "$DIST" == "macosx" ]; then
 
-    print_progress "Installing components via homebrew..."
+    print_progress "Installing components via brew..."
     brew install \
         bash-completion \
         grc \
@@ -180,6 +180,13 @@ if [ ! -d ~/projects/shortcuts ]; then
     git clone https://github.com/stefaniuk/shortcuts.git ~/projects/shortcuts
 else
     (cd ~/projects/shortcuts; git pull)
+fi
+# install MintLeaf repository
+print_progress "Installing MintLeaf repository..."
+if [ ! -d ~/projects/mintleaf ]; then
+    git clone https://github.com/stefaniuk/mintleaf.git ~/projects/mintleaf
+else
+    (cd ~/projects/mintleaf; git pull)
 fi
 # install package manager repository
 print_progress "Installing package manager repository..."
