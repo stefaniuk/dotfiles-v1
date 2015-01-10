@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # open directory in Vim editor
-function v() {
+function v {
 
     if [[ $# -eq 0 ]]; then
         vim .
@@ -11,7 +11,7 @@ function v() {
 }
 
 # open directory in Sublime Text editor
-function s() {
+function s {
 
     if [[ $# -eq 0 ]]; then
         subl .
@@ -21,7 +21,7 @@ function s() {
 }
 
 # open web page in Lynx browser
-function l() {
+function l {
 
     if [[ $# -eq 0 ]]; then
         lynx "https://google.co.uk/"
@@ -31,7 +31,7 @@ function l() {
 }
 
 # determine size of a file or total size of a directory
-function fs() {
+function fs {
 
     if du -b /dev/null > /dev/null 2>&1; then
         local arg=-sbh
@@ -46,7 +46,7 @@ function fs() {
 }
 
 # `tre` is an improved `tree`
-function tre() {
+function tre {
 
     tree -aC -I "
         |.git*|README*|LICENCE*|LICENSE*|
@@ -58,13 +58,13 @@ function tre() {
 }
 
 # use git's coloured `diff`
-function diff() {
+function diff {
 
     git diff --no-index --color-words "$@"
 }
 
 # get base64 data url of a file
-function dataurl() {
+function dataurl {
 
     local mt=$(file -b --mime-type "$1")
     if [[ $mt == text/* ]]; then
@@ -74,7 +74,7 @@ function dataurl() {
 }
 
 # convert string to unicode
-function escape() {
+function escape {
 
     printf "\\\x%s" $(printf "$@" | xxd -p -c1 -u)
     # print new line unless we're piping output to another program
@@ -84,7 +84,7 @@ function escape() {
 }
 
 # convert string from \x{ABCD}-style unicode
-function unidecode() {
+function unidecode {
 
     perl -e "binmode(STDOUT, ':utf8'); print \"$@\""
     # print new line unless we're piping output to another program
@@ -94,7 +94,7 @@ function unidecode() {
 }
 
 # get character's unicode code point
-function codepoint() {
+function codepoint {
 
     perl -e "use utf8; print sprintf('U+%04X', ord(\"$@\"))"
     # print new line unless we're piping output to another program
@@ -131,7 +131,7 @@ function runphp {
 }
 
 # change github protocol from https to git
-function fix_github_urls() {
+function fix_github_urls {
 
     for file in $(find ~/projects -type f -iname config | grep '\.git'); do
         file_replace_str "url = https://github.com/stefaniuk" "url = git@github.com:stefaniuk" $file
@@ -139,7 +139,7 @@ function fix_github_urls() {
 }
 
 # show shortcuts
-function show_shortcuts() {
+function show_shortcuts {
 
     if [ "$1" == "-l" ] || [ "$1" == "--list" ] || [ "$1" == "-h" ] || [ "$1" == "--help" ]; then
         \ls -1 ~/projects/shortcuts | \
@@ -163,7 +163,7 @@ function show_shortcuts() {
 }
 
 # show commands
-function show_commands() {
+function show_commands {
 
     if [ "$1" == "-l" ] || [ "$1" == "--list" ] || [ "$1" == "-h" ] || [ "$1" == "--help" ]; then
         \ls -1 ~/projects/commands | \
@@ -184,4 +184,31 @@ function show_commands() {
             egrep --color -i "${desc}|$"
         echo
     done
+}
+
+function _sudo {
+
+    local func="$1"
+
+    local params=( "$@" )   # array containing all parameters
+    unset params[0]         # remove first element
+
+    local content="#!/bin/bash\n\n"
+    content="${content}params=(\n"
+    local regex="\s+"
+    for param in "${params[@]}"; do
+        if [[ "$param" =~ $regex ]]; then
+            content="${content}\t\"${param}\"\n"
+        else
+            content="${content}\t${param}\n"
+        fi
+    done
+    content="$content)\n"
+
+    local file="$HOME/_sudo.$$"
+    echo -e "$content" > $file
+    echo "#$( type "$func" )" >> $file
+    echo -e "\n$func \"\${params[@]}\"\n" >> $file
+    sudo bash $file
+    rm $file
 }
