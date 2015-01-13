@@ -1,5 +1,8 @@
 [alias]
 
+    # http://stackoverflow.com/questions/2421011/output-of-git-branch-in-tree-like-fashion
+    lgb = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset%n' --abbrev-commit --date=relative --branches
+
     # TODO:
     #   - last commits
     #   - commits in betweens dates
