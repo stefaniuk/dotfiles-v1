@@ -49,10 +49,12 @@ fi
 print_h1 "Configuring components..."
 
 ################################################################################
+# Bash
 
-print_h2 "Configure bash"
+print_h2 "Configure Bash"
 
 # resources
+cp -fv ~/etc/bash/.bash* ~
 file_replace_str "USER_NAME=\"unknown\"" "USER_NAME=\"$USER_NAME\"" ~/.bash_exports
 file_replace_str "USER_EMAIL=\"unknown\"" "USER_EMAIL=\"$USER_EMAIL\"" ~/.bash_exports
 
@@ -65,25 +67,21 @@ cat << EOF > ~/.bash_profile
 # END: load .bashrc
 EOF
 
-exit 0
-
 ################################################################################
-# zsh                                                                          #
-################################################################################
+# Zsh
 
-print_h2 "Configure zsh"
+print_h2 "Configure Zsh"
 
 # resources
-cp ./.zshrc* ~
+cp -fv ~/etc/zsh/.zsh* ~
 
 ################################################################################
-# Git                                                                          #
-################################################################################
+# Git
 
 print_h2 "Configure Git"
 
 # resources
-cp ./config/git/.git* ~
+cp -fv ~/etc/git/.git* ~
 
 # configuration
 git config --global user.name "$USER_NAME"
@@ -96,6 +94,8 @@ if [ -d $bcpath/bash_completion.d ] && [ ! -f $bcpath/bash_completion.d/git-comp
     wget https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash -O $bcpath/bash_completion.d/git-completion.bash
 fi
 unset bcpath
+
+exit 0
 
 ################################################################################
 # Vim                                                                          #
