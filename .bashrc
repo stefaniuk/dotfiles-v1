@@ -7,9 +7,12 @@ export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
 #### dependencies ##############################################################
 
-# load MintLeaf
-export MINTLEAF_HOME=/usr/local/mintleaf
-source $MINTLEAF_HOME/bin/bootstrap
+source ~/.shell-commons/shell-commons.sh 2> /dev/null
+source /usr/local/shell-commons/shell-commons.sh 2> /dev/null
+source ~/.shell-utils/shell-utils.sh 2> /dev/null
+source /usr/local/shell-utils/shell-utils.sh 2> /dev/null
+source ~/.shell-packages/shell-packages.sh 2> /dev/null
+source /usr/local/shell-packages/shell-packages.sh 2> /dev/null
 
 #### configuration #############################################################
 
@@ -33,5 +36,5 @@ for file in ~/.{path,bashrc.*,bash_prompt,bash_exports*,bash_functions*,bash_ali
 done
 unset file
 
-# make sure PATH variable includes `bin` directories in the right order
-export PATH=~/bin:$MINTLEAF_HOME/bin:$PATH
+# make sure PATH variable includes `bin` directory
+export PATH=~/bin:$PATH

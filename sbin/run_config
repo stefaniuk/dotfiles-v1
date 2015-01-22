@@ -1,21 +1,7 @@
 #!/bin/bash
 
 ################################################################################
-# exports                                                                      #
-################################################################################
-
-export GITHUB_REPOSITORY_ACCOUNT="stefaniuk"
-export GITHUB_REPOSITORY_NAME="dotfiles"
-[ -z "$USER_NAME" ] && export USER_NAME="Daniel Stefaniuk"
-[ -z "$USER_EMAIL" ] && export USER_EMAIL="daniel.stefaniuk@gmail.com"
-#[ -z "$COMP_NAME" ] && export COMP_NAME="comp"
-
-################################################################################
-# functions                                                                    #
-################################################################################
-
-# `readlink -f` alternative
-function abspath() { pushd . > /dev/null; if [ -d "$1" ]; then cd "$1"; dirs -l +0; else cd "`dirname \"$1\"`"; cur_dir=`dirs -l +0`; if [ "$cur_dir" == "/" ]; then echo "$cur_dir`basename \"$1\"`"; else echo "$cur_dir/`basename \"$1\"`"; fi; fi; popd > /dev/null; }
+# functions
 
 function print_progress() {
     tput setaf 15
@@ -45,31 +31,6 @@ function print_error() {
 }
 
 ################################################################################
-# download                                                                     #
-################################################################################
-
-cd $(dirname $(dirname $(abspath $0)))
-if [ ! -f ./bin/install.sh ] || [ ! -f ./bin/config.sh ]; then
-
-    print_progress "Downloading dotfiles..."
-
-    dir=/tmp/dotfiles-$RANDOM
-
-    rm -rf $dir
-    mkdir -p $dir
-    wget -O $dir/$GITHUB_REPOSITORY_NAME.tar.gz "https://github.com/$GITHUB_REPOSITORY_ACCOUNT/$GITHUB_REPOSITORY_NAME/tarball/master"
-    tar zxf $dir/$GITHUB_REPOSITORY_NAME.tar.gz -C $dir
-    cd $(ls -d -1 $dir/$GITHUB_REPOSITORY_ACCOUNT-$GITHUB_REPOSITORY_NAME-*)
-
-    chmod +x ./bin/install.sh
-    ./bin/install.sh $*
-    result=$?
-    rm -rf $dir
-    exit $result
-
-fi
-
-################################################################################
 # arguments                                                                    #
 ################################################################################
 
@@ -83,11 +44,6 @@ arg_update_packages=$(echo "$args"  | grep -o -- "--update-packages")
 ################################################################################
 # main                                                                         #
 ################################################################################
-
-# update the user's cached credentials, authenticating the user if necessary
-sudo -v
-# keep-alive: update existing `sudo` time stamp until script has finished
-while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 # check operating system
 print_progress "Checking OS..."
@@ -103,6 +59,8 @@ if [[ $? -ne 0 ]]; then
     print_error "No internet connection"
     exit 2
 fi
+
+exit 123
 
 # install MintLeaf
 [ -z "$MINTLEAF_HOME" ] && MINTLEAF_HOME=/usr/local/mintleaf
@@ -204,16 +162,151 @@ else
 fi
 
 # configure common components
-print_progress "Configuring common components..."
-(. ./bin/config.sh)
-[ $? != 0 ] && exit 6
+#print_progress "Configuring common components..."
+#(. ./bin/config.sh)
+#[ $? != 0 ] && exit 6
 
-if [ -z "$arg_common_only" ]; then
+#if [ -z "$arg_common_only" ]; then
 
     # configure distribution specific components
-    print_progress "Configuring distribution specific components..."
-    (. ./bin/config.$DIST.sh)
-    [ $? != 0 ] && exit 7
+    #print_progress "Configuring distribution specific components..."
+    #(. ./bin/config.$DIST.sh)
+    #[ $? != 0 ] && exit 7
+
+#fi
+
+################################################################################
+# bash                                                                         #
+################################################################################
+
+print_title "Configure bash"
+
+# resources
+cp ./.{bashrc,path,bash_prompt,bash_exports,bash_functions,bash_aliases,bash_completion} ~ 2> /dev/null
+cp ./.{bashrc,bash_*}.$DIST ~ 2> /dev/null
+mkdir -p ~/bin
+cp ./bin/* ~/bin
+rm ~/bin/{install,config*}.sh
+file_replace_str "USER_NAME=\"unknown\"" "USER_NAME=\"$USER_NAME\"" ~/.bash_exports
+file_replace_str "USER_EMAIL=\"unknown\"" "USER_EMAIL=\"$USER_EMAIL\"" ~/.bash_exports
+
+# profile
+[ -f ~/.profile ] && [ ! -f ~/.profile.old ] && mv ~/.profile ~/.profile.old
+[ -f ~/.bash_profile ] && [ ! -f ~/.bash_profile.old ] && mv ~/.bash_profile ~/.bash_profile.old
+cat << EOF > ~/.bash_profile
+# BEGIN: load .bashrc
+[[ -r ~/.bashrc ]] && source ~/.bashrc
+# END: load .bashrc
+EOF
+
+################################################################################
+# zsh                                                                          #
+################################################################################
+
+print_title "Configure zsh"
+
+# resources
+cp ./.zshrc* ~
+
+################################################################################
+# Git                                                                          #
+################################################################################
+
+print_title "Configure Git"
+
+# resources
+cp ./config/git/.git* ~
+
+# configuration
+git config --global user.name "$USER_NAME"
+git config --global user.email "$USER_EMAIL"
+git config --global push.default simple
+
+# completion
+[ -f /etc/bash_completion ] && bcpath=/etc || bcpath=/usr/local/etc
+if [ -d $bcpath/bash_completion.d ] && [ ! -f $bcpath/bash_completion.d/git-completion.bash ]; then
+    wget https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash -O $bcpath/bash_completion.d/git-completion.bash
+fi
+unset bcpath
+
+################################################################################
+# Vim                                                                          #
+################################################################################
+
+if which vim > /dev/null; then
+
+    print_title "Configure Vim"
+
+    # resources
+    mkdir -p ~/.vim
+    cp -Rf ./config/vim/{colors,plugin} ~/.vim
+    cp -f ./config/vim/.vimrc ~
+    mkdir -p ~/.vim/{autoload,bundle}
+
+    # vundle
+    if [ ! -d ~/.vim/bundle/Vundle.vim ]; then
+        git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+    else
+        (cd ~/.vim/bundle/Vundle.vim; git pull)
+    fi
+    # pathogen
+    curl -LSso ~/.vim/autoload/pathogen.vim https://raw.githubusercontent.com/tpope/vim-pathogen/master/autoload/pathogen.vim
+
+    # solarized
+    if [ ! -d ~/.vim/bundle/vim-colors-solarized ]; then
+        git clone git://github.com/altercation/vim-colors-solarized.git ~/.vim/bundle/vim-colors-solarized
+    else
+        (cd ~/.vim/bundle/vim-colors-solarized; git pull)
+    fi
+    # nerdtree
+    if [ ! -d ~/.vim/bundle/nerdtree ]; then
+        git clone https://github.com/scrooloose/nerdtree.git ~/.vim/bundle/nerdtree
+    else
+        (cd ~/.vim/bundle/nerdtree; git pull)
+    fi
+
+fi
+
+################################################################################
+# Midnight Commander                                                           #
+################################################################################
+
+if which mc > /dev/null; then
+
+    print_title "Configure Midnight Commander"
+
+    # resources
+    mkdir -p ~/.config/mc
+    cp -f ./config/mc/* ~/.config/mc
+
+fi
+
+################################################################################
+# Maven                                                                        #
+################################################################################
+
+if which mvn > /dev/null; then
+
+    print_title "Configure Maven"
+
+    # resources
+    mkdir -p ~/.m2
+    cp -f ./config/maven/settings*.xml ~/.m2
+
+fi
+
+################################################################################
+# Irssi                                                                        #
+################################################################################
+
+if which irssi > /dev/null; then
+
+    print_title "Configure Irssi"
+
+    # resources
+    mkdir -p ~/.irssi
+    cp -f ./config/irssi/config ~/.irssi
+    file_replace_str "real_name = \"\"" "real_name = \"$USER_NAME\"" ~/.irssi/config
 
 fi
 
