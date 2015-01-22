@@ -39,11 +39,34 @@ function program_synchronise {
     printf "\n"
 }
 
+function program_load_dependencies {
+
+    # shell-commons
+    [ ! -f ~/.shell-commons/shell-commons.sh ] && \
+        wget https://raw.githubusercontent.com/stefaniuk/shell-commons/master/installer.sh -O - | \
+            /bin/bash -s -- --do-not-run-tests
+    source ~/.shell-commons/shell-commons.sh
+
+    # shell-utils
+    [ ! -f ~/.shell-utils/shell-utils.sh ] && \
+        wget https://raw.githubusercontent.com/stefaniuk/shell-utils/master/installer.sh -O - | \
+            /bin/bash -s -- --do-not-run-tests
+    source ~/.shell-utils/shell-utils.sh
+
+    # shell-packages
+    [ ! -f ~/.shell-packages/shell-packages.sh ] && \
+        wget https://raw.githubusercontent.com/stefaniuk/shell-packages/master/installer.sh -O - | \
+            /bin/bash -s -- --do-not-run-tests
+    source ~/.shell-packages/shell-packages.sh
+}
+
 function program_configure {
 
     chmod +x ~/installer.sh
     chmod +x ~/bin/*
-    chmod +x ~/sbin/run_config
+
+    # run config
+    (. ~/sbin/config.sh)
 }
 
 ################################################################################
@@ -61,8 +84,10 @@ elif [[ $program_dir == */projects/$GITHUB_REPOSITORY_NAME ]]; then
 
 fi
 
+# make sure dependencies are installed and loaded
+program_load_dependencies
+
 # perform post-install configuration
 program_configure
-# run config
-~/sbin/run_config
-exit $?
+
+exit 0

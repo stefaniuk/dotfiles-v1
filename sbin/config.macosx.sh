@@ -4,7 +4,7 @@
 # bash                                                                         #
 ################################################################################
 
-print_title "Configure bash"
+print_h2 "Configure bash"
 
 _sudo file_remove_str "\n$(brew --prefix)/bin/bash" /etc/shells --multiline
 sudo bash -c "echo $(brew --prefix)/bin/bash >> /private/etc/shells"
@@ -14,7 +14,7 @@ sudo chsh -s $(brew --prefix)/bin/bash $USER
 # zsh                                                                          #
 ################################################################################
 
-print_title "Configure zsh"
+print_h2 "Configure zsh"
 
 _sudo file_remove_str "\n$(brew --prefix)/bin/zsh" /etc/shells --multiline
 sudo bash -c "echo $(brew --prefix)/bin/zsh >> /private/etc/shells"
@@ -23,7 +23,7 @@ sudo bash -c "echo $(brew --prefix)/bin/zsh >> /private/etc/shells"
 # iTerm                                                                        #
 ################################################################################
 
-print_title "Configure iTerm"
+print_h2 "Configure iTerm"
 
 cp -f ./config/iterm/com.googlecode.iterm2.plist ~/Library/Preferences
 
@@ -31,7 +31,7 @@ cp -f ./config/iterm/com.googlecode.iterm2.plist ~/Library/Preferences
 # Sublime Text                                                                 #
 ################################################################################
 
-print_title "Configure Sublime Text"
+print_h2 "Configure Sublime Text"
 
 mkdir -p ~/Library/Application\ Support/Sublime\ Text\ 3/{Installed\ Packages,Packages/User}
 # install package control plug-in
@@ -49,19 +49,19 @@ cp -f ./config/sublime/* ~/Library/Application\ Support/Sublime\ Text\ 3/Package
 # Seil                                                                         #
 ################################################################################
 
-print_title "Configure Seil"
+print_h2 "Configure Seil"
 
 /Applications/Seil.app/Contents/Library/bin/seil set keycode_capslock 80
-print_info "1) Open 'System Preferences > Keyboard > Keyboard > Modifier Keys...' and"
-print_info "   change 'Caps Lock Key' configuration to 'No Action' to reduce delay."
-print_info "2) Open 'Seil > Setting > Change the caps lock key' and "
-print_info "   check 'Change the caps lock key' box."
+print_h3 "1) Open 'System Preferences > Keyboard > Keyboard > Modifier Keys...' and"
+print_h3 "   change 'Caps Lock Key' configuration to 'No Action' to reduce delay."
+print_h3 "2) Open 'Seil > Setting > Change the caps lock key' and "
+print_h3 "   check 'Change the caps lock key' box."
 
 ################################################################################
 # Karabiner                                                                    #
 ################################################################################
 
-print_title "Configure Karabiner"
+print_h2 "Configure Karabiner"
 
 cat << EOF > /Users/daniel/Library/Application\ Support/Karabiner/private.xml
 <?xml version="1.0"?>
@@ -130,7 +130,7 @@ EOF
 # defaults                                                                     #
 ################################################################################
 
-print_title "Set defaults"
+print_h2 "Set defaults"
 
 # link SDK's include directory to /usr/include
 ver=$(echo $VERSION | grep -oE '[0-9]+\.[0-9]+')
