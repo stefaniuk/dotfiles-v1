@@ -8,11 +8,11 @@ export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 #### dependencies ##############################################################
 
 source ~/.shell-commons/shell-commons.sh 2> /dev/null
-source /usr/local/shell-commons/shell-commons.sh 2> /dev/null
+[ $? != 0 ] && source /usr/local/shell-commons/shell-commons.sh 2> /dev/null
 source ~/.shell-utils/shell-utils.sh 2> /dev/null
-source /usr/local/shell-utils/shell-utils.sh 2> /dev/null
+[ $? != 0 ] && source /usr/local/shell-utils/shell-utils.sh 2> /dev/null
 source ~/.shell-packages/shell-packages.sh 2> /dev/null
-source /usr/local/shell-packages/shell-packages.sh 2> /dev/null
+[ $? != 0 ] && source /usr/local/shell-packages/shell-packages.sh 2> /dev/null
 
 #### configuration #############################################################
 

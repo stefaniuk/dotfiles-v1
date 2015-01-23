@@ -15,6 +15,8 @@ if [ "$DIST" != "macosx" ] && [ "$DIST" != "ubuntu" ]; then
     exit 2
 fi
 
+########################################################################################################################
+
 # install components
 if [ "$DIST" == "macosx" ]; then
 
@@ -38,13 +40,17 @@ elif [ "$DIST" == "ubuntu" ]; then
 fi
 
 # install Oh My Zsh
+print_h1 "Installing Oh My Zsh..."
 if [ ! -f ~/.oh-my-zsh/oh-my-zsh.sh ]; then
-    print_h1 "Installing Oh My Zsh..."
     rm -rf ~/{.oh-my-zsh,.zcompdump-*,.zlogin,.zsh*}
     git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
     cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
     #sudo chsh -s /bin/zsh $USER
+elif [ -d ~/.oh-my-zsh/.git ]; then
+    (cd ~/.oh-my-zsh; git pull)
 fi
+
+########################################################################################################################
 
 print_h1 "Configuring components..."
 
@@ -54,7 +60,7 @@ print_h1 "Configuring components..."
 print_h2 "Configure Bash"
 
 # resources
-cp -fv ~/etc/bash/.bash* ~
+cp -f ~/etc/bash/.bash* ~
 file_replace_str "USER_NAME=\"unknown\"" "USER_NAME=\"$USER_NAME\"" ~/.bash_exports
 file_replace_str "USER_EMAIL=\"unknown\"" "USER_EMAIL=\"$USER_EMAIL\"" ~/.bash_exports
 
@@ -73,7 +79,7 @@ EOF
 print_h2 "Configure Zsh"
 
 # resources
-cp -fv ~/etc/zsh/.zsh* ~
+cp -f ~/etc/zsh/.zsh* ~
 
 ################################################################################
 # Git
@@ -81,7 +87,7 @@ cp -fv ~/etc/zsh/.zsh* ~
 print_h2 "Configure Git"
 
 # resources
-cp -fv ~/etc/git/.git* ~
+cp -f ~/etc/git/.git* ~
 
 # configuration
 git config --global user.name "$USER_NAME"
@@ -95,11 +101,8 @@ if [ -d $bcpath/bash_completion.d ] && [ ! -f $bcpath/bash_completion.d/git-comp
 fi
 unset bcpath
 
-exit 0
-
 ################################################################################
-# Vim                                                                          #
-################################################################################
+# Vim
 
 if which vim > /dev/null; then
 
@@ -107,8 +110,8 @@ if which vim > /dev/null; then
 
     # resources
     mkdir -p ~/.vim
-    cp -Rf ./config/vim/{colors,plugin} ~/.vim
-    cp -f ./config/vim/.vimrc ~
+    cp -Rf ~/etc/vim/{colors,plugin} ~/.vim
+    cp -f ~/etc/vim/.vimrc ~
     mkdir -p ~/.vim/{autoload,bundle}
 
     # vundle
@@ -136,8 +139,7 @@ if which vim > /dev/null; then
 fi
 
 ################################################################################
-# Midnight Commander                                                           #
-################################################################################
+# Midnight Commander
 
 if which mc > /dev/null; then
 
@@ -145,13 +147,12 @@ if which mc > /dev/null; then
 
     # resources
     mkdir -p ~/.config/mc
-    cp -f ./config/mc/* ~/.config/mc
+    cp -f ~/etc/mc/* ~/.config/mc
 
 fi
 
 ################################################################################
-# Maven                                                                        #
-################################################################################
+# Maven
 
 if which mvn > /dev/null; then
 
@@ -159,13 +160,12 @@ if which mvn > /dev/null; then
 
     # resources
     mkdir -p ~/.m2
-    cp -f ./config/maven/settings*.xml ~/.m2
+    cp -f ~/etc/maven/settings*.xml ~/.m2
 
 fi
 
 ################################################################################
-# Irssi                                                                        #
-################################################################################
+# Irssi
 
 if which irssi > /dev/null; then
 
@@ -173,12 +173,12 @@ if which irssi > /dev/null; then
 
     # resources
     mkdir -p ~/.irssi
-    cp -f ./config/irssi/config ~/.irssi
+    cp -f ~/etc/irssi/config ~/.irssi
     file_replace_str "real_name = \"\"" "real_name = \"$USER_NAME\"" ~/.irssi/config
 
 fi
 
-################################################################################
+########################################################################################################################
 
 #if [ -z "$arg_common_only" ]; then
 
@@ -189,51 +189,60 @@ fi
 
 #fi
 
+########################################################################################################################
 
-################################################################################
+if [ -n "$(echo "$*"  | grep -o -- "--dev-repos")" ]; then
 
-mkdir -p ~/projects
-# install dotfiles repository
-print_h1 "Installing dotfiles repository..."
-if [ ! -d ~/projects/dotfiles ]; then
-    git clone https://github.com/stefaniuk/dotfiles.git ~/projects/dotfiles
-else
-    (cd ~/projects/dotfiles; git pull)
-fi
-# install terminal commands repository
-print_h1 "Installing terminal commands repository..."
-if [ ! -d ~/projects/commands ]; then
-    git clone https://github.com/stefaniuk/commands.git ~/projects/commands
-else
-    (cd ~/projects/commands; git pull)
-fi
-# install keyboard shortcuts repository
-print_h1 "Installing keyboard shortcuts repository..."
-if [ ! -d ~/projects/shortcuts ]; then
-    git clone https://github.com/stefaniuk/shortcuts.git ~/projects/shortcuts
-else
-    (cd ~/projects/shortcuts; git pull)
-fi
-# install shell commons repository
-print_h1 "Installing shell commons repository..."
-if [ ! -d ~/projects/shell-commons ]; then
-    git clone https://github.com/stefaniuk/shell-commons.git ~/projects/shell-commons
-else
-    (cd ~/projects/shell-commons; git pull)
-fi
-# install shell utils repository
-print_h1 "Installing shell utils repository..."
-if [ ! -d ~/projects/shell-utils ]; then
-    git clone https://github.com/stefaniuk/shell-utils.git ~/projects/shell-utils
-else
-    (cd ~/projects/shell-utils; git pull)
-fi
-# install shell packages repository
-print_h1 "Installing shell packages repository..."
-if [ ! -d ~/projects/shell-packages ]; then
-    git clone https://github.com/stefaniuk/shell-packages.git ~/projects/shell-packages
-else
-    (cd ~/projects/shell-packages; git pull)
+    mkdir -p ~/projects
+
+    # install dotfiles repository
+    print_h1 "Installing dotfiles repository..."
+    if [ ! -d ~/projects/dotfiles ]; then
+        git clone https://github.com/stefaniuk/dotfiles.git ~/projects/dotfiles
+    else
+        (cd ~/projects/dotfiles; git pull)
+    fi
+
+    # install terminal commands repository
+    print_h1 "Installing terminal commands repository..."
+    if [ ! -d ~/projects/commands ]; then
+        git clone https://github.com/stefaniuk/commands.git ~/projects/commands
+    else
+        (cd ~/projects/commands; git pull)
+    fi
+
+    # install keyboard shortcuts repository
+    print_h1 "Installing keyboard shortcuts repository..."
+    if [ ! -d ~/projects/shortcuts ]; then
+        git clone https://github.com/stefaniuk/shortcuts.git ~/projects/shortcuts
+    else
+        (cd ~/projects/shortcuts; git pull)
+    fi
+
+    # install shell commons repository
+    print_h1 "Installing shell commons repository..."
+    if [ ! -d ~/projects/shell-commons ]; then
+        git clone https://github.com/stefaniuk/shell-commons.git ~/projects/shell-commons
+    else
+        (cd ~/projects/shell-commons; git pull)
+    fi
+
+    # install shell utils repository
+    print_h1 "Installing shell utils repository..."
+    if [ ! -d ~/projects/shell-utils ]; then
+        git clone https://github.com/stefaniuk/shell-utils.git ~/projects/shell-utils
+    else
+        (cd ~/projects/shell-utils; git pull)
+    fi
+
+    # install shell packages repository
+    print_h1 "Installing shell packages repository..."
+    if [ ! -d ~/projects/shell-packages ]; then
+        git clone https://github.com/stefaniuk/shell-packages.git ~/projects/shell-packages
+    else
+        (cd ~/projects/shell-packages; git pull)
+    fi
+
 fi
 
 exit 0

@@ -66,7 +66,7 @@ function program_configure {
     chmod +x ~/bin/*
 
     # run config
-    (. ~/sbin/config.sh)
+    (. ~/sbin/config.sh $*)
 }
 
 ################################################################################
@@ -88,6 +88,6 @@ fi
 program_load_dependencies
 
 # perform post-install configuration
-program_configure
+program_configure $*
 
 exit 0
