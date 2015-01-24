@@ -1,0 +1,37 @@
+#!/bin/bash
+
+# define help
+help=$(cat <<HEREDOC
+
+    DESCRIPTION: Show shortcuts.
+
+    PARAMETERS:
+        \$1 program
+HEREDOC
+)
+
+# check parameters
+if [ "$1" == "--help" ]; then
+    echo -e "${help}\n"
+    exit 0
+fi
+
+if [ "$1" == "-l" ] || [ "$1" == "--list" ] || [ "$1" == "-h" ] || [ "$1" == "--help" ]; then
+    \ls -1 ~/man/shortcuts | \
+        sed 's/\.md//g'
+    exit 0
+fi
+
+prog="${1:-general}"
+desc="${2:-xxx}"
+for file in $(\ls -1 ~/man/shortcuts/*${prog}*.md 2> /dev/null); do
+    echo
+    cat $file | \
+        sed "s/^#### /`printf "${bold}${white}"`#### /g" | \
+        sed "s/^##### /`printf "${blue}"`##### /g" | \
+        sed ":a;N;\$!ba;s/\n/${reset}\n/g" | \
+        egrep --color -i "${desc}|$"
+    echo
+done
+
+exit 0
