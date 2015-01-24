@@ -12,7 +12,9 @@ All files will be installed in the user directory
     USER_EMAIL="your.name@mail.com"
     wget https://raw.githubusercontent.com/stefaniuk/dotfiles/master/installer.sh -O - | /bin/bash -s -- \
         --update-system \
-        --update-packages
+        --update-packages \
+        --skip-selected-tests \
+        --clone-development-repositories
 
 TODO list
 ---------

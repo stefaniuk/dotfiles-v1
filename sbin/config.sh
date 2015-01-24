@@ -2,7 +2,10 @@
 
 arg_update_system=$(echo "$*"  | grep -o -- "--update-system")
 arg_update_packages=$(echo "$*"  | grep -o -- "--update-packages")
-arg_clone_repositories=$(echo "$*"  | grep -o -- "--clone-repositories")
+arg_do_not_run_tests=$(echo "$*"  | grep -o -- "--do-not-run-tests")
+arg_skip_selected_tests=$(echo "$*"  | grep -o -- "--skip-selected-tests")
+arg_ignore_tests=$(echo "$*"  | grep -o -- "--ignore-tests")
+arg_clone_dev_repos=$(echo "$*"  | grep -o -- "--clone-development-repositories")
 
 ########################################################################################################################
 
@@ -107,6 +110,31 @@ if [ ! -f ~/.oh-my-zsh/oh-my-zsh.sh ]; then
     #sudo chsh -s /bin/zsh $USER
 elif [ -d ~/.oh-my-zsh/.git ]; then
     (cd ~/.oh-my-zsh; git pull)
+fi
+
+########################################################################################################################
+
+# test shell-* projects
+if [ -z "$arg_do_not_run_tests" ]; then
+
+    # shell-commons
+    print_h1 "\nshell-commons\n"
+    $SHELL_COMMONS_HOME_DIR/sbin/run_tests "$arg_skip_selected_tests"
+    result=$?
+    [ -z "$arg_ignore_tests" ] && [ $result != 0 ] && exit $result
+
+    # shell-utils
+    print_h1 "shell-utils\n"
+    $SHELL_UTILS_HOME_DIR/sbin/run_tests "$arg_skip_selected_tests"
+    result=$?
+    [ -z "$arg_ignore_tests" ] && [ $result != 0 ] && exit $result
+
+    # shell-packages
+    print_h1 "shell-packages\n"
+    $SHELL_PACKAGES_HOME_DIR/sbin/run_tests "$arg_skip_selected_tests"
+    result=$?
+    [ -z "$arg_ignore_tests" ] && [ $result != 0 ] && exit $result
+
 fi
 
 ########################################################################################################################
@@ -250,7 +278,7 @@ fi
 
 ########################################################################################################################
 
-if [ -n "$arg_clone_repositories" ]; then
+if [ -n "$arg_clone_dev_repos" ]; then
 
     mkdir -p ~/projects
 

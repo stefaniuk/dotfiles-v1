@@ -42,18 +42,24 @@ function program_synchronise {
 function program_load_dependencies {
 
     # shell-commons
+    [ -f ~/projects/shell-commons/installer.sh ] && \
+        ~/projects/shell-commons/installer.sh --do-not-run-tests
     [ ! -f ~/.shell-commons/shell-commons.sh ] && \
         wget https://raw.githubusercontent.com/stefaniuk/shell-commons/master/installer.sh -O - | \
             /bin/bash -s -- --do-not-run-tests
     source ~/.shell-commons/shell-commons.sh
 
     # shell-utils
+    [ -f ~/projects/shell-utils/installer.sh ] && \
+        ~/projects/shell-utils/installer.sh --do-not-run-tests
     [ ! -f ~/.shell-utils/shell-utils.sh ] && \
         wget https://raw.githubusercontent.com/stefaniuk/shell-utils/master/installer.sh -O - | \
             /bin/bash -s -- --do-not-run-tests
     source ~/.shell-utils/shell-utils.sh
 
     # shell-packages
+    [ -f ~/projects/shell-packages/installer.sh ] && \
+        ~/projects/shell-packages/installer.sh --do-not-run-tests
     [ ! -f ~/.shell-packages/shell-packages.sh ] && \
         wget https://raw.githubusercontent.com/stefaniuk/shell-packages/master/installer.sh -O - | \
             /bin/bash -s -- --do-not-run-tests
@@ -84,6 +90,7 @@ elif [[ $program_dir == */projects/$GITHUB_REPOSITORY_NAME ]]; then
     # synchronise with project
     program_synchronise
 
+    args="--skip-selected-tests"
 fi
 
 # make sure dependencies are installed and loaded
@@ -93,7 +100,10 @@ program_load_dependencies
 # flags:
 #       --update-system
 #       --update-packages
-#       --clone-repositories
-program_configure $*
+#       --do-not-run-tests
+#       --skip-selected-tests
+#       --ignore-tests
+#       --clone-development-repositories
+program_configure $* $args
 
 exit 0
