@@ -1,5 +1,11 @@
 #!/bin/bash
 
+arg_update_system=$(echo "$*"  | grep -o -- "--update-system")
+arg_update_packages=$(echo "$*"  | grep -o -- "--update-packages")
+arg_clone_repositories=$(echo "$*"  | grep -o -- "--clone-repositories")
+
+########################################################################################################################
+
 # check internet connection
 print_h1 "Checking internet connection..."
 wget --quiet --timeout=10 --tries=3 --spider "https://google.com"
@@ -20,22 +26,75 @@ fi
 # install components
 if [ "$DIST" == "macosx" ]; then
 
+    if [ -n "$arg_update_system" ]; then
+        sudo softwareupdate --install -all
+    fi
+    if ! which brew > /dev/null; then
+        print_h1 "Installing brew..."
+        ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+        brew tap homebrew/dupes
+    fi
     print_h1 "Installing components via brew..."
     brew install \
+        ack \
+        bash \
         bash-completion \
+        binutils \
+        coreutils \
+        curl \
+        gcc \
         git \
         grc \
         irssi \
+        lynx \
+        makedepend \
+        mc \
+        pcre \
+        screen \
+        tmux \
+        tree \
+        vim \
+        wget \
+        zsh \
         2> /dev/null
+    brew linkapps > /dev/null
+    if [ -n "$arg_update_packages" ]; then
+        brew upgrade
+    fi
 
 elif [ "$DIST" == "ubuntu" ]; then
 
+    DEBIAN_FRONTEND="noninteractive"
+    if [ -n "$arg_update_system" ]; then
+        apt-get --yes --force-yes upgrade
+        apt-get -o Dpkg::Options::="--force-confnew" --force-yes -fuy dist-upgrade
+    fi
+    if [ -n "$arg_update_packages" ]; then
+        apt-get --yes update
+    fi
     print_h1 "Installing components via apt-get..."
     apt-get --yes --force-yes --ignore-missing --no-install-recommends install \
+        ack-grep \
         bash-completion \
+        build-essential \
+        curl \
+        debconf-utils \
+        expect \
         git \
         grc \
-        irssi
+        irssi \
+        lynx \
+        mc \
+        pcregrep \
+        screen \
+        tmux \
+        tree \
+        unzip \
+        vim \
+        wget \
+        zsh
+    apt-get --yes --force-yes autoremove
+    apt-get clean
 
 fi
 
@@ -191,33 +250,9 @@ fi
 
 ########################################################################################################################
 
-if [ -n "$(echo "$*"  | grep -o -- "--clone-github-repositories")" ]; then
+if [ -n "$arg_clone_repositories" ]; then
 
     mkdir -p ~/projects
-
-    # install dotfiles repository
-    print_h1 "Installing dotfiles repository..."
-    if [ ! -d ~/projects/dotfiles ]; then
-        git clone https://github.com/stefaniuk/dotfiles.git ~/projects/dotfiles
-    else
-        (cd ~/projects/dotfiles; git pull)
-    fi
-
-    # install terminal commands repository
-    print_h1 "Installing terminal commands repository..."
-    if [ ! -d ~/projects/commands ]; then
-        git clone https://github.com/stefaniuk/commands.git ~/projects/commands
-    else
-        (cd ~/projects/commands; git pull)
-    fi
-
-    # install keyboard shortcuts repository
-    print_h1 "Installing keyboard shortcuts repository..."
-    if [ ! -d ~/projects/shortcuts ]; then
-        git clone https://github.com/stefaniuk/shortcuts.git ~/projects/shortcuts
-    else
-        (cd ~/projects/shortcuts; git pull)
-    fi
 
     # install shell commons repository
     print_h1 "Installing shell commons repository..."
@@ -241,6 +276,14 @@ if [ -n "$(echo "$*"  | grep -o -- "--clone-github-repositories")" ]; then
         git clone https://github.com/stefaniuk/shell-packages.git ~/projects/shell-packages
     else
         (cd ~/projects/shell-packages; git pull)
+    fi
+
+    # install dotfiles repository
+    print_h1 "Installing dotfiles repository..."
+    if [ ! -d ~/projects/dotfiles ]; then
+        git clone https://github.com/stefaniuk/dotfiles.git ~/projects/dotfiles
+    else
+        (cd ~/projects/dotfiles; git pull)
     fi
 
 fi

@@ -90,6 +90,10 @@ fi
 program_load_dependencies
 
 # perform post-install configuration
+# flags:
+#       --update-system
+#       --update-packages
+#       --clone-repositories
 program_configure $*
 
 exit 0
