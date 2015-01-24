@@ -1,0 +1,27 @@
+#!/bin/bash
+
+# define help
+help=$(cat <<HEREDOC
+
+    DESCRIPTION: \`tre\` is an improved \`tree\` for a developer.
+
+    PARAMETERS:
+        \$1 directory (optional)
+HEREDOC
+)
+
+# check parameters
+if [ "$1" == "--help" ]; then
+    echo -e "${help}\n"
+    exit 0
+fi
+
+tree -aC -I "
+    |.git*|README*|LICENCE*|LICENSE*|
+    |.classpath|.project|.settings|target|
+    |vendor|*_*.po|*_*.mo|
+    |bower_components|node_modules|
+    |*.lock|*.tmp|*.bak|*.old" \
+    --dirsfirst "$@" | less -FRNX
+
+exit 0

@@ -1,0 +1,30 @@
+#!/bin/bash
+
+# define help
+help=$(cat <<HEREDOC
+
+    DESCRIPTION: Determine size of a file or total size of a directory.
+
+    PARAMETERS:
+        \$1 directory (optional)
+HEREDOC
+)
+
+# check parameters
+if [ "$1" == "--help" ]; then
+    echo -e "${help}\n"
+    exit 0
+fi
+
+if du -b /dev/null > /dev/null 2>&1; then
+    arg="-sbh"
+else
+    arg="-sh"
+fi
+if [[ -n "$@" ]]; then
+    du $arg -- "$@"
+else
+    du $arg .[^.]* *
+fi
+
+exit 0

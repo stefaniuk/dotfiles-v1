@@ -3,7 +3,11 @@
 # define help
 help=$(cat <<HEREDOC
 
-    DESCRIPTION: Start Sublime Text editor.
+    DESCRIPTION: Use coloured \`git diff\`.
+
+    PARAMETERS:
+        \$1 directory
+        \$2 directory
 HEREDOC
 )
 
@@ -13,6 +17,6 @@ if [ "$1" == "--help" ]; then
     exit 0
 fi
 
-/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl -a "$@"
+git diff --no-index --color-words "$@"
 
 exit 0

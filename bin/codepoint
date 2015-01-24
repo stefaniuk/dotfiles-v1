@@ -1,0 +1,37 @@
+#!/bin/bash
+
+# define help
+help=$(cat <<HEREDOC
+
+    DESCRIPTION: Get unicode code point of a character.
+
+    PARAMETERS:
+        \$1 string
+
+    EXAMPLES:
+        codepoint "data"
+        echo "data" | codepoint
+HEREDOC
+)
+
+# check parameters
+if [ "$1" == "--help" ]; then
+    echo -e "${help}\n"
+    exit 0
+fi
+
+# get parameters
+data="$@"
+
+# read from stdin
+if [ -z "$data" ]; then
+    data=`cat`
+fi
+
+perl -e "use utf8; print sprintf('U+%04X', ord(\"$data\"))"
+# print new line unless we're piping output to another program
+if [[ -t 1 ]]; then
+    echo ""
+fi
+
+exit 0

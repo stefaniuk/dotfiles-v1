@@ -1,0 +1,25 @@
+#!/bin/bash
+
+# define help
+help=$(cat <<HEREDOC
+
+    DESCRIPTION: Get base64 data url of a file.
+
+    PARAMETERS:
+        \$1 file
+HEREDOC
+)
+
+# check parameters
+if [ "$1" == "--help" ]; then
+    echo -e "${help}\n"
+    exit 0
+fi
+
+mt=$(file -b --mime-type "$1")
+if [[ $mt == text/* ]]; then
+    mt="${mt};charset=utf-8"
+fi
+echo "data:${mt};base64,$(openssl base64 -in "$1" | tr -d '\n')"
+
+exit 0

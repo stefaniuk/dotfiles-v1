@@ -62,6 +62,8 @@ function program_load_dependencies {
 
 function program_configure {
 
+    rm ~/README.md
+    rm ~/LICENCE
     chmod +x ~/installer.sh
     chmod +x ~/bin/*
 

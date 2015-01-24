@@ -3,7 +3,10 @@
 # define help
 help=$(cat <<HEREDOC
 
-    DESCRIPTION: Start Sublime Text editor.
+    DESCRIPTION: Open directory in Vim editor.
+
+    PARAMETERS:
+        \$1 directory (optional)
 HEREDOC
 )
 
@@ -13,6 +16,10 @@ if [ "$1" == "--help" ]; then
     exit 0
 fi
 
-/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl -a "$@"
+if [[ $# -eq 0 ]]; then
+    vim .
+else
+    vim "$@"
+fi
 
 exit 0

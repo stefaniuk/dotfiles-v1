@@ -1,0 +1,25 @@
+#!/bin/bash
+
+# define help
+help=$(cat <<HEREDOC
+
+    DESCRIPTION: Open web page in Lynx browser.
+
+    PARAMETERS:
+        \$1 URL address (optional)
+HEREDOC
+)
+
+# check parameters
+if [ "$1" == "--help" ]; then
+    echo -e "${help}\n"
+    exit 0
+fi
+
+if [[ $# -eq 0 ]]; then
+    lynx "https://google.co.uk/"
+else
+    lynx "$@"
+fi
+
+exit 0
