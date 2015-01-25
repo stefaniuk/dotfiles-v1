@@ -123,19 +123,19 @@ if [ -z "$arg_do_not_run_tests" ]; then
 
     # shell-commons
     print_h1 "\nshell-commons\n"
-    $SHELL_COMMONS_HOME_DIR/sbin/run_tests "$arg_skip_selected_tests"
+    $SHELL_COMMONS_HOME_DIR/sbin/run_tests $arg_skip_selected_tests
     result=$?
     [ -z "$arg_ignore_tests" ] && [ $result != 0 ] && exit $result
 
     # shell-utils
     print_h1 "shell-utils\n"
-    $SHELL_UTILS_HOME_DIR/sbin/run_tests "$arg_skip_selected_tests"
+    $SHELL_UTILS_HOME_DIR/sbin/run_tests $arg_skip_selected_tests
     result=$?
     [ -z "$arg_ignore_tests" ] && [ $result != 0 ] && exit $result
 
     # shell-packages
     print_h1 "shell-packages\n"
-    $SHELL_PACKAGES_HOME_DIR/sbin/run_tests "$arg_skip_selected_tests"
+    $SHELL_PACKAGES_HOME_DIR/sbin/run_tests $arg_skip_selected_tests
     result=$?
     [ -z "$arg_ignore_tests" ] && [ $result != 0 ] && exit $result
 
