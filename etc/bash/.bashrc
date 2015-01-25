@@ -38,12 +38,32 @@ unset file
 
 #### path ######################################################################
 
-# configure gradle
+# configure Ant
+if [ -d $SHELL_PACKAGES_HOME_DIR/opt/ant/current ]; then
+    export ANT_HOME=$SHELL_PACKAGES_HOME_DIR/opt/ant/current
+    export PATH=$ANT_HOME/bin:$PATH
+fi
+# configure Maven
+if [ -d $SHELL_PACKAGES_HOME_DIR/opt/maven/current ]; then
+    export M2_HOME=$SHELL_PACKAGES_HOME_DIR/opt/maven/current
+    export PATH=$M2_HOME/bin:$PATH
+fi
+# configure Spring Boot CLI
+if [ -d $SHELL_PACKAGES_HOME_DIR/opt/spring/current ]; then
+    export SPRING_HOME=$SHELL_PACKAGES_HOME_DIR/opt/spring/current
+    export PATH=$SPRING_HOME/bin:$PATH
+fi
+# configure Gradle
 if [ -d $SHELL_PACKAGES_HOME_DIR/opt/gradle/current ]; then
     export GRADLE_HOME=$SHELL_PACKAGES_HOME_DIR/opt/gradle/current
     export PATH=$GRADLE_HOME/bin:$PATH
 fi
-# configure java
+# configure Groovy
+if [ -d $SHELL_PACKAGES_HOME_DIR/opt/groovy/current ]; then
+    export GROOVY_HOME=$SHELL_PACKAGES_HOME_DIR/opt/groovy/current
+    export PATH=$GROOVY_HOME/bin:$PATH
+fi
+# configure Java JDK
 if [ -d $SHELL_PACKAGES_HOME_DIR/opt/jdk/current ]; then
     export JAVA_HOME=$SHELL_PACKAGES_HOME_DIR/opt/jdk/current
     export PATH=$JAVA_HOME/bin:$PATH
