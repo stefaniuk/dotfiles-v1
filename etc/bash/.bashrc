@@ -38,3 +38,11 @@ unset file
 
 # make sure PATH variable includes `bin` directory
 export PATH=~/bin:$PATH
+
+#### custom ####################################################################
+
+# configure java
+if [ -d $SHELL_PACKAGES_HOME_DIR/opt/jdk/current ]; then
+    export JAVA_HOME=$SHELL_PACKAGES_HOME_DIR/opt/jdk/current
+    export PATH=$JAVA_HOME/bin:$PATH
+fi
