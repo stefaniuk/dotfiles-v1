@@ -42,27 +42,30 @@ function program_synchronise {
 function program_load_dependencies {
 
     # shell-commons
-    [ -f ~/projects/shell-commons/installer.sh ] && \
+    if [ -f ~/projects/shell-commons/installer.sh ]; then
         ~/projects/shell-commons/installer.sh --do-not-run-tests
-    [ ! -f ~/.shell-commons/shell-commons.sh ] && \
+    else
         wget https://raw.githubusercontent.com/stefaniuk/shell-commons/master/installer.sh -O - | \
             /bin/bash -s -- --do-not-run-tests
+    fi
     source ~/.shell-commons/shell-commons.sh
 
     # shell-utils
-    [ -f ~/projects/shell-utils/installer.sh ] && \
+    if [ -f ~/projects/shell-utils/installer.sh ]; then
         ~/projects/shell-utils/installer.sh --do-not-run-tests
-    [ ! -f ~/.shell-utils/shell-utils.sh ] && \
+    else
         wget https://raw.githubusercontent.com/stefaniuk/shell-utils/master/installer.sh -O - | \
             /bin/bash -s -- --do-not-run-tests
+    fi
     source ~/.shell-utils/shell-utils.sh
 
     # shell-packages
-    [ -f ~/projects/shell-packages/installer.sh ] && \
+    if [ -f ~/projects/shell-packages/installer.sh ]; then
         ~/projects/shell-packages/installer.sh --do-not-run-tests
-    [ ! -f ~/.shell-packages/shell-packages.sh ] && \
+    else
         wget https://raw.githubusercontent.com/stefaniuk/shell-packages/master/installer.sh -O - | \
             /bin/bash -s -- --do-not-run-tests
+    fi
     source ~/.shell-packages/shell-packages.sh
 }
 
