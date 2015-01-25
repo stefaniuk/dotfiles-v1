@@ -30,6 +30,7 @@ fi
 if [ "$DIST" == "macosx" ]; then
 
     if [ -n "$arg_update_system" ]; then
+        print_h1 "Upgrading OS..."
         sudo softwareupdate --install -all
     fi
     if ! which brew > /dev/null; then
@@ -62,6 +63,7 @@ if [ "$DIST" == "macosx" ]; then
         2> /dev/null
     brew linkapps > /dev/null
     if [ -n "$arg_update_packages" ]; then
+        print_h1 "Updating packages..."
         brew upgrade
     fi
 
@@ -69,10 +71,12 @@ elif [ "$DIST" == "ubuntu" ]; then
 
     DEBIAN_FRONTEND="noninteractive"
     if [ -n "$arg_update_system" ]; then
+        print_h1 "Upgrading OS..."
         apt-get --yes --force-yes upgrade
         apt-get -o Dpkg::Options::="--force-confnew" --force-yes -fuy dist-upgrade
     fi
     if [ -n "$arg_update_packages" ]; then
+        print_h1 "Updating packages..."
         apt-get --yes update
     fi
     print_h1 "Installing components via apt-get..."
