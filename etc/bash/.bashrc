@@ -36,13 +36,17 @@ for file in ~/.{path,bashrc.*,bash_prompt,bash_exports*,bash_functions*,bash_ali
 done
 unset file
 
-# make sure PATH variable includes `bin` directory
-export PATH=~/bin:$PATH
+#### path ######################################################################
 
-#### custom ####################################################################
-
+# configure gradle
+if [ -d $SHELL_PACKAGES_HOME_DIR/opt/gradle/current ]; then
+    export GRADLE_HOME=$SHELL_PACKAGES_HOME_DIR/opt/gradle/current
+    export PATH=$GRADLE_HOME/bin:$PATH
+fi
 # configure java
 if [ -d $SHELL_PACKAGES_HOME_DIR/opt/jdk/current ]; then
     export JAVA_HOME=$SHELL_PACKAGES_HOME_DIR/opt/jdk/current
     export PATH=$JAVA_HOME/bin:$PATH
 fi
+# make sure PATH variable includes `bin` directory
+export PATH=~/bin:$PATH
