@@ -274,9 +274,8 @@ fi
 #if [ -z "$arg_common_only" ]; then
 
     # configure distribution specific components
-    #print_h1 "Configuring distribution specific components..."
-    #(. ./bin/config.$DIST.sh)
-    #[ $? != 0 ] && exit 7
+    print_h1 "Configuring distribution specific components..."
+    (. ~/sbin/config.$DIST.sh $*)
 
 #fi
 
