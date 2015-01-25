@@ -72,15 +72,15 @@ elif [ "$DIST" == "ubuntu" ]; then
     DEBIAN_FRONTEND="noninteractive"
     if [ -n "$arg_update_system" ]; then
         print_h1 "Upgrading OS..."
-        apt-get --yes --force-yes upgrade
-        apt-get -o Dpkg::Options::="--force-confnew" --force-yes -fuy dist-upgrade
+        sudo apt-get --yes --force-yes upgrade
+        sudo apt-get -o Dpkg::Options::="--force-confnew" --force-yes -fuy dist-upgrade
     fi
     if [ -n "$arg_update_packages" ]; then
         print_h1 "Updating packages..."
-        apt-get --yes update
+        sudo apt-get --yes update
     fi
     print_h1 "Installing components via apt-get..."
-    apt-get --yes --force-yes --ignore-missing --no-install-recommends install \
+    sudo apt-get --yes --force-yes --ignore-missing --no-install-recommends install \
         ack-grep \
         bash-completion \
         build-essential \
@@ -100,8 +100,8 @@ elif [ "$DIST" == "ubuntu" ]; then
         vim \
         wget \
         zsh
-    apt-get --yes --force-yes autoremove
-    apt-get clean
+    sudo apt-get --yes --force-yes autoremove
+    sudo apt-get clean
 
 fi
 
