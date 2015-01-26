@@ -283,10 +283,12 @@ fi
 
 if [ -n "$arg_clone_dev_repos" ]; then
 
+    print_h1 "Installing repository..."
+
     mkdir -p ~/projects
 
     # install shell commons repository
-    print_h1 "Installing shell commons repository..."
+    print_h2 "Install shell-commons"
     if [ ! -d ~/projects/shell-commons ]; then
         git clone https://github.com/stefaniuk/shell-commons.git ~/projects/shell-commons
     else
@@ -294,7 +296,7 @@ if [ -n "$arg_clone_dev_repos" ]; then
     fi
 
     # install shell utils repository
-    print_h1 "Installing shell utils repository..."
+    print_h2 "Install shell-utils"
     if [ ! -d ~/projects/shell-utils ]; then
         git clone https://github.com/stefaniuk/shell-utils.git ~/projects/shell-utils
     else
@@ -302,7 +304,7 @@ if [ -n "$arg_clone_dev_repos" ]; then
     fi
 
     # install shell packages repository
-    print_h1 "Installing shell packages repository..."
+    print_h2 "Install shell-packages"
     if [ ! -d ~/projects/shell-packages ]; then
         git clone https://github.com/stefaniuk/shell-packages.git ~/projects/shell-packages
     else
@@ -310,7 +312,7 @@ if [ -n "$arg_clone_dev_repos" ]; then
     fi
 
     # install dotfiles repository
-    print_h1 "Installing dotfiles repository..."
+    print_h2 "Install dotfiles"
     if [ ! -d ~/projects/dotfiles ]; then
         git clone https://github.com/stefaniuk/dotfiles.git ~/projects/dotfiles
     else
