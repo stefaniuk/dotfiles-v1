@@ -74,4 +74,4 @@ if [ -d $SHELL_PACKAGES_HOME_DIR/opt/jdk/current ]; then
     export PATH=$JAVA_HOME/bin:$PATH
 fi
 # make sure PATH variable includes `bin` directory
-export PATH=~/bin:$PATH
+export PATH=$PATH:~/bin
