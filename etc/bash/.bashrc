@@ -38,6 +38,11 @@ unset file
 
 #### path ######################################################################
 
+# configure Android SDK
+if [ -d $SHELL_PACKAGES_HOME_DIR/opt/android-sdk/current ]; then
+    export ANDROID_SDK_HOME=$SHELL_PACKAGES_HOME_DIR/opt/android-sdk/current
+    export PATH=$ANDROID_SDK_HOME/tools:$ANDROID_SDK_HOME/platform-tools:$PATH
+fi
 # configure Ant
 if [ -d $SHELL_PACKAGES_HOME_DIR/opt/ant/current ]; then
     export ANT_HOME=$SHELL_PACKAGES_HOME_DIR/opt/ant/current
