@@ -110,9 +110,18 @@ elif [ "$DIST" == "ubuntu" ]; then
     sudo apt-get --yes --force-yes autoremove
     sudo apt-get clean
 
-    # BUILD DEPENDENCIES:
+    # BUILD DEPENDENCIES
+    #   zlib: zlib1g-dev
+    #   bz2: libbz2-dev
+    #   libxml2: libxml2-dev
+    #   openssl: libssl-dev libcurl4-openssl-dev
+    #   libjpeg: libjpeg-dev
+    #   libpng: libpng12-dev
+    #   icu: libicu-dev
+    #   mcrypt: libmcrypt-dev
+    #
     #   apt-get --ignore-missing --no-install-recommends install \
-    #       libxml2-dev libpcre3-dev libbz2-dev libcurl4-openssl-dev libjpeg-dev libpng12-dev libxpm-dev libfreetype6-dev libmysqlclient-dev libgd2-xpm-dev libgmp-dev libsasl2-dev libmhash-dev unixodbc-dev freetds-dev libpspell-dev libsnmp-dev libtidy-dev libxslt1-dev libmcrypt-dev libicu-dev
+    #       libpcre3-dev libxpm-dev libfreetype6-dev libmysqlclient-dev libgd2-xpm-dev libgmp-dev libsasl2-dev libmhash-dev unixodbc-dev freetds-dev libpspell-dev libsnmp-dev libtidy-dev libxslt1-dev
 
 fi
 
