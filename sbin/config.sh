@@ -67,6 +67,13 @@ if [ "$DIST" == "macosx" ]; then
         brew upgrade
     fi
 
+    # BUILD DEPENDENCIES:
+    #   brew install \
+    #       gettext icu4c
+    #   brew link \
+    #       gettext icu4c \
+    #       --force
+
 elif [ "$DIST" == "ubuntu" ]; then
 
     DEBIAN_FRONTEND="noninteractive"
@@ -102,6 +109,10 @@ elif [ "$DIST" == "ubuntu" ]; then
         zsh
     sudo apt-get --yes --force-yes autoremove
     sudo apt-get clean
+
+    # BUILD DEPENDENCIES:
+    #   apt-get --ignore-missing --no-install-recommends install \
+    #       libxml2-dev libpcre3-dev libbz2-dev libcurl4-openssl-dev libjpeg-dev libpng12-dev libxpm-dev libfreetype6-dev libmysqlclient-dev libgd2-xpm-dev libgmp-dev libsasl2-dev libmhash-dev unixodbc-dev freetds-dev libpspell-dev libsnmp-dev libtidy-dev libxslt1-dev libmcrypt-dev libicu-dev
 
 fi
 
