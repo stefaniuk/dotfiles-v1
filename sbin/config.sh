@@ -5,6 +5,7 @@ arg_update_packages=$(echo "$*"  | grep -o -- "--update-packages")
 arg_do_not_run_tests=$(echo "$*"  | grep -o -- "--do-not-run-tests")
 arg_skip_selected_tests=$(echo "$*"  | grep -o -- "--skip-selected-tests")
 arg_ignore_tests=$(echo "$*"  | grep -o -- "--ignore-tests")
+arg_install_build_dependencies=$(echo "$*"  | grep -o -- "--install-build-dependencies")
 arg_clone_dev_repos=$(echo "$*"  | grep -o -- "--clone-development-repositories")
 
 ########################################################################################################################
@@ -67,12 +68,15 @@ if [ "$DIST" == "macosx" ]; then
         brew upgrade
     fi
 
-    # BUILD DEPENDENCIES:
-    #   brew install \
-    #       gettext icu4c
-    #   brew link \
-    #       gettext icu4c \
-    #       --force
+    if [ -n "$arg_install_build_dependencies" ]; then
+        print_h1 "Installing build dependencies..."
+        :
+        #   brew install \
+        #       gettext icu4c
+        #   brew link \
+        #       gettext icu4c \
+        #       --force
+    fi
 
 elif [ "$DIST" == "ubuntu" ]; then
 
@@ -110,18 +114,21 @@ elif [ "$DIST" == "ubuntu" ]; then
     sudo apt-get --yes --force-yes autoremove
     sudo apt-get clean
 
-    # BUILD DEPENDENCIES
-    #   zlib: zlib1g-dev
-    #   bz2: libbz2-dev
-    #   libxml2: libxml2-dev
-    #   openssl: libssl-dev libcurl4-openssl-dev
-    #   libjpeg: libjpeg-dev
-    #   libpng: libpng12-dev
-    #   icu: libicu-dev
-    #   mcrypt: libmcrypt-dev
-    #
-    #   apt-get --ignore-missing --no-install-recommends install \
-    #       libpcre3-dev libxpm-dev libfreetype6-dev libmysqlclient-dev libgd2-xpm-dev libgmp-dev libsasl2-dev libmhash-dev unixodbc-dev freetds-dev libpspell-dev libsnmp-dev libtidy-dev libxslt1-dev
+    if [ -n "$arg_install_build_dependencies" ]; then
+        print_h1 "Installing build dependencies..."
+        :
+        #   zlib: zlib1g-dev
+        #   bz2: libbz2-dev
+        #   libxml2: libxml2-dev
+        #   openssl: libssl-dev libcurl4-openssl-dev
+        #   libjpeg: libjpeg-dev
+        #   libpng: libpng12-dev
+        #   icu: libicu-dev
+        #   mcrypt: libmcrypt-dev
+        #
+        #   apt-get --ignore-missing --no-install-recommends install \
+        #       libpcre3-dev libxpm-dev libfreetype6-dev libmysqlclient-dev libgd2-xpm-dev libgmp-dev libsasl2-dev libmhash-dev unixodbc-dev freetds-dev libpspell-dev libsnmp-dev libtidy-dev libxslt1-dev
+    fi
 
 fi
 

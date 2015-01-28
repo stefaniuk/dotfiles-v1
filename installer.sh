@@ -106,6 +106,7 @@ program_load_dependencies
 #       --do-not-run-tests
 #       --skip-selected-tests
 #       --ignore-tests
+#       --install-build-dependencies
 #       --clone-development-repositories
 program_configure $* $args
 
