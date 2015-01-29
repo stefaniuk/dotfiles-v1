@@ -14,6 +14,7 @@ All files will be installed in the user directory
         --update-system \
         --update-packages \
         --skip-selected-tests \
+        --install-build-dependencies \
         --clone-development-repositories
 
 TODO list

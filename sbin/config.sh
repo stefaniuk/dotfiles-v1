@@ -62,33 +62,36 @@ if [ "$DIST" == "macosx" ]; then
         wget \
         zsh \
         2> /dev/null
-    brew linkapps > /dev/null
     if [ -n "$arg_update_packages" ]; then
         print_h1 "Updating packages..."
         brew upgrade
     fi
-
     if [ -n "$arg_install_build_dependencies" ]; then
         print_h1 "Installing build dependencies..."
-        :
+        brew install \
+            gettext \
+            icu4c \
+            2> /dev/null
         #   brew install \
         #       gettext icu4c
         #   brew link \
         #       gettext icu4c \
         #       --force
+        brew linkapps > /dev/null
     fi
+    brew linkapps > /dev/null
 
 elif [ "$DIST" == "ubuntu" ]; then
 
     DEBIAN_FRONTEND="noninteractive"
+    if [ -n "$arg_update_packages" ]; then
+        print_h1 "Updating packages..."
+        sudo apt-get --yes update
+    fi
     if [ -n "$arg_update_system" ]; then
         print_h1 "Upgrading OS..."
         sudo apt-get --yes --force-yes upgrade
         sudo apt-get -o Dpkg::Options::="--force-confnew" --force-yes -fuy dist-upgrade
-    fi
-    if [ -n "$arg_update_packages" ]; then
-        print_h1 "Updating packages..."
-        sudo apt-get --yes update
     fi
     print_h1 "Installing components via apt-get..."
     sudo apt-get --yes --force-yes --ignore-missing --no-install-recommends install \
@@ -116,18 +119,16 @@ elif [ "$DIST" == "ubuntu" ]; then
 
     if [ -n "$arg_install_build_dependencies" ]; then
         print_h1 "Installing build dependencies..."
-        :
-        #   zlib: zlib1g-dev
-        #   bz2: libbz2-dev
-        #   libxml2: libxml2-dev
-        #   openssl: libssl-dev libcurl4-openssl-dev
-        #   libjpeg: libjpeg-dev
-        #   libpng: libpng12-dev
-        #   icu: libicu-dev
-        #   mcrypt: libmcrypt-dev
-        #
-        #   apt-get --ignore-missing --no-install-recommends install \
-        #       libpcre3-dev libxpm-dev libfreetype6-dev libmysqlclient-dev libgd2-xpm-dev libgmp-dev libsasl2-dev libmhash-dev unixodbc-dev freetds-dev libpspell-dev libsnmp-dev libtidy-dev libxslt1-dev
+        sudo apt-get --yes --force-yes --ignore-missing --no-install-recommends install \
+            libbz2-dev \
+            libicu-dev \
+            libjpeg-dev \
+            libmcrypt-dev \
+            libpng12-dev \
+            libssl-dev libcurl4-openssl-dev \
+            libxml2-dev \
+            zlib1g-dev
+        # libpcre3-dev libxpm-dev libfreetype6-dev libmysqlclient-dev libgd2-xpm-dev libgmp-dev libsasl2-dev libmhash-dev unixodbc-dev freetds-dev libpspell-dev libsnmp-dev libtidy-dev libxslt1-dev
     fi
 
 fi
