@@ -69,15 +69,26 @@ if [ "$DIST" == "macosx" ]; then
     if [ -n "$arg_install_build_dependencies" ]; then
         print_h1 "Installing build dependencies..."
         brew install \
+            bzip2 \
+            curl \
             gettext \
             icu4c \
+            libiconv \
+            mcrypt \
+            openssl \
+            zlib \
             2> /dev/null
-        #   brew install \
-        #       gettext icu4c
-        #   brew link \
-        #       gettext icu4c \
-        #       --force
-        brew linkapps > /dev/null
+        brew link \
+            bzip2 \
+            curl \
+            gettext \
+            icu4c \
+            libiconv \
+            mcrypt \
+            openssl \
+            zlib \
+            --force \
+            > /dev/null
     fi
     brew linkapps > /dev/null
 
