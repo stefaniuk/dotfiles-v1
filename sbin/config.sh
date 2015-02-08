@@ -96,7 +96,7 @@ if [ "$DIST" == "macosx" ]; then
             openssl \
             zlib \
             --force \
-            > /dev/null
+            > /dev/null 2>&1
     fi
     brew linkapps > /dev/null
 
