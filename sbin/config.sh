@@ -44,20 +44,18 @@ if [ "$DIST" == "macosx" ]; then
         ack \
         bash \
         bash-completion \
-        binutils \
-        coreutils \
         curl \
-        gcc \
+        expect \
         git \
         grc \
         irssi \
         lynx \
-        makedepend \
         mc \
         pcre \
         screen \
         tmux \
         tree \
+        unzip \
         vim \
         wget \
         zsh \
@@ -69,21 +67,31 @@ if [ "$DIST" == "macosx" ]; then
     if [ -n "$arg_install_build_dependencies" ]; then
         print_h1 "Installing build dependencies..."
         brew install \
+            binutils \
             bzip2 \
+            cmake \
+            coreutils \
             curl \
+            gcc \
             gettext \
             icu4c \
             libiconv \
+            makedepend \
             mcrypt \
             openssl \
             zlib \
             2> /dev/null
         brew link \
+            binutils \
             bzip2 \
+            cmake \
+            coreutils \
             curl \
+            gcc \
             gettext \
             icu4c \
             libiconv \
+            makedepend \
             mcrypt \
             openssl \
             zlib \
@@ -107,8 +115,8 @@ elif [ "$DIST" == "ubuntu" ]; then
     print_h1 "Installing components via apt-get..."
     sudo apt-get --yes --force-yes --ignore-missing --no-install-recommends install \
         ack-grep \
+        bash \
         bash-completion \
-        build-essential \
         curl \
         debconf-utils \
         expect \
@@ -131,6 +139,10 @@ elif [ "$DIST" == "ubuntu" ]; then
     if [ -n "$arg_install_build_dependencies" ]; then
         print_h1 "Installing build dependencies..."
         sudo apt-get --yes --force-yes --ignore-missing --no-install-recommends install \
+            binutils \
+            build-essential \
+            cmake \
+            coreutils \
             libbz2-dev \
             libicu-dev \
             libjpeg-dev \

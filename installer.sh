@@ -48,7 +48,8 @@ function program_load_dependencies {
         wget https://raw.githubusercontent.com/stefaniuk/shell-commons/master/installer.sh -O - | \
             /bin/bash -s -- --do-not-run-tests
     fi
-    source ~/.shell-commons/shell-commons.sh
+    source ~/.shell-commons/shell-commons.sh 2> /dev/null
+    [ $? != 0 ] && source /usr/local/shell-commons/shell-commons.sh 2> /dev/null
 
     # shell-utils
     if [ -f ~/projects/shell-utils/installer.sh ]; then
@@ -57,7 +58,8 @@ function program_load_dependencies {
         wget https://raw.githubusercontent.com/stefaniuk/shell-utils/master/installer.sh -O - | \
             /bin/bash -s -- --do-not-run-tests
     fi
-    source ~/.shell-utils/shell-utils.sh
+    source ~/.shell-utils/shell-utils.sh 2> /dev/null
+    [ $? != 0 ] && source /usr/local/shell-utils/shell-utils.sh 2> /dev/null
 
     # shell-packages
     if [ -f ~/projects/shell-packages/installer.sh ]; then
@@ -66,7 +68,8 @@ function program_load_dependencies {
         wget https://raw.githubusercontent.com/stefaniuk/shell-packages/master/installer.sh -O - | \
             /bin/bash -s -- --do-not-run-tests
     fi
-    source ~/.shell-packages/shell-packages.sh
+    source ~/.shell-packages/shell-packages.sh 2> /dev/null
+    [ $? != 0 ] && source /usr/local/shell-packages/shell-packages.sh 2> /dev/null
 }
 
 function program_configure {
