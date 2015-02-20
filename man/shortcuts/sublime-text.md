@@ -7,14 +7,14 @@
     cmd+s                           save
     cmd+w                           close
 
-##### Navigation
+##### Window / View
 
-    alt+cmd+right                   next tab
-    alt+cmd+left                    previous tab
-    cmd+p                           go to file
-    cmd+r                           go to method
-    ctrl+g                          go to line
-    ctrl+m                          go to matching bracket
+    cmd+k, cmd+b                    show / hide (toggle) side bar
+    TODO: show / hide (toggle) mini map
+    TODO: show / hide (toggle) status bar
+    TODO: show / hide (toggle) tabs
+    ctrl+`                          show / hide (toggle) console
+    shift+cmd+p                     open command dialog
 
 ##### Tabs / Groups
 
@@ -25,8 +25,25 @@
     ctrl+1...4                      focus group
     shift+ctrl+1...4                move file to group
     cmd+1,2,3...                    select tab
-    shift+alt+cmd+right             move tab right (plugin)
-    shift+alt+cmd+left              move tab left (plugin)
+    shift+alt+cmd+right             move tab right (plug-in)
+    shift+alt+cmd+left              move tab left (plug-in)
+
+##### Editor / Visual
+
+    capslock+w                      toggle word wrap (custom)
+    cmd+plus                        increase font size
+    cmd+minus                       decrease font size
+    cmd+k, cmd+1                    fold all
+    cmd+k, cmd+j                    unfold all
+
+##### Navigation
+
+    alt+cmd+right                   next tab
+    alt+cmd+left                    previous tab
+    cmd+p                           go to file
+    cmd+r                           go to method
+    ctrl+g                          go to line
+    ctrl+m                          go to matching bracket
 
 ##### Bookmarks
 
@@ -46,6 +63,11 @@
     cmd+k delete                    delete from cursor to start of line
     cmd+j                           join lines
     shift+ctrl+m                    select content within brackets
+    ctrl+f5                         sort lines
+    cmd+]                           indent
+    tab                             indent
+    cmd+[                           unindent
+    shift+tab                       unindent
 
 ##### Find / Replace
 
@@ -58,28 +80,11 @@
 
 ##### Convert
 
-    capslock+s                      replace tabs with spaces (custom)
-    capslock+t                      replace spaces with tabs (custom)
+    capslock+s                      convert/replace tabs with spaces (custom)
+    capslock+t                      convert/replace spaces with tabs (custom)
     ctrl+kl                         convert to lower case
     ctrl+ku                         convert to upper case
 
-##### Visual
-
-    capslock+w                      toggle word wrap (custom)
-    cmd+plus                        increase font size
-    cmd+minus                       decrease font size
-    cmd+k, cmd+1                    fold all
-    cmd+k, cmd+j                    unfold all
-
-##### Other
-
-    shift+cmd+p                     open command dialog
-    ctrl+f5                         sort lines
-    cmd+]                           indent
-    cmd+[                           unindent
-
-##### Commands
-
-    ctrl+`                          show / hide console
+##### Console Commands
 
     sublime.log_commands(True)

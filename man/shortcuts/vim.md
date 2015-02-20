@@ -1,5 +1,7 @@
 #### Vim
 
+TODO: http://www.lagmonster.org/docs/vi.html
+
 ##### Quitting
 
     :q          exit as long as there have been no changes
@@ -34,7 +36,7 @@
     L           move to bottom of screen
     %           move to associated ( ), { }, [ ]
 
-##### Inserting Text
+##### Inserting
 
     i           insert before cursor
     I           insert before line
@@ -45,31 +47,59 @@
     r           replace one character
     R           replace many characters
 
-##### Deleting Text
+##### Deleting
 
-Almost all deletion commands are performed by typing d followed by
-a navigation command. For example, dw deletes a word.
+Almost all deletion commands are performed by typing d followed by a navigation command. For example, dw deletes a word.
 
     x           delete character to the right of cursor
     X           delete character to the left of cursor
     D           delete to the end of the line
     dd          delete current line
 
-##### Copying Text
+##### Copying
 
-Like deletion, almost all yank commands are performed by typing y followed
-by a motion. For example, y$ yanks to the end of the line.
+Like deletion, almost all yank commands are performed by typing y followed by a motion. For example, y$ yanks to the end of the line.
 
-    yy          yank the current line
+    yy          copy/yank the current line
+    ayy         copy the current line into a buffer named 'a'
+    anyy        copy n lines into a buffer named 'a'
+    nyy         copy n lines to the general buffer
 
-##### Changing text
-##### Putting text
+##### Pasting
+
+    p           paste/put after the position or after the line
+    P           paste/put before the position or before the line
+    TODO: paste from buffer
+
+##### Changing
+
+The change command is a deletion command that leaves the editor in insert mode. It is performed by typing c followed by a motion. For example, cw changes a word.
+
+    C           change to the end of the line
+    cc          change the whole line
+
 ##### Buffers
+
+    TODO: display buffer content
+
 ##### Markers
-##### Search for strings
+##### Search
+
+    TODO: search for string that includes /
+
 ##### Replace
-##### Regular Expressions
+##### Regular expressions
 ##### Counts
 ##### Ranges
 ##### Files
+
+    TODO: switch between open files
+
 ##### Other
+
+    TODO: undo
+    TODO: redo
+
+##### Plug-ins
+
+    TODO: show / hide (toggle) file explorer
