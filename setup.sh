@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # exit if script is sourced
-[ -n "$BASH_SOURCE" ] && [ "$(basename -- "$0")" != "installer.sh" ] && exit 1
+[ -n "$BASH_SOURCE" ] && [ "$(basename -- "$0")" != "setup.sh" ] && exit 1
 
 ################################################################################
 # variables
@@ -72,13 +72,43 @@ function program_load_dependencies {
     [ $? != 0 ] && source /usr/local/shell-packages/shell-packages.sh 2> /dev/null
 }
 
-function program_configure {
+function program_setup {
 
     rm -f ~/README.md
     rm -f ~/LICENCE
-    chmod +x ~/installer.sh
+    chmod +x ~/setup.sh
     chmod +x ~/bin/*
 
+    # variables
+    arg_update_system=$(echo "$*" | grep -o -- "--update-system")
+    arg_update_packages=$(echo "$*" | grep -o -- "--update-packages")
+    arg_do_not_install=$(echo "$*" | grep -o -- "--do-not-install")
+    arg_install_required_only=$(echo "$*" | grep -o -- "--install-required-only")
+    arg_install_build_dependencies=$(echo "$*" | grep -o -- "--install-build-dependencies")
+    arg_do_not_config=$(echo "$*" | grep -o -- "--do-not-config")
+    arg_config_common_only=$(echo "$*" | grep -o -- "--config-common-only")
+    arg_do_not_run_tests=$(echo "$*" | grep -o -- "--do-not-run-tests")
+    arg_skip_selected_tests=$(echo "$*" | grep -o -- "--skip-selected-tests")
+    arg_ignore_tests=$(echo "$*" | grep -o -- "--ignore-tests")
+    arg_clone_dev_repos=$(echo "$*" | grep -o -- "--clone-development-repositories")
+
+    # check internet connection
+    print_h1 "Checking internet connection..."
+    wget --quiet --timeout=10 --tries=3 --spider "https://google.com"
+    if [[ $? -ne 0 ]]; then
+        print_err "No internet connection"
+        exit 2
+    fi
+
+    # check operating system
+    print_h1 "Checking OS..."
+    if [ "$DIST" != "macosx" ] && [ "$DIST" != "ubuntu" ]; then
+        print_err "Operating system not supported"
+        exit 3
+    fi
+
+    # run install
+    (. ~/sbin/install.sh $*)
     # run config
     (. ~/sbin/config.sh $*)
 }
@@ -106,11 +136,15 @@ program_load_dependencies
 # flags:
 #       --update-system
 #       --update-packages
+#       --do-not-install
+#       --install-required-only
+#       --install-build-dependencies
+#       --do-not-config
+#       --config-common-only
 #       --do-not-run-tests
 #       --skip-selected-tests
 #       --ignore-tests
-#       --install-build-dependencies
 #       --clone-development-repositories
-program_configure $* $args
+program_setup $* $args
 
 exit 0

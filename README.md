@@ -10,16 +10,16 @@ All files will be installed in the user directory
 
     USER_NAME="Your Name"
     USER_EMAIL="your.name@mail.com"
-    wget https://raw.githubusercontent.com/stefaniuk/dotfiles/master/installer.sh -O - | /bin/bash -s -- \
+    wget https://raw.githubusercontent.com/stefaniuk/dotfiles/master/setup.sh -O - | /bin/bash -s -- \
         --update-system \
         --update-packages \
         --skip-selected-tests \
-        --install-build-dependencies \
-        --clone-development-repositories
+        --install-build-dependencies
 
 TODO list
 ---------
 
+ * Create distribution specific installation files
  * Install Sublime Text and remove unnecessary plug-ins
  * Install display in-line image feature for iTerm (nightly), http://iterm2.com/images.html#/section/home
  * Update shortcuts for Sublime Text and Vim

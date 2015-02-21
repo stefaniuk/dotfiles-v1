@@ -1,247 +1,67 @@
 #!/bin/bash
 
-arg_update_system=$(echo "$*"  | grep -o -- "--update-system")
-arg_update_packages=$(echo "$*"  | grep -o -- "--update-packages")
-arg_do_not_run_tests=$(echo "$*"  | grep -o -- "--do-not-run-tests")
-arg_skip_selected_tests=$(echo "$*"  | grep -o -- "--skip-selected-tests")
-arg_ignore_tests=$(echo "$*"  | grep -o -- "--ignore-tests")
-arg_install_build_dependencies=$(echo "$*"  | grep -o -- "--install-build-dependencies")
-arg_clone_dev_repos=$(echo "$*"  | grep -o -- "--clone-development-repositories")
-
 ########################################################################################################################
 
-# check internet connection
-print_h1 "Checking internet connection..."
-wget --quiet --timeout=10 --tries=3 --spider "https://google.com"
-if [[ $? -ne 0 ]]; then
-    print_err "No internet connection"
-    exit 1
-fi
-
-# check operating system
-print_h1 "Checking OS..."
-if [ "$DIST" != "macosx" ] && [ "$DIST" != "ubuntu" ]; then
-    print_err "Operating system not supported"
-    exit 2
-fi
-
-########################################################################################################################
-
-# install components
-if [ "$DIST" == "macosx" ]; then
-
-    if [ -n "$arg_update_system" ]; then
-        print_h1 "Upgrading OS..."
-        sudo softwareupdate --install -all
-    fi
-    if ! which brew > /dev/null; then
-        print_h1 "Installing brew..."
-        ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-        brew tap homebrew/dupes
-    fi
-    print_h1 "Installing components via brew..."
-    brew install \
-        ack \
-        bash \
-        bash-completion \
-        curl \
-        expect \
-        git \
-        grc \
-        irssi \
-        lynx \
-        mc \
-        pcre \
-        screen \
-        tmux \
-        tree \
-        unzip \
-        vim \
-        wget \
-        zsh \
-        2> /dev/null
-    if [ -n "$arg_update_packages" ]; then
-        print_h1 "Updating packages..."
-        brew upgrade
-    fi
-    if [ -n "$arg_install_build_dependencies" ]; then
-        print_h1 "Installing build dependencies..."
-        brew install \
-            binutils \
-            bzip2 \
-            cmake \
-            coreutils \
-            curl \
-            gcc \
-            gettext \
-            icu4c \
-            libiconv \
-            makedepend \
-            mcrypt \
-            openssl \
-            zlib \
-            2> /dev/null
-        brew link \
-            binutils \
-            bzip2 \
-            cmake \
-            coreutils \
-            curl \
-            gcc \
-            gettext \
-            icu4c \
-            libiconv \
-            makedepend \
-            mcrypt \
-            openssl \
-            zlib \
-            --force \
-            > /dev/null 2>&1
-    fi
-    brew linkapps > /dev/null
-
-elif [ "$DIST" == "ubuntu" ]; then
-
-    DEBIAN_FRONTEND="noninteractive"
-    if [ -n "$arg_update_packages" ]; then
-        print_h1 "Updating packages..."
-        sudo apt-get --yes update
-    fi
-    if [ -n "$arg_update_system" ]; then
-        print_h1 "Upgrading OS..."
-        sudo apt-get --yes --force-yes upgrade
-        sudo apt-get -o Dpkg::Options::="--force-confnew" --force-yes -fuy dist-upgrade
-    fi
-    print_h1 "Installing components via apt-get..."
-    sudo apt-get --yes --force-yes --ignore-missing --no-install-recommends install \
-        ack-grep \
-        bash \
-        bash-completion \
-        curl \
-        debconf-utils \
-        expect \
-        git \
-        grc \
-        irssi \
-        lynx \
-        mc \
-        pcregrep \
-        screen \
-        tmux \
-        tree \
-        unzip \
-        vim \
-        wget \
-        zsh
-    sudo apt-get --yes --force-yes autoremove
-    sudo apt-get clean
-
-    if [ -n "$arg_install_build_dependencies" ]; then
-        print_h1 "Installing build dependencies..."
-        sudo apt-get --yes --force-yes --ignore-missing --no-install-recommends install \
-            binutils \
-            build-essential \
-            cmake \
-            coreutils \
-            libbz2-dev \
-            libicu-dev \
-            libjpeg-dev \
-            libmcrypt-dev \
-            libpng12-dev \
-            libssl-dev libcurl4-openssl-dev \
-            libxml2-dev \
-            zlib1g-dev
-        # libpcre3-dev libxpm-dev libfreetype6-dev libmysqlclient-dev libgd2-xpm-dev libgmp-dev libsasl2-dev libmhash-dev unixodbc-dev freetds-dev libpspell-dev libsnmp-dev libtidy-dev libxslt1-dev
-    fi
-
-fi
-
-# install Oh My Zsh
-print_h1 "Installing Oh My Zsh..."
-if [ ! -f ~/.oh-my-zsh/oh-my-zsh.sh ]; then
-    rm -rf ~/{.oh-my-zsh,.zcompdump-*,.zlogin,.zsh*}
-    git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
-    cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
-    #sudo chsh -s /bin/zsh $USER
-elif [ -d ~/.oh-my-zsh/.git ]; then
-    (cd ~/.oh-my-zsh; git pull)
-fi
-
-########################################################################################################################
-
-# test shell-* projects
-if [ -z "$arg_do_not_run_tests" ]; then
-
-    # shell-commons
-    print_h1 "\nshell-commons\n"
-    $SHELL_COMMONS_HOME_DIR/sbin/run_tests $arg_skip_selected_tests
-    result=$?
-    [ -z "$arg_ignore_tests" ] && [ $result != 0 ] && exit $result
-
-    # shell-utils
-    print_h1 "shell-utils\n"
-    $SHELL_UTILS_HOME_DIR/sbin/run_tests $arg_skip_selected_tests
-    result=$?
-    [ -z "$arg_ignore_tests" ] && [ $result != 0 ] && exit $result
-
-    # shell-packages
-    print_h1 "shell-packages\n"
-    $SHELL_PACKAGES_HOME_DIR/sbin/run_tests $arg_skip_selected_tests
-    result=$?
-    [ -z "$arg_ignore_tests" ] && [ $result != 0 ] && exit $result
-
-fi
-
-########################################################################################################################
-
-print_h1 "Configuring components..."
+print_h1 "Configuring common components..."
 
 ################################################################################
 # Bash
 
-print_h2 "Configure Bash"
+if which bash > /dev/null; then
 
-# resources
-cp -f ~/etc/bash/.bash* ~
-file_replace_str "USER_NAME=\"unknown\"" "USER_NAME=\"$USER_NAME\"" ~/.bash_exports
-file_replace_str "USER_EMAIL=\"unknown\"" "USER_EMAIL=\"$USER_EMAIL\"" ~/.bash_exports
+    print_h2 "Configure Bash"
 
-# profile
-[ -f ~/.profile ] && [ ! -f ~/.profile.old ] && mv ~/.profile ~/.profile.old
-[ -f ~/.bash_profile ] && [ ! -f ~/.bash_profile.old ] && mv ~/.bash_profile ~/.bash_profile.old
-cat << EOF > ~/.bash_profile
+    # resources
+    cp -f ~/etc/bash/.bash* ~
+    file_replace_str "USER_NAME=\"unknown\"" "USER_NAME=\"$USER_NAME\"" ~/.bash_exports
+    file_replace_str "USER_EMAIL=\"unknown\"" "USER_EMAIL=\"$USER_EMAIL\"" ~/.bash_exports
+
+    # profile
+    [ -f ~/.profile ] && [ ! -f ~/.profile.old ] && mv ~/.profile ~/.profile.old
+    [ -f ~/.bash_profile ] && [ ! -f ~/.bash_profile.old ] && mv ~/.bash_profile ~/.bash_profile.old
+    cat << EOF > ~/.bash_profile
 # BEGIN: load .bashrc
 [[ -r ~/.bashrc ]] && source ~/.bashrc
 # END: load .bashrc
 EOF
 
+fi
+
 ################################################################################
 # Zsh
 
-print_h2 "Configure Zsh"
+if which zsh > /dev/null; then
 
-# resources
-cp -f ~/etc/zsh/.zsh* ~
+    print_h2 "Configure Zsh"
+
+    # resources
+    cp -f ~/etc/zsh/.zsh* ~
+
+fi
 
 ################################################################################
 # Git
 
-print_h2 "Configure Git"
+if which git > /dev/null; then
 
-# resources
-cp -f ~/etc/git/.git* ~
+    print_h2 "Configure Git"
 
-# configuration
-git config --global user.name "$USER_NAME"
-git config --global user.email "$USER_EMAIL"
-git config --global push.default simple
+    # resources
+    cp -f ~/etc/git/.git* ~
 
-# completion
-[ -f /etc/bash_completion ] && bcpath=/etc || bcpath=/usr/local/etc
-if [ -d $bcpath/bash_completion.d ] && [ ! -f $bcpath/bash_completion.d/git-completion.bash ]; then
-    wget https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash -O $bcpath/bash_completion.d/git-completion.bash
+    # configuration
+    git config --global user.name "$USER_NAME"
+    git config --global user.email "$USER_EMAIL"
+    git config --global push.default simple
+
+    # completion
+    [ -f /etc/bash_completion ] && bcpath=/etc || bcpath=/usr/local/etc
+    if [ -d $bcpath/bash_completion.d ] && [ ! -f $bcpath/bash_completion.d/git-completion.bash ]; then
+        wget https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash -O $bcpath/bash_completion.d/git-completion.bash
+    fi
+    unset bcpath
+
 fi
-unset bcpath
 
 ################################################################################
 # Vim
@@ -321,53 +141,15 @@ if which irssi > /dev/null; then
 fi
 
 ########################################################################################################################
+# configure distribution specific components
 
-#if [ -z "$arg_common_only" ]; then
+if [ -z "$arg_config_common_only" ]; then
 
-    # configure distribution specific components
     print_h1 "Configuring distribution specific components..."
-    (. ~/sbin/config.$DIST.sh $*)
-
-#fi
-
-########################################################################################################################
-
-if [ -n "$arg_clone_dev_repos" ]; then
-
-    print_h1 "Installing repository..."
-
-    mkdir -p ~/projects
-
-    # install shell commons repository
-    print_h2 "Install shell-commons"
-    if [ ! -d ~/projects/shell-commons ]; then
-        git clone https://github.com/stefaniuk/shell-commons.git ~/projects/shell-commons
+    if [ -f ~/sbin/config.$DIST.sh ]; then
+        (. ~/sbin/config.$DIST.sh $*)
     else
-        (cd ~/projects/shell-commons; git pull)
-    fi
-
-    # install shell utils repository
-    print_h2 "Install shell-utils"
-    if [ ! -d ~/projects/shell-utils ]; then
-        git clone https://github.com/stefaniuk/shell-utils.git ~/projects/shell-utils
-    else
-        (cd ~/projects/shell-utils; git pull)
-    fi
-
-    # install shell packages repository
-    print_h2 "Install shell-packages"
-    if [ ! -d ~/projects/shell-packages ]; then
-        git clone https://github.com/stefaniuk/shell-packages.git ~/projects/shell-packages
-    else
-        (cd ~/projects/shell-packages; git pull)
-    fi
-
-    # install dotfiles repository
-    print_h2 "Install dotfiles"
-    if [ ! -d ~/projects/dotfiles ]; then
-        git clone https://github.com/stefaniuk/dotfiles.git ~/projects/dotfiles
-    else
-        (cd ~/projects/dotfiles; git pull)
+        print_err "File is missing"
     fi
 
 fi
