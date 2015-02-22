@@ -18,11 +18,10 @@ All files will be installed in the user directory
 TODO list
 ---------
 
- * Install Sublime Text and remove unnecessary plug-ins
  * Install display in-line image feature for iTerm (nightly), http://iterm2.com/images.html#/section/home
- * Update shortcuts for Sublime Text and Vim
+ * Update shortcuts for Vim
  * Support for man functionality that is based on images, i.e. UML diagrams
- * Provide custom dictionary for Sublime Text
+ * Provide custom dictionary for Sublime Text and test 'add to dict' function
  * Update functionality
  * Make sure [grc](http://korpus.juls.savba.sk/~garabik/software/grc.html) works correctly
  * Check Gediminas Morkevicius' [dotfiles](https://github.com/l3pp4rd/dotfiles) for anything useful

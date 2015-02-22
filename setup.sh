@@ -81,6 +81,8 @@ function program_setup {
 
     # variables
     arg_synchronise_only=$(echo "$*" | grep -o -- "--synchronise-only")
+    arg_install_only=$(echo "$*" | grep -o -- "--install-only")
+    arg_config_only=$(echo "$*" | grep -o -- "--config-only")
     arg_update_system=$(echo "$*" | grep -o -- "--update-system")
     arg_update_packages=$(echo "$*" | grep -o -- "--update-packages")
     arg_install_build_dependencies=$(echo "$*" | grep -o -- "--install-build-dependencies")
@@ -105,9 +107,9 @@ function program_setup {
     fi
 
     # run install
-    (. ~/sbin/install.sh $*)
+    [ -z "$arg_config_only" ] && (. ~/sbin/install.sh $*)
     # run config
-    (. ~/sbin/config.sh $*)
+    [ -z "$arg_install_only" ] && (. ~/sbin/config.sh $*)
 }
 
 ################################################################################
@@ -132,6 +134,8 @@ program_load_dependencies
 # perform post-install configuration
 # flags:
 #       --synchronise-only
+#       --install-only
+#       --config-only
 #       --update-system
 #       --update-packages
 #       --install-build-dependencies

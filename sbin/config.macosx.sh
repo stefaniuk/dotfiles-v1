@@ -1,51 +1,58 @@
 #!/bin/bash
 
-exit 0
-
 ################################################################################
-# bash                                                                         #
-################################################################################
+# Bash
 
-print_h2 "Configure bash"
+if which bash > /dev/null; then
 
-_sudo file_remove_str "\n$(brew --prefix)/bin/bash" /etc/shells --multiline
-sudo bash -c "echo $(brew --prefix)/bin/bash >> /private/etc/shells"
-sudo chsh -s $(brew --prefix)/bin/bash $USER
+    print_h2 "Configure Bash"
 
-################################################################################
-# zsh                                                                          #
-################################################################################
+    sudo file_remove_str "\n$(brew --prefix)/bin/bash" /etc/shells --multiline
+    sudo bash -c "echo $(brew --prefix)/bin/bash >> /private/etc/shells"
+    sudo chsh -s $(brew --prefix)/bin/bash $USER
 
-print_h2 "Configure zsh"
-
-_sudo file_remove_str "\n$(brew --prefix)/bin/zsh" /etc/shells --multiline
-sudo bash -c "echo $(brew --prefix)/bin/zsh >> /private/etc/shells"
-
-################################################################################
-# iTerm                                                                        #
-################################################################################
-
-print_h2 "Configure iTerm"
-
-cp -f ./config/iterm/com.googlecode.iterm2.plist ~/Library/Preferences
-
-################################################################################
-# Sublime Text                                                                 #
-################################################################################
-
-print_h2 "Configure Sublime Text"
-
-mkdir -p ~/Library/Application\ Support/Sublime\ Text\ 3/{Installed\ Packages,Packages/User}
-# install package control plug-in
-curl --url http://sublime.wbond.net/Package%20Control.sublime-package --output ~/Library/Application\ Support/Sublime\ Text\ 3/Installed\ Packages/Package\ Control.sublime-package > /dev/null 2>&1
-# install tomorrow theme
-if [ ! -d ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/Theme\ -\ Tomorrow ]; then
-    git clone https://github.com/theymaybecoders/sublime-tomorrow-theme ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/Theme\ -\ Tomorrow > /dev/null 2>&1
-else
-    (cd ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/Theme\ -\ Tomorrow; git pull) > /dev/null 2>&1
 fi
-# copy settings
-cp -f ./config/sublime/* ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/User
+
+################################################################################
+# Zsh
+
+if which zsh > /dev/null; then
+
+    print_h2 "Configure Zsh"
+
+    sudo file_remove_str "\n$(brew --prefix)/bin/zsh" /etc/shells --multiline
+    sudo bash -c "echo $(brew --prefix)/bin/zsh >> /private/etc/shells"
+
+fi
+
+################################################################################
+# iTerm
+
+if [ -x /Applications/iTerm.app/Contents/MacOS/iTerm2 ]; then
+
+    print_h2 "Configure iTerm"
+
+    cp -f ./etc/iterm/com.googlecode.iterm2.plist ~/Library/Preferences
+
+fi
+
+################################################################################
+# Sublime Text
+
+if [ -x "/Applications/Sublime Text.app/Contents/MacOS/Sublime Text" ]; then
+
+    print_h2 "Configure Sublime Text"
+
+    # resources
+    mkdir -p ~/Library/Application\ Support/Sublime\ Text\ 3/{Installed\ Packages,Packages/User}
+    cp -f ./etc/sublime/* ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/User
+
+    # package control
+    curl --url http://sublime.wbond.net/Package%20Control.sublime-package --output ~/Library/Application\ Support/Sublime\ Text\ 3/Installed\ Packages/Package\ Control.sublime-package
+
+fi
+
+exit 0
 
 ################################################################################
 # Seil                                                                         #

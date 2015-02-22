@@ -143,6 +143,7 @@ fi
 
 file=~/sbin/config.$DIST.sh
 if [ -f $file ]; then
+    print_h1 "Configuring distribution specific components..."
     (. $file $*)
 else
     print_err "File \`$file\` is missing"

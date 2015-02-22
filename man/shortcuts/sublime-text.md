@@ -9,12 +9,12 @@
 
 ##### Window / View
 
-    cmd+k, cmd+b                    show / hide (toggle) side bar
-    TODO: show / hide (toggle) mini map
-    TODO: show / hide (toggle) status bar
-    TODO: show / hide (toggle) tabs
-    ctrl+`                          show / hide (toggle) console
     shift+cmd+p                     open command dialog
+    cmd+k, cmd+b                    show / hide (toggle) side bar
+    capslock+m                      show / hide (toggle) mini map
+    capslock+h                      show / hide (toggle) tabs
+    capslock+f                      show / hide (toggle) status bar
+    ctrl+`                          show / hide (toggle) console
 
 ##### Tabs / Groups
 
@@ -87,4 +87,4 @@
 
 ##### Console Commands
 
-    sublime.log_commands(True)
+    sublime.log_commands(True)      log commands to the console
