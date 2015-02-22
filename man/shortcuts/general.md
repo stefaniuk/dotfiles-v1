@@ -45,7 +45,6 @@
     cmd+`                           switch between windows
     cmd+n or cmd+t                  open new window or tab
     cmd+w                           close current window or tab
-    cmd+                            maximise current window (custom by system Zoom)
     cmd+esc                         full screen (custom by system Enter Full Screen, Exit Full Screen)
     alt+cmd+h                       hide all other applications windows
 
@@ -58,6 +57,7 @@
     ctrl+left                       switch to previous desktop
 
     capslock+n                      move window to next monitor (custom by BetterTouchTool)
+    capslock+=                      set window position (custom by Moom)
 
 ##### Screenshots
 

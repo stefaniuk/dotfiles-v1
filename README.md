@@ -13,13 +13,11 @@ All files will be installed in the user directory
     wget https://raw.githubusercontent.com/stefaniuk/dotfiles/master/setup.sh -O - | /bin/bash -s -- \
         --update-system \
         --update-packages \
-        --skip-selected-tests \
         --install-build-dependencies
 
 TODO list
 ---------
 
- * Create distribution specific installation files
  * Install Sublime Text and remove unnecessary plug-ins
  * Install display in-line image feature for iTerm (nightly), http://iterm2.com/images.html#/section/home
  * Update shortcuts for Sublime Text and Vim

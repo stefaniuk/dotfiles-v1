@@ -17,7 +17,7 @@ program_dir=$(cd "$(dirname "$0" 2> /dev/null)"; pwd)
 
 function program_download {
 
-    printf "Download...\n\n"
+    printf "Download $GITHUB_REPOSITORY_NAME\n\n"
 
     wget \
         -O ~/$GITHUB_REPOSITORY_NAME.tar.gz \
@@ -30,9 +30,11 @@ function program_download {
 
 function program_synchronise {
 
-    printf "Synchronise...\n\n"
+    printf "Synchronise $GITHUB_REPOSITORY_NAME\n\n"
 
-    rsync -rav --include=/ --exclude=/.git* \
+    rsync -rav \
+        --include=/ \
+        --exclude=/.git* --exclude=/README.md --exclude=/LICENCE \
         $program_dir/. \
         ~
 
@@ -74,26 +76,21 @@ function program_load_dependencies {
 
 function program_setup {
 
-    rm -f ~/README.md
-    rm -f ~/LICENCE
     chmod +x ~/setup.sh
     chmod +x ~/bin/*
 
     # variables
+    arg_synchronise_only=$(echo "$*" | grep -o -- "--synchronise-only")
     arg_update_system=$(echo "$*" | grep -o -- "--update-system")
     arg_update_packages=$(echo "$*" | grep -o -- "--update-packages")
-    arg_do_not_install=$(echo "$*" | grep -o -- "--do-not-install")
-    arg_install_required_only=$(echo "$*" | grep -o -- "--install-required-only")
     arg_install_build_dependencies=$(echo "$*" | grep -o -- "--install-build-dependencies")
-    arg_do_not_config=$(echo "$*" | grep -o -- "--do-not-config")
-    arg_config_common_only=$(echo "$*" | grep -o -- "--config-common-only")
-    arg_do_not_run_tests=$(echo "$*" | grep -o -- "--do-not-run-tests")
-    arg_skip_selected_tests=$(echo "$*" | grep -o -- "--skip-selected-tests")
-    arg_ignore_tests=$(echo "$*" | grep -o -- "--ignore-tests")
     arg_clone_dev_repos=$(echo "$*" | grep -o -- "--clone-development-repositories")
 
+    # synchronise only
+    [ -n "$arg_synchronise_only" ] && exit 0
+
     # check internet connection
-    print_h1 "Checking internet connection..."
+    printf "Check internet connection\n"
     wget --quiet --timeout=10 --tries=3 --spider "https://google.com"
     if [[ $? -ne 0 ]]; then
         print_err "No internet connection"
@@ -101,7 +98,7 @@ function program_setup {
     fi
 
     # check operating system
-    print_h1 "Checking OS..."
+    printf "Check OS\n"
     if [ "$DIST" != "macosx" ] && [ "$DIST" != "ubuntu" ]; then
         print_err "Operating system not supported"
         exit 3
@@ -134,16 +131,10 @@ program_load_dependencies
 
 # perform post-install configuration
 # flags:
+#       --synchronise-only
 #       --update-system
 #       --update-packages
-#       --do-not-install
-#       --install-required-only
 #       --install-build-dependencies
-#       --do-not-config
-#       --config-common-only
-#       --do-not-run-tests
-#       --skip-selected-tests
-#       --ignore-tests
 #       --clone-development-repositories
 program_setup $* $args
 

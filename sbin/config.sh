@@ -1,8 +1,6 @@
 #!/bin/bash
 
-########################################################################################################################
-
-print_h1 "Configuring common components..."
+print_h1 "Configuring components..."
 
 ################################################################################
 # Bash
@@ -140,18 +138,17 @@ if which irssi > /dev/null; then
 
 fi
 
-########################################################################################################################
+################################################################################
 # configure distribution specific components
 
-if [ -z "$arg_config_common_only" ]; then
-
-    print_h1 "Configuring distribution specific components..."
-    if [ -f ~/sbin/config.$DIST.sh ]; then
-        (. ~/sbin/config.$DIST.sh $*)
-    else
-        print_err "File is missing"
-    fi
-
+file=~/sbin/config.$DIST.sh
+if [ -f $file ]; then
+    (. $file $*)
+else
+    print_err "File \`$file\` is missing"
 fi
+unset file
+
+################################################################################
 
 exit 0
