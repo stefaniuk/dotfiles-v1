@@ -39,7 +39,7 @@ fi
 ################################################################################
 # Sublime Text
 
-if [ -x "/Applications/Sublime Text.app/Contents/MacOS/Sublime Text" ]; then
+if [ -x /Applications/Sublime\ Text.app/Contents/MacOS/Sublime\ Text ]; then
 
     print_h2 "Configure Sublime Text"
 
