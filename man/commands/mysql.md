@@ -2,9 +2,7 @@
 
 ##### service
 
-    mysql.server start
-    mysql.server restart
-    mysqladmin --user=root --password shutdown
+    mysql.server {start|stop|restart|status}
 
 ##### info
 
@@ -14,5 +12,6 @@
 
 ##### commands
 
-    mysql --user=root --password
-    echo "show databases;" | mysql --user=root --password
+    mysqladmin -u root password "root"                      # set password
+    mysql --user=root --password                            # client
+    echo "show databases;" | mysql --user=root --password   # SQL command
