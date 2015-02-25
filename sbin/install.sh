@@ -97,6 +97,7 @@ elif [ "$DIST" == "scientific" ]; then
         patch \
         pcre \
         screen \
+        strace \
         tmux \
         tree \
         unzip \
