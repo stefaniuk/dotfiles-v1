@@ -48,12 +48,12 @@ if which git > /dev/null 2>&1; then
     cp -f ~/etc/git/.git* ~
 
     # configuration
-    git --global config user.name "$USER_NAME"
-    git --global config user.email "$USER_EMAIL"
+    git config --global user.name "$USER_NAME"
+    git config --global user.email "$USER_EMAIL"
     if [ $(comparev 2.0.0 $(git --version | grep -oE [0-9]+\.[0-9]+\.[0-9]+)) != "-1" ]; then
-        git --global config push.default simple
+        git config --global push.default simple
     else
-        git --global config push.default matching
+        git config --global push.default matching
     fi
 
     # completion
