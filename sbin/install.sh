@@ -81,7 +81,7 @@ elif [ "$DIST" == "ubuntu" ]; then
 
 elif [ "$DIST" == "scientific" ]; then
 
-    yum --assumeyes install \
+    sudo yum --assumeyes install \
         ack \
         bash \
         bash-completion \
