@@ -79,6 +79,31 @@ elif [ "$DIST" == "ubuntu" ]; then
     sudo apt-get --yes --force-yes autoremove
     sudo apt-get clean
 
+elif [ "$DIST" == "scientific" ]; then
+
+    yum --assumeyes install \
+        ack \
+        bash \
+        bash-completion \
+        bc \
+        curl \
+        expect \
+        git \
+        gcc \
+        irssi \
+        lynx \
+        mc \
+        net-tools \
+        patch \
+        pcre \
+        screen \
+        tmux \
+        tree \
+        unzip \
+        vim \
+        wget \
+        zsh
+
 fi
 
 ################################################################################
