@@ -50,7 +50,7 @@ if which git > /dev/null 2>&1; then
     # configuration
     git config --global user.name "$USER_NAME"
     git config --global user.email "$USER_EMAIL"
-    if [ $(comparev 2.0.0 $(git --version | grep -oE [0-9]+\.[0-9]+\.[0-9]+)) != "-1" ]; then
+    if [ $(comparev $(git --version | grep -oE [0-9]+\.[0-9]+\.[0-9]+) 2.0.0) != "-1" ]; then
         git config --global push.default simple
     else
         git config --global push.default matching
