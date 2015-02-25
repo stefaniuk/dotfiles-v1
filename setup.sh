@@ -96,14 +96,12 @@ function program_setup {
     wget --quiet --timeout=10 --tries=3 --spider "https://google.com"
     if [[ $? -ne 0 ]]; then
         print_err "No internet connection"
-        exit 2
     fi
 
     # check operating system
     printf "Check OS\n"
     if [ "$DIST" != "macosx" ] && [ "$DIST" != "ubuntu" ]; then
         print_err "Operating system not supported"
-        exit 3
     fi
 
     # run install
