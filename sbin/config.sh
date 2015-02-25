@@ -5,7 +5,7 @@ print_h1 "Configuring components..."
 ################################################################################
 # Bash
 
-if which bash > /dev/null; then
+if which bash > /dev/null 2>&1; then
 
     print_h2 "Configure Bash"
 
@@ -28,7 +28,7 @@ fi
 ################################################################################
 # Zsh
 
-if which zsh > /dev/null; then
+if which zsh > /dev/null 2>&1; then
 
     print_h2 "Configure Zsh"
 
@@ -40,7 +40,7 @@ fi
 ################################################################################
 # Git
 
-if which git > /dev/null; then
+if which git > /dev/null 2>&1; then
 
     print_h2 "Configure Git"
 
@@ -64,7 +64,7 @@ fi
 ################################################################################
 # Vim
 
-if which vim > /dev/null; then
+if which vim > /dev/null 2>&1; then
 
     print_h2 "Configure Vim"
 
@@ -101,7 +101,7 @@ fi
 ################################################################################
 # Midnight Commander
 
-if which mc > /dev/null; then
+if which mc > /dev/null 2>&1; then
 
     print_h2 "Configure Midnight Commander"
 
@@ -114,7 +114,7 @@ fi
 ################################################################################
 # Maven
 
-if which mvn > /dev/null; then
+if which mvn > /dev/null 2>&1; then
 
     print_h2 "Configure Maven"
 
@@ -127,7 +127,7 @@ fi
 ################################################################################
 # Irssi
 
-if which irssi > /dev/null; then
+if which irssi > /dev/null 2>&1; then
 
     print_h2 "Configure Irssi"
 

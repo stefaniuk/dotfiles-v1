@@ -3,7 +3,7 @@
 ################################################################################
 # Bash
 
-if which bash > /dev/null; then
+if which bash > /dev/null 2>&1; then
 
     print_h2 "Configure Bash"
 
@@ -16,7 +16,7 @@ fi
 ################################################################################
 # Zsh
 
-if which zsh > /dev/null; then
+if which zsh > /dev/null 2>&1; then
 
     print_h2 "Configure Zsh"
 
