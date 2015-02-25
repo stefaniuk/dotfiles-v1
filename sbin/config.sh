@@ -89,7 +89,7 @@ if which vim > /dev/null 2>&1; then
 
     # solarized
     if [ ! -d ~/.vim/bundle/vim-colors-solarized ]; then
-        git clone git://github.com/altercation/vim-colors-solarized.git ~/.vim/bundle/vim-colors-solarized
+        git clone https://github.com/altercation/vim-colors-solarized.git ~/.vim/bundle/vim-colors-solarized
     else
         (cd ~/.vim/bundle/vim-colors-solarized; git pull)
     fi

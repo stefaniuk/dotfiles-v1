@@ -148,7 +148,7 @@ fi
 print_h2 "Install Oh My Zsh"
 if [ ! -f ~/.oh-my-zsh/oh-my-zsh.sh ]; then
     rm -rf ~/{.oh-my-zsh,.zcompdump-*,.zlogin,.zsh*}
-    git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
+    git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
     cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
 elif [ -d ~/.oh-my-zsh/.git ]; then
     (cd ~/.oh-my-zsh; git pull)
