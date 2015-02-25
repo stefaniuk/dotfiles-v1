@@ -10,7 +10,7 @@ All files will be installed in the user directory
 
     USER_NAME="Your Name"
     USER_EMAIL="your.name@mail.com"
-    wget https://raw.githubusercontent.com/stefaniuk/dotfiles/master/setup.sh -O - | sudo /bin/bash -s -- \
+    wget https://raw.githubusercontent.com/stefaniuk/dotfiles/master/setup.sh -O - | /bin/bash -s -- \
         --update-system \
         --update-packages \
         --install-build-dependencies

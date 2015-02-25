@@ -46,11 +46,11 @@ command -v hd > /dev/null || alias hd="hexdump -C"
 alias urlencode="python -c 'import sys, urllib as ul; print ul.quote_plus(sys.argv[1]);'"
 
 # colourise output of some commands
-if which grc > /dev/null; then
+if which grc > /dev/null 2>&1; then
     [ -d /usr/local/share/grc ] && dir=/usr/local/share/grc || dir=/usr/share/grc
     for file in $(\ls -1 $dir); do
         prog=$(echo $file | awk 'BEGIN { FS = "." } ; { print $2 }')
-        which grc > /dev/null && alias $prog="grc $prog"
+        alias $prog="grc $prog"
     done
     unset dir file prog
 fi

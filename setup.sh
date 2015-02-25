@@ -101,7 +101,7 @@ function program_setup {
     # check operating system
     printf "Check OS\n"
     if [ "$DIST" != "macosx" ] && [ "$DIST" != "ubuntu" ]; then
-        print_err "Operating system not supported"
+        print_err "Operating system not fully supported"
     fi
 
     # run install
