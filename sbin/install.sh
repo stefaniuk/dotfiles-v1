@@ -155,6 +155,7 @@ elif [ "$DIST" == "ubuntu" ] && [ -n "$arg_install_build_dependencies" ]; then
         build-essential \
         cmake \
         coreutils \
+        gettext \
         libbz2-dev \
         libicu-dev \
         libjpeg-dev \
