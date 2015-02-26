@@ -26,7 +26,6 @@ if [ "$DIST" == "macosx" ]; then
         bash \
         bash-completion \
         curl \
-        expect \
         git \
         grc \
         irssi \
