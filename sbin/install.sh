@@ -157,6 +157,7 @@ elif [ "$DIST" == "ubuntu" ] && [ -n "$arg_install_build_dependencies" ]; then
         coreutils \
         gettext \
         libbz2-dev \
+        libexpat1-dev \
         libicu-dev \
         libjpeg-dev \
         libmcrypt-dev \
