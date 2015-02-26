@@ -168,6 +168,13 @@ elif [ "$DIST" == "ubuntu" ] && [ -n "$arg_install_build_dependencies" ]; then
     sudo apt-get --yes --force-yes autoremove
     sudo apt-get clean
 
+elif [ "$DIST" == "scientific" ] && [ -n "$arg_install_build_dependencies" ]; then
+
+    sudo yum --assumeyes install \
+        curl-devel \
+        gettext \
+        zlib-devel
+
 fi
 
 ################################################################################

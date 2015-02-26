@@ -46,6 +46,12 @@ function program_load_dependencies {
     # shell-commons
     if [ -f ~/projects/shell-commons/installer.sh ]; then
         ~/projects/shell-commons/installer.sh --do-not-run-tests
+    elif [ -f ~/.shell-commons/installer.sh ]; then
+        chmod +x ~/.shell-commons/installer.sh
+        ~/.shell-commons/installer.sh --do-not-run-tests
+    elif [ -f /usr/local/shell-commons/installer.sh ]; then
+        chmod +x /usr/local/shell-commons/installer.sh
+        /usr/local/shell-commons/installer.sh --do-not-run-tests
     else
         wget https://raw.githubusercontent.com/stefaniuk/shell-commons/master/installer.sh -O - | \
             /bin/bash -s -- --do-not-run-tests
@@ -56,6 +62,12 @@ function program_load_dependencies {
     # shell-utils
     if [ -f ~/projects/shell-utils/installer.sh ]; then
         ~/projects/shell-utils/installer.sh --do-not-run-tests
+    elif [ -f ~/.shell-utils/installer.sh ]; then
+        chmod +x ~/.shell-utils/installer.sh
+        ~/.shell-utils/installer.sh --do-not-run-tests
+    elif [ -f /usr/local/shell-utils/installer.sh ]; then
+        chmod +x /usr/local/shell-utils/installer.sh
+        /usr/local/shell-utils/installer.sh --do-not-run-tests
     else
         wget https://raw.githubusercontent.com/stefaniuk/shell-utils/master/installer.sh -O - | \
             /bin/bash -s -- --do-not-run-tests
@@ -66,6 +78,12 @@ function program_load_dependencies {
     # shell-packages
     if [ -f ~/projects/shell-packages/installer.sh ]; then
         ~/projects/shell-packages/installer.sh --do-not-run-tests
+    elif [ -f ~/.shell-packages/installer.sh ]; then
+        chmod +x ~/.shell-packages/installer.sh
+        ~/.shell-packages/installer.sh --do-not-run-tests
+    elif [ -f /usr/local/shell-packages/installer.sh ]; then
+        chmod +x /usr/local/shell-packages/installer.sh
+        /usr/local/shell-packages/installer.sh --do-not-run-tests
     else
         wget https://raw.githubusercontent.com/stefaniuk/shell-packages/master/installer.sh -O - | \
             /bin/bash -s -- --do-not-run-tests
