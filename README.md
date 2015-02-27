@@ -8,8 +8,8 @@ Installation
 
 All files will be installed in the user directory
 
-    USER_NAME="Your Name"
-    USER_EMAIL="your.name@mail.com"
+    USER_NAME="Daniel Stefaniuk"
+    USER_EMAIL="daniel.stefaniuk@gmail.com"
     wget https://raw.githubusercontent.com/stefaniuk/dotfiles/master/setup.sh -O - | /bin/bash -s -- \
         --update-system \
         --update-packages \

@@ -8,8 +8,8 @@
 
 GITHUB_REPOSITORY_ACCOUNT="stefaniuk"
 GITHUB_REPOSITORY_NAME="dotfiles"
-USER_NAME=${USER_NAME-"Daniel Stefaniuk"}
-USER_EMAIL=${USER_EMAIL-"daniel.stefaniuk@gmail.com"}
+USER_NAME=${USER_NAME-$USER}
+USER_EMAIL=${USER_EMAIL-$USER@$HOSTNAME}
 program_dir=$(cd "$(dirname "$0" 2> /dev/null)"; pwd)
 
 ################################################################################
