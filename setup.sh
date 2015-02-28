@@ -43,53 +43,29 @@ function program_synchronise {
 
 function program_load_dependencies {
 
-    # shell-commons
-    if [ -f ~/projects/shell-commons/installer.sh ]; then
-        ~/projects/shell-commons/installer.sh --do-not-run-tests
-    elif [ -f ~/.shell-commons/installer.sh ]; then
-        chmod +x ~/.shell-commons/installer.sh
-        ~/.shell-commons/installer.sh --do-not-run-tests
-    elif [ -f /usr/local/shell-commons/installer.sh ]; then
-        chmod +x /usr/local/shell-commons/installer.sh
-        /usr/local/shell-commons/installer.sh --do-not-run-tests
-    else
-        wget https://raw.githubusercontent.com/stefaniuk/shell-commons/master/installer.sh -O - | \
-            /bin/bash -s -- --do-not-run-tests
-    fi
-    source ~/.shell-commons/shell-commons.sh 2> /dev/null
-    [ $? != 0 ] && source /usr/local/shell-commons/shell-commons.sh 2> /dev/null
+    function load_shell_project {
 
-    # shell-utils
-    if [ -f ~/projects/shell-utils/installer.sh ]; then
-        ~/projects/shell-utils/installer.sh --do-not-run-tests
-    elif [ -f ~/.shell-utils/installer.sh ]; then
-        chmod +x ~/.shell-utils/installer.sh
-        ~/.shell-utils/installer.sh --do-not-run-tests
-    elif [ -f /usr/local/shell-utils/installer.sh ]; then
-        chmod +x /usr/local/shell-utils/installer.sh
-        /usr/local/shell-utils/installer.sh --do-not-run-tests
-    else
-        wget https://raw.githubusercontent.com/stefaniuk/shell-utils/master/installer.sh -O - | \
-            /bin/bash -s -- --do-not-run-tests
-    fi
-    source ~/.shell-utils/shell-utils.sh 2> /dev/null
-    [ $? != 0 ] && source /usr/local/shell-utils/shell-utils.sh 2> /dev/null
+        local name=$1
 
-    # shell-packages
-    if [ -f ~/projects/shell-packages/installer.sh ]; then
-        ~/projects/shell-packages/installer.sh --do-not-run-tests
-    elif [ -f ~/.shell-packages/installer.sh ]; then
-        chmod +x ~/.shell-packages/installer.sh
-        ~/.shell-packages/installer.sh --do-not-run-tests
-    elif [ -f /usr/local/shell-packages/installer.sh ]; then
-        chmod +x /usr/local/shell-packages/installer.sh
-        /usr/local/shell-packages/installer.sh --do-not-run-tests
-    else
-        wget https://raw.githubusercontent.com/stefaniuk/shell-packages/master/installer.sh -O - | \
-            /bin/bash -s -- --do-not-run-tests
-    fi
-    source ~/.shell-packages/shell-packages.sh 2> /dev/null
-    [ $? != 0 ] && source /usr/local/shell-packages/shell-packages.sh 2> /dev/null
+        if [ -n "$BASH_SOURCE" ] && [ -f ~/projects/shell-$name/installer.sh ]; then
+            ~/projects/shell-$name/installer.sh --do-not-run-tests
+        elif [ -n "$BASH_SOURCE" ] && [ -f ~/.shell-$name/installer.sh ]; then
+            chmod +x ~/.shell-$name/installer.sh
+            ~/.shell-$name/installer.sh --do-not-run-tests
+        elif [ -n "$BASH_SOURCE" ] && [ -f /usr/local/shell-$name/installer.sh ]; then
+            chmod +x /usr/local/shell-$name/installer.sh
+            /usr/local/shell-$name/installer.sh --do-not-run-tests
+        else
+            wget https://raw.githubusercontent.com/stefaniuk/shell-$name/master/installer.sh -O - | \
+                /bin/bash -s -- --do-not-run-tests
+        fi
+        source ~/.shell-$name/shell-$name.sh 2> /dev/null
+        [ $? != 0 ] && source /usr/local/shell-$name/shell-$name.sh 2> /dev/null
+    }
+
+    load_shell_project "commons"
+    load_shell_project "utils"
+    load_shell_project "packages"
 }
 
 function program_setup {
