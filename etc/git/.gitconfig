@@ -48,17 +48,16 @@
     # Interactive rebase with the given number of latest commits
     reb = "!r() { git rebase -i HEAD~$1; }; r"
 
-    # Find branches containing commit
-    fb = "!f() { git branch -a --contains $1; }; f"
-
-    # Find tags containing commit
-    ft = "!f() { git describe --always --contains $1; }; f"
-
-    # Find commits by source code
-    fc = "!f() { git log --pretty=format:'%C(yellow)%h  %Cblue%ad  %Creset%s%Cgreen  [%cn] %Cred%d' --decorate --date=short -S$1; }; f"
-
-    # Find commits by commit message
-    fm = "!f() { git log --pretty=format:'%C(yellow)%h  %Cblue%ad  %Creset%s%Cgreen  [%cn] %Cred%d' --decorate --date=short --grep=$1; }; f"
+    # find branches containing commit
+    fbc = "!f() { git branch -a --contains $1; }; f"
+    # find tags containing commit
+    ftc = "!f() { git describe --always --contains $1; }; f"
+    # find commits by source code
+    fcs = "!f() { git log --pretty=format:'%C(yellow)%h  %Cblue%ad  %Creset%s%Cgreen  [%cn] %Cred%d' --decorate --date=short -S$1; }; f"
+    # find commits by commit message
+    fcm = "!f() { git log --pretty=format:'%C(yellow)%h  %Cblue%ad  %Creset%s%Cgreen  [%cn] %Cred%d' --decorate --date=short --grep=$1; }; f"
+    # find commit by tag
+    fct = !sh -c 'git rev-list $0 | head -n 1'
 
     # Remove branches that have already been merged with master
     # a.k.a. ‘delete merged’
@@ -109,24 +108,22 @@
 
 [diff]
 
-    # Detect copies as well as renames
+    # detect copies as well as renames
     renames = copies
 
 [help]
 
-    # Automatically correct and execute mistyped commands
+    # automatically correct and execute mistyped commands
     autocorrect = 1
 
 [merge]
 
-    # Include summaries of merged commits in newly created merge commit messages
+    # include summaries of merged commits in newly created merge commit messages
     log = true
 
 [push]
 
-    # Use the Git 1.x.x default to avoid errors on machines with old Git
-    # installations. To use `simple` instead, add this to your `~/.extra` file:
-    # `git config --global push.default simple`. See http://git.io/mMah-w.
+    # use the Git 1.x.x default to avoid errors on machines with old Git
     default = matching
 
 # URL shorthands
