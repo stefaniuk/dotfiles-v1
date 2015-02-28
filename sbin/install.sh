@@ -124,6 +124,7 @@ if [ "$DIST" == "macosx" ] && [ -n "$arg_install_build_dependencies" ]; then
         libiconv \
         makedepend \
         mcrypt \
+        ncurses \
         openssl \
         zlib \
         2> /dev/null
@@ -139,6 +140,7 @@ if [ "$DIST" == "macosx" ] && [ -n "$arg_install_build_dependencies" ]; then
         libiconv \
         makedepend \
         mcrypt \
+        ncurses \
         openssl \
         zlib \
         --force \
@@ -163,6 +165,7 @@ elif [ "$DIST" == "ubuntu" ] && [ -n "$arg_install_build_dependencies" ]; then
         libpng12-dev \
         libssl-dev libcurl4-openssl-dev \
         libxml2-dev \
+        ncurses-dev \
         zlib1g-dev
     sudo apt-get --yes --force-yes autoremove
     sudo apt-get clean
@@ -172,6 +175,7 @@ elif [ "$DIST" == "scientific" ] && [ -n "$arg_install_build_dependencies" ]; th
     sudo yum --assumeyes install \
         curl-devel \
         gettext \
+        ncurses-devel \
         zlib-devel
 
 fi
