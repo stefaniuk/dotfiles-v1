@@ -159,10 +159,12 @@ elif [ "$DIST" == "ubuntu" ] && [ -n "$arg_install_build_dependencies" ]; then
         gettext \
         libbz2-dev \
         libexpat1-dev \
+        libglib2.0-dev \
         libicu-dev \
         libjpeg-dev \
         libmcrypt-dev \
         libpng12-dev \
+        libslang2-dev \
         libssl-dev libcurl4-openssl-dev \
         libxml2-dev \
         ncurses-dev \
