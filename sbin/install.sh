@@ -30,13 +30,11 @@ if [ "$DIST" == "macosx" ]; then
         grc \
         irssi \
         lynx \
-        mc \
         pcre \
         screen \
         tmux \
         tree \
         unzip \
-        vim \
         wget \
         zsh \
         2> /dev/null
@@ -66,13 +64,11 @@ elif [ "$DIST" == "ubuntu" ]; then
         grc \
         irssi \
         lynx \
-        mc \
         pcregrep \
         screen \
         tmux \
         tree \
         unzip \
-        vim \
         wget \
         zsh
     sudo apt-get --yes --force-yes autoremove
@@ -91,7 +87,6 @@ elif [ "$DIST" == "scientific" ]; then
         gcc \
         irssi \
         lynx \
-        mc \
         net-tools \
         patch \
         pcre \
@@ -100,7 +95,6 @@ elif [ "$DIST" == "scientific" ]; then
         tmux \
         tree \
         unzip \
-        vim \
         wget \
         zsh
 
