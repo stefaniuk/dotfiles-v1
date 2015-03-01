@@ -177,7 +177,9 @@ elif [ "$DIST" == "scientific" ] && [ -n "$arg_install_build_dependencies" ]; th
     sudo yum --assumeyes install \
         curl-devel \
         gettext \
+        glib2-devel \
         ncurses-devel \
+        slang-devel \
         zlib-devel
 
 fi
