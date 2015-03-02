@@ -13,7 +13,8 @@ All files will be installed in the user directory
     wget https://raw.githubusercontent.com/stefaniuk/dotfiles/master/setup.sh -O - | /bin/bash -s -- \
         --update-system \
         --update-packages \
-        --install-build-dependencies
+        --install-build-dependencies \
+        --force-shell-dependencies-installation
 
 TODO list
 ---------
