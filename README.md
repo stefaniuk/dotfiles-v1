@@ -14,7 +14,7 @@ All files will be installed in the user directory
         --update-system \
         --update-packages \
         --install-build-dependencies \
-        --force-shell-dependencies-installation
+        --force-download-shell-dependencies
 
 TODO list
 ---------

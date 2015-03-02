@@ -47,21 +47,23 @@ function program_load_dependencies {
 
         local name=$1
 
-        if [ -f ~/projects/shell-$name/installer.sh ] && \
-                [ -z "$arg_force_shell_depend_instal" ]; then
-            ~/projects/shell-$name/installer.sh --do-not-run-tests
+        if [ -z "$arg_exclude_shell_dependencies" ]; then
+            if [ -f ~/projects/shell-$name/installer.sh ] && \
+                    [ -z "$arg_force_download_shell_dependencies" ]; then
+                ~/projects/shell-$name/installer.sh --do-not-run-tests
 
-        elif [ -f ~/.shell-$name/installer.sh ] && \
-                [ -z "$arg_force_shell_depend_instal" ]; then
-            ~/.shell-$name/installer.sh --do-not-run-tests
+            elif [ -f ~/.shell-$name/installer.sh ] && \
+                    [ -z "$arg_force_download_shell_dependencies" ]; then
+                ~/.shell-$name/installer.sh --do-not-run-tests
 
-        elif [ -f /usr/local/shell-$name/installer.sh ] && \
-                [ -z "$arg_force_shell_depend_instal" ]; then
-            /usr/local/shell-$name/installer.sh --do-not-run-tests
+            elif [ -f /usr/local/shell-$name/installer.sh ] && \
+                    [ -z "$arg_force_download_shell_dependencies" ]; then
+                /usr/local/shell-$name/installer.sh --do-not-run-tests
 
-        else
-            wget https://raw.githubusercontent.com/stefaniuk/shell-$name/master/installer.sh -O - | \
-                /bin/bash -s -- --do-not-run-tests
+            else
+                wget https://raw.githubusercontent.com/stefaniuk/shell-$name/master/installer.sh -O - | \
+                    /bin/bash -s -- --do-not-run-tests
+            fi
         fi
 
         source ~/.shell-$name/shell-$name.sh 2> /dev/null
@@ -104,7 +106,8 @@ function program_setup {
 # main
 
 # variables
-arg_force_shell_depend_instal=$(echo "$*" | grep -o -- "--force-shell-dependencies-installation")
+arg_exclude_shell_dependencies=$(echo "$*" | grep -o -- "--exclude-shell-dependencies")
+arg_force_download_shell_dependencies=$(echo "$*" | grep -o -- "--force-download-shell-dependencies")
 arg_synchronise_only=$(echo "$*" | grep -o -- "--synchronise-only")
 arg_install_only=$(echo "$*" | grep -o -- "--install-only")
 arg_config_only=$(echo "$*" | grep -o -- "--config-only")
