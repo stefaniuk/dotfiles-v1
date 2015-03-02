@@ -53,12 +53,10 @@ function program_load_dependencies {
 
         elif [ -f ~/.shell-$name/installer.sh ] && \
                 [ -z "$arg_force_shell_depend_instal" ]; then
-            chmod +x ~/.shell-$name/installer.sh
             ~/.shell-$name/installer.sh --do-not-run-tests
 
         elif [ -f /usr/local/shell-$name/installer.sh ] && \
                 [ -z "$arg_force_shell_depend_instal" ]; then
-            chmod +x /usr/local/shell-$name/installer.sh
             /usr/local/shell-$name/installer.sh --do-not-run-tests
 
         else
