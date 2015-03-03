@@ -57,9 +57,9 @@ if which git > /dev/null 2>&1; then
     fi
 
     # completion
-    [ -f /etc/bash_completion ] && bcpath=/etc || bcpath=/usr/local/etc
-    if [ -d $bcpath/bash_completion.d ] && [ ! -f $bcpath/bash_completion.d/git-completion.bash ]; then
-        sudo wget https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash -O $bcpath/bash_completion.d/git-completion.bash
+    [ -f /etc/bash_completion ] && bcpath=/etc/bash_completion.d || bcpath=/usr/local/etc/bash_completion.d
+    if [ -d $bcpath ] && [ ! -f $bcpath/git-completion.bash ]; then
+        sudo wget https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash -O $bcpath/git-completion.bash
     fi
     unset bcpath
 
