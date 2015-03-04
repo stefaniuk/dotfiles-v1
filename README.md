@@ -16,6 +16,23 @@ All files will be installed in the user directory
         --install-build-dependencies \
         --force-download-shell-dependencies
 
+Client Configuration
+--------------------
+
+##### PuTTY
+
+If you use PuTTY make sure the following options are set correctly:
+
+ * Remote character set: UTF-8
+ * Allow terminal to specify ANSI colours
+ * Allow terminal to use xterm 256-colour mode
+
+This is shown on the screenshots below.
+
+![](http://i.imgur.com/YxU1JLb.png)
+
+![](http://i.imgur.com/xH8tGA9.png)
+
 TODO list
 ---------
 
