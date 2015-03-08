@@ -10,6 +10,8 @@ spkg install \
     git \
     vim mc \
     jdk maven gradle groovy spring \
+    mysql \
+    apr apr-util pcre httpd pcre php \
     node \
     --patch --configure --global
 

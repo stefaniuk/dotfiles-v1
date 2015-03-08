@@ -116,6 +116,18 @@ if which mc > /dev/null 2>&1; then
 fi
 
 ################################################################################
+# Lynx
+
+if which lynx > /dev/null 2>&1; then
+
+    print_h2 "Configure Lynx"
+
+    # resources
+    cp -f ~/etc/lynx/.lynx* ~
+
+fi
+
+################################################################################
 # Maven
 
 if which mvn > /dev/null 2>&1; then
