@@ -37,6 +37,7 @@ This is shown on the screenshots below.
 TODO list
 ---------
 
+ * Custom yo generators for PHP, Java, cross-platform mobile app
  * Install display in-line image feature for iTerm (nightly), http://iterm2.com/images.html#/section/home
  * Update shortcuts for Vim
  * Support for man functionality that is based on images, i.e. UML diagrams
