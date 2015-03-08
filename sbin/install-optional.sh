@@ -17,8 +17,11 @@ spkg install \
 
 print_h2 "Install components via npm"
 sudo npm install -g grunt-cli
+sudo npm install -g gulp
 sudo npm install -g bower
 sudo npm install -g yo
+sudo npm install -g generator-generator
+sudo npm install -g cordova
 
 ################################################################################
 
