@@ -11,6 +11,7 @@ GITHUB_REPOSITORY_NAME="dotfiles"
 USER_NAME=${USER_NAME-$USER}
 USER_EMAIL=${USER_EMAIL-$USER@$HOSTNAME}
 program_dir=$(cd "$(dirname "$0" 2> /dev/null)"; pwd)
+arg_sudo=$(echo "$*" | grep -o -- "--sudo")
 arg_exclude_shell_dependencies=$(echo "$*" | grep -o -- "--exclude-shell-dependencies")
 arg_force_download_shell_dependencies=$(echo "$*" | grep -o -- "--force-download-shell-dependencies")
 arg_synchronise_only=$(echo "$*" | grep -o -- "--synchronise-only")
@@ -21,10 +22,25 @@ arg_config=$(echo "$*" | grep -o -- "--config")
 arg_update_system=$(echo "$*" | grep -o -- "--update-system")
 arg_update_packages=$(echo "$*" | grep -o -- "--update-packages")
 arg_install_build_dependencies=$(echo "$*" | grep -o -- "--install-build-dependencies")
-arg_clone_dev_repos=$(echo "$*" | grep -o -- "--clone-development-repositories")
+arg_install_dev_repos=$(echo "$*" | grep -o -- "--install-development-repositories")
 
 ################################################################################
 # functions
+
+function sudo_keep_alive {
+
+    # update user's time stamp, prompting for password if necessary
+    sudo -v
+    # keep-alive until script has finished then invalidate sudo session
+    while true; do
+        sudo -n true
+        sleep 1
+        if ! kill -0 "$$"; then
+            sudo -k
+            exit
+        fi
+    done 2>/dev/null &
+}
 
 function program_download {
 
@@ -103,7 +119,7 @@ function program_setup {
 
     # check operating system
     printf "Check OS\n"
-    if [ "$DIST" != "macosx" ] && [ "$DIST" != "ubuntu" ] && [ "$DIST" != "scientific" ]; then
+    if [ $DIST != "macosx" ] && [ $DIST != "ubuntu" ] && [ $DIST != "scientific" ]; then
         print_err "Operating system not fully supported"
     fi
 
@@ -119,6 +135,8 @@ function program_setup {
 
 ################################################################################
 # main
+
+[ -n "$arg_sudo" ] && sudo_keep_alive
 
 if [ -z "$BASH_SOURCE" ]; then
 

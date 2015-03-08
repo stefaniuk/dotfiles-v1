@@ -14,7 +14,8 @@ All files will be installed in the user directory
         --prepare --install-required --install-optional --config \
         --update-system --update-packages \
         --install-build-dependencies \
-        --force-download-shell-dependencies
+        --force-download-shell-dependencies \
+        --sudo
 
 Client Configuration
 --------------------

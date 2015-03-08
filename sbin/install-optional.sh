@@ -7,9 +7,16 @@ print_h1 "Installing optional components..."
 
 print_h2 "Install components via spkg"
 spkg install \
-    vim -c -g \
-    mc -c -g \
-    -s
+    git \
+    vim mc \
+    jdk maven gradle groovy spring \
+    node \
+    --patch --configure --global
+
+print_h2 "Install components via npm"
+sudo npm install -g grunt-cli
+sudo npm install -g bower
+sudo npm install -g yo
 
 ################################################################################
 

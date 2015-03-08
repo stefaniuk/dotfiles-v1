@@ -5,7 +5,7 @@ print_h1 "Installing required components..."
 ################################################################################
 # install basic dependencies
 
-if [ "$DIST" == "macosx" ]; then
+if [ $DIST == "macosx" ]; then
 
     if ! which brew > /dev/null; then
         print_h2 "Install brew"
@@ -42,7 +42,7 @@ if [ "$DIST" == "macosx" ]; then
         2> /dev/null
     brew linkapps > /dev/null
 
-elif [ "$DIST" == "ubuntu" ]; then
+elif [ $DIST == "ubuntu" ]; then
 
     DEBIAN_FRONTEND="noninteractive"
     if [ -n "$arg_update_packages" ]; then
@@ -78,7 +78,7 @@ elif [ "$DIST" == "ubuntu" ]; then
     sudo apt-get --yes --force-yes autoremove
     sudo apt-get clean
 
-elif [ "$DIST" == "scientific" ]; then
+elif [ $DIST == "scientific" ]; then
 
     print_h2 "Install components via yum"
     sudo yum --assumeyes install \
@@ -110,7 +110,7 @@ fi
 ################################################################################
 # install build dependencies
 
-if [ "$DIST" == "macosx" ] && [ -n "$arg_install_build_dependencies" ]; then
+if [ $DIST == "macosx" ] && [ -n "$arg_install_build_dependencies" ]; then
 
     print_h2 "Install build dependencies via brew"
     brew install \
@@ -148,7 +148,7 @@ if [ "$DIST" == "macosx" ] && [ -n "$arg_install_build_dependencies" ]; then
         > /dev/null 2>&1
     brew linkapps > /dev/null
 
-elif [ "$DIST" == "ubuntu" ] && [ -n "$arg_install_build_dependencies" ]; then
+elif [ $DIST == "ubuntu" ] && [ -n "$arg_install_build_dependencies" ]; then
 
     print_h2 "Install build dependencies via apt-get"
     DEBIAN_FRONTEND="noninteractive"
@@ -173,7 +173,7 @@ elif [ "$DIST" == "ubuntu" ] && [ -n "$arg_install_build_dependencies" ]; then
     sudo apt-get --yes --force-yes autoremove
     sudo apt-get clean
 
-elif [ "$DIST" == "scientific" ] && [ -n "$arg_install_build_dependencies" ]; then
+elif [ $DIST == "scientific" ] && [ -n "$arg_install_build_dependencies" ]; then
 
     print_h2 "Install build dependencies via yum"
     sudo yum --assumeyes install \
@@ -201,7 +201,7 @@ fi
 ################################################################################
 # clone repositories
 
-if [ -n "$arg_clone_dev_repos" ]; then
+if [ -n "$arg_install_dev_repos" ]; then
 
     print_h2 "Install repositories"
 
