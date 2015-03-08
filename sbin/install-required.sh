@@ -1,9 +1,9 @@
 #!/bin/bash
 
-print_h1 "Installing components..."
+print_h1 "Installing required components..."
 
 ################################################################################
-# install required components
+# install basic dependencies
 
 if [ "$DIST" == "macosx" ]; then
 
@@ -80,6 +80,7 @@ elif [ "$DIST" == "ubuntu" ]; then
 
 elif [ "$DIST" == "scientific" ]; then
 
+    print_h2 "Install components via yum"
     sudo yum --assumeyes install \
         ack \
         bash \
@@ -174,6 +175,7 @@ elif [ "$DIST" == "ubuntu" ] && [ -n "$arg_install_build_dependencies" ]; then
 
 elif [ "$DIST" == "scientific" ] && [ -n "$arg_install_build_dependencies" ]; then
 
+    print_h2 "Install build dependencies via yum"
     sudo yum --assumeyes install \
         curl-devel \
         gettext \
@@ -201,43 +203,43 @@ fi
 
 if [ -n "$arg_clone_dev_repos" ]; then
 
-    print_h1 "Installing repositories..."
+    print_h2 "Install repositories"
 
     mkdir -p ~/projects
 
     # clone shell commons repository
     if [ ! -d ~/projects/shell-commons ]; then
-        print_h2 "Clone shell-commons"
+        print_h3 "Clone shell-commons"
         git clone https://github.com/stefaniuk/shell-commons.git ~/projects/shell-commons
     else
-        print_h2 "Pull shell-commons"
+        print_h3 "Pull shell-commons"
         (cd ~/projects/shell-commons; git pull)
     fi
 
     # clone shell utils repository
     if [ ! -d ~/projects/shell-utils ]; then
-        print_h2 "Clone shell-utils"
+        print_h3 "Clone shell-utils"
         git clone https://github.com/stefaniuk/shell-utils.git ~/projects/shell-utils
     else
-        print_h2 "Pull shell-utils"
+        print_h3 "Pull shell-utils"
         (cd ~/projects/shell-utils; git pull)
     fi
 
     # clone shell packages repository
     if [ ! -d ~/projects/shell-packages ]; then
-        print_h2 "Clone shell-packages"
+        print_h3 "Clone shell-packages"
         git clone https://github.com/stefaniuk/shell-packages.git ~/projects/shell-packages
     else
-        print_h2 "Pull shell-packages"
+        print_h3 "Pull shell-packages"
         (cd ~/projects/shell-packages; git pull)
     fi
 
     # clone dotfiles repository
     if [ ! -d ~/projects/dotfiles ]; then
-        print_h2 "Clone dotfiles"
+        print_h3 "Clone dotfiles"
         git clone https://github.com/stefaniuk/dotfiles.git ~/projects/dotfiles
     else
-        print_h2 "Pull dotfiles"
+        print_h3 "Pull dotfiles"
         (cd ~/projects/dotfiles; git pull)
     fi
 
