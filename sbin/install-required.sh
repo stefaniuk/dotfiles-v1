@@ -10,7 +10,6 @@ if [ $DIST == "macosx" ]; then
     if ! which brew > /dev/null; then
         print_h2 "Install brew"
         ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-        brew tap homebrew/dupes
     fi
     if [ -n "$arg_update_system" ]; then
         print_h2 "Update OS"
@@ -19,6 +18,8 @@ if [ $DIST == "macosx" ]; then
     if [ -n "$arg_update_packages" ]; then
         print_h2 "Update packages"
         brew upgrade
+        brew update
+        brew tap homebrew/dupes
     fi
     print_h2 "Install components via brew"
     brew install \
