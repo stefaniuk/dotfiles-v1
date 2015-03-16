@@ -52,23 +52,18 @@ if [ -x /Applications/Sublime\ Text.app/Contents/MacOS/Sublime\ Text ]; then
 
 fi
 
-exit 0
-
 ################################################################################
-# Seil                                                                         #
-################################################################################
+# Seil
 
 print_h2 "Configure Seil"
 
 /Applications/Seil.app/Contents/Library/bin/seil set keycode_capslock 80
-print_h3 "1) Open 'System Preferences > Keyboard > Keyboard > Modifier Keys...' and"
-print_h3 "   change 'Caps Lock Key' configuration to 'No Action' to reduce delay."
-print_h3 "2) Open 'Seil > Setting > Change the caps lock key' and "
-print_h3 "   check 'Change the caps lock key' box."
+/Applications/Seil.app/Contents/Library/bin/seil set enable_capslock 1
+print_h3 "Open 'System Preferences > Keyboard > Keyboard > Modifier Keys...' and"
+print_h3 "change 'Caps Lock Key' configuration to 'No Action' to reduce delay."
 
 ################################################################################
-# Karabiner                                                                    #
-################################################################################
+# Karabiner
 
 print_h2 "Configure Karabiner"
 
@@ -136,8 +131,7 @@ EOF
 /Applications/Karabiner.app/Contents/Library/bin/karabiner reloadxml
 
 ################################################################################
-# defaults                                                                     #
-################################################################################
+# defaults
 
 print_h2 "Set defaults"
 
@@ -145,6 +139,7 @@ print_h2 "Set defaults"
 ver=$(echo $VERSION | grep -oE '[0-9]+\.[0-9]+')
 sudo ln -sf /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX${ver}.sdk/usr/include /usr/include
 sudo ln -sf /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain /Applications/Xcode.app/Contents/Developer/Toolchains/OSX${ver}.xctoolchain
+unset ver
 
 # set host details
 #sudo scutil --set ComputerName $COMP_NAME
@@ -156,7 +151,7 @@ sudo ln -sf /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.x
 sudo pmset -a standbydelay 86400
 
 # disable the sound effects on boot
-sudo nvram SystemAudioVolume=" "
+sudo nvram SystemAudioVolume="%80"
 
 # repeat keyboard keys when held down
 defaults write -g ApplePressAndHoldEnabled -bool false
@@ -217,18 +212,18 @@ defaults write NSGlobalDomain PMPrintingExpandedStateForPrint -bool true
 # enable single application mode
 defaults write com.apple.dock single-app -bool true
 
-# remove Spotlight from the menubar
+# hide Spotlight icon
 sudo chmod 600 /System/Library/CoreServices/Search.bundle/Contents/MacOS/Search
 
-# disable notification center
+# disable Notifications
 launchctl unload -w /System/Library/LaunchAgents/com.apple.notificationcenterui.plist > /dev/null 2>&1
+sudo chmod 600 /System/Library/CoreServices/NotificationCenter.app/Contents/MacOS/NotificationCenter
 
 # set language and text formats
-#if you're in the US, replace EUR with USD, Centimeters with Inches, and true with false.
-#defaults write NSGlobalDomain AppleLanguages -array “en” “nl”
-#defaults write NSGlobalDomain AppleLocale -string “en_GB@currency=EUR”
-#defaults write NSGlobalDomain AppleMeasurementUnits -string “Centimeters”
-#defaults write NSGlobalDomain AppleMetricUnits -bool true
+defaults write NSGlobalDomain AppleLanguages -array "en" "pl"
+defaults write NSGlobalDomain AppleLocale -string "en_GB"
+defaults write NSGlobalDomain AppleMeasurementUnits -string "Centimeters"
+defaults write NSGlobalDomain AppleMetricUnits -bool true
 
 # check for software updates daily, not just once per week
 defaults write com.apple.SoftwareUpdate ScheduleFrequency -int 1
@@ -257,7 +252,7 @@ defaults write NSGlobalDomain AppleShowAllExtensions -bool true
 
 # list directories before files
 sudo plutil -convert xml1 /System/Library/CoreServices/Finder.app/Contents/Resources/English.lproj/InfoPlist.strings
-_sudo file_replace_str "<string>Folder</string>" "<string> Folder</string>" /System/Library/CoreServices/Finder.app/Contents/Resources/English.lproj/InfoPlist.strings
+sudo file_replace_str "<string>Folder</string>" "<string> Folder</string>" /System/Library/CoreServices/Finder.app/Contents/Resources/English.lproj/InfoPlist.strings
 
 # show status bar
 defaults write com.apple.finder ShowStatusBar -bool true
@@ -295,6 +290,12 @@ defaults write com.apple.finder WarnOnEmptyTrash -bool false
 # empty Trash securely by default
 defaults write com.apple.finder EmptyTrashSecurely -bool true
 
+# set default folder
+defaults write com.apple.finder NewWindowTargetPath -string "file://~/"
+
+# clear history
+defaults write com.apple.finder FXRecentFolders -array
+
 # show the ~/Library folder
 chflags nohidden ~/Library
 
@@ -316,6 +317,9 @@ defaults write com.apple.Safari ShowFavoritesBar -bool true
 
 # disable thumbnail cache for History and Top Sites
 defaults write com.apple.Safari DebugSnapshotsUpdatePolicy -int 2
+
+# remove search list
+defaults write com.apple.Safari RecentWebSearches -array
 
 # set up Safari for development
 defaults write com.apple.Safari IncludeInternalDebugMenu -bool true
