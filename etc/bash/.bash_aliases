@@ -11,7 +11,6 @@ alias -- -="cd -"
 alias dl="cd ~/Downloads"
 alias p="cd ~/projects"
 alias pd="cd ~/projects/dotfiles"
-alias pm="cd ~/projects/mintleaf/src"
 alias g="\git"
 
 # list files - detect which `ls` flavour is in use
@@ -76,7 +75,7 @@ if [ $DIST == "macosx" ]; then
     alias update="sudo softwareupdate -i -a; brew update; brew upgrade; brew cleanup"
 
     # recursively delete `.DS_Store` files and log files from home directory
-    alias cleanup="find . -type f -name '.DS_Store' | xargs rm -v; rm ~/*.log"
+    alias cleanup="sudo find . -type f -name '.DS_Store' -print0 | xargs -0 rm -v"
 
     # empty the Trash on all mounted volumes and the main drive and clear system logs
     alias emptytrash="sudo rm -rfv ~/.Trash; sudo rm -rfv /Volumes/*/.Trashes; sudo rm -rfv /private/var/log/asl/*.asl"
