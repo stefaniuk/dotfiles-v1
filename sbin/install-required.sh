@@ -69,6 +69,7 @@ elif [ $DIST == "ubuntu" ]; then
         lynx \
         mc \
         pcregrep \
+        ruby \
         screen \
         tmux \
         tree \
@@ -97,6 +98,7 @@ elif [ $DIST == "scientific" ]; then
         net-tools \
         patch \
         pcre \
+        ruby \
         screen \
         strace \
         tmux \
@@ -186,6 +188,12 @@ elif [ $DIST == "scientific" ] && [ -n "$arg_install_build_dependencies" ]; then
         zlib-devel
 
 fi
+
+################################################################################
+# Tmuxinator
+
+print_h2 "Install Tmuxinator"
+gem install tmuxinator
 
 ################################################################################
 # Oh My Zsh

@@ -37,7 +37,6 @@ This is shown on the screenshots below.
 TODO list
 ---------
 
- * Install tmux and [Tmuxinator](https://github.com/tmuxinator/tmuxinator)
  * Custom yo generators for PHP, Java, cross-platform mobile app
  * Install display in-line image feature for iTerm (nightly), http://iterm2.com/images.html#/section/home
  * Update shortcuts for Vim
