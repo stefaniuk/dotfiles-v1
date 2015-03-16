@@ -44,7 +44,6 @@ TODO list
  * Provide custom dictionary for Sublime Text and test 'add to dict' function
  * Make sure [grc](http://korpus.juls.savba.sk/~garabik/software/grc.html) works correctly
  * Check Gediminas Morkevicius' [dotfiles](https://github.com/l3pp4rd/dotfiles) for anything useful
- * Use [Solarized](http://ethanschoonover.com/solarized) colour palette in terminal
  * Explore [bash-it](https://github.com/revans/bash-it)
  * Explore [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh)
  * Explore [Prezto](https://github.com/sorin-ionescu/prezto)
