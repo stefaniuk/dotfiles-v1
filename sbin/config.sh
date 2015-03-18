@@ -73,18 +73,17 @@ if which vim > /dev/null 2>&1; then
     print_h2 "Configure Vim"
 
     # resources
-    mkdir -p ~/.vim
-    cp -Rf ~/etc/vim/{colors,plugin} ~/.vim
     cp -f ~/etc/vim/.vimrc ~
     mkdir -p ~/.vim/{autoload,bundle}
+    cp -Rf ~/etc/vim/plugin ~/.vim
 
-    # vundle
+    # vundle - plugin manager
     if [ ! -d ~/.vim/bundle/Vundle.vim ]; then
         git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
     else
         (cd ~/.vim/bundle/Vundle.vim; git pull)
     fi
-    # pathogen
+    # pathogen - plugin manager
     curl -LSso ~/.vim/autoload/pathogen.vim https://raw.githubusercontent.com/tpope/vim-pathogen/master/autoload/pathogen.vim
 
     # solarized
@@ -94,11 +93,11 @@ if which vim > /dev/null 2>&1; then
         (cd ~/.vim/bundle/vim-colors-solarized; git pull)
     fi
     # nerdtree
-    if [ ! -d ~/.vim/bundle/nerdtree ]; then
-        git clone https://github.com/scrooloose/nerdtree.git ~/.vim/bundle/nerdtree
-    else
-        (cd ~/.vim/bundle/nerdtree; git pull)
-    fi
+    #if [ ! -d ~/.vim/bundle/nerdtree ]; then
+    #    git clone https://github.com/scrooloose/nerdtree.git ~/.vim/bundle/nerdtree
+    #else
+    #    (cd ~/.vim/bundle/nerdtree; git pull)
+    #fi
 
 fi
 

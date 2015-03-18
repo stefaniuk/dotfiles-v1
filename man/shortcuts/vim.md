@@ -2,6 +2,10 @@
 
 TODO: http://www.lagmonster.org/docs/vi.html
 
+##### Configuration
+
+    :so %       reload configuration
+
 ##### Quitting
 
     :q          exit as long as there have been no changes
