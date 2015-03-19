@@ -115,11 +115,11 @@
 	<key>NSWindow Frame NSFontPanel</key>
 	<string>579 164 604 243 0 0 1280 777 </string>
 	<key>NSWindow Frame Preferences</key>
-	<string>315 196 918 498 0 0 1280 777 </string>
+	<string>315 300 918 381 0 0 1280 777 </string>
 	<key>NSWindow Frame SUUpdateAlert</key>
 	<string>332 288 620 392 0 0 1280 777 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>444 395 492 378 0 0 1280 777 </string>
+	<string>6 5 1272 770 0 0 1280 777 </string>
 	<key>New Bookmarks</key>
 	<array>
 		<dict>
@@ -379,16 +379,12 @@
 			<false/>
 			<key>Foreground Color</key>
 			<dict>
-				<key>Alpha Component</key>
-				<real>1</real>
 				<key>Blue Component</key>
-				<real>0.0</real>
-				<key>Color Space</key>
-				<string>Calibrated</string>
+				<real>0.51685798168182373</real>
 				<key>Green Component</key>
-				<real>1</real>
+				<real>0.50962930917739868</real>
 				<key>Red Component</key>
-				<real>0.0</real>
+				<real>0.44058024883270264</real>
 			</dict>
 			<key>Guid</key>
 			<string>3C567A17-AD80-4C0F-BAD4-B9393486BD44</string>
