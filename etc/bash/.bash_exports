@@ -24,14 +24,8 @@ export GREP_OPTIONS="--color=auto"
 export HISTSIZE=4096
 export HISTFILESIZE=$HISTSIZE
 export HISTIGNORE="history*:pwd:ll:la:ls:lsd:cd ~:cd -:date:clear:exit"
-if [ $(comparev $(bash --version | grep -oE '[0-9]+\.[0-9]+\.[0-9]+' | head -1) 4.2.0) -eq 1 ]; then
-    # make ignoredups:erasedups and common history working simultaneously
-    #export HISTCONTROL=ignoredups:erasedups
-    #export PROMPT_COMMAND="prompt_command; history -n; history -w; history -c; history -r"
-    export PROMPT_COMMAND="prompt_command"
-else
-    export PROMPT_COMMAND="prompt_command"
-fi
+export PROMPT_COMMAND="prompt_command"
+
 # append history when closing multiple shells
 shopt -s histappend
 # keep multi line commands together
