@@ -32,7 +32,7 @@ if [ -x /Applications/iTerm.app/Contents/MacOS/iTerm2 ]; then
 
     print_h2 "Configure iTerm"
 
-    cp -f ./etc/iterm/com.googlecode.iterm2.plist ~/Library/Preferences
+    defaults import com.googlecode.iterm2 ./etc/iterm/com.googlecode.iterm2.plist
 
 fi
 
