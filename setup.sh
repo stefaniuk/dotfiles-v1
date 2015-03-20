@@ -11,6 +11,7 @@ GITHUB_REPOSITORY_NAME="dotfiles"
 USER_NAME=${USER_NAME-$USER}
 USER_EMAIL=${USER_EMAIL-$USER@$HOSTNAME}
 program_dir=$(cd "$(dirname "$0" 2> /dev/null)"; pwd)
+arg_help=$(echo "$*" | grep -o -- "--help")
 arg_sudo=$(echo "$*" | grep -o -- "--sudo")
 arg_exclude_shell_dependencies=$(echo "$*" | grep -o -- "--exclude-shell-dependencies")
 arg_force_download_shell_dependencies=$(echo "$*" | grep -o -- "--force-download-shell-dependencies")
@@ -26,6 +27,35 @@ arg_install_dev_repos=$(echo "$*" | grep -o -- "--install-development-repositori
 
 ################################################################################
 # functions
+
+function usage {
+
+    local file=$(basename $0 2> /dev/null)
+
+    echo "
+File: ${file}
+
+Usage:
+    ${file} [options]
+
+Options:
+    --help
+    --sudo
+    --exclude-shell-dependencies
+    --force-download-shell-dependencies
+    --synchronise-only
+    --prepare
+    --install-required
+    --install-optional
+    --config
+    --update-system
+    --update-packages
+    --install-build-dependencies
+    --install-development-repositories
+"
+
+    exit 0
+}
 
 function sudo_keep_alive {
 
@@ -136,6 +166,7 @@ function program_setup {
 ################################################################################
 # main
 
+[ -n "$arg_help" ] && usage
 [ -n "$arg_sudo" ] && sudo_keep_alive
 
 if [ -z "$BASH_SOURCE" ]; then
