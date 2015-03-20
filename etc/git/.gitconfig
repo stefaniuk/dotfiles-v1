@@ -100,7 +100,20 @@
 
 [color]
 
-    ui = auto
+    diff = auto
+    status = auto
+    branch = auto
+    interactive = auto
+    ui = true
+
+[color "diff"]
+
+    meta = blue
+    frag = white bold
+    old = red
+    new = green
+    #plain =
+    #whitespace =
 
 [credential]
 
