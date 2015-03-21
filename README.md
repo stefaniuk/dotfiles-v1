@@ -11,28 +11,18 @@ All files will be installed in the user directory
     USER_NAME="Daniel Stefaniuk"
     USER_EMAIL="daniel.stefaniuk@gmail.com"
     wget https://raw.githubusercontent.com/stefaniuk/dotfiles/master/setup.sh -O - | /bin/bash -s -- \
-        --prepare --install-required --install-optional --config \
+        --prepare --install-required --config \
         --update-system --update-packages \
-        --install-build-dependencies \
-        --force-download-shell-dependencies \
         --sudo
 
 Client Configuration
 --------------------
 
-##### PuTTY
+Make sure the following options are set:
 
-If you use PuTTY make sure the following options are set correctly:
-
- * Remote character set: UTF-8
- * Allow terminal to specify ANSI colours
- * Allow terminal to use xterm 256-colour mode
-
-This is shown on the screenshots below.
-
-![](http://i.imgur.com/YxU1JLb.png)
-
-![](http://i.imgur.com/xH8tGA9.png)
+ * Set UTF-8 encoding
+ * Allow ANSI colours
+ * Allow 256-colour mode
 
 TODO list
 ---------
