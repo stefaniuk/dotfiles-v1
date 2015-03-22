@@ -225,15 +225,6 @@ if [ -n "$arg_install_dev_repos" ]; then
         (cd ~/projects/shell-commons; git pull)
     fi
 
-    # clone shell utils repository
-    if [ ! -d ~/projects/shell-utils ]; then
-        print_h3 "Clone shell-utils"
-        git clone https://github.com/stefaniuk/shell-utils.git ~/projects/shell-utils
-    else
-        print_h3 "Pull shell-utils"
-        (cd ~/projects/shell-utils; git pull)
-    fi
-
     # clone shell packages repository
     if [ ! -d ~/projects/shell-packages ]; then
         print_h3 "Clone shell-packages"
@@ -241,6 +232,15 @@ if [ -n "$arg_install_dev_repos" ]; then
     else
         print_h3 "Pull shell-packages"
         (cd ~/projects/shell-packages; git pull)
+    fi
+
+    # clone shell scripts repository
+    if [ ! -d ~/projects/shell-scripts ]; then
+        print_h3 "Clone shell-scripts"
+        git clone https://github.com/stefaniuk/shell-scripts.git ~/projects/shell-scripts
+    else
+        print_h3 "Pull shell-scripts"
+        (cd ~/projects/shell-scripts; git pull)
     fi
 
     # clone dotfiles repository
