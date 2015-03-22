@@ -193,7 +193,7 @@ fi
 # Tmuxinator
 
 print_h2 "Install Tmuxinator"
-gem install tmuxinator
+sudo gem install tmuxinator
 
 ################################################################################
 # Oh My Zsh
