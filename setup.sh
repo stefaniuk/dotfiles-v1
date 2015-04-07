@@ -22,7 +22,6 @@ arg_config=$(echo "$*" | grep -o -- "--config")
 arg_update_system=$(echo "$*" | grep -o -- "--update-system")
 arg_update_packages=$(echo "$*" | grep -o -- "--update-packages")
 arg_install_build_dependencies=$(echo "$*" | grep -o -- "--install-build-dependencies")
-arg_install_dev_repos=$(echo "$*" | grep -o -- "--install-development-repositories")
 
 ################################################################################
 # functions
@@ -49,7 +48,6 @@ Options:
     --update-system
     --update-packages
     --install-build-dependencies
-    --install-development-repositories
 "
 
     exit 0

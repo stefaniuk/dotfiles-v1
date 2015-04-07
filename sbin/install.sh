@@ -208,52 +208,5 @@ elif [ -d ~/.oh-my-zsh/.git ]; then
 fi
 
 ################################################################################
-# clone repositories
-
-if [ -n "$arg_install_dev_repos" ]; then
-
-    print_h2 "Install repositories"
-
-    mkdir -p ~/projects
-
-    # clone shell commons repository
-    if [ ! -d ~/projects/shell-commons ]; then
-        print_h3 "Clone shell-commons"
-        git clone https://github.com/stefaniuk/shell-commons.git ~/projects/shell-commons
-    else
-        print_h3 "Pull shell-commons"
-        (cd ~/projects/shell-commons; git pull)
-    fi
-
-    # clone shell packages repository
-    if [ ! -d ~/projects/shell-packages ]; then
-        print_h3 "Clone shell-packages"
-        git clone https://github.com/stefaniuk/shell-packages.git ~/projects/shell-packages
-    else
-        print_h3 "Pull shell-packages"
-        (cd ~/projects/shell-packages; git pull)
-    fi
-
-    # clone shell scripts repository
-    if [ ! -d ~/projects/shell-scripts ]; then
-        print_h3 "Clone shell-scripts"
-        git clone https://github.com/stefaniuk/shell-scripts.git ~/projects/shell-scripts
-    else
-        print_h3 "Pull shell-scripts"
-        (cd ~/projects/shell-scripts; git pull)
-    fi
-
-    # clone dotfiles repository
-    if [ ! -d ~/projects/dotfiles ]; then
-        print_h3 "Clone dotfiles"
-        git clone https://github.com/stefaniuk/dotfiles.git ~/projects/dotfiles
-    else
-        print_h3 "Pull dotfiles"
-        (cd ~/projects/dotfiles; git pull)
-    fi
-
-fi
-
-################################################################################
 
 exit 0
