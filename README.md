@@ -27,6 +27,7 @@ Make sure the following options are set:
 TODO list
 ---------
 
+ * Install Docker and Puppet by default
  * Custom yo generators for PHP, Java, cross-platform mobile app
  * Install display in-line image feature for iTerm (nightly), http://iterm2.com/images.html#/section/home
  * Update shortcuts for Vim
