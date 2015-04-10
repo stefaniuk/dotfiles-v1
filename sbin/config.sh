@@ -110,8 +110,10 @@ if which mc > /dev/null 2>&1; then
 
     # resources
     mkdir -p ~/.config/mc
-    [ -f /etc/mc/mc.keymap ] && cp /etc/mc/mc.keymap ~/.config/mc
-    [ -f /usr/local/etc/mc/mc.keymap ] && cp /usr/local/etc/mc/mc.keymap ~/.config/mc
+    [ -f /etc/mc/mc.keymap ] && cp -L /etc/mc/mc.keymap ~/.config/mc
+    [ -f /usr/local/etc/mc/mc.keymap ] && cp -L /usr/local/etc/mc/mc.keymap ~/.config/mc
+    [ -f /etc/mc/mc.menu ] && cp -L /etc/mc/mc.menu ~/.config/mc/menu
+    [ -f /usr/local/etc/mc/mc.menu ] && cp -L /usr/local/etc/mc/mc.menu ~/.config/mc/menu
     cp -f ~/etc/mc/* ~/.config/mc
 
 fi
