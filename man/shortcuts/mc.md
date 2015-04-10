@@ -6,7 +6,6 @@
     ctrl+o      show / hide (toggle) shell command line
     ctrl+x i    show / hide (toggle) other panel to info mode
     ctrl+x q    show / hide (toggle) other panel to view mode
-    ctrl+x !    run a command to create panel listing
     ctrl+r      refresh list
     ctrl+\      show directory hotlist
     left        change to parent directory
@@ -16,6 +15,7 @@
 
 ##### Manipulation
 
+    ctrl+x !    run a command to create panel listing
     ctrl+t      select / unselect item
     +           select by pattern
     -           unselect by pattern
