@@ -11,7 +11,7 @@ All files will be installed in the user directory
     USER_NAME="Daniel Stefaniuk"
     USER_EMAIL="daniel.stefaniuk@gmail.com"
     wget https://raw.githubusercontent.com/stefaniuk/dotfiles/master/setup.sh -O - | /bin/bash -s -- \
-        --prepare --install-required --config \
+        --prepare --install --config \
         --update-system --update-packages \
         --sudo
 
