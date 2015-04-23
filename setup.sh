@@ -88,7 +88,7 @@ function program_synchronise {
     rsync -rav \
         --include=/ \
         --exclude=/.git* --exclude=/README.md --exclude=/LICENCE \
-        $program_dir/. \
+        $program_dir/* \
         ~
 
     printf "\n"
@@ -96,36 +96,32 @@ function program_synchronise {
 
 function program_load_dependencies {
 
-    function load_shell_project {
+    if [ -z "$arg_exclude_shell_dependencies" ]; then
 
-        local name=$1
+        # project
+        if [ -f ~/projects/shell-fusion/installer.sh ] && \
+                [ -z "$arg_force_download_shell_dependencies" ]; then
+            ~/projects/shell-fusion/installer.sh --do-not-run-tests
 
-        if [ -z "$arg_exclude_shell_dependencies" ]; then
-            if [ -f ~/projects/shell-$name/installer.sh ] && \
-                    [ -z "$arg_force_download_shell_dependencies" ]; then
-                ~/projects/shell-$name/installer.sh --do-not-run-tests
+        # local installation
+        elif [ -f ~/.shell-fusion/installer.sh ] && \
+                [ -z "$arg_force_download_shell_dependencies" ]; then
+            ~/.shell-fusion/installer.sh --do-not-run-tests
 
-            elif [ -f ~/.shell-$name/installer.sh ] && \
-                    [ -z "$arg_force_download_shell_dependencies" ]; then
-                ~/.shell-$name/installer.sh --do-not-run-tests
+        # global installation
+        elif [ -f /usr/local/shell-fusion/installer.sh ] && \
+                [ -z "$arg_force_download_shell_dependencies" ]; then
+            /usr/local/shell-fusion/installer.sh --do-not-run-tests
 
-            elif [ -f /usr/local/shell-$name/installer.sh ] && \
-                    [ -z "$arg_force_download_shell_dependencies" ]; then
-                /usr/local/shell-$name/installer.sh --do-not-run-tests
-
-            else
-                wget https://raw.githubusercontent.com/stefaniuk/shell-$name/master/installer.sh -O - | \
-                    /bin/bash -s -- --do-not-run-tests
-            fi
+        # repository
+        else
+            wget https://raw.githubusercontent.com/stefaniuk/shell-fusion/master/installer.sh -O - | \
+                /bin/bash -s -- --do-not-run-tests
         fi
+    fi
 
-        source ~/.shell-$name/shell-$name.sh 2> /dev/null
-        [ $? != 0 ] && source /usr/local/shell-$name/shell-$name.sh 2> /dev/null
-    }
-
-    load_shell_project "commons"
-    load_shell_project "packages"
-    load_shell_project "scripts"
+    source ~/.shell-fusion/shell-fusion.sh 2> /dev/null
+    [ $? != 0 ] && source /usr/local/shell-fusion/shell-fusion.sh 2> /dev/null
 }
 
 function program_setup {

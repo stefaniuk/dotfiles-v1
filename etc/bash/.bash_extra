@@ -1,0 +1,37 @@
+#!/bin/sh
+
+# configure Android SDK
+if [ -d $SHELL_FUSION_HOME/opt/android-sdk/current ]; then
+    export ANDROID_SDK_HOME=$SHELL_FUSION_HOME/opt/android-sdk/current
+    export PATH=$ANDROID_SDK_HOME/tools:$ANDROID_SDK_HOME/platform-tools:$PATH
+fi
+# configure Ant
+if [ -d $SHELL_FUSION_HOME/opt/ant/current ]; then
+    export ANT_HOME=$SHELL_FUSION_HOME/opt/ant/current
+    export PATH=$ANT_HOME/bin:$PATH
+fi
+# configure Maven
+if [ -d $SHELL_FUSION_HOME/opt/maven/current ]; then
+    export M2_HOME=$SHELL_FUSION_HOME/opt/maven/current
+    export PATH=$M2_HOME/bin:$PATH
+fi
+# configure Spring Boot CLI
+if [ -d $SHELL_FUSION_HOME/opt/spring/current ]; then
+    export SPRING_HOME=$SHELL_FUSION_HOME/opt/spring/current
+    export PATH=$SPRING_HOME/bin:$PATH
+fi
+# configure Gradle
+if [ -d $SHELL_FUSION_HOME/opt/gradle/current ]; then
+    export GRADLE_HOME=$SHELL_FUSION_HOME/opt/gradle/current
+    export PATH=$GRADLE_HOME/bin:$PATH
+fi
+# configure Groovy
+if [ -d $SHELL_FUSION_HOME/opt/groovy/current ]; then
+    export GROOVY_HOME=$SHELL_FUSION_HOME/opt/groovy/current
+    export PATH=$GROOVY_HOME/bin:$PATH
+fi
+# configure Java JDK
+if [ -d $SHELL_FUSION_HOME/opt/jdk/current ]; then
+    export JAVA_HOME=$SHELL_FUSION_HOME/opt/jdk/current
+    export PATH=$JAVA_HOME/bin:$PATH
+fi

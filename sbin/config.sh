@@ -131,19 +131,6 @@ if which lynx > /dev/null 2>&1; then
 fi
 
 ################################################################################
-# Maven
-
-if which mvn > /dev/null 2>&1; then
-
-    print_h2 "Configure Maven"
-
-    # resources
-    mkdir -p ~/.m2
-    cp -f ~/etc/maven/settings*.xml ~/.m2
-
-fi
-
-################################################################################
 # Irssi
 
 if which irssi > /dev/null 2>&1; then
@@ -154,6 +141,19 @@ if which irssi > /dev/null 2>&1; then
     mkdir -p ~/.irssi
     cp -f ~/etc/irssi/config ~/.irssi
     file_replace_str "real_name = \"\"" "real_name = \"$USER_NAME\"" ~/.irssi/config
+
+fi
+
+################################################################################
+# Maven
+
+if which mvn > /dev/null 2>&1; then
+
+    print_h2 "Configure Maven"
+
+    # resources
+    mkdir -p ~/.m2
+    cp -f ~/etc/maven/settings*.xml ~/.m2
 
 fi
 

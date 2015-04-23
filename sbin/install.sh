@@ -17,9 +17,9 @@ if [ $DIST == "macosx" ]; then
     fi
     if [ -n "$arg_update_packages" ]; then
         print_h2 "Update packages"
-        brew upgrade
-        brew update
         brew tap homebrew/dupes 2> /dev/null
+        brew update
+        brew upgrade
     fi
     print_h2 "Install components via brew"
     brew install \

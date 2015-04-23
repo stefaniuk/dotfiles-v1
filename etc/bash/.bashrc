@@ -14,12 +14,8 @@ export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
 #### dependencies ##############################################################
 
-source ~/.shell-commons/shell-commons.sh 2> /dev/null
-[ $? != 0 ] && source /usr/local/shell-commons/shell-commons.sh 2> /dev/null
-source ~/.shell-packages/shell-packages.sh 2> /dev/null
-[ $? != 0 ] && source /usr/local/shell-packages/shell-packages.sh 2> /dev/null
-source ~/.shell-scripts/shell-scripts.sh 2> /dev/null
-[ $? != 0 ] && source /usr/local/shell-scripts/shell-scripts.sh 2> /dev/null
+source ~/.shell-fusion/shell-fusion.sh 2> /dev/null
+[ $? != 0 ] && source /usr/local/shell-fusion/shell-fusion.sh 2> /dev/null
 
 #### configuration #############################################################
 
@@ -45,40 +41,5 @@ unset file
 
 #### path ######################################################################
 
-# configure Android SDK
-if [ -d $SHELL_PACKAGES_HOME/opt/android-sdk/current ]; then
-    export ANDROID_SDK_HOME=$SHELL_PACKAGES_HOME/opt/android-sdk/current
-    export PATH=$ANDROID_SDK_HOME/tools:$ANDROID_SDK_HOME/platform-tools:$PATH
-fi
-# configure Ant
-if [ -d $SHELL_PACKAGES_HOME/opt/ant/current ]; then
-    export ANT_HOME=$SHELL_PACKAGES_HOME/opt/ant/current
-    export PATH=$ANT_HOME/bin:$PATH
-fi
-# configure Maven
-if [ -d $SHELL_PACKAGES_HOME/opt/maven/current ]; then
-    export M2_HOME=$SHELL_PACKAGES_HOME/opt/maven/current
-    export PATH=$M2_HOME/bin:$PATH
-fi
-# configure Spring Boot CLI
-if [ -d $SHELL_PACKAGES_HOME/opt/spring/current ]; then
-    export SPRING_HOME=$SHELL_PACKAGES_HOME/opt/spring/current
-    export PATH=$SPRING_HOME/bin:$PATH
-fi
-# configure Gradle
-if [ -d $SHELL_PACKAGES_HOME/opt/gradle/current ]; then
-    export GRADLE_HOME=$SHELL_PACKAGES_HOME/opt/gradle/current
-    export PATH=$GRADLE_HOME/bin:$PATH
-fi
-# configure Groovy
-if [ -d $SHELL_PACKAGES_HOME/opt/groovy/current ]; then
-    export GROOVY_HOME=$SHELL_PACKAGES_HOME/opt/groovy/current
-    export PATH=$GROOVY_HOME/bin:$PATH
-fi
-# configure Java JDK
-if [ -d $SHELL_PACKAGES_HOME/opt/jdk/current ]; then
-    export JAVA_HOME=$SHELL_PACKAGES_HOME/opt/jdk/current
-    export PATH=$JAVA_HOME/bin:$PATH
-fi
 # make sure PATH variable includes `bin` directory
 export PATH=$PATH:~/bin
