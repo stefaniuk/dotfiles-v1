@@ -26,6 +26,7 @@ if [ $DIST == "macosx" ]; then
         ack \
         bash \
         bash-completion \
+        caskroom/cask/brew-cask \
         curl \
         git \
         grc \
