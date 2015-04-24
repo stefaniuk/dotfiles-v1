@@ -133,7 +133,7 @@ if [ $DIST == "macosx" ] && [ -n "$arg_install_build_dependencies" ]; then
         openssl \
         zlib \
         2> /dev/null
-    brew link \
+    brew link --overwrite --force \
         binutils \
         bzip2 \
         cmake \
@@ -148,7 +148,6 @@ if [ $DIST == "macosx" ] && [ -n "$arg_install_build_dependencies" ]; then
         ncurses \
         openssl \
         zlib \
-        --force \
         > /dev/null 2>&1
     brew linkapps > /dev/null
 
