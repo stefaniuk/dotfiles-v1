@@ -42,7 +42,7 @@ if [ $DIST == "macosx" ]; then
         wget \
         zsh \
         2> /dev/null
-    brew linkapps > /dev/null
+    brew linkapps --local > /dev/null
 
 elif [ $DIST == "ubuntu" ]; then
 
@@ -149,7 +149,7 @@ if [ $DIST == "macosx" ] && [ -n "$arg_install_build_dependencies" ]; then
         openssl \
         zlib \
         > /dev/null 2>&1
-    brew linkapps > /dev/null
+    brew linkapps --local > /dev/null
 
 elif [ $DIST == "ubuntu" ] && [ -n "$arg_install_build_dependencies" ]; then
 
