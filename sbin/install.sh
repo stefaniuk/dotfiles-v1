@@ -190,12 +190,6 @@ elif [ $DIST == "scientific" ] && [ -n "$arg_install_build_dependencies" ]; then
 fi
 
 ################################################################################
-# Tmuxinator
-
-print_h2 "Install Tmuxinator"
-sudo gem install tmuxinator
-
-################################################################################
 # Oh My Zsh
 
 print_h2 "Install Oh My Zsh"
@@ -206,6 +200,12 @@ if [ ! -f ~/.oh-my-zsh/oh-my-zsh.sh ]; then
 elif [ -d ~/.oh-my-zsh/.git ]; then
     (cd ~/.oh-my-zsh; git pull)
 fi
+
+################################################################################
+# Tmuxinator
+
+print_h2 "Install Tmuxinator"
+sudo gem install tmuxinator
 
 ################################################################################
 

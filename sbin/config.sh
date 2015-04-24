@@ -3,6 +3,18 @@
 print_h1 "Configuring components..."
 
 ################################################################################
+# SSH
+
+if which ssh > /dev/null 2>&1; then
+
+    print_h2 "Configure SSH"
+
+    # resources
+    cp -f ~/etc/ssh/config ~/.ssh
+
+fi
+
+################################################################################
 # Bash
 
 if which bash > /dev/null 2>&1; then
