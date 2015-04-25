@@ -1,3 +1,4 @@
 #### brew
 
-    brew install -v --build-from-source package
+    brew options <package>
+    brew install -v --build-from-source <package>
