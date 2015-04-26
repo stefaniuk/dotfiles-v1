@@ -18,8 +18,17 @@
     apt-get --only-upgrade install <package>
     apt-get --yes --force-yes --ignore-missing --no-install-recommends install <package>
 
+##### build / compile
+
+    apt-get build-dep <package>                 # install build dependencies
+    apt-get source --compile <package>          # build from source
+
 ##### enable / disable
 
     dpkg-reconfigure <package>
     echo "<package> hold" | dpkg --set-selections
     echo "<package> install" | dpkg --set-selections
+
+##### configure
+
+    add-apt-repository <repository>
