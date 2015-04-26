@@ -1,14 +1,8 @@
-#### Ubuntu
+#### ubuntu
 
-##### Packages
-
-    apt-get install -linux-headers-$(uname -r)
-    dpkg -i file.deb
-
-##### Configuration
+##### configuration
 
     lspci
     lshw -c network
     iwconfig
     ifconfig
-
