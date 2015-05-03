@@ -11,17 +11,17 @@ GITHUB_REPOSITORY_NAME="dotfiles"
 USER_NAME=${USER_NAME-$USER}
 USER_EMAIL=${USER_EMAIL-$USER@$HOSTNAME}
 program_dir=$(cd "$(dirname "$0" 2> /dev/null)"; pwd)
-arg_help=$(echo "$*" | grep -o -- "--help")
-arg_sudo=$(echo "$*" | grep -o -- "--sudo")
-arg_exclude_shell_dependencies=$(echo "$*" | grep -o -- "--exclude-shell-dependencies")
-arg_force_download_shell_dependencies=$(echo "$*" | grep -o -- "--force-download-shell-dependencies")
-arg_synchronise_only=$(echo "$*" | grep -o -- "--synchronise-only")
 arg_prepare=$(echo "$*" | grep -o -- "--prepare")
-arg_install=$(echo "$*" | grep -o -- "--install")
-arg_config=$(echo "$*" | grep -o -- "--config")
 arg_update_system=$(echo "$*" | grep -o -- "--update-system")
 arg_update_packages=$(echo "$*" | grep -o -- "--update-packages")
-arg_install_build_dependencies=$(echo "$*" | grep -o -- "--install-build-dependencies")
+arg_install=$(echo "$*" | grep -o -- "--install")
+arg_install_build_tools=$(echo "$*" | grep -o -- "--install-build-tools")
+arg_install_workstation_tools=$(echo "$*" | grep -o -- "--install-workstation-tools")
+arg_config=$(echo "$*" | grep -o -- "--config")
+arg_force_download_shell_dependencies=$(echo "$*" | grep -o -- "--force-download-shell-dependencies")
+arg_synchronise_only=$(echo "$*" | grep -o -- "--synchronise-only")
+arg_sudo=$(echo "$*" | grep -o -- "--sudo")
+arg_help=$(echo "$*" | grep -o -- "--help")
 
 ################################################################################
 # functions
@@ -37,17 +37,17 @@ Usage:
     ${file} [options]
 
 Options:
-    --help
-    --sudo
-    --exclude-shell-dependencies
-    --force-download-shell-dependencies
-    --synchronise-only
     --prepare
-    --install
-    --config
     --update-system
     --update-packages
-    --install-build-dependencies
+    --install
+    --install-build-tools
+    --install-workstation-tools
+    --config
+    --force-download-shell-dependencies
+    --synchronise-only
+    --sudo
+    --help
 "
 
     exit 0
@@ -96,28 +96,25 @@ function program_synchronise {
 
 function program_load_dependencies {
 
-    if [ -z "$arg_exclude_shell_dependencies" ]; then
+    # project
+    if [ -f ~/projects/shell-fusion/installer.sh ] && \
+            [ -z "$arg_force_download_shell_dependencies" ]; then
+        ~/projects/shell-fusion/installer.sh --do-not-run-tests
 
-        # project
-        if [ -f ~/projects/shell-fusion/installer.sh ] && \
-                [ -z "$arg_force_download_shell_dependencies" ]; then
-            ~/projects/shell-fusion/installer.sh --do-not-run-tests
+    # local installation
+    elif [ -f ~/.shell-fusion/installer.sh ] && \
+            [ -z "$arg_force_download_shell_dependencies" ]; then
+        ~/.shell-fusion/installer.sh --do-not-run-tests
 
-        # local installation
-        elif [ -f ~/.shell-fusion/installer.sh ] && \
-                [ -z "$arg_force_download_shell_dependencies" ]; then
-            ~/.shell-fusion/installer.sh --do-not-run-tests
+    # global installation
+    elif [ -f /usr/local/shell-fusion/installer.sh ] && \
+            [ -z "$arg_force_download_shell_dependencies" ]; then
+        /usr/local/shell-fusion/installer.sh --do-not-run-tests
 
-        # global installation
-        elif [ -f /usr/local/shell-fusion/installer.sh ] && \
-                [ -z "$arg_force_download_shell_dependencies" ]; then
-            /usr/local/shell-fusion/installer.sh --do-not-run-tests
-
-        # repository
-        else
-            wget https://raw.githubusercontent.com/stefaniuk/shell-fusion/master/installer.sh -O - | \
-                /bin/bash -s -- --do-not-run-tests
-        fi
+    # repository
+    else
+        wget https://raw.githubusercontent.com/stefaniuk/shell-fusion/master/installer.sh -O - | \
+            /bin/bash -s -- --do-not-run-tests
     fi
 
     source ~/.shell-fusion/shell-fusion.sh 2> /dev/null

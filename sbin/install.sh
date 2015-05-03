@@ -112,11 +112,11 @@ elif [ $DIST == "scientific" ]; then
 fi
 
 ################################################################################
-# install build dependencies
+# install build tools
 
-if [ $DIST == "macosx" ] && [ -n "$arg_install_build_dependencies" ]; then
+if [ $DIST == "macosx" ] && [ -n "$arg_install_build_tools" ]; then
 
-    print_h2 "Install build dependencies via brew"
+    print_h2 "Install build tools via brew"
     brew install \
         binutils \
         bzip2 \
@@ -151,9 +151,9 @@ if [ $DIST == "macosx" ] && [ -n "$arg_install_build_dependencies" ]; then
         > /dev/null 2>&1
     brew linkapps --local > /dev/null
 
-elif [ $DIST == "ubuntu" ] && [ -n "$arg_install_build_dependencies" ]; then
+elif [ $DIST == "ubuntu" ] && [ -n "$arg_install_build_tools" ]; then
 
-    print_h2 "Install build dependencies via apt-get"
+    print_h2 "Install build tools via apt-get"
     DEBIAN_FRONTEND="noninteractive"
     sudo apt-get --yes --force-yes --ignore-missing --no-install-recommends install \
         binutils \
@@ -176,9 +176,9 @@ elif [ $DIST == "ubuntu" ] && [ -n "$arg_install_build_dependencies" ]; then
     sudo apt-get --yes --force-yes autoremove
     sudo apt-get clean
 
-elif [ $DIST == "scientific" ] && [ -n "$arg_install_build_dependencies" ]; then
+elif [ $DIST == "scientific" ] && [ -n "$arg_install_build_tools" ]; then
 
-    print_h2 "Install build dependencies via yum"
+    print_h2 "Install build tools via yum"
     sudo yum --assumeyes install \
         curl-devel \
         gettext \
@@ -186,6 +186,40 @@ elif [ $DIST == "scientific" ] && [ -n "$arg_install_build_dependencies" ]; then
         ncurses-devel \
         slang-devel \
         zlib-devel
+
+fi
+
+################################################################################
+# install workstation tools
+
+if [ $DIST == "macosx" ] && [ -n "$arg_install_workstation_tools" ]; then
+
+    print_h2 "Install workstation tools via brew"
+    #brew install \
+    #    package \
+    #    2> /dev/null
+    #brew link --overwrite --force \
+    #    package \
+    #    > /dev/null 2>&1
+    #brew linkapps --local > /dev/null
+
+elif [ $DIST == "ubuntu" ] && [ -n "$arg_install_workstation_tools" ]; then
+
+    print_h2 "Install workstation tools via apt-get"
+    DEBIAN_FRONTEND="noninteractive"
+    sudo apt-get --yes --force-yes --ignore-missing --no-install-recommends install \
+        compiz \
+        compizconfig-settings-manager \
+        compiz-plugins-default \
+        compiz-plugins
+    sudo apt-get --yes --force-yes autoremove
+    sudo apt-get clean
+
+elif [ $DIST == "scientific" ] && [ -n "$arg_install_workstation_tools" ]; then
+
+    print_h2 "Install workstation tools via yum"
+    #sudo yum --assumeyes install \
+    #    package
 
 fi
 
