@@ -41,7 +41,6 @@ TODO list
  * Explore [bash-it](https://github.com/revans/bash-it)
  * Explore [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh)
  * Explore [Prezto](https://github.com/sorin-ionescu/prezto)
- * Self-update functionality
 
 See
 ---
