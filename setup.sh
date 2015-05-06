@@ -18,8 +18,8 @@ arg_install=$(echo "$*" | grep -o -- "--install")
 arg_install_build_tools=$(echo "$*" | grep -o -- "--install-build-tools")
 arg_install_workstation_tools=$(echo "$*" | grep -o -- "--install-workstation-tools")
 arg_config=$(echo "$*" | grep -o -- "--config")
-arg_force_download_shell_dependencies=$(echo "$*" | grep -o -- "--force-download-shell-dependencies")
 arg_synchronise_only=$(echo "$*" | grep -o -- "--synchronise-only")
+arg_force_download=$(echo "$*" | grep -o -- "--force-download")
 arg_sudo=$(echo "$*" | grep -o -- "--sudo")
 arg_help=$(echo "$*" | grep -o -- "--help")
 
@@ -44,8 +44,8 @@ Options:
     --install-build-tools
     --install-workstation-tools
     --config
-    --force-download-shell-dependencies
     --synchronise-only
+    --force-download
     --sudo
     --help
 "
@@ -97,19 +97,16 @@ function program_synchronise {
 function program_load_dependencies {
 
     # project
-    if [ -f ~/projects/shell-fusion/installer.sh ] && \
-            [ -z "$arg_force_download_shell_dependencies" ]; then
-        ~/projects/shell-fusion/installer.sh --do-not-run-tests
+    if [ -f ~/projects/shell-fusion/installer.sh ]; then
+        ~/projects/shell-fusion/installer.sh --do-not-run-tests "$arg_force_download"
 
     # local installation
-    elif [ -f ~/.shell-fusion/installer.sh ] && \
-            [ -z "$arg_force_download_shell_dependencies" ]; then
-        ~/.shell-fusion/installer.sh --do-not-run-tests
+    elif [ -f ~/.shell-fusion/installer.sh ]; then
+        ~/.shell-fusion/installer.sh --do-not-run-tests "$arg_force_download"
 
     # global installation
-    elif [ -f /usr/local/shell-fusion/installer.sh ] && \
-            [ -z "$arg_force_download_shell_dependencies" ]; then
-        /usr/local/shell-fusion/installer.sh --do-not-run-tests
+    elif [ -f /usr/local/shell-fusion/installer.sh ]; then
+        /usr/local/shell-fusion/installer.sh --do-not-run-tests "$arg_force_download"
 
     # repository
     else
@@ -156,7 +153,7 @@ function program_setup {
 [ -n "$arg_help" ] && usage
 [ -n "$arg_sudo" ] && sudo_keep_alive
 
-if [ -z "$BASH_SOURCE" ]; then
+if [ -z "$BASH_SOURCE" ] || [ -n "$arg_force_download" ]; then
 
     # download from repository
     program_download
