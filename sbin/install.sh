@@ -1,9 +1,9 @@
 #!/bin/bash
 
-print_h1 "Installing required components..."
+print_h1 "Installing components..."
 
 ################################################################################
-# install basic dependencies
+# install required programs
 
 if [ $DIST == "macosx" ]; then
 
