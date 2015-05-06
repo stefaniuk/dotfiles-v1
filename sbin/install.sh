@@ -226,13 +226,14 @@ elif [ $DIST == "ubuntu" ] && [ -n "$arg_install_workstation_tools" ]; then
 
     print_h2 "Install workstation tools via custom installer"
 
-    spkg install --configure --global \
+    spkg install \
         git \
         vim \
         mc \
         virtualbox virtualbox-ext \
         vagrant \
-        docker
+        docker \
+        --configure --global
 
 elif [ $DIST == "scientific" ] && [ -n "$arg_install_workstation_tools" ]; then
 
