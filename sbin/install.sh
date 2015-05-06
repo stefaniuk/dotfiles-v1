@@ -226,7 +226,8 @@ elif [ $DIST == "ubuntu" ] && [ -n "$arg_install_workstation_tools" ]; then
 
     print_h2 "Install workstation tools via custom installer"
 
-    spkg install \
+    spkg install --configure --global \
+        git \
         vim \
         mc \
         virtualbox virtualbox-ext \
