@@ -224,6 +224,15 @@ elif [ $DIST == "ubuntu" ] && [ -n "$arg_install_workstation_tools" ]; then
     sudo apt-get --yes --force-yes autoremove
     sudo apt-get clean
 
+    print_h2 "Install workstation tools via custom installer"
+
+    spkg install \
+        vim \
+        mc \
+        virtualbox virtualbox-ext \
+        vagrant \
+        docker
+
 elif [ $DIST == "scientific" ] && [ -n "$arg_install_workstation_tools" ]; then
 
     print_h2 "Install workstation tools via yum"
