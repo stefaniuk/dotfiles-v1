@@ -230,6 +230,7 @@ elif [ $DIST == "ubuntu" ] && [ -n "$arg_install_workstation_tools" ]; then
         git \
         vim \
         mc \
+        atom \
         virtualbox virtualbox-ext \
         vagrant \
         docker \
