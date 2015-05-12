@@ -141,6 +141,11 @@
     # use the Git 1.x.x default to avoid errors on machines with old Git
     default = matching
 
+[http]
+
+    # accept self-signed SSL certificate
+    sslVerify = false
+
 # URL shorthands
 
 [url "git@github.com:"]

@@ -56,6 +56,7 @@
 
 ##### other
 
+    git credential-cache exit           # clear cached credentials
     git diff --ignore-space-at-eol      # ignore line endings
     git diff --stat --cached            # list files to be pushed
     git diff master..stable             # compare two branches
