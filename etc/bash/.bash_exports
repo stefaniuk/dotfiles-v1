@@ -32,8 +32,8 @@ shopt -s histappend
 shopt -s cmdhist
 
 # prefer British English
-export LANG="en_GB.UTF-8"
-export LC_ALL="en_GB.UTF-8"
+export LANG="en_GB.UTF-8" 2> /dev/null
+export LC_ALL="en_GB.UTF-8" 2> /dev/null
 
 # highlight section titles in manual pages
 export LESS_TERMCAP_mb="${red}"

@@ -4,7 +4,7 @@
 [[ "$-" != *i* ]] && return
 
 # detect type of terminal session
-if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ] || ps -o comm= -p $PPID | grep sshd > /dev/null; then
+if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ] || ps -o comm= -p $PPID 2> /dev/null | grep sshd > /dev/null; then
     export SESSION_TYPE="remote"
 else
     export SESSION_TYPE="local"
