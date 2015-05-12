@@ -133,6 +133,8 @@
 
     # include summaries of merged commits in newly created merge commit messages
     log = true
+    # improve resolving merge conflicts
+    conflictstyle = diff3
 
 [push]
 
