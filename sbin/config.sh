@@ -10,6 +10,7 @@ if which ssh > /dev/null 2>&1; then
     print_h2 "Configure SSH"
 
     # resources
+    mkdir ~/.ssh
     cp -f ~/etc/ssh/config ~/.ssh
 
 fi
