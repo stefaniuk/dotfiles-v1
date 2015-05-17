@@ -29,6 +29,7 @@ if [ $DIST == "macosx" ]; then
         caskroom/cask/brew-cask \
         curl \
         git \
+        git-flow \
         grc \
         irssi \
         lynx \
@@ -42,7 +43,6 @@ if [ $DIST == "macosx" ]; then
         wget \
         zsh \
         2> /dev/null
-    brew linkapps --local > /dev/null
 
 elif [ $DIST == "ubuntu" ]; then
 
@@ -65,6 +65,7 @@ elif [ $DIST == "ubuntu" ]; then
         debconf-utils \
         expect \
         git \
+        git-flow \
         grc \
         irssi \
         lynx \
@@ -93,6 +94,7 @@ elif [ $DIST == "scientific" ]; then
         expect \
         gcc \
         git \
+        gitflow \
         irssi \
         lynx \
         mc \
@@ -133,23 +135,6 @@ if [ $DIST == "macosx" ] && [ -n "$arg_install_build_tools" ]; then
         openssl \
         zlib \
         2> /dev/null
-    brew link --overwrite --force \
-        binutils \
-        bzip2 \
-        cmake \
-        coreutils \
-        curl \
-        gcc \
-        gettext \
-        icu4c \
-        libiconv \
-        makedepend \
-        mcrypt \
-        ncurses \
-        openssl \
-        zlib \
-        > /dev/null 2>&1
-    brew linkapps --local > /dev/null
 
 elif [ $DIST == "ubuntu" ] && [ -n "$arg_install_build_tools" ]; then
 
