@@ -216,10 +216,10 @@ elif [ $DIST == "ubuntu" ] && [ -n "$arg_install_workstation_tools" ]; then
         compiz-plugins
 
     # conky
-    sudo apt-get --yes --force-yes --ignore-missing --no-install-recommends install \
-        conky \
-        lm-sensors \
-        hddtemp
+    #sudo apt-get --yes --force-yes --ignore-missing --no-install-recommends install \
+    #    conky \
+    #    lm-sensors \
+    #    hddtemp
 
     sudo apt-get --yes --force-yes autoremove
     sudo apt-get clean
