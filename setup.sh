@@ -14,8 +14,10 @@ program_dir=$(cd "$(dirname "$0" 2> /dev/null)"; pwd)
 arg_prepare=$(echo "$*" | grep -o -- "--prepare")
 arg_update_system=$(echo "$*" | grep -o -- "--update-system")
 arg_update_packages=$(echo "$*" | grep -o -- "--update-packages")
+arg_is_vm=$(echo "$*" | grep -o -- "--is-vm")
 arg_install=$(echo "$*" | grep -o -- "--install")
 arg_install_build_tools=$(echo "$*" | grep -o -- "--install-build-tools")
+arg_install_server_tools=$(echo "$*" | grep -o -- "--install-server-tools")
 arg_install_workstation_tools=$(echo "$*" | grep -o -- "--install-workstation-tools")
 arg_config=$(echo "$*" | grep -o -- "--config")
 arg_synchronise_only=$(echo "$*" | grep -o -- "--synchronise-only")
@@ -40,8 +42,10 @@ Options:
     --prepare
     --update-system
     --update-packages
+    --is-vm
     --install
     --install-build-tools
+    --install-server-tools
     --install-workstation-tools
     --config
     --synchronise-only

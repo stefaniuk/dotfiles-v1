@@ -13,26 +13,27 @@ All files will be installed in the user directory
     wget https://raw.githubusercontent.com/stefaniuk/dotfiles/master/setup.sh -O - | /bin/bash -s -- \
         --prepare \
         --update-system --update-packages \
-        --install --install-build-tools --install-workstation-tools \
+        --install \
         --config \
         --sudo
 
-Client Configuration
---------------------
+Additional options that can be used from the command-line during the installation
 
-Make sure the following options are set:
-
- * Set UTF-8 encoding
- * Allow ANSI colours
- * Allow 256-colour mode
+    --is-vm
+    --install-build-tools
+    --install-server-tools
+    --install-workstation-tools
+    --synchronise-only
+    --force-download
 
 TODO list
 ---------
 
- * Install Docker and Puppet by default
- * Custom yo generators for PHP, Java, cross-platform mobile app
+ * Install VirtualBox, Vagrant, Docker, Packaer and Puppet by default where appropriate
+ * Custom file templates and project generators
+ * Configure Vim and Atom
+ * Update Midnight Commander, Vim and Atom shortcuts
  * Install display in-line image feature for iTerm (nightly), http://iterm2.com/images.html#/section/home
- * Update shortcuts for Vim
  * Support for man functionality that is based on images, i.e. UML diagrams
  * Provide custom dictionary for Sublime Text and test 'add to dict' function
  * Make sure [grc](http://korpus.juls.savba.sk/~garabik/software/grc.html) works correctly

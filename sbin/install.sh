@@ -21,7 +21,7 @@ if [ $DIST == "macosx" ]; then
         brew update
         brew upgrade
     fi
-    print_h2 "Install components via brew"
+    print_h2 "Install components"
     brew install \
         ack \
         bash \
@@ -56,7 +56,7 @@ elif [ $DIST == "ubuntu" ]; then
         sudo apt-get --yes --force-yes upgrade
         sudo apt-get -o Dpkg::Options::="--force-confnew" --force-yes -fuy dist-upgrade
     fi
-    print_h2 "Install components via apt-get"
+    print_h2 "Install components"
     sudo apt-get --yes --force-yes --ignore-missing --no-install-recommends install \
         ack-grep \
         bash \
@@ -84,7 +84,7 @@ elif [ $DIST == "ubuntu" ]; then
 
 elif [ $DIST == "scientific" ]; then
 
-    print_h2 "Install components via yum"
+    print_h2 "Install components"
     sudo yum --assumeyes install \
         ack \
         bash \
@@ -118,7 +118,8 @@ fi
 
 if [ $DIST == "macosx" ] && [ -n "$arg_install_build_tools" ]; then
 
-    print_h2 "Install build tools via brew"
+    print_h2 "Install build tools"
+
     brew install \
         binutils \
         bzip2 \
@@ -138,7 +139,8 @@ if [ $DIST == "macosx" ] && [ -n "$arg_install_build_tools" ]; then
 
 elif [ $DIST == "ubuntu" ] && [ -n "$arg_install_build_tools" ]; then
 
-    print_h2 "Install build tools via apt-get"
+    print_h2 "Install build tools"
+
     DEBIAN_FRONTEND="noninteractive"
     sudo apt-get --yes --force-yes --ignore-missing --no-install-recommends install \
         binutils \
@@ -163,34 +165,66 @@ elif [ $DIST == "ubuntu" ] && [ -n "$arg_install_build_tools" ]; then
 
 elif [ $DIST == "scientific" ] && [ -n "$arg_install_build_tools" ]; then
 
-    print_h2 "Install build tools via yum"
+    print_h2 "Install build tools"
+
     sudo yum --assumeyes install \
         curl-devel \
         gettext \
         glib2-devel \
         ncurses-devel \
+        perl-CPAN \
         slang-devel \
         zlib-devel
 
 fi
 
 ################################################################################
+# install server tools
+
+if [ -n "$arg_install_server_tools" ] && [ -z "$arg_install_workstation_tools" ]; then
+
+    print_h2 "Install server tools"
+
+    # basic tools
+    spkg install \
+        git \
+        vim \
+        mc \
+        --configure --global
+
+fi
+
+################################################################################
 # install workstation tools
 
-if [ $DIST == "macosx" ] && [ -n "$arg_install_workstation_tools" ]; then
+if [ -n "$arg_install_workstation_tools" ] && [ -z "$arg_install_server_tools" ]; then
 
-    print_h2 "Install workstation tools via brew"
-    #brew install \
-    #    package \
-    #    2> /dev/null
-    #brew link --overwrite --force \
-    #    package \
-    #    > /dev/null 2>&1
-    #brew linkapps --local > /dev/null
+    print_h2 "Install workstation tools"
 
-elif [ $DIST == "ubuntu" ] && [ -n "$arg_install_workstation_tools" ]; then
+    # basic tools
+    spkg install \
+        git \
+        vim \
+        mc \
+        java \
+        --configure --global
 
-    print_h2 "Install workstation tools via apt-get"
+    # developer tools
+    spkg install \
+        atom \
+        --configure --global
+
+    # virtualisation tools
+    [ -z "$arg_is_vm" ] && spkg install \
+        virtualbox virtualbox-ext \
+        vagrant \
+        docker \
+        --configure --global
+
+fi
+
+if [ $DIST == "ubuntu" ] && [ -n "$arg_install_workstation_tools" ] && [ -z "$arg_install_server_tools" ]; then
+
     DEBIAN_FRONTEND="noninteractive"
 
     # compiz
@@ -210,24 +244,6 @@ elif [ $DIST == "ubuntu" ] && [ -n "$arg_install_workstation_tools" ]; then
 
     sudo apt-get --yes --force-yes autoremove
     sudo apt-get clean
-
-    print_h2 "Install workstation tools via custom installer"
-
-    spkg install \
-        git \
-        vim \
-        mc \
-        atom \
-        virtualbox virtualbox-ext \
-        vagrant \
-        docker \
-        --configure --global
-
-elif [ $DIST == "scientific" ] && [ -n "$arg_install_workstation_tools" ]; then
-
-    print_h2 "Install workstation tools via yum"
-    #sudo yum --assumeyes install \
-    #    package
 
 fi
 
