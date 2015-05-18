@@ -212,6 +212,9 @@ if [ -n "$arg_install_workstation_tools" ] && [ -z "$arg_install_server_tools" ]
     # developer tools
     spkg install \
         atom \
+        smartgit \
+        smartsynchronize \
+        visual-paradigm \
         --configure --global
 
     # virtualisation tools
