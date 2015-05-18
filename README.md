@@ -19,7 +19,7 @@ All files will be installed in the user directory
 
 Additional options that can be used from the command-line during the installation
 
-    --is-vm
+    --vm
     --install-build-tools
     --install-server-tools
     --install-workstation-tools

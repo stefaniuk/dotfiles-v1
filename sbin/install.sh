@@ -215,7 +215,7 @@ if [ -n "$arg_install_workstation_tools" ] && [ -z "$arg_install_server_tools" ]
         --configure --global
 
     # virtualisation tools
-    [ -z "$arg_is_vm" ] && spkg install \
+    [ -z "$arg_vm" ] && spkg install \
         virtualbox virtualbox-ext \
         vagrant \
         docker \
