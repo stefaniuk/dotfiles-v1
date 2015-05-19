@@ -24,9 +24,14 @@ if which atom > /dev/null 2>&1; then
 
     # packages
     apm install \
-        git-plus \
+        compare-files \
+        git-history \
         git-log \
-        git-history
+        git-plus \
+        language-ini \
+        open-last-project \
+        open-recent \
+        sort-lines
 
 fi
 
