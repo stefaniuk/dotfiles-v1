@@ -12,7 +12,10 @@
 
 ##### Configuration on Linux
 
-    docker -d -H unix:///var/run/docker.sock -H tcp://192.168.?.?
+    docker -d \
+        -H unix:///var/run/docker.sock \
+        -H tcp://192.168.?.? \
+        -D >> /var/log/docker.log 2>&1 &
 
     export DOCKER_HOST="tcp://0.0.0.0:2375"
 
