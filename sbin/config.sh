@@ -132,6 +132,18 @@ if which mc > /dev/null 2>&1; then
 fi
 
 ################################################################################
+# Tmux
+
+if which tmux > /dev/null 2>&1; then
+
+    print_h2 "Configure Tmux"
+
+    # resources
+    cp -f ~/etc/tmux/.tmux* ~
+
+fi
+
+################################################################################
 # Lynx
 
 if which lynx > /dev/null 2>&1; then

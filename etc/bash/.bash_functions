@@ -1,34 +1,7 @@
 #!/bin/sh
 
-# start `php` application
-# function runphp {
-
-#     local port="${1:-9000}"
-
-#     local dir=
-#     if [ -d ./public ] && [ -f ./public/index.php ]; then
-#         dir="."
-#     elif [ -d ../public ] && [ -f ../public/index.php ]; then
-#         dir=".."
-#     elif [ -d ../../public ] && [ -f ../../public/index.php ]; then
-#         dir="../.."
-#     elif [ -d ../../../public ] && [ -f ../../../public/index.php ]; then
-#         dir="../../.."
-#     fi
-
-#     if [ -n "$dir" ]; then
-#         local pid=$(ps aux | grep -v 'grep' | grep 'php -S 0.0.0.0:9000 -t ./public ./public/index.php' | awk '{ print $2 }')
-#         [ -n "$pid" ] && kill -s TERM $pid
-#         (
-#             cd ${dir}
-#             nohup php -S 0.0.0.0:${port} -t ./public ./public/index.php > ~/php.log &
-#         )
-#         tail -f ~/php.log
-#     fi
-# }
-
 # change github protocol from https to git
-function fix_my_github_urls {
+function fix_github_urls {
 
     for file in $(find ~/projects -type f -iname config | grep '\.git'); do
         file_replace_str "url = https://github.com/stefaniuk" "url = git@github.com:stefaniuk" $file
@@ -61,4 +34,21 @@ function please {
     echo -e "\n$func \"\${params[@]}\"\n" >> $file
     sudo bash $file
     rm $file
+}
+
+# convert bytes to human readable text
+function byteme {
+
+    local list="bytes,KB,MB,GB,TB,PB,EB,ZB,YB"
+
+    local p=1
+    local data=$(cat)
+    local v=$(echo "scale=2; $data / 1" | bc)
+    local i=$(echo $v / 1024 | bc)
+    while [ ! $i = "0" ]; do
+        let p=p+1
+        v=$(echo "scale=2; $v / 1024" | bc)
+        i=$(echo $v / 1024 | bc)
+    done
+    echo $v$(echo $list | cut -f$p -d,)
 }

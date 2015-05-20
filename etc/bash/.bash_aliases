@@ -1,17 +1,33 @@
 #!/bin/sh
 
-# navigation
+# --- navigation ---------------------------------------------------------------
+
 alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
 alias ~="cd ~"
 alias -- -="cd -"
 
-# shortcuts
+# --- shortcuts ----------------------------------------------------------------
+
 alias dl="cd ~/Downloads"
 alias p="cd ~/projects"
-alias pd="cd ~/projects/dotfiles"
-alias g="\git"
+
+alias g="git"
+alias ga="git add -A"
+alias gb="git branch -vv"
+alias gc="git commit -a"
+alias gco="git checkout"
+alias gd="git diff"
+alias gl="git log --graph --stat --oneline --decorate"
+alias gm="git merge --no-ff"
+alias gp="git push"
+alias gpo="git push origin"
+alias gs="git status -s"
+
+alias tmux="TERM=screen-256color-bce tmux"
+
+# --- commands -----------------------------------------------------------------
 
 # list files - detect which `ls` flavour is in use
 if [ $DIST == "macosx" ]; then # OS X `ls`
@@ -19,14 +35,12 @@ if [ $DIST == "macosx" ]; then # OS X `ls`
 else # GNU `ls`
     colorflag="--color"
 fi
-# always use colour output for `ls`
-alias ls="\ls ${colorflag}"
 # list all files colourised in long format
-alias ll="\ls -lF ${colorflag}"
+alias ll="ls -lF ${colorflag}"
 # list all files colourised in long format, including dot files
-alias la="\ls -laF ${colorflag}"
+alias la="ls -laF ${colorflag}"
 # list only directories
-alias lsd="\ls -lF ${colorflag} | \grep --color=never '^d'"
+alias lsd="ls -lF ${colorflag} | \grep --color=never '^d'"
 
 # always use colour output for `grep`
 alias grep="\grep --color=auto"
@@ -35,7 +49,7 @@ alias grep="\grep --color=auto"
 alias sudo="sudo "
 
 # ip address
-alias ip="\ifconfig | \grep -oE '192\.168\.[0-9]+\.[0-9]+' | \grep -v '.255$'"
+alias ip="ifconfig | \grep -oE '192\.168\.[0-9]+\.[0-9]+' | \grep -v '.255$'"
 alias ipe="net_get_external_ip"
 
 # canonical hex dump
@@ -47,7 +61,7 @@ alias urlencode="python -c 'import sys, urllib as ul; print ul.quote_plus(sys.ar
 # colourise output of some commands
 if which grc > /dev/null 2>&1; then
     [ -d /usr/local/share/grc ] && dir=/usr/local/share/grc || dir=/usr/share/grc
-    for file in $(\ls -1 $dir); do
+    for file in $(ls -1 $dir); do
         prog=$(echo $file | awk 'BEGIN { FS = "." } ; { print $2 }')
         alias $prog="grc $prog"
     done
