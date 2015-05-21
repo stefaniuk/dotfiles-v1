@@ -25,6 +25,12 @@ alias gp="git push"
 alias gpo="git push origin"
 alias gs="git status -s"
 
+alias d="docker"
+alias dst="docker -d -H unix:///var/run/docker.sock -D >> /var/log/docker.log 2>&1 &"
+alias dps="docker ps -a"
+alias dlo="docker logs -f"
+alias dat="docker attach"
+
 alias tmux="TERM=screen-256color-bce tmux"
 
 # --- commands -----------------------------------------------------------------

@@ -29,6 +29,7 @@
     docker run -i -t --name=<name> <image>:<version> /bin/bash
     docker ps -a
     docker start <name>
+    docker logs -f <name>
     docker attach <name> # to exit press <ctrl+p> <ctrl+q>
     docker stop <name>
     docker rm <name>
