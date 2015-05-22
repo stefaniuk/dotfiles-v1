@@ -31,5 +31,6 @@
     docker start <name>
     docker logs -f <name>
     docker attach <name> # to exit press <ctrl+p> <ctrl+q>
+    docker exec -i -t <name> bash -c <command>
     docker stop <name>
     docker rm <name>

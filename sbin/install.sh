@@ -185,6 +185,17 @@ if [ -n "$arg_install_server_tools" ] && [ -z "$arg_install_workstation_tools" ]
 
     print_h2 "Install server tools"
 
+    if [ $DIST == "ubuntu" ]; then
+        sudo apt-get --yes --force-yes --ignore-missing --no-install-recommends install \
+            heirloom-mailx \
+            sendmail
+    elif [ $DIST == "scientific" ]; then
+        sudo yum --assumeyes install \
+            m4 \
+            mailx \
+            sendmail
+    fi
+
     # basic tools
     spkg install \
         git \
