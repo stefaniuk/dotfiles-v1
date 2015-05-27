@@ -12,6 +12,7 @@ if which ssh > /dev/null 2>&1; then
     # resources
     mkdir -p ~/.ssh
     cp -f ~/etc/ssh/config ~/.ssh
+    file_replace_str "github.key" "github-$GITHUB_REPOSITORY_ACCOUNT.key" ~/.ssh/config
 
 fi
 

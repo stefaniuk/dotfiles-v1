@@ -237,7 +237,14 @@ if [ -n "$arg_install_workstation_tools" ] && [ -z "$arg_install_server_tools" ]
 
 fi
 
-if [ $DIST == "ubuntu" ] && [ -n "$arg_install_workstation_tools" ] && [ -z "$arg_install_server_tools" ]; then
+if [ $DIST == "macosx" ] && [ -n "$arg_install_workstation_tools" ] && [ -z "$arg_install_server_tools" ]; then
+
+    # others
+    brew install \
+        gtypist \
+        2> /dev/null
+
+elif [ $DIST == "ubuntu" ] && [ -n "$arg_install_workstation_tools" ] && [ -z "$arg_install_server_tools" ]; then
 
     DEBIAN_FRONTEND="noninteractive"
 
@@ -255,6 +262,10 @@ if [ $DIST == "ubuntu" ] && [ -n "$arg_install_workstation_tools" ] && [ -z "$ar
         conky conky-manager \
         lm-sensors \
         hddtemp
+
+    # others
+    sudo apt-get --yes --force-yes --ignore-missing --no-install-recommends install \
+        gtypist
 
     sudo apt-get --yes --force-yes autoremove
     sudo apt-get clean

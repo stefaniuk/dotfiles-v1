@@ -55,7 +55,7 @@ alias grep="\grep --color=auto"
 alias sudo="sudo "
 
 # ip address
-alias ip="ifconfig | \grep -oE '192\.168\.[0-9]+\.[0-9]+' | \grep -v '.255$'"
+alias ipi="ifconfig | \grep -oE '192\.168\.[0-9]+\.[0-9]+' | \grep -v '.255$' | sort | uniq"
 alias ipe="net_get_external_ip"
 
 # canonical hex dump
