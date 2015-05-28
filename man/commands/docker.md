@@ -1,6 +1,6 @@
-#### Docker
+#### docker
 
-##### Configuration on Mac OSX
+##### configuration on Mac OSX
 
     boot2docker init
     boot2docker up
@@ -10,7 +10,7 @@
     export DOCKER_CERT_PATH=~/.boot2docker/certs/boot2docker-vm
     echo $(boot2docker ip) dockerhost | sudo tee -a /etc/hosts
 
-##### Configuration on Linux
+##### configuration on Linux
 
     docker -d \
         -H unix:///var/run/docker.sock \
@@ -19,7 +19,7 @@
 
     export DOCKER_HOST="tcp://0.0.0.0:2375"
 
-##### Usage
+##### simple usage
 
     docker info
     docker images
@@ -34,3 +34,7 @@
     docker exec -i -t <name> bash -c <command>
     docker stop <name>
     docker rm <name>
+
+##### advanced usage
+
+    docker build -t <name>:<tag> --rm ./
