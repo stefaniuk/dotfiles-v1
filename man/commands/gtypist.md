@@ -6,6 +6,6 @@
         --word-processor \
         --scoring=cpm \
         --show-errors \
-        --max-error=5 \
+        --max-error=3 \
         --personal-best \
         --always-sure
