@@ -30,15 +30,14 @@ if which atom > /dev/null 2>&1; then
     cp -f ~/etc/atom/* ~/.atom
 
     # packages
-    apm install \
-        compare-files \
-        git-history \
-        git-log \
-        git-plus \
-        language-ini \
-        open-last-project \
-        open-recent \
-        sort-lines
+    #apm install compare-files
+    apm install git-history
+    apm install git-log
+    apm install git-plus
+    apm install language-ini
+    apm install open-last-project
+    apm install open-recent
+    apm install sort-lines
 
 fi
 
