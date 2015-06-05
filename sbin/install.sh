@@ -35,7 +35,6 @@ if [ $DIST == "macosx" ]; then
         lynx \
         mc \
         pcre \
-        screen \
         tmux \
         tree \
         unzip \
@@ -72,7 +71,6 @@ elif [ $DIST == "ubuntu" ]; then
         mc \
         pcregrep \
         ruby \
-        screen \
         tmux \
         tree \
         unzip \
@@ -102,7 +100,6 @@ elif [ $DIST == "scientific" ]; then
         patch \
         pcre \
         ruby \
-        screen \
         strace \
         tmux \
         tree \
