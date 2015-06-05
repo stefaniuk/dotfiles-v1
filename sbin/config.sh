@@ -12,7 +12,7 @@ if which ssh > /dev/null 2>&1; then
     # resources
     mkdir -p ~/.ssh
     cp -f ~/etc/ssh/config ~/.ssh
-    file_replace_str "github.key" "github-$GITHUB_REPOSITORY_ACCOUNT.key" ~/.ssh/config
+    file_replace_str "github.key" "github-$GITHUB_ACCOUNT.key" ~/.ssh/config
 
 fi
 
@@ -27,6 +27,7 @@ if which bash > /dev/null 2>&1; then
     cp -f ~/etc/bash/.bash* ~
     file_replace_str "USER_NAME=\"unknown\"" "USER_NAME=\"$USER_NAME\"" ~/.bash_exports
     file_replace_str "USER_EMAIL=\"unknown\"" "USER_EMAIL=\"$USER_EMAIL\"" ~/.bash_exports
+    file_replace_str "GITHUB_ACCOUNT=\"unknown\"" "GITHUB_ACCOUNT=\"$GITHUB_ACCOUNT\"" ~/.bash_exports
 
     # profile
     [ -f ~/.profile ] && [ ! -f ~/.profile.old ] && mv ~/.profile ~/.profile.old

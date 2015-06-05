@@ -6,8 +6,8 @@
 ################################################################################
 # variables
 
-GITHUB_REPOSITORY_ACCOUNT="stefaniuk"
-GITHUB_REPOSITORY_NAME="dotfiles"
+GITHUB_ACCOUNT=${GITHUB_ACCOUNT-stefaniuk}
+GITHUB_REPOSITORY="dotfiles"
 USER_NAME=${USER_NAME-$USER}
 USER_EMAIL=${USER_EMAIL-$USER@$HOSTNAME}
 program_dir=$(cd "$(dirname "$0" 2> /dev/null)"; pwd)
@@ -74,20 +74,20 @@ function sudo_keep_alive {
 
 function program_download {
 
-    printf "Download $GITHUB_REPOSITORY_NAME\n\n"
+    printf "Download $GITHUB_REPOSITORY\n\n"
 
     wget \
-        -O ~/$GITHUB_REPOSITORY_NAME.tar.gz \
-        "https://github.com/${GITHUB_REPOSITORY_ACCOUNT}/${GITHUB_REPOSITORY_NAME}/tarball/master"
-    tar -zxf ~/$GITHUB_REPOSITORY_NAME.tar.gz -C ~
-    rm -f ~/$GITHUB_REPOSITORY_NAME.tar.gz
-    cp -rf ~/$GITHUB_REPOSITORY_ACCOUNT-$GITHUB_REPOSITORY_NAME-*/* ~
-    rm -rf ~/$GITHUB_REPOSITORY_ACCOUNT-$GITHUB_REPOSITORY_NAME-*
+        -O ~/$GITHUB_REPOSITORY.tar.gz \
+        "https://github.com/${GITHUB_ACCOUNT}/${GITHUB_REPOSITORY}/tarball/master"
+    tar -zxf ~/$GITHUB_REPOSITORY.tar.gz -C ~
+    rm -f ~/$GITHUB_REPOSITORY.tar.gz
+    cp -rf ~/$GITHUB_ACCOUNT-$GITHUB_REPOSITORY-*/* ~
+    rm -rf ~/$GITHUB_ACCOUNT-$GITHUB_REPOSITORY-*
 }
 
 function program_synchronise {
 
-    printf "Synchronise $GITHUB_REPOSITORY_NAME\n\n"
+    printf "Synchronise $GITHUB_REPOSITORY\n\n"
 
     rsync -rav \
         --include=/ \
@@ -162,7 +162,7 @@ if [ -z "$BASH_SOURCE" ] || [ -n "$arg_force_download" ]; then
     # download from repository
     program_download
 
-elif [[ $program_dir == */projects/$GITHUB_REPOSITORY_NAME ]]; then
+elif [[ $program_dir == */projects/$GITHUB_REPOSITORY ]]; then
 
     # synchronise with project
     program_synchronise

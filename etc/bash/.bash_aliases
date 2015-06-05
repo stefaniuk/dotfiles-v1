@@ -33,6 +33,8 @@ alias dlo="docker logs -f"
 alias dst="docker start"
 alias dex="docker exec -it"
 alias dat="docker attach"
+function dbu { docker build -t $GITHUB_ACCOUNT/$(basename $(pwd) | sed 's/docker-//') --rm ./ ; }
+export -f dbu
 
 alias tmux="TERM=screen-256color-bce tmux"
 
