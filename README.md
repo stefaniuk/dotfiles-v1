@@ -26,7 +26,7 @@ Additional options that can be used from the command-line during the installatio
     --synchronise-only
     --force-download
 
-TODO list
+TODO List
 ---------
 
  * Install `grc` for SL
