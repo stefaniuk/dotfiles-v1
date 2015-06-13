@@ -82,7 +82,7 @@ fi
 # show manual
 alias sc="show-manual commands"
 alias sd="show-manual design-patterns"
-alias sg="show-manual settings"
+alias se="show-manual settings"
 alias ss="show-manual shortcuts"
 alias st="show-manual templates"
 
