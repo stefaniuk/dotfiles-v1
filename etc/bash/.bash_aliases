@@ -79,9 +79,12 @@ if which grc > /dev/null 2>&1; then
     unset dir file prog
 fi
 
-# show shortcuts/commands
-alias ss="show_shortcuts"
-alias sc="show_commands"
+# show manual
+alias sc="show-manual commands"
+alias sd="show-manual design-patterns"
+alias sg="show-manual settings"
+alias ss="show-manual shortcuts"
+alias st="show-manual templates"
 
 # reload bash
 alias reload="exec $SHELL -l"

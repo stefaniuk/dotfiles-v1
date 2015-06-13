@@ -1,0 +1,54 @@
+#!/bin/bash
+
+# define help
+help=$(cat <<HEREDOC
+
+    DESCRIPTION: Show manual entries from the ~/man directory.
+
+    PARAMETERS:
+        \$1 kind
+        \$2 name
+        \$3 type
+HEREDOC
+)
+
+# print help
+if [ "$1" == "-h" ] || [ "$1" == "--help" ]; then
+    echo -e "${help}\n"
+    exit 0
+fi
+
+# print list
+if [ -n "$(echo "$*" | grep -o -- "-l")" ] || [ -n "$(echo "$*" | grep -o -- "--list")" ]; then
+    if [ $# -gt 1 ]; then
+        ls -1 ~/man/*${1}* | \
+            sed 's/\.[^.]*$//g' | \
+            uniq
+    else
+        ls -1 ~/man
+    fi
+    exit 0
+fi
+
+# get parameters
+kind="$1"
+name="$2"
+type="${3:-md}"
+
+for dir in $(ls ~/man | grep $kind 2> /dev/null); do
+    for file in $(ls -1 ~/man/$dir/*${name}*.${type} 2> /dev/null); do
+
+        # handle markdown files
+        if [ "${file##*.}" == "md" ]; then
+            echo
+            cat $file | \
+                sed "s/^#### /`printf "${bold}${white}"`#### /g" | \
+                sed "s/^##### /`printf "${blue}"`##### /g" | \
+                sed ":a;N;\$!ba;s/\n/${reset}\n/g"
+            echo
+        fi
+
+    done
+done
+
+exit 0
