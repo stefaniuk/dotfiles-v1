@@ -70,6 +70,7 @@ elif [ $DIST == "ubuntu" ]; then
         lynx \
         mc \
         pcregrep \
+        python-pygments \
         ruby \
         tmux \
         tree \

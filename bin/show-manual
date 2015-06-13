@@ -38,13 +38,24 @@ type="${3:-md}"
 for dir in $(ls ~/man | grep $kind 2> /dev/null); do
     for file in $(ls -1 ~/man/$dir/*${name}*.${type} 2> /dev/null); do
 
-        # handle markdown files
+        # handle markdown
         if [ "${file##*.}" == "md" ]; then
             echo
             cat $file | \
                 sed "s/^#### /`printf "${bold}${white}"`#### /g" | \
                 sed "s/^##### /`printf "${blue}"`##### /g" | \
                 sed ":a;N;\$!ba;s/\n/${reset}\n/g"
+            echo
+
+        # handle images
+        elif [[ "${file##*.}" =~ ^(jpeg|png|svg) ]]; then
+            which eog > /dev/null 2>&1 && eog $file
+
+        # handle source code
+        elif [[ "${file##*.}" =~ ^(html|java) ]]; then
+            echo
+            which pygmentize > /dev/null 2>&1 && \
+                pygmentize -g $file || cat $file
             echo
         fi
 
