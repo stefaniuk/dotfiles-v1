@@ -1,4 +1,4 @@
-#### Builder
+#### Builder (97)
 
 Creational pattern, object creational
 
@@ -23,3 +23,7 @@ Use the Builder pattern when
  * Lets you vary a product's internal representation
  * Isolates code for construction and representation
  * Gives you finer control over the construction process
+
+##### Related Patterns
+
+Abstract Factory (87) is similar to Builder in that it too may construct complex objects. The primary difference is that the Builder pattern focuses on constructing a complex object step by step. Abstract Factory's emphasis is on families of product objects (either simple or complex). Builder returns the product as a final step, but as far as the Abstract Factory pattern is concerned, the product gets returned immediately. A Composite (163) is what the builder often builds.

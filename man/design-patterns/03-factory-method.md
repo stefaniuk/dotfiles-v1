@@ -1,4 +1,4 @@
-#### Factory Method
+#### Factory Method (107)
 
 Creational pattern, class creational
 
@@ -20,3 +20,7 @@ Use the Factory Method pattern when
 
  * Provides hooks for subclasses
  * Connects parallel class hierarchies
+
+##### Related Patterns
+
+Abstract Factory (87) is often implemented with factory methods. The Motivation example in the Abstract Factory pattern illustrates Factory Method as well. Factory methods are usually called within Template Methods (325). In the document example above, NewDocument is a template method. Prototypes (117) don't require subclassing Creator. However, they often require an Initialize operation on the Product class. Creator uses Initialize to initialize the object. Factory Method doesn't require such an operation.

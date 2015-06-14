@@ -1,4 +1,4 @@
-#### Prototype
+#### Prototype (117)
 
 Creational pattern, object creational
 
@@ -23,3 +23,7 @@ Use the Prototype pattern when a system should be independent of how its product
  * Specifying new objects by varying structure
  * Reduced subclassing
  * Configuring an application with classes dynamically
+
+##### Related Patterns
+
+Prototype and Abstract Factory (87) are competing patterns in some ways. They can also be used together. However, an Abstract Factory might store a set of prototypes from which to clone and return product objects. Designs that make heavy use of the Composite (163) and Decorator (175) patterns often can benefit from Prototype as well.
