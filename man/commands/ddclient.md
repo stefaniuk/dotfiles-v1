@@ -1,3 +1,3 @@
 #### ddclient
 
-    ddclient -daemon 0
+    ddclient -daemon=0 -debug
