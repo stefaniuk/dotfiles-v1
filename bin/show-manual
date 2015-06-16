@@ -23,6 +23,7 @@ if [ -n "$(echo "$*" | grep -o -- "-l")" ] || [ -n "$(echo "$*" | grep -o -- "--
     if [ $# -gt 1 ]; then
         ls -1 ~/man/*${1}* | \
             sed 's/\.[^.]*$//g' | \
+            sort | \
             uniq
     else
         ls -1 ~/man
