@@ -63,4 +63,6 @@
 
 ##### advanced usage
 
+    docker rm -v $(docker ps -a -q -f status=exited) # remove exited containers
+    docker rmi $(docker images -f "dangling=true" -q) # remove unwanted images
     docker build -t <name>:<tag> --rm ./
