@@ -29,10 +29,12 @@ alias d="docker"
 alias dup="docker -d -H unix:///var/run/docker.sock -D >> /var/log/docker.log 2>&1 &"
 alias dim="docker images"
 alias dps="docker ps -a"
-alias dlo="docker logs -f"
 alias dst="docker start"
+alias dto="docker top"
+alias dlo="docker logs -f"
 alias dex="docker exec -it"
 alias dat="docker attach"
+alias dip="docker inspect --format '{{ .NetworkSettings.IPAddress }}'"
 function dbu { docker build -t $GITHUB_ACCOUNT/$(basename $(pwd) | sed s/docker-//) --rm . ; }
 export -f dbu
 
