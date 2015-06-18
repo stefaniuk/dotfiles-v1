@@ -22,8 +22,15 @@
         --squash \
         --strategy=recursive \
         --strategy-option=theirs \
-        --log --edit -m "merge" \
+        --log \
         master
+
+    git merge \
+        --no-ff \
+        --strategy=recursive \
+        --strategy-option=theirs \
+        --log --edit -m "Hotfix: [comment]" \
+        hotfix/hotfix-[name]
 
     git merge --abort                   # only if there are conflicts
 
