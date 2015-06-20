@@ -39,6 +39,12 @@
 
     /etc/default/docker
 
+##### configuration options
+
+        DOCKER_OPTS= \
+            --bip=172.17.0.1/24
+            --log-level=debug
+
 ##### configuration variables
 
     export DOCKER_HOST="tcp://0.0.0.0:2375"
@@ -65,5 +71,6 @@
 
     docker rm -v $(docker ps -a -q -f status=exited)                    # remove exited containers
     docker rmi $(docker images -f "dangling=true" -q)                   # remove unwanted images
+    docker rmi $(docker images -a | awk '{ print $3 }' | grep -v IMAGE) # remove all images
     docker inspect --format "{{ .NetworkSettings.IPAddress }}" <name>
     docker build -t <name>:<tag> --rm ./
