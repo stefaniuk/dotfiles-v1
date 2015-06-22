@@ -63,11 +63,14 @@
 
 ##### other
 
-    git credential-cache exit           # clear cached credentials
-    git diff --ignore-space-at-eol      # ignore line endings
-    git diff --stat --cached            # list files to be pushed
-    git diff master..stable             # compare two branches
-    git reset HEAD filename             # unadd filename
-    git clean -f -d --dry-run           # remove files after switching branch
-    git reset --soft HEAD~1             # undo last commit
-    git branch --edit-description       # set branch description
+    git credential-cache exit               # clear cached credentials
+    git diff --ignore-space-at-eol          # ignore line endings
+    git diff --stat --cached                # list files to be pushed
+    git diff --name-status stable..master   # compare two branches
+    git diff --stat --color stable..master  # compare two branches
+    git diff stable..master                 # compare two branches
+    git diff stable master -- file
+    git reset HEAD filename                 # unadd filename
+    git clean -f -d --dry-run               # remove files after switching branch
+    git reset --soft HEAD~1                 # undo last commit
+    git branch --edit-description           # set branch description
