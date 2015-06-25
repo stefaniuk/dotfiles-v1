@@ -29,6 +29,7 @@ Additional options that can be used from the command-line during the installatio
 TODO List
 ---------
 
+ * Customise `dotfiles` for Docker containers (add --virtualised and --minimal flags)
  * Install `grc` for SL
  * Install VirtualBox, Vagrant, Docker, Packaer and Puppet by default where appropriate
  * Custom file templates and project generators
