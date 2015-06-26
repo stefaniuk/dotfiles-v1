@@ -70,6 +70,7 @@
     git diff --stat --color stable..master  # compare two branches
     git diff stable..master                 # compare two branches
     git diff stable master -- file
+    git diff -w (--ignore-all-space)
     git reset HEAD filename                 # unadd filename
     git clean -f -d --dry-run               # remove files after switching branch
     git reset --soft HEAD~1                 # undo last commit
