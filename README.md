@@ -39,6 +39,7 @@ TODO List
  * Support for man functionality that is based on images, i.e. UML diagrams
  * Provide custom dictionary for Sublime Text and test 'add to dict' function
  * Make sure [grc](http://korpus.juls.savba.sk/~garabik/software/grc.html) works correctly
+ * Check thoughtbot's [dotfiles](https://github.com/thoughtbot/dotfiles)
  * Check Justin Force's [dotfiles](https://github.com/justinforce/dotfiles)
  * Check Gediminas Morkevicius' [dotfiles](https://github.com/l3pp4rd/dotfiles) for anything useful
  * Explore [bash-it](https://github.com/revans/bash-it)
