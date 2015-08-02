@@ -23,7 +23,6 @@ Use the State pattern in either of the following cases:
  * It localizes state-specific behavior and partitions behavior for different states
  * It makes state transitions explicit
  * State objects can be shared
- *
 
 ##### Related Patterns
 
