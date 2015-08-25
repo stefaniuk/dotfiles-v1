@@ -28,6 +28,13 @@
     git merge \
         --no-ff \
         --strategy=recursive \
+        --strategy-option=ours \
+        --log --edit \
+        stable
+
+    git merge \
+        --no-ff \
+        --strategy=recursive \
         --strategy-option=theirs \
         --log --edit -m "Hotfix: [comment]" \
         hotfix/hotfix-[name]
