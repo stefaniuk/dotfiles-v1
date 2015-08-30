@@ -86,10 +86,12 @@ if [ -n "$arg_install_workstation_tools" ] && [ -z "$arg_install_server_tools" ]
     brew cask install node
     brew cask install xquartz wireshark
     # applications and utils
-    brew cask install xtrafinder --appdir=/Applications
+    brew cask install xtrafinder
     brew cask install google-chrome --appdir=/Applications
     brew cask install firefox --appdir=/Applications
     brew cask install firefoxdeveloperedition --appdir=/Applications
+    brew cask install flash
+    brew cask install adobe-reader
     brew cask install dropbox --appdir=/Applications
     brew cask install megasync --appdir=/Applications
     brew cask install google-drive --appdir=/Applications
