@@ -11,7 +11,8 @@ GITHUB_REPOSITORY="dotfiles"
 USER_NAME=${USER_NAME-$USER}
 USER_EMAIL=${USER_EMAIL-$USER@$HOSTNAME}
 program_dir=$(cd "$(dirname "$0" 2> /dev/null)"; pwd)
-arg_vm=$(echo "$*" | grep -o -- "--vm")
+arg_virtualised=$(echo "$*" | grep -o -- "--virtualised")
+arg_minimal=$(echo "$*" | grep -o -- "--minimal")
 arg_prepare=$(echo "$*" | grep -o -- "--prepare")
 arg_update_system=$(echo "$*" | grep -o -- "--update-system")
 arg_update_packages=$(echo "$*" | grep -o -- "--update-packages")
@@ -39,7 +40,8 @@ Usage:
     ${file} [options]
 
 Options:
-    --vm
+    --virtualised
+    --minimal
     --prepare
     --update-system
     --update-packages

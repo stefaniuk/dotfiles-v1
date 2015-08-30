@@ -6,7 +6,7 @@ The aim of the `dotfiles` project is to configure shell and provide a better exp
 Installation
 ------------
 
-All files will be installed in the user directory
+All files will be installed in the user directory.
 
     USER_NAME="Daniel Stefaniuk"
     USER_EMAIL="daniel.stefaniuk@gmail.com"
@@ -17,7 +17,7 @@ All files will be installed in the user directory
         --config \
         --sudo
 
-Additional options that can be used from the command-line during the installation
+Here is a list of additional options that can be used from the command-line during the installation:
 
     --vm
     --install-server-tools
@@ -29,10 +29,6 @@ Additional options that can be used from the command-line during the installatio
 TODO List
 ---------
 
- * Customise `dotfiles` for Docker containers (add --virtualised and --minimal flags)
- * Custom file templates and project generators
- * Install display in-line image feature for iTerm (nightly), http://iterm2.com/images.html#/section/home
- * Make sure [grc](http://korpus.juls.savba.sk/~garabik/software/grc.html) works correctly
  * Check thoughtbot's [dotfiles](https://github.com/thoughtbot/dotfiles)
  * Check Justin Force's [dotfiles](https://github.com/justinforce/dotfiles)
  * Check Gediminas Morkevicius' [dotfiles](https://github.com/l3pp4rd/dotfiles) for anything useful
