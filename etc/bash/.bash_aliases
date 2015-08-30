@@ -82,6 +82,7 @@ if which grc > /dev/null 2>&1; then
 fi
 
 # show manual
+alias sb="show-manual best-practices"
 alias sc="show-manual commands"
 alias sd="show-manual design-patterns"
 alias se="show-manual settings"

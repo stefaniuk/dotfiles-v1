@@ -3,6 +3,20 @@
 print_h1 "Configuring..."
 
 ################################################################################
+# SSH
+
+if which ssh > /dev/null 2>&1; then
+
+    print_h2 "Configure SSH"
+
+    # resources
+    mkdir -p ~/.ssh
+    cp -f ~/etc/ssh/config ~/.ssh
+    file_replace_str "github.key" "github-$GITHUB_ACCOUNT.key" ~/.ssh/config
+
+fi
+
+################################################################################
 # Bash
 
 if which bash > /dev/null 2>&1; then
@@ -35,20 +49,6 @@ if which zsh > /dev/null 2>&1; then
 
     # resources
     cp -f ~/etc/zsh/.zsh* ~
-
-fi
-
-################################################################################
-# SSH
-
-if which ssh > /dev/null 2>&1; then
-
-    print_h2 "Configure SSH"
-
-    # resources
-    mkdir -p ~/.ssh
-    cp -f ~/etc/ssh/config ~/.ssh
-    file_replace_str "github.key" "github-$GITHUB_ACCOUNT.key" ~/.ssh/config
 
 fi
 
@@ -204,11 +204,10 @@ if which mvn > /dev/null 2>&1; then
 fi
 
 ################################################################################
-# configure distribution specific components
+# configure distribution specific tools
 
 file=~/sbin/config.$DIST.sh
 if [ -f $file ]; then
-    print_h1 "Configuring distribution specific components..."
     (. $file $*)
 fi
 unset file
