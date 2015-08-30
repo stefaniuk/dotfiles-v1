@@ -151,6 +151,11 @@ function program_setup {
     [ -n "$arg_install" ] && (. ~/sbin/install.sh $*)
     # config
     [ -n "$arg_config" ] && (. ~/sbin/config.sh $*)
+
+    # remove not needed resources
+    if [ -n "$arg_minimal" ]; then
+        rm -rf ~/{etc,man,sbin,LICENCE,README.md,setup.sh}
+    fi
 }
 
 ################################################################################
