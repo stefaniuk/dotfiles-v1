@@ -68,6 +68,7 @@ if [ -n "$arg_install_workstation_tools" ] && [ -z "$arg_install_server_tools" ]
     brew cask install iterm2-beta
     brew cask install sublime-text3
     brew cask install virtualbox
+    brew cask install virtualbox-extension-pack
     brew cask install vagrant
     brew cask install dockertoolbox
     brew cask install github-desktop
