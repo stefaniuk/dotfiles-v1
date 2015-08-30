@@ -1,11 +1,9 @@
 #!/bin/bash
 
-################################################################################
-# prerequisites
-
 if ! which brew > /dev/null; then
-    print_h2 "Install brew"
     ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    brew tap homebrew/dupes
+    brew tap caskroom/versions
     brew install caskroom/cask/brew-cask
 fi
 
@@ -18,8 +16,6 @@ if [ -n "$arg_update_system" ]; then
 fi
 if [ -n "$arg_update_packages" ]; then
     print_h2 "Update packages"
-    brew tap homebrew/dupes
-    brew tap caskroom/versions
     brew update
     brew upgrade
 fi
@@ -43,26 +39,7 @@ if [ -n "$arg_install" ]; then
     brew install unzip
     brew install vim
     brew install wget
-fi
-
-################################################################################
-# install build tools
-
-if [ -n "$arg_install_build_tools" ]; then
-    print_h2 "Install build tools"
-    brew install binutils
-    brew install bzip2
-    brew install cmake
-    brew install coreutils
-    brew install gcc
-    brew install gettext
-    brew install icu4c
-    brew install libiconv
-    brew install makedepend
-    brew install mcrypt
-    brew install ncurses
-    brew install openssl
-    brew install zlib
+    brew install zsh
 fi
 
 ################################################################################
@@ -70,11 +47,9 @@ fi
 
 if [ -n "$arg_install_workstation_tools" ] && [ -z "$arg_install_server_tools" ]; then
     print_h2 "Install workstation tools"
-
     brew install git-flow
     brew install gtypist
     brew install irssi
-    brew install zsh
     brew cask install java
     # configuration and monitoring tools
     brew cask install seil
@@ -109,6 +84,26 @@ if [ -n "$arg_install_workstation_tools" ] && [ -z "$arg_install_server_tools" ]
     brew cask install xee
     brew cask install vox
     brew cask install vlc
+fi
+
+################################################################################
+# install build tools
+
+if [ -n "$arg_install_build_tools" ]; then
+    print_h2 "Install build tools"
+    brew install binutils
+    brew install bzip2
+    brew install cmake
+    brew install coreutils
+    brew install gcc
+    brew install gettext
+    brew install icu4c
+    brew install libiconv
+    brew install makedepend
+    brew install mcrypt
+    brew install ncurses
+    brew install openssl
+    brew install zlib
 fi
 
 ################################################################################

@@ -44,6 +44,17 @@ if [ -n "$arg_install" ]; then
 fi
 
 ################################################################################
+# install server tools
+
+if [ -n "$arg_install_server_tools" ] && [ -z "$arg_install_workstation_tools" ]; then
+    print_h2 "Install server tools"
+    sudo yum --assumeyes install \
+        m4 \
+        mailx \
+        sendmail
+fi
+
+################################################################################
 # install build tools
 
 if [ -n "$arg_install_build_tools" ]; then
@@ -56,25 +67,6 @@ if [ -n "$arg_install_build_tools" ]; then
         perl-CPAN \
         slang-devel \
         zlib-devel
-fi
-
-################################################################################
-# install server tools
-
-if [ -n "$arg_install_server_tools" ] && [ -z "$arg_install_workstation_tools" ]; then
-    print_h2 "Install server tools"
-    sudo yum --assumeyes install \
-        m4 \
-        mailx \
-        sendmail
-fi
-
-################################################################################
-# install workstation tools
-
-if [ -n "$arg_install_workstation_tools" ] && [ -z "$arg_install_server_tools" ]; then
-    print_h2 "Install workstation tools"
-    :
 fi
 
 ################################################################################

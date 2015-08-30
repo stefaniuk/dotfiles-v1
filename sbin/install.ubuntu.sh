@@ -1,6 +1,7 @@
 #!/bin/bash
 
 DEBIAN_FRONTEND="noninteractive"
+apt_get_install="sudo apt-get --yes --force-yes --ignore-missing --no-install-recommends install"
 
 ################################################################################
 # update
@@ -20,7 +21,7 @@ fi
 
 if [ -n "$arg_install" ]; then
     print_h2 "Install basic tools"
-    sudo apt-get --yes --force-yes --ignore-missing --no-install-recommends install \
+    $apt_get_install \
         ack-grep \
         bash \
         bash-completion \
@@ -45,11 +46,44 @@ if [ -n "$arg_install" ]; then
 fi
 
 ################################################################################
+# install server tools
+
+if [ -n "$arg_install_server_tools" ] && [ -z "$arg_install_workstation_tools" ]; then
+    print_h2 "Install server tools"
+    $apt_get_install \
+        heirloom-mailx \
+        sendmail
+fi
+
+################################################################################
+# install workstation tools
+
+if [ -n "$arg_install_workstation_tools" ] && [ -z "$arg_install_server_tools" ]; then
+    print_h2 "Install workstation tools"
+    # compiz
+    $apt_get_install \
+        compiz \
+        compizconfig-settings-manager \
+        compiz-plugins-default \
+        compiz-plugins
+    # conky
+    sudo add-apt-repository --yes ppa:teejee2008/ppa
+    sudo apt-get update
+    $apt_get_install \
+        conky conky-manager \
+        lm-sensors \
+        hddtemp
+    # others
+    $apt_get_install \
+        gtypist
+fi
+
+################################################################################
 # install build tools
 
 if [ -n "$arg_install_build_tools" ]; then
     print_h2 "Install build tools"
-    sudo apt-get --yes --force-yes --ignore-missing --no-install-recommends install \
+    $apt_get_install \
         binutils \
         build-essential \
         cmake \
@@ -67,39 +101,6 @@ if [ -n "$arg_install_build_tools" ]; then
         libxml2-dev \
         ncurses-dev \
         zlib1g-dev
-fi
-
-################################################################################
-# install server tools
-
-if [ -n "$arg_install_server_tools" ] && [ -z "$arg_install_workstation_tools" ]; then
-    print_h2 "Install server tools"
-    sudo apt-get --yes --force-yes --ignore-missing --no-install-recommends install \
-        heirloom-mailx \
-        sendmail
-fi
-
-################################################################################
-# install workstation tools
-
-if [ -n "$arg_install_workstation_tools" ] && [ -z "$arg_install_server_tools" ]; then
-    print_h2 "Install workstation tools"
-    # compiz
-    sudo apt-get --yes --force-yes --ignore-missing --no-install-recommends install \
-        compiz \
-        compizconfig-settings-manager \
-        compiz-plugins-default \
-        compiz-plugins
-    # conky
-    sudo add-apt-repository --yes ppa:teejee2008/ppa
-    sudo apt-get update
-    sudo apt-get --yes --force-yes --ignore-missing --no-install-recommends install \
-        conky conky-manager \
-        lm-sensors \
-        hddtemp
-    # others
-    sudo apt-get --yes --force-yes --ignore-missing --no-install-recommends install \
-        gtypist
 fi
 
 ################################################################################

@@ -16,9 +16,9 @@ arg_prepare=$(echo "$*" | grep -o -- "--prepare")
 arg_update_system=$(echo "$*" | grep -o -- "--update-system")
 arg_update_packages=$(echo "$*" | grep -o -- "--update-packages")
 arg_install=$(echo "$*" | grep -o -- "--install")
-arg_install_build_tools=$(echo "$*" | grep -o -- "--install-build-tools")
 arg_install_server_tools=$(echo "$*" | grep -o -- "--install-server-tools")
 arg_install_workstation_tools=$(echo "$*" | grep -o -- "--install-workstation-tools")
+arg_install_build_tools=$(echo "$*" | grep -o -- "--install-build-tools")
 arg_config=$(echo "$*" | grep -o -- "--config")
 arg_synchronise_only=$(echo "$*" | grep -o -- "--synchronise-only")
 arg_force_download=$(echo "$*" | grep -o -- "--force-download")
@@ -44,9 +44,9 @@ Options:
     --update-system
     --update-packages
     --install
-    --install-build-tools
     --install-server-tools
     --install-workstation-tools
+    --install-build-tools
     --config
     --synchronise-only
     --force-download
@@ -76,9 +76,9 @@ function program_download {
 
     printf "Download $GITHUB_REPOSITORY\n\n"
 
-    wget \
-        -O ~/$GITHUB_REPOSITORY.tar.gz \
-        "https://github.com/${GITHUB_ACCOUNT}/${GITHUB_REPOSITORY}/tarball/master"
+    curl -L \
+        "https://github.com/${GITHUB_ACCOUNT}/${GITHUB_REPOSITORY}/tarball/master" \
+        -o ~/$GITHUB_REPOSITORY.tar.gz
     tar -zxf ~/$GITHUB_REPOSITORY.tar.gz -C ~
     rm -f ~/$GITHUB_REPOSITORY.tar.gz
     cp -rf ~/$GITHUB_ACCOUNT-$GITHUB_REPOSITORY-*/* ~
@@ -114,7 +114,7 @@ function program_load_dependencies {
 
     # repository
     else
-        wget https://raw.githubusercontent.com/stefaniuk/shell-fusion/master/installer.sh -O - | \
+        curl -L https://raw.githubusercontent.com/stefaniuk/shell-fusion/master/installer.sh -o - | \
             /bin/bash -s -- --do-not-run-tests
     fi
 
@@ -132,7 +132,7 @@ function program_setup {
 
     # check internet connection
     printf "Check internet connection\n"
-    wget --quiet --timeout=10 --tries=3 --spider "https://google.com"
+    curl --silent  --max-time 10 --retry 3 "https://google.com" > /dev/null
     if [[ $? -ne 0 ]]; then
         print_err "No internet connection"
     fi
