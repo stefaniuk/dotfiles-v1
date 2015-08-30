@@ -1,20 +1,6 @@
 #!/bin/bash
 
-print_h1 "Configuring components..."
-
-################################################################################
-# SSH
-
-if which ssh > /dev/null 2>&1; then
-
-    print_h2 "Configure SSH"
-
-    # resources
-    mkdir -p ~/.ssh
-    cp -f ~/etc/ssh/config ~/.ssh
-    file_replace_str "github.key" "github-$GITHUB_ACCOUNT.key" ~/.ssh/config
-
-fi
+print_h1 "Configuring..."
 
 ################################################################################
 # Bash
@@ -53,21 +39,16 @@ if which zsh > /dev/null 2>&1; then
 fi
 
 ################################################################################
-# Docker
+# SSH
 
-if which docker > /dev/null 2>&1; then
+if which ssh > /dev/null 2>&1; then
 
-    print_h2 "Configure Docker"
+    print_h2 "Configure SSH"
 
-    # completion
-    [ -f /etc/bash_completion ] && bcpath=/etc/bash_completion.d || bcpath=/usr/local/etc/bash_completion.d
-    if [ -d $bcpath ] && [ ! -f $bcpath/docker-completion.bash ]; then
-        sudo wget https://raw.githubusercontent.com/docker/docker/master/contrib/completion/bash/docker -O $bcpath/docker-completion.bash
-    fi
-    if [ -d $bcpath ] && [ ! -f $bcpath/docker-compose-completion.bash ]; then
-        sudo wget https://raw.githubusercontent.com/docker/compose/master/contrib/completion/bash/docker-compose -O $bcpath/docker-compose-completion.bash
-    fi
-    unset bcpath
+    # resources
+    mkdir -p ~/.ssh
+    cp -f ~/etc/ssh/config ~/.ssh
+    file_replace_str "github.key" "github-$GITHUB_ACCOUNT.key" ~/.ssh/config
 
 fi
 
@@ -94,6 +75,25 @@ if which git > /dev/null 2>&1; then
     [ -f /etc/bash_completion ] && bcpath=/etc/bash_completion.d || bcpath=/usr/local/etc/bash_completion.d
     if [ -d $bcpath ] && [ ! -f $bcpath/git-completion.bash ]; then
         sudo wget https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash -O $bcpath/git-completion.bash
+    fi
+    unset bcpath
+
+fi
+
+################################################################################
+# Docker
+
+if which docker > /dev/null 2>&1; then
+
+    print_h2 "Configure Docker"
+
+    # completion
+    [ -f /etc/bash_completion ] && bcpath=/etc/bash_completion.d || bcpath=/usr/local/etc/bash_completion.d
+    if [ -d $bcpath ] && [ ! -f $bcpath/docker-completion.bash ]; then
+        sudo wget https://raw.githubusercontent.com/docker/docker/master/contrib/completion/bash/docker -O $bcpath/docker-completion.bash
+    fi
+    if [ -d $bcpath ] && [ ! -f $bcpath/docker-compose-completion.bash ]; then
+        sudo wget https://raw.githubusercontent.com/docker/compose/master/contrib/completion/bash/docker-compose -O $bcpath/docker-compose-completion.bash
     fi
     unset bcpath
 
