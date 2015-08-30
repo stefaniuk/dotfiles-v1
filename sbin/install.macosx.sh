@@ -3,6 +3,8 @@
 if ! which brew > /dev/null; then
     ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
     brew tap homebrew/dupes
+    brew tap homebrew/versions
+    brew tap homebrew/homebrew-php
     brew tap caskroom/versions
     brew install caskroom/cask/brew-cask
 fi
@@ -47,20 +49,21 @@ fi
 
 if [ -n "$arg_install_workstation_tools" ] && [ -z "$arg_install_server_tools" ]; then
     print_h2 "Install workstation tools"
+    brew install ddclient
     brew install git-flow
     brew install gtypist
     brew install irssi
     brew cask install java
     # configuration and monitoring tools
-    brew cask install seil
-    brew cask install karabiner
-    brew cask install bettertouchtool
-    brew cask install witch
-    brew cask install moom
-    brew cask install asepsis
-    brew cask install caffeine
-    brew cask install menumeters
-    brew cask install android-file-transfer
+    brew cask install seil --appdir=/Applications
+    brew cask install karabiner --appdir=/Applications
+    brew cask install bettertouchtool --appdir=/Applications
+    brew cask install witch --appdir=/Applications
+    brew cask install moom --appdir=/Applications
+    brew cask install asepsis --appdir=/Applications
+    brew cask install caffeine --appdir=/Applications
+    brew cask install menumeters --appdir=/Applications
+    brew cask install android-file-transfer --appdir=/Applications
     # developer tools
     brew cask install iterm2-beta
     brew cask install sublime-text3
@@ -71,17 +74,27 @@ if [ -n "$arg_install_workstation_tools" ] && [ -z "$arg_install_server_tools" ]
     brew cask install smartgit
     brew cask install smartsynchronize
     brew cask install filezilla
+    brew cask install sts
+    brew install groovy
+    brew install gradle
+    brew install maven
+    brew install ant
     brew cask install phpstorm
+    brew install php56
+    brew install composer
+    brew install phpunit
+    brew cask install node
+    brew cask install xquartz wireshark
     # applications and utils
-    brew cask install xtrafinder
-    brew cask install google-chrome
-    brew cask install firefox
-    brew cask install firefoxdeveloperedition
-    brew cask install dropbox
-    brew cask install megasync
-    brew cask install google-drive
-    brew cask install boxcryptor
-    brew cask install xee
+    brew cask install xtrafinder --appdir=/Applications
+    brew cask install google-chrome --appdir=/Applications
+    brew cask install firefox --appdir=/Applications
+    brew cask install firefoxdeveloperedition --appdir=/Applications
+    brew cask install dropbox --appdir=/Applications
+    brew cask install megasync --appdir=/Applications
+    brew cask install google-drive --appdir=/Applications
+    brew cask install boxcryptor --appdir=/Applications
+    brew cask install xee22
     brew cask install vox
     brew cask install vlc
 fi
