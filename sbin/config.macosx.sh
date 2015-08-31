@@ -154,15 +154,18 @@ print_h2 "Set defaults"
 
 # link SDK's include directory to /usr/include
 ver=$(echo $VERSION | grep -oE '[0-9]+\.[0-9]+')
+[ ! -d /usr/include.old ] && sudo mv /usr/include /usr/include.old
 sudo ln -sf /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX${ver}.sdk/usr/include /usr/include
 sudo ln -sf /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain /Applications/Xcode.app/Contents/Developer/Toolchains/OSX${ver}.xctoolchain
 unset ver
 
 # set host details
-#sudo scutil --set ComputerName $COMP_NAME
-#sudo scutil --set HostName $COMP_NAME
-#sudo scutil --set LocalHostName $COMP_NAME
-#sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string $COMP_NAME
+if [ -n "$COMP_NAME" ]; then
+    sudo scutil --set ComputerName $COMP_NAME
+    sudo scutil --set HostName $COMP_NAME
+    sudo scutil --set LocalHostName $COMP_NAME
+    sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string $COMP_NAME
+fi
 
 # set standby delay to 24 hours (default is 1 hour)
 sudo pmset -a standbydelay 86400
