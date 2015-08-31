@@ -4,6 +4,7 @@
 export USER_NAME="unknown"
 export USER_EMAIL="unknown"
 export GITHUB_ACCOUNT="unknown" # your GitHub account name
+export GITLAB_ACCOUNT="unknown" # your GitLab account name
 
 # tell `git` who you are
 export GIT_AUTHOR_NAME="$USER_NAME"
