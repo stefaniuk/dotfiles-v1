@@ -6,14 +6,12 @@ print_h1 "Configuring..."
 # SSH
 
 if which ssh > /dev/null 2>&1; then
-
     print_h2 "Configure SSH"
-
     # resources
     mkdir -p ~/.ssh
     cp -f ~/etc/ssh/config ~/.ssh
-    file_replace_str "github.key" "github-$GITHUB_ACCOUNT.key" ~/.ssh/config
-
+    file_replace_str "github-user" "github-$GITHUB_ACCOUNT" ~/.ssh/config
+    file_replace_str "gitlab-user" "gitlab-$GITLAB_ACCOUNT" ~/.ssh/config
 fi
 
 ################################################################################

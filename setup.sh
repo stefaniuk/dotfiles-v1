@@ -6,8 +6,9 @@
 ################################################################################
 # variables
 
+REPOSITORY="dotfiles"
 GITHUB_ACCOUNT=${GITHUB_ACCOUNT-stefaniuk}
-GITHUB_REPOSITORY="dotfiles"
+GITLAB_ACCOUNT=${GITLAB_ACCOUNT-stefaniuk}
 USER_NAME=${USER_NAME-$USER}
 USER_EMAIL=${USER_EMAIL-$USER@$HOSTNAME}
 program_dir=$(cd "$(dirname "$0" 2> /dev/null)"; pwd)
@@ -76,20 +77,20 @@ function sudo_keep_alive {
 
 function program_download {
 
-    printf "Download $GITHUB_REPOSITORY\n\n"
+    printf "Download $REPOSITORY\n\n"
 
     curl -L \
-        "https://github.com/${GITHUB_ACCOUNT}/${GITHUB_REPOSITORY}/tarball/master" \
-        -o ~/$GITHUB_REPOSITORY.tar.gz
-    tar -zxf ~/$GITHUB_REPOSITORY.tar.gz -C ~
-    rm -f ~/$GITHUB_REPOSITORY.tar.gz
-    cp -rf ~/$GITHUB_ACCOUNT-$GITHUB_REPOSITORY-*/* ~
-    rm -rf ~/$GITHUB_ACCOUNT-$GITHUB_REPOSITORY-*
+        "https://github.com/${GITHUB_ACCOUNT}/${REPOSITORY}/tarball/master" \
+        -o ~/$REPOSITORY.tar.gz
+    tar -zxf ~/$REPOSITORY.tar.gz -C ~
+    rm -f ~/$REPOSITORY.tar.gz
+    cp -rf ~/$GITHUB_ACCOUNT-$REPOSITORY-*/* ~
+    rm -rf ~/$GITHUB_ACCOUNT-$REPOSITORY-*
 }
 
 function program_synchronise {
 
-    printf "Synchronise $GITHUB_REPOSITORY\n\n"
+    printf "Synchronise $REPOSITORY\n\n"
 
     rsync -rav \
         --include=/ \
@@ -169,7 +170,7 @@ if [ -z "$BASH_SOURCE" ] || [ -n "$arg_force_download" ]; then
     # download from repository
     program_download
 
-elif [[ $program_dir == */projects/$GITHUB_REPOSITORY ]]; then
+elif [[ $program_dir == */projects/$REPOSITORY ]]; then
 
     # synchronise with project
     program_synchronise
