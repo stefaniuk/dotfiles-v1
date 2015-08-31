@@ -39,7 +39,7 @@ fi
 ################################################################################
 # Sublime Text
 
-if [ -x /Applications/Sublime\ Text.app/Contents/MacOS/Sublime\ Text ]; then
+if [ -x ~/Applications/Sublime\ Text.app/Contents/MacOS/Sublime\ Text ]; then
 
     print_h2 "Configure Sublime Text"
 
@@ -48,7 +48,9 @@ if [ -x /Applications/Sublime\ Text.app/Contents/MacOS/Sublime\ Text ]; then
     cp -f ./etc/sublime/* ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/User
 
     # package control
-    curl --url http://sublime.wbond.net/Package%20Control.sublime-package --output ~/Library/Application\ Support/Sublime\ Text\ 3/Installed\ Packages/Package\ Control.sublime-package
+    curl \
+        --url http://sublime.wbond.net/Package%20Control.sublime-package \
+        --output ~/Library/Application\ Support/Sublime\ Text\ 3/Installed\ Packages/Package\ Control.sublime-package
 
 fi
 

@@ -1,6 +1,6 @@
 {
     "color_scheme": "Packages/MarkdownEditing/MarkdownEditor-Yellow.tmTheme",
-    "draw_centered": false,
+    "draw_centered": true,
     "line_numbers": true,
     "highlight_line": true
 }

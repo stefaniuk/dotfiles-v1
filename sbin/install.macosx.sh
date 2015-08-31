@@ -49,6 +49,7 @@ fi
 
 if [ -n "$arg_install_workstation_tools" ] && [ -z "$arg_install_server_tools" ]; then
     print_h2 "Install workstation tools"
+    brew install ctags
     brew install ddclient
     brew install git-flow
     brew install gtypist
