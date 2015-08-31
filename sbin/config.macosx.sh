@@ -28,6 +28,33 @@ if which zsh > /dev/null 2>&1; then
 fi
 
 ################################################################################
+# Tmux
+
+if which tmux > /dev/null 2>&1; then
+
+    print_h2 "Configure Tmux"
+
+    # resources
+    cat << EOF >> ~/.tmux.conf
+
+# SEE http://evertpot.com/osx-tmux-vim-copy-paste-clipboard/
+# Copy-paste integration
+set-option -g default-command "reattach-to-user-namespace -l bash"
+# Use vim keybindings in copy mode
+setw -g mode-keys vi
+# Setup 'v' to begin selection as in Vim
+bind-key -t vi-copy v begin-selection
+bind-key -t vi-copy y copy-pipe "reattach-to-user-namespace pbcopy"
+# Update default binding of 'Enter' to also use copy-pipe
+unbind -t vi-copy Enter
+bind-key -t vi-copy Enter copy-pipe "reattach-to-user-namespace pbcopy"
+# Bind ']' to use pbpaste
+bind ] run "reattach-to-user-namespace pbpaste | tmux load-buffer - && tmux paste-buffer"
+EOF
+
+fi
+
+################################################################################
 # iTerm
 
 if [ -x ~/Applications/iTerm.app/Contents/MacOS/iTerm2 ]; then
