@@ -7,6 +7,7 @@ if which bash > /dev/null 2>&1; then
 
     print_h2 "Configure Bash"
 
+    # configuration
     sudo file_remove_str "\n$(brew --prefix)/bin/bash" /etc/shells --multiline
     sudo bash -c "echo $(brew --prefix)/bin/bash >> /private/etc/shells"
     sudo chsh -s $(brew --prefix)/bin/bash $USER
@@ -20,6 +21,7 @@ if which zsh > /dev/null 2>&1; then
 
     print_h2 "Configure Zsh"
 
+    # configuration
     sudo file_remove_str "\n$(brew --prefix)/bin/zsh" /etc/shells --multiline
     sudo bash -c "echo $(brew --prefix)/bin/zsh >> /private/etc/shells"
 
@@ -32,6 +34,7 @@ if [ -x ~/Applications/iTerm.app/Contents/MacOS/iTerm2 ]; then
 
     print_h2 "Configure iTerm"
 
+    # configuration
     defaults import com.googlecode.iterm2 ./etc/iterm/com.googlecode.iterm2.plist
 
 fi
@@ -43,33 +46,43 @@ if [ -x ~/Applications/Sublime\ Text.app/Contents/MacOS/Sublime\ Text ]; then
 
     print_h2 "Configure Sublime Text"
 
-    # resources
+    # configuration
     mkdir -p ~/Library/Application\ Support/Sublime\ Text\ 3/{Installed\ Packages,Packages/User}
     cp -f ./etc/sublime/* ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/User
 
     # package control
-    curl \
-        --url http://sublime.wbond.net/Package%20Control.sublime-package \
-        --output ~/Library/Application\ Support/Sublime\ Text\ 3/Installed\ Packages/Package\ Control.sublime-package
+    if [ ! -f ~/Library/Application\ Support/Sublime\ Text\ 3/Installed\ Packages/Package\ Control.sublime-package ]; then
+        curl \
+            --url http://sublime.wbond.net/Package%20Control.sublime-package \
+            --output ~/Library/Application\ Support/Sublime\ Text\ 3/Installed\ Packages/Package\ Control.sublime-package
+    fi
 
 fi
 
 ################################################################################
 # Seil
 
-print_h2 "Configure Seil"
+if [ -x /Applications/Seil.app/Contents/Library/bin/seil ]; then
 
-/Applications/Seil.app/Contents/Library/bin/seil set keycode_capslock 80
-/Applications/Seil.app/Contents/Library/bin/seil set enable_capslock 1
-print_h3 "Open 'System Preferences > Keyboard > Keyboard > Modifier Keys...' and"
-print_h3 "change 'Caps Lock Key' configuration to 'No Action' to reduce delay."
+    print_h2 "Configure Seil"
+
+    # configuration
+    /Applications/Seil.app/Contents/Library/bin/seil set keycode_capslock 80
+    /Applications/Seil.app/Contents/Library/bin/seil set enable_capslock 1
+    print_h3 "Open 'System Preferences > Keyboard > Keyboard > Modifier Keys...' and"
+    print_h3 "change 'Caps Lock Key' configuration to 'No Action' to reduce delay."
+
+fi
 
 ################################################################################
 # Karabiner
 
-print_h2 "Configure Karabiner"
+if [ -x /Applications/Karabiner.app/Contents/Library/bin/karabiner ]; then
 
-cat << EOF > /Users/daniel/Library/Application\ Support/Karabiner/private.xml
+    print_h2 "Configure Karabiner"
+
+    # configuration
+    cat << EOF > /Users/daniel/Library/Application\ Support/Karabiner/private.xml
 <?xml version="1.0"?>
 <root>
     <item>
@@ -125,12 +138,14 @@ cat << EOF > /Users/daniel/Library/Application\ Support/Karabiner/private.xml
     </item>
 </root>
 EOF
-/Applications/Karabiner.app/Contents/Library/bin/karabiner set repeat.initial_wait 333
-/Applications/Karabiner.app/Contents/Library/bin/karabiner set repeat.wait 33
-/Applications/Karabiner.app/Contents/Library/bin/karabiner enable custom.remap_caps_lock
-/Applications/Karabiner.app/Contents/Library/bin/karabiner disable custom.correct_shift_keys
-/Applications/Karabiner.app/Contents/Library/bin/karabiner disable custom.shifts_to_parentheses
-/Applications/Karabiner.app/Contents/Library/bin/karabiner reloadxml
+    /Applications/Karabiner.app/Contents/Library/bin/karabiner set repeat.initial_wait 333
+    /Applications/Karabiner.app/Contents/Library/bin/karabiner set repeat.wait 33
+    /Applications/Karabiner.app/Contents/Library/bin/karabiner enable custom.remap_caps_lock
+    /Applications/Karabiner.app/Contents/Library/bin/karabiner enable custom.correct_shift_keys
+    /Applications/Karabiner.app/Contents/Library/bin/karabiner disable custom.shifts_to_parentheses
+    /Applications/Karabiner.app/Contents/Library/bin/karabiner reloadxml
+
+fi
 
 ################################################################################
 # defaults
