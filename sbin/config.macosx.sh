@@ -28,7 +28,7 @@ fi
 ################################################################################
 # iTerm
 
-if [ -x /Applications/iTerm.app/Contents/MacOS/iTerm2 ]; then
+if [ -x ~/Applications/iTerm.app/Contents/MacOS/iTerm2 ]; then
 
     print_h2 "Configure iTerm"
 
