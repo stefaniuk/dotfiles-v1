@@ -31,6 +31,8 @@ Here is a list of additional options that can be used from the command-line duri
 TODO List
 ---------
 
+ * Configure tmux on Mac OSX
+ * Configure vim on Mac OSX
  * Check thoughtbot's [dotfiles](https://github.com/thoughtbot/dotfiles)
  * Check Justin Force's [dotfiles](https://github.com/justinforce/dotfiles)
  * Check Gediminas Morkevicius' [dotfiles](https://github.com/l3pp4rd/dotfiles) for anything useful
