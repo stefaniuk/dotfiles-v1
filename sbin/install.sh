@@ -14,16 +14,18 @@ unset file
 ################################################################################
 # install common tools
 
-print_h2 "Install Oh My Zsh"
-if [ ! -f ~/.oh-my-zsh/oh-my-zsh.sh ]; then
-    rm -rf ~/{.oh-my-zsh,.zcompdump-*,.zlogin,.zsh*}
-    git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
-    cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
-elif [ -d ~/.oh-my-zsh/.git ]; then
-    (cd ~/.oh-my-zsh; git pull)
+if which zsh > /dev/null 2>&1 && [ -n "$arg_install_workstation_tools" ] && [ -z "$arg_install_server_tools" ]; then
+    print_h2 "Install Oh My Zsh"
+    if [ ! -f ~/.oh-my-zsh/oh-my-zsh.sh ]; then
+        rm -rf ~/{.oh-my-zsh,.zcompdump-*,.zlogin,.zsh*}
+        git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
+        cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
+    elif [ -d ~/.oh-my-zsh/.git ]; then
+        (cd ~/.oh-my-zsh; git pull)
+    fi
 fi
 
-if which npm > /dev/null 2>&1; then
+if which npm > /dev/null 2>&1 && [ -n "$arg_install_workstation_tools" ] && [ -z "$arg_install_server_tools" ]; then
     print_h2 "Install npm packages"
     ! npm list -g npm-check > /dev/null 2>&1 && sudo npm install -g npm-check
     ! npm list -g grunt-cli > /dev/null 2>&1 && sudo npm install -g grunt-cli
