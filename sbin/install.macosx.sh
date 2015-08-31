@@ -54,6 +54,7 @@ if [ -n "$arg_install_workstation_tools" ] && [ -z "$arg_install_server_tools" ]
     brew install git-flow
     brew install gtypist
     brew install irssi
+    brew install reattach-to-user-namespace
     brew cask install java
     # configuration and monitoring tools
     brew cask install seil --appdir=/Applications
@@ -85,8 +86,15 @@ if [ -n "$arg_install_workstation_tools" ] && [ -z "$arg_install_server_tools" ]
     brew install php56
     brew install composer
     brew install phpunit
+    brew cask install android-studio
+    brew install android-sdk
+    brew install android-ndk
+    brew cask install pgadmin3
+    brew cask install rdm
+    brew cask install apache-directory-studio
     brew cask install node
     brew cask install xquartz wireshark
+    brew cask install gimp
     # applications and utils
     brew cask install xtrafinder
     brew cask install google-chrome --appdir=/Applications
