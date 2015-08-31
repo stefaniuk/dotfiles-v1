@@ -6,25 +6,31 @@ print_h1 "Configuring..."
 # SSH
 
 if which ssh > /dev/null 2>&1; then
+
     print_h2 "Configure SSH"
+
     # resources
     mkdir -p ~/.ssh
     cp -f ~/etc/ssh/config ~/.ssh
     file_replace_str "github-user" "github-$GITHUB_ACCOUNT" ~/.ssh/config
     file_replace_str "gitlab-user" "gitlab-$GITLAB_ACCOUNT" ~/.ssh/config
+
 fi
 
 ################################################################################
 # Bash
 
 if which bash > /dev/null 2>&1; then
+
     print_h2 "Configure Bash"
+
     # resources
     cp -f ~/etc/bash/.bash* ~
     file_replace_str "USER_NAME=\"unknown\"" "USER_NAME=\"$USER_NAME\"" ~/.bash_exports
     file_replace_str "USER_EMAIL=\"unknown\"" "USER_EMAIL=\"$USER_EMAIL\"" ~/.bash_exports
     file_replace_str "GITHUB_ACCOUNT=\"unknown\"" "GITHUB_ACCOUNT=\"$GITHUB_ACCOUNT\"" ~/.bash_exports
     file_replace_str "GITLAB_ACCOUNT=\"unknown\"" "GITLAB_ACCOUNT=\"$GITLAB_ACCOUNT\"" ~/.bash_exports
+
     # profile
     [ -f ~/.profile ] && [ ! -f ~/.profile.old ] && mv ~/.profile ~/.profile.old
     [ -f ~/.bash_profile ] && [ ! -f ~/.bash_profile.old ] && mv ~/.bash_profile ~/.bash_profile.old
