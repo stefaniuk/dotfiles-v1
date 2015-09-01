@@ -32,6 +32,11 @@ Tmux has been configured with `ctrl+a` prefix.
     q               show pane numbers
     q <number>      go to the specific pane number
 
+##### Text (Mac OSX)
+
+    Select text using mouse. Before releasing mouse button press y then q.
+    Text is copied into the clipboard. Use ctrl+v to paste it in.
+
 ##### Misc
 
     :               prompt
