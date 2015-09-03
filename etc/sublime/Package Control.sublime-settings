@@ -9,6 +9,7 @@
         "Compare Side-By-Side",
         "CTags",
         "Dictionaries",
+        "Dockerfile Syntax Highlighting",
         "EncodingHelper",
         "Function Name Display",
         "Git Config",
@@ -27,6 +28,7 @@
         "SublimeLinter",
         "SublimeREPL",
         "Sublimerge Pro",
-        "Terminal"
+        "Terminal",
+        "VimL"
     ]
 }
