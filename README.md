@@ -31,6 +31,7 @@ Here is a list of additional options that can be used from the command-line duri
 TODO List
 ---------
 
+ * Install Vagrant bash completion
  * Configure tmux on Mac OSX
  * Configure vim on Mac OSX
  * Check thoughtbot's [dotfiles](https://github.com/thoughtbot/dotfiles)
