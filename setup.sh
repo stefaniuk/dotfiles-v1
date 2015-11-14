@@ -20,7 +20,6 @@ arg_update_system=$(echo "$*" | grep -o -- "--update-system")
 arg_update_packages=$(echo "$*" | grep -o -- "--update-packages")
 arg_install_server_tools=$(echo "$*" | grep -o -- "--install-server-tools")
 arg_install_workstation_tools=$(echo "$*" | grep -o -- "--install-workstation-tools")
-arg_install_build_tools=$(echo "$*" | grep -o -- "--install-build-tools")
 arg_synchronise_only=$(echo "$*" | grep -o -- "--synchronise-only")
 arg_force_download=$(echo "$*" | grep -o -- "--force-download")
 arg_minimal=$(echo "$*" | grep -o -- "--minimal")
@@ -48,7 +47,6 @@ Options:
     --update-packages               only if step (2) is executed
     --install-server-tools
     --install-workstation-tools
-    --install-build-tools
     --synchronise-only              copy files to the user's directory only
     --force-download
     --minimal                       remove unnecessary project resources

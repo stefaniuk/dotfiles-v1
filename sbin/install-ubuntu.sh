@@ -79,31 +79,6 @@ if [ -n "$arg_install_workstation_tools" ] && [ -z "$arg_install_server_tools" ]
 fi
 
 ################################################################################
-# install build tools
-
-if [ -n "$arg_install_build_tools" ]; then
-    print_h2 "Install build tools"
-    $apt_get_install \
-        binutils \
-        build-essential \
-        cmake \
-        coreutils \
-        gettext \
-        libbz2-dev \
-        libexpat1-dev \
-        libglib2.0-dev \
-        libicu-dev \
-        libjpeg-dev \
-        libmcrypt-dev \
-        libpng12-dev \
-        libslang2-dev \
-        libssl-dev libcurl4-openssl-dev \
-        libxml2-dev \
-        ncurses-dev \
-        zlib1g-dev
-fi
-
-################################################################################
 
 sudo apt-get --yes --force-yes autoremove
 sudo apt-get clean

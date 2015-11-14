@@ -55,20 +55,5 @@ if [ -n "$arg_install_server_tools" ] && [ -z "$arg_install_workstation_tools" ]
 fi
 
 ################################################################################
-# install build tools
-
-if [ -n "$arg_install_build_tools" ]; then
-    print_h2 "Install build tools"
-    sudo yum --assumeyes install \
-        curl-devel \
-        gettext \
-        glib2-devel \
-        ncurses-devel \
-        perl-CPAN \
-        slang-devel \
-        zlib-devel
-fi
-
-################################################################################
 
 exit 0

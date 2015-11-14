@@ -13,9 +13,9 @@ All files will be installed in the user directory.
     USER_EMAIL="daniel.stefaniuk@gmail.com"
     curl -L https://raw.githubusercontent.com/stefaniuk/dotfiles/master/setup.sh -o - | /bin/bash -s -- \
         --prepare \
-        --update-system --update-packages \
         --install \
         --config \
+        --update-system --update-packages \
         --minimal \
         --sudo
 
@@ -23,14 +23,12 @@ Here is a list of additional options that can be used from the command-line duri
 
     --install-server-tools
     --install-workstation-tools
-    --install-build-tools
     --synchronise-only
     --force-download
 
 TODO List
 ---------
 
- * Install Vagrant bash completion
  * Configure tmux on Mac OSX
  * Configure vim on Mac OSX
  * Check thoughtbot's [dotfiles](https://github.com/thoughtbot/dotfiles)
