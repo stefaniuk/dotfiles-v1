@@ -1,0 +1,8 @@
+#!/bin/bash
+
+source $SHELL_FUSION_HOME/lib/asserts.sh
+
+result=`net_get_external_ip | grep -oEi "[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+" | wc -l`
+assert_gt $result 0
+
+exit 0

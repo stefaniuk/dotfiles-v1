@@ -1,0 +1,23 @@
+#!/bin/bash
+
+source $SHELL_FUSION_HOME/lib/asserts.sh
+
+ignore_test=$1
+if [ $ignore_test == "y" ]; then
+    assert_skip_slow_test
+    exit 0
+fi
+
+if [ "$DIST" == "macosx" ]; then
+    t1=$(date +%s)
+    usleep 2000
+    t2=$(date +%s)
+    assert_between `expr $t2 - $t1` 2 3
+else
+    t1=$(($(date +%s%N)/1000000))
+    usleep 2000
+    t2=$(($(date +%s%N)/1000000))
+    assert_between `expr $t2 - $t1` 1900 3000
+fi
+
+exit 0

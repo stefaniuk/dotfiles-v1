@@ -1,0 +1,26 @@
+#!/bin/bash
+
+source $SHELL_FUSION_HOME/lib/asserts.sh
+
+ignore_test=$1
+if [ $ignore_test == "y" ]; then
+    assert_skip_slow_test
+    exit 0
+fi
+
+url="http://ipv4.download.thinkbroadband.com/5MB.zip"
+file=5mb.zip
+dir=~/tmp
+size=5000000
+
+file_download \
+    --url $url \
+    --file $file \
+    --size $size \
+    --donwload-directory $dir \
+    --do-not-cache
+assert_result_pos $?
+rm -f $dir/$file
+rm -f ./$file
+
+exit 0

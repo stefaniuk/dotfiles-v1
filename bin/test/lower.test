@@ -1,0 +1,8 @@
+#!/bin/bash
+
+source $SHELL_FUSION_HOME/lib/asserts.sh
+
+result=`lower "MAKE ME LOWER!"`
+assert_eq "$result" "make me lower!"
+
+exit 0

@@ -1,0 +1,20 @@
+#!/bin/bash
+
+source $SHELL_FUSION_HOME/lib/asserts.sh
+
+begins "begin-string" "begin-"
+assert_result_pos $?
+
+echo "begin-string" | begins "begin-"
+assert_result_pos $?
+
+echo "begin-string" | begins "[[:alpha:]]*-"
+assert_result_pos $?
+
+begins "begin-string" "foo"
+assert_result_neg $?
+
+echo "begin-string" | begins "foo"
+assert_result_neg $?
+
+exit 0

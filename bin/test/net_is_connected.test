@@ -1,0 +1,8 @@
+#!/bin/bash
+
+source $SHELL_FUSION_HOME/lib/asserts.sh
+
+net_is_connected
+assert_result_pos $?
+
+exit 0

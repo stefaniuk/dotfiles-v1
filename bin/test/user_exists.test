@@ -1,0 +1,11 @@
+#!/bin/bash
+
+source $SHELL_FUSION_HOME/lib/asserts.sh
+
+user_exists "root"
+assert_result_pos $?
+
+user_exists "this_is_a_test_user"
+assert_result_neg $?
+
+exit 0

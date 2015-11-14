@@ -1,0 +1,8 @@
+#!/bin/bash
+
+source $SHELL_FUSION_HOME/lib/asserts.sh
+
+result=`upper "make me upper!"`
+assert_eq "$result" "MAKE ME UPPER!"
+
+exit 0

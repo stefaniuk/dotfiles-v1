@@ -1,0 +1,28 @@
+#!/bin/bash
+
+source $SHELL_FUSION_HOME/lib/asserts.sh
+
+file1=~/tmp/test_sortv_1.$$
+file2=~/tmp/test_sortv_2.$$
+file3=~/tmp/test_sortv_3.$$
+
+cat <<EOF > $file1
+1.2.100.4
+1.2.3.4
+10.1.2.3
+9.1.2.3
+EOF
+cat <<EOF > $file2
+1.2.3.4
+1.2.100.4
+9.1.2.3
+10.1.2.3
+EOF
+
+cat $file1 | sortv > $file3
+cmp --silent $file2 $file3
+assert_result_pos $?
+
+rm -f ~/tmp/test_sortv_*
+
+exit 0

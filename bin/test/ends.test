@@ -1,0 +1,20 @@
+#!/bin/bash
+
+source $SHELL_FUSION_HOME/lib/asserts.sh
+
+ends "string-end" "-end"
+assert_result_pos $?
+
+echo "string-end" | ends "-end"
+assert_result_pos $?
+
+echo "string-end" | ends "-[[:alpha:]]*"
+assert_result_pos $?
+
+ends "string-end" "foo"
+assert_result_neg $?
+
+echo "string-end" | ends "foo"
+assert_result_neg $?
+
+exit 0

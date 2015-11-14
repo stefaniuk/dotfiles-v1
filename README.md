@@ -19,13 +19,6 @@ All files will be installed in the user directory.
         --minimal \
         --sudo
 
-Here is a list of additional options that can be used from the command-line during the installation:
-
-    --install-server-tools
-    --install-workstation-tools
-    --synchronise-only
-    --force-download
-
 TODO List
 ---------
 

@@ -1,0 +1,8 @@
+#!/bin/bash
+
+source $SHELL_FUSION_HOME/lib/asserts.sh
+
+result=`h2d ff`
+assert_eq $result 255
+
+exit 0

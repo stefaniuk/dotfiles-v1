@@ -1,0 +1,53 @@
+#!/bin/bash
+
+source $SHELL_FUSION_HOME/lib/asserts.sh
+
+file=~/tmp/test_file_replace_str.$$
+
+cat <<EOF > $file
+line1
+line2
+line3
+EOF
+file_replace_str "line" "data" $file
+result=`cat $file | \grep "data" | wc -l`
+assert_eq $result 3
+rm -f ~/tmp/test_file_replace_str.*
+
+cat <<EOF > $file
+line
+line
+line
+EOF
+file_replace_str "ne\nline\nli" "-data-" $file --multiline
+result=`cat $file`
+assert_eq "$result" "li-data-ne"
+rm -f ~/tmp/test_file_replace_str.*
+
+cat <<EOF > $file
+abcd
+efgh
+jikl
+EOF
+file_replace_str "bcd(.)*jik" "x" $file --multiline
+result=`cat $file`
+assert_eq "$result" "axl"
+rm -f ~/tmp/test_file_replace_str.*
+
+cat <<EOF > $file
+/usr/local/include
+EOF
+file_replace_str "/usr/local/include" "/var/log" $file
+count=`cat $file | \grep '/var/log' | wc -l`
+assert_eq $count 1
+rm -f ~/tmp/test_file_replace_str.*
+
+cat <<EOF > $file
+/usr/local/include
+EOF
+file_replace_str "/usr/local/include\n" "/var/log\n" $file --multiline
+count=`cat $file | \grep '/var/log' | wc -l`
+assert_eq $count 1
+rm -f ~/tmp/test_file_replace_str.*
+
+exit 0

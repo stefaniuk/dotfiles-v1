@@ -1,0 +1,19 @@
+#!/bin/bash
+
+source $SHELL_FUSION_HOME/lib/asserts.sh
+
+file=$SHELL_FUSION_HOME/lib/asserts.sh
+
+hash=`md5sum $file | awk '{ print $1 }'`
+file_validate_hash $file $hash
+assert_result_pos $?
+
+hash=`sha1sum $file | awk '{ print $1 }'`
+file_validate_hash $file $hash
+assert_result_pos $?
+
+hash=`sha256sum $file | awk '{ print $1 }'`
+file_validate_hash $file $hash
+assert_result_pos $?
+
+exit 0

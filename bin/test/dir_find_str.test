@@ -1,0 +1,20 @@
+#!/bin/bash
+
+source $SHELL_FUSION_HOME/lib/asserts.sh
+
+dir=~/tmp/test_dir_find_str.$$
+mkdir $dir
+cat <<EOF > $dir/test_dir_find_str-file1.txt
+test_dir_find_str-file1
+EOF
+cat <<EOF > $dir/test_dir_find_str-file2.txt
+test_dir_find_str-file2
+EOF
+cat <<EOF > $dir/test_dir_find_str-file3.txt
+test_dir_find_str-file3
+EOF
+result=`dir_find_str "test_dir_find_str-file" $dir | wc -l`
+assert_eq $result 3
+rm -rf ~/tmp/test_dir_find_str.*
+
+exit 0

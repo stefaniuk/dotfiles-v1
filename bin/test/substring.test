@@ -1,0 +1,8 @@
+#!/bin/bash
+
+source $SHELL_FUSION_HOME/lib/asserts.sh
+
+result=`substring "begin-middle-end" "begin-" "-end"`
+assert_eq $result "middle"
+
+exit 0

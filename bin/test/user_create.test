@@ -1,0 +1,17 @@
+#!/bin/bash
+
+source $SHELL_FUSION_HOME/lib/asserts.sh
+
+name="this_is_a_test"
+
+user_create $name $name > /dev/null 2>&1
+
+user_exists $name
+result1=$?
+group_exists $name
+result2=$?
+assert_eq "$result1 $result2" "0 0"
+
+user_delete $name > /dev/null 2>&1
+
+exit 0

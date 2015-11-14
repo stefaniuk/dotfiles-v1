@@ -1,0 +1,20 @@
+#!/bin/bash
+
+source $SHELL_FUSION_HOME/lib/asserts.sh
+
+result=`hasht $(echo "test" | md5sum | awk '{ print $1 }')`
+assert_eq $result "md5"
+
+result=`hasht $(echo "test" | sha1sum | awk '{ print $1 }')`
+assert_eq $result "sha1"
+
+result=`hasht $(echo "test" | sha256sum | awk '{ print $1 }')`
+assert_eq $result "sha256"
+
+result=`hasht $(echo "test" | sha384sum | awk '{ print $1 }')`
+assert_eq $result "sha384"
+
+result=`hasht $(echo "test" | sha512sum | awk '{ print $1 }')`
+assert_eq $result "sha512"
+
+exit 0

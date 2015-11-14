@@ -1,0 +1,14 @@
+#!/bin/bash
+
+source $SHELL_FUSION_HOME/lib/asserts.sh
+
+str_in='a = real \good %* load of c$rap='
+str_out='a\ \=\ real\ \\good\ %\*\ load\ of\ c\$rap\='
+
+result=$(file_escape_name "$str_in")
+assert_eq "$result" "$str_out"
+
+result=$(echo "$str_in" | file_escape_name)
+assert_eq "$result" "$str_out"
+
+exit 0

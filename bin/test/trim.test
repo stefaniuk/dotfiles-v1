@@ -1,0 +1,8 @@
+#!/bin/bash
+
+source $SHELL_FUSION_HOME/lib/asserts.sh
+
+result=`trim "   This is a string!   "`
+assert_eq "$result" "This is a string!"
+
+exit 0

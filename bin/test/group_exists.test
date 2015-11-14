@@ -1,0 +1,11 @@
+#!/bin/bash
+
+source $SHELL_FUSION_HOME/lib/asserts.sh
+
+group_exists "bin"
+assert_result_pos $?
+
+group_exists "this_is_a_test_group"
+assert_result_neg $?
+
+exit 0

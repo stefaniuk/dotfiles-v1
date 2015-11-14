@@ -1,0 +1,11 @@
+#!/bin/bash
+
+source $SHELL_FUSION_HOME/lib/asserts.sh
+
+result=`sanitise "xxx___XXX___000"`
+assert_eq $result "xxxxxx000"
+
+result=`sanitise "xxx___:___XXX___:___000" '\.' --allowed-characters ':' --max-length 12`
+assert_eq $result "xxx.:.xxx.:."
+
+exit 0

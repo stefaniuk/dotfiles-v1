@@ -1,0 +1,11 @@
+#!/bin/bash
+
+source $SHELL_FUSION_HOME/lib/asserts.sh
+
+dir=~/tmp
+name="test-certificate"
+openssl_cert_gen $name --dir $dir > /dev/null 2>&1
+assert_files_exist $dir/$name.crt $dir/$name.key $dir/$name.pem
+rm -f $dir/$name.*
+
+exit 0

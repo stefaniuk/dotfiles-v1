@@ -1,0 +1,8 @@
+#!/bin/bash
+
+source $SHELL_FUSION_HOME/lib/asserts.sh
+
+result=`printf "\e[0;33myellow\e[0m" | removecc`
+assert_eq "$result" "yellow"
+
+exit 0

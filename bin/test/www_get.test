@@ -1,0 +1,8 @@
+#!/bin/bash
+
+source $SHELL_FUSION_HOME/lib/asserts.sh
+
+result=`www_get "https://www.google.co.uk" --filter "google" 2> /dev/null | wc -l`
+assert_gt $result 3
+
+exit 0

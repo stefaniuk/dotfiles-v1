@@ -1,0 +1,17 @@
+#!/bin/bash
+
+source $SHELL_FUSION_HOME/lib/asserts.sh
+
+contains "This is a test!" "test"
+assert_result_pos $?
+
+echo "This is a test!" | contains "test"
+assert_result_pos $?
+
+contains "This is a test!" "foo"
+assert_result_neg $?
+
+echo "This is a test!" | contains "foo"
+assert_result_neg $?
+
+exit 0

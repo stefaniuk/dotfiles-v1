@@ -1,0 +1,53 @@
+#!/bin/bash
+
+source $SHELL_FUSION_HOME/lib/asserts.sh
+
+file=~/tmp/test_file_remove_str.$$
+
+cat <<EOF > $file
+line1
+line2
+line3
+EOF
+file_remove_str "line" $file
+result=`cat $file | \grep "line" | wc -l`
+assert_eq $result 0
+rm -f ~/tmp/test_file_remove_str.*
+
+cat <<EOF > $file
+line
+line
+line
+EOF
+file_remove_str "ine\nline\nlin" $file --multiline
+result=`cat $file`
+assert_eq "$result" "le"
+rm -f ~/tmp/test_file_remove_str.*
+
+cat <<EOF > $file
+abcd
+efgh
+jikl
+EOF
+file_remove_str "bcd(.)*jik" $file --multiline
+result=`cat $file`
+assert_eq "$result" "al"
+rm -f ~/tmp/test_file_remove_str.*
+
+cat <<EOF > $file
+/usr/local/include
+EOF
+file_remove_str "/usr/local/include" $file
+count=`cat $file | sed '/^\s*$/d' | wc -l`
+assert_eq $count 0
+rm -f ~/tmp/test_file_remove_str.*
+
+cat <<EOF > $file
+/usr/local/include
+EOF
+file_remove_str "/usr/local/include\n" $file --multiline
+count=`cat $file | sed '/^\s*$/d' | wc -l`
+assert_eq $count 0
+rm -f ~/tmp/test_file_remove_str.*
+
+exit 0

@@ -1,0 +1,17 @@
+#!/bin/bash
+
+source $SHELL_FUSION_HOME/lib/asserts.sh
+
+text="test"
+hash="098f6bcd4621d373cade4e832627b4f6"
+
+result=`echo -n $text | md5sum | awk '{ print $1 }'`
+assert_eq $result $hash
+
+file=~/tmp/test_md5sum.$$
+echo -n $text > $file
+result=`md5sum $file | awk '{ print $1 }'`
+assert_eq $result $hash
+rm -f ~/tmp/test_md5sum.*
+
+exit 0
