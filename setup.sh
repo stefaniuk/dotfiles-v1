@@ -103,7 +103,12 @@ function program_synchronise {
 function program_setup {
 
     chmod +x ~/setup.sh
-    chmod +x ~/bin/*
+    chmod +x ~/{bin,usr/bin}/*
+
+    # detect operating system
+    source ~/etc/bash/.bash_system
+    # make available custom scripts
+    export PATH=$PATH:~/bin:~/usr/bin
 
     # synchronise only
     [ -n "$arg_synchronise_only" ] && exit 0

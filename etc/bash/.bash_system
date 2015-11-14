@@ -1,0 +1,96 @@
+#!/bin/sh
+
+function system_detect {
+
+    # set defalut values
+    OS=$(uname)
+    DIST="unknown"
+    DIST_BASED_ON="unknown"
+    PSEUDO_NAME="unknown"
+    VERSION="unknown"
+    ARCH=$(uname -m)
+    ARCH_NAME="unknown" # can be "i386" or "amd64"
+    KERNEL=$(uname -r)
+
+    # mac os x
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+
+        OS="unix"
+        DIST="macosx"
+        DIST_BASED_ON="bsd"
+        [[ $(sw_vers -productVersion | \grep 10.8  | wc -l) -gt 0 ]] && PSEUDO_NAME="Mountain Lion"
+        [[ $(sw_vers -productVersion | \grep 10.9  | wc -l) -gt 0 ]] && PSEUDO_NAME="Mavericks"
+        [[ $(sw_vers -productVersion | \grep 10.10 | wc -l) -gt 0 ]] && PSEUDO_NAME="Yosemite"
+        [[ $(sw_vers -productVersion | \grep 10.11 | wc -l) -gt 0 ]] && PSEUDO_NAME="El Capitan"
+        VERSION=$(sw_vers -productVersion)
+        ARCH_NAME="i386"
+        [[ $(uname -m | \grep 64 | wc -l) -gt 0 ]] && ARCH_NAME="amd64"
+
+    # debian family
+    elif [[ -f /etc/debian_version ]]; then
+
+        local id=$(cat /etc/os-release | \grep "^ID=" | awk -F= '{ print $2 }')
+        if [[ "$id" == "debian" ]] || [[ "$id" == "raspbian" ]]; then
+            DIST=$id
+            PSEUDO_NAME=$(cat /etc/os-release | \grep "^VERSION=" | awk -F= '{ print $2 }' | \grep -oEi '[a-z]+')
+            VERSION=$(cat /etc/debian_version)
+        else
+            DIST=$(cat /etc/lsb-release | \grep '^DISTRIB_ID' | awk -F= '{ print $2 }')
+            PSEUDO_NAME=$(cat /etc/lsb-release | \grep '^DISTRIB_CODENAME' | awk -F=  '{ print $2 }')
+            VERSION=$(cat /etc/lsb-release | \grep '^DISTRIB_RELEASE' | awk -F=  '{ print $2 }')
+        fi
+        DIST_BASED_ON="debian"
+        ARCH_NAME="i386"
+        [[ $(uname -m | \grep 64 | wc -l) -gt 0 ]] && ARCH_NAME="amd64"
+
+    # redhat family
+    elif [[ -f /etc/redhat-release ]]; then
+
+        DIST=$(cat /etc/redhat-release | sed s/\ release.*// | tr "[A-Z]" "[a-z]")
+        [[ "$DIST" == *"red"* ]] && DIST="redhat"
+        [[ "$DIST" == *"centos"* ]] && DIST="centos"
+        [[ "$DIST" == *"scientific"* ]] && DIST="scientific"
+        DIST_BASED_ON="redhat"
+        PSEUDO_NAME=$(cat /etc/redhat-release | sed s/.*\(// | sed s/\)//)
+        VERSION=$(cat /etc/redhat-release | sed s/.*release\ // | sed s/\ .*//)
+        ARCH_NAME="i386"
+        [[ $(uname -m | \grep 64 | wc -l) -gt 0 ]] && ARCH_NAME="amd64"
+
+    # cygwin
+    elif [[ "$OSTYPE" == "cygwin"* ]]; then
+
+        OS="windows"
+        DIST="cygwin"
+        DIST_BASED_ON="linux"
+        PSEUDO_NAME="Windows"
+        VERSION=$(cmd /c ver | \grep -oEi '[0-9]+\.[0-9]+\.[0-9]+')
+        ARCH_NAME="i386"
+        [ $(uname -m | \grep 64 | wc -l) -gt 0 ] && ARCH_NAME="amd64"
+        KERNEL=$(uname -r | \grep -oEi '[0-9]+\.[0-9]+\.[0-9]+')
+
+    fi
+
+    # convert it to lowercase
+    export OS=$(echo $OS | tr "[A-Z]" "[a-z]")
+    export DIST=$(echo $DIST | tr "[A-Z]" "[a-z]")
+    export DIST_BASED_ON=$(echo $DIST_BASED_ON | tr "[A-Z]" "[a-z]")
+    export PSEUDO_NAME=$(echo $PSEUDO_NAME | tr "[A-Z]" "[a-z]")
+    export VERSION=$(echo $VERSION | tr "[A-Z]" "[a-z]")
+    export ARCH=$(echo $ARCH | tr "[A-Z]" "[a-z]")
+    export ARCH_NAME=$(echo $ARCH_NAME | tr "[A-Z]" "[a-z]")
+    export KERNEL=$(echo $KERNEL | tr "[A-Z]" "[a-z]")
+}
+
+function system_info {
+
+    echo "OS: $OS"
+    echo "DIST: $DIST"
+    echo "DIST BASED ON: $DIST_BASED_ON"
+    echo "PSEUDO NAME: $PSEUDO_NAME"
+    echo "VERSION: $VERSION"
+    echo "ARCH: $ARCH"
+    echo "ARCH NAME: $ARCH_NAME"
+    echo "KERNEL: $KERNEL"
+}
+
+system_detect
