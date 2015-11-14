@@ -101,8 +101,9 @@ function program_synchronise {
 
 function program_setup {
 
-    chmod +x ~/setup.sh
-    chmod +x ~/{bin,usr/bin}/*
+    chmod 500 ~/setup.sh
+    chmod 500 ~/{bin,usr/bin}/*
+    chmod 700 ~/{bin,usr,usr/bin}
 
     # detect operating system
     source ~/etc/bash/.bash_system
