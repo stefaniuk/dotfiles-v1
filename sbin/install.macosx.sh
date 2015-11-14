@@ -30,6 +30,7 @@ if [ -n "$arg_install" ]; then
     brew install ack
     brew install bash
     brew install bash-completion
+    brew install bzip2
     brew install git
     brew install grc
     brew install htop
@@ -78,14 +79,7 @@ if [ -n "$arg_install_workstation_tools" ] && [ -z "$arg_install_server_tools" ]
     brew cask install smartsynchronize
     brew cask install filezilla
     brew cask install sts
-    brew install groovy
-    brew install gradle
-    brew install maven
-    brew install ant
     brew cask install phpstorm
-    brew install php56
-    brew install composer
-    brew install phpunit
     brew cask install android-studio
     brew install android-sdk
     brew install android-ndk
@@ -109,26 +103,6 @@ if [ -n "$arg_install_workstation_tools" ] && [ -z "$arg_install_server_tools" ]
     brew cask install xee22
     brew cask install vox
     brew cask install vlc
-fi
-
-################################################################################
-# install build tools
-
-if [ -n "$arg_install_build_tools" ]; then
-    print_h2 "Install build tools"
-    brew install binutils
-    brew install bzip2
-    brew install cmake
-    brew install coreutils
-    brew install gcc
-    brew install gettext
-    brew install icu4c
-    brew install libiconv
-    brew install makedepend
-    brew install mcrypt
-    brew install ncurses
-    brew install openssl
-    brew install zlib
 fi
 
 ################################################################################

@@ -52,6 +52,15 @@ if which zsh > /dev/null 2>&1; then
     # resources
     cp -f ~/etc/zsh/.zsh* ~
 
+    # install Oh My Zsh
+    if [ ! -f ~/.oh-my-zsh/oh-my-zsh.sh ]; then
+        rm -rf ~/{.oh-my-zsh,.zcompdump-*,.zlogin,.zsh*}
+        git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
+        cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
+    elif [ -d ~/.oh-my-zsh/.git ]; then
+        (cd ~/.oh-my-zsh; git pull)
+    fi
+
 fi
 
 ################################################################################
@@ -96,6 +105,22 @@ if which docker > /dev/null 2>&1; then
     fi
     if [ -d $bcpath ] && [ ! -f $bcpath/docker-compose-completion.bash ]; then
         sudo wget https://raw.githubusercontent.com/docker/compose/master/contrib/completion/bash/docker-compose -O $bcpath/docker-compose-completion.bash
+    fi
+    unset bcpath
+
+fi
+
+################################################################################
+# Vagrant
+
+if which vagrant > /dev/null 2>&1; then
+
+    print_h2 "Configure Vagrant"
+
+    # completion
+    [ -f /etc/bash_completion ] && bcpath=/etc/bash_completion.d || bcpath=/usr/local/etc/bash_completion.d
+    if [ -d $bcpath ] && [ ! -f $bcpath/vagrant-completion.bash ]; then
+        sudo wget https://raw.github.com/kura/vagrant-bash-completion/master/etc/bash_completion.d/vagrant -O $bcpath/vagrant-completion.bash
     fi
     unset bcpath
 
@@ -202,6 +227,24 @@ if which mvn > /dev/null 2>&1; then
     # resources
     mkdir -p ~/.m2
     cp -f ~/etc/maven/settings*.xml ~/.m2
+
+fi
+
+################################################################################
+# Node
+
+if which npm > /dev/null 2>&1; then
+
+    print_h2 "Configure Node"
+
+    # packages
+    ! npm list -g npm-check > /dev/null 2>&1 && sudo npm install -g npm-check
+    ! npm list -g grunt-cli > /dev/null 2>&1 && sudo npm install -g grunt-cli
+    ! npm list -g gulp > /dev/null 2>&1 && sudo npm install -g gulp
+    ! npm list -g bower > /dev/null 2>&1 && sudo npm install -g bower
+    ! npm list -g yo > /dev/null 2>&1 && sudo npm install -g yo
+    ! npm list -g generator-generator > /dev/null 2>&1 && sudo npm install -g generator-generator
+    ! npm list -g generator-jhipster > /dev/null 2>&1 && sudo npm install -g generator-jhipster
 
 fi
 
