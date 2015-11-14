@@ -86,7 +86,6 @@ if [ -n "$arg_install_workstation_tools" ] && [ -z "$arg_install_server_tools" ]
     brew cask install pgadmin3
     brew cask install rdm
     brew cask install apache-directory-studio
-    brew cask install node
     brew cask install xquartz wireshark
     brew cask install gimp
     # applications and utils
