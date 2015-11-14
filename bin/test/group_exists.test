@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source $SHELL_FUSION_HOME/lib/asserts.sh
+source ~/lib/asserts.sh
 
 group_exists "bin"
 assert_result_pos $?

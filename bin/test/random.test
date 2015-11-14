@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source $SHELL_FUSION_HOME/lib/asserts.sh
+source ~/lib/asserts.sh
 
 result=`random 128`
 assert_length $result 128

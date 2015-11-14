@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source $SHELL_FUSION_HOME/lib/asserts.sh
+source ~/lib/asserts.sh
 
 result=`d2h 255`
 assert_eq $result "ff"

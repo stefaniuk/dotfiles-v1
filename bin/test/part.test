@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source $SHELL_FUSION_HOME/lib/asserts.sh
+source ~/lib/asserts.sh
 
 result=`part "col1:col2:col3" ":" 2`
 assert_eq $result "col2"

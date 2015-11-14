@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source $SHELL_FUSION_HOME/lib/asserts.sh
+source ~/lib/asserts.sh
 
 str_in='a = real \good %* load of c$rap='
 str_out='a\ \=\ real\ \\good\ %\*\ load\ of\ c\$rap\='

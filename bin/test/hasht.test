@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source $SHELL_FUSION_HOME/lib/asserts.sh
+source ~/lib/asserts.sh
 
 result=`hasht $(echo "test" | md5sum | awk '{ print $1 }')`
 assert_eq $result "md5"

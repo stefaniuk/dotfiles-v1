@@ -1,8 +1,8 @@
 #!/bin/bash
 
-source $SHELL_FUSION_HOME/lib/asserts.sh
+source ~/lib/asserts.sh
 
-file=$SHELL_FUSION_HOME/lib/asserts.sh
+file=~/lib/asserts.sh
 
 hash=`md5sum $file | awk '{ print $1 }'`
 file_validate_hash $file $hash
