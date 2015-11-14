@@ -231,24 +231,6 @@ if which mvn > /dev/null 2>&1; then
 fi
 
 ################################################################################
-# Node
-
-if which npm > /dev/null 2>&1; then
-
-    print_h2 "Configure Node"
-
-    # packages
-    ! npm list -g npm-check > /dev/null 2>&1 && sudo npm install -g npm-check
-    ! npm list -g grunt-cli > /dev/null 2>&1 && sudo npm install -g grunt-cli
-    ! npm list -g gulp > /dev/null 2>&1 && sudo npm install -g gulp
-    ! npm list -g bower > /dev/null 2>&1 && sudo npm install -g bower
-    ! npm list -g yo > /dev/null 2>&1 && sudo npm install -g yo
-    ! npm list -g generator-generator > /dev/null 2>&1 && sudo npm install -g generator-generator
-    ! npm list -g generator-jhipster > /dev/null 2>&1 && sudo npm install -g generator-jhipster
-
-fi
-
-################################################################################
 # configure distribution specific tools
 
 file=~/sbin/config-$DIST.sh
