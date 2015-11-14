@@ -179,13 +179,6 @@ fi
 
 print_h2 "Set defaults"
 
-# link SDK's include directory to /usr/include
-ver=$(echo $VERSION | grep -oE '[0-9]+\.[0-9]+')
-[ ! -d /usr/include.old ] && sudo mv /usr/include /usr/include.old
-sudo ln -sf /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX${ver}.sdk/usr/include /usr/include
-sudo ln -sf /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain /Applications/Xcode.app/Contents/Developer/Toolchains/OSX${ver}.xctoolchain
-unset ver
-
 # set host details
 if [ -n "$COMP_NAME" ]; then
     sudo scutil --set ComputerName $COMP_NAME
@@ -259,13 +252,6 @@ defaults write NSGlobalDomain PMPrintingExpandedStateForPrint -bool true
 # enable single application mode
 defaults write com.apple.dock single-app -bool true
 
-# hide Spotlight icon
-sudo chmod 600 /System/Library/CoreServices/Search.bundle/Contents/MacOS/Search
-
-# disable Notifications
-launchctl unload -w /System/Library/LaunchAgents/com.apple.notificationcenterui.plist > /dev/null 2>&1
-sudo chmod 600 /System/Library/CoreServices/NotificationCenter.app/Contents/MacOS/NotificationCenter
-
 # set language and text formats
 defaults write NSGlobalDomain AppleLanguages -array "en" "pl"
 defaults write NSGlobalDomain AppleLocale -string "en_GB"
@@ -296,10 +282,6 @@ defaults write com.apple.finder AppleShowAllFiles -bool true
 
 # show all filename extensions
 defaults write NSGlobalDomain AppleShowAllExtensions -bool true
-
-# list directories before files
-sudo plutil -convert xml1 /System/Library/CoreServices/Finder.app/Contents/Resources/English.lproj/InfoPlist.strings
-sudo file_replace_str "<string>Folder</string>" "<string> Folder</string>" /System/Library/CoreServices/Finder.app/Contents/Resources/English.lproj/InfoPlist.strings
 
 # show status bar
 defaults write com.apple.finder ShowStatusBar -bool true
