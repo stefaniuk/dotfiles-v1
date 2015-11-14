@@ -40,7 +40,7 @@ fi
 is_exec=$(test -x $file && echo "yes" || echo "no")
 
 str=$(echo "$str" | sed 's/\//\\\//g')
-tmp_file=$SHELL_FUSION_TMP_DIR/file_remove_str.$$
+tmp_file=~/tmp/$(basename -- "$0").$$
 if [ $multiline == "y" ]; then
     cat $file | perl -0777 -pe "s/$str//gs" > $tmp_file
 else

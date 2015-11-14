@@ -26,7 +26,7 @@ fi
 # variables
 url=
 file=
-cache_dir=$SHELL_FUSION_TMP_DIR
+cache_dir=~/tmp
 download_dir=$PWD
 expected_size=0
 expected_hash=

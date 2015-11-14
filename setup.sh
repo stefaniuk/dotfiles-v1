@@ -83,6 +83,7 @@ function program_download {
     rm -f ~/$REPOSITORY.tar.gz
     cp -rf ~/$GITHUB_ACCOUNT-$REPOSITORY-*/* ~
     rm -rf ~/$GITHUB_ACCOUNT-$REPOSITORY-*
+    rm -rf ~/tmp/*
 }
 
 function program_synchronise {
@@ -91,7 +92,7 @@ function program_synchronise {
 
     rsync -rav \
         --include=/ \
-        --exclude=/.git* --exclude=/README* --exclude=/LICENCE* \
+        --exclude=.git* --exclude=README* --exclude=LICENCE* \
         $program_dir/* \
         ~
 
