@@ -5,7 +5,7 @@ print_h1 "Installing..."
 ################################################################################
 # install distribution specific tools
 
-file=~/sbin/install.$DIST.sh
+file=~/sbin/install-$DIST.sh
 if [ -f $file ]; then
     (. $file $*)
 fi

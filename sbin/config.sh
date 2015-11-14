@@ -251,7 +251,7 @@ fi
 ################################################################################
 # configure distribution specific tools
 
-file=~/sbin/config.$DIST.sh
+file=~/sbin/config-$DIST.sh
 if [ -f $file ]; then
     (. $file $*)
 fi
