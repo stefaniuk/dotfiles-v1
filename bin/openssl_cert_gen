@@ -1,0 +1,49 @@
+#!/bin/bash
+
+# define help
+help=$(cat <<HEREDOC
+
+    DESCRIPTION: Generate X.509 certificate.
+
+    PARAMETERS:
+        \$1 certificate name
+        --size <size> size of certificate (default is 2048)
+        --days <days> for how many days certificate remains valid (default is 3650)
+        --dir <dirctory> output dirctory
+HEREDOC
+)
+
+# check parameters
+if [ "$1" == "--help" ] || [ $# -lt 1 ]; then
+    echo -e "${help}\n"
+    exit 0
+fi
+
+# get parameters
+name=$1
+size=2048
+days=3650
+dir=.
+while [ "$1" != "" ]; do
+    case $1 in
+        --size) shift; size=$1
+                ;;
+        --days) shift; days=$1
+                ;;
+        --dir)  shift; dir=$1
+                ;;
+    esac
+    shift
+done
+
+openssl req \
+    -new -x509 -nodes -sha1 \
+    -newkey rsa:$size \
+    -days $days \
+    -subj "/O=$name/OU=$name/CN=$name" \
+    -keyout $dir/$name.key \
+    -out $dir/$name.crt
+cat $dir/$name.crt $dir/$name.key > $dir/$name.pem
+chmod 400 $dir/$name.{crt,key,pem}
+
+exit 0

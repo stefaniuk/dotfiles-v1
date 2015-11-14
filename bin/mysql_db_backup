@@ -1,0 +1,58 @@
+#!/bin/bash
+
+# define help
+help=$(cat <<HEREDOC
+
+    DESCRIPTION: Backup MySQL database to tar.gz archive.
+
+    PARAMETERS:
+        \$1 database name
+        \$2 output archive file
+        -u|--user <user>
+        -p|--pass <password>
+HEREDOC
+)
+
+# check parameters
+if [ "$1" == "--help" ] || [ $# -lt 2 ]; then
+    echo -e "${help}\n"
+    exit 0
+fi
+
+# variables
+db=$1
+file=$2
+user=
+pass=
+dir=$SHELL_FUSION_TMP_DIR/$(basename -- "$0").$$
+
+# get parameters
+while [ "$1" != "" ]; do
+    case $1 in
+        -u|--user)      shift; user=$1
+                        ;;
+        -p|--pass)      shift; pass=$1
+                        ;;
+    esac
+    shift
+done
+[ -z "$user" ] && user="--user=root" || user="--user=$user"
+[ -z "$pass" ] && exit 1 || pass="--password=$pass"
+file=$(cd "$(dirname $file 2> /dev/null)"; pwd)/$(basename $file)
+
+mkdir $dir
+list=$(echo "use $db; show tables;" | mysql $user $pass | awk "{ if ( NR > 1 ) { print } }")
+for item in $list; do
+    collation=$(echo "select ccsa.character_set_name from information_schema.tables t, information_schema.collation_character_set_applicability ccsa where ccsa.collation_name = t.table_collation and t.table_schema = '$db' and t.table_name = '$item';" | mysql $user $pass | awk "{ if ( NR > 1 ) { print } }")
+    mysqldump $user $pass --default-character-set="$collation" --extended-insert=FALSE --skip-comments $db $item > $dir/$item.sql
+done
+
+count=$(\ls $dir/*.sql | wc -l)
+if [ $count -gt 0 ]; then
+    [ -f $file ] && rm $file
+    ( cd $dir; tar -zcf $file *.sql )
+fi
+
+rm -rf $dir
+
+exit 0

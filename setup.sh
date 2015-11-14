@@ -11,8 +11,8 @@ GITHUB_ACCOUNT=${GITHUB_ACCOUNT-stefaniuk}
 GITLAB_ACCOUNT=${GITLAB_ACCOUNT-stefaniuk}
 USER_NAME=${USER_NAME-$USER}
 USER_EMAIL=${USER_EMAIL-$USER@$HOSTNAME}
+
 program_dir=$(cd "$(dirname "$0" 2> /dev/null)"; pwd)
-arg_virtualised=$(echo "$*" | grep -o -- "--virtualised")
 arg_minimal=$(echo "$*" | grep -o -- "--minimal")
 arg_prepare=$(echo "$*" | grep -o -- "--prepare")
 arg_update_system=$(echo "$*" | grep -o -- "--update-system")
@@ -41,7 +41,6 @@ Usage:
     ${file} [options]
 
 Options:
-    --virtualised
     --minimal
     --prepare
     --update-system
@@ -53,7 +52,7 @@ Options:
     --config
     --synchronise-only
     --force-download
-    --sudo
+    --sudo                          sudo keep alive
     --help
 "
 
@@ -94,35 +93,11 @@ function program_synchronise {
 
     rsync -rav \
         --include=/ \
-        --exclude=/.git* --exclude=/README.md --exclude=/LICENCE \
+        --exclude=/.git* --exclude=/README* --exclude=/LICENCE* \
         $program_dir/* \
         ~
 
     printf "\n"
-}
-
-function program_load_dependencies {
-
-    # project
-    if [ -f ~/projects/shell-fusion/installer.sh ]; then
-        ~/projects/shell-fusion/installer.sh --do-not-run-tests "$arg_force_download"
-
-    # local installation
-    elif [ -f ~/.shell-fusion/installer.sh ]; then
-        ~/.shell-fusion/installer.sh --do-not-run-tests "$arg_force_download"
-
-    # global installation
-    elif [ -f /usr/local/shell-fusion/installer.sh ]; then
-        /usr/local/shell-fusion/installer.sh --do-not-run-tests "$arg_force_download"
-
-    # repository
-    else
-        curl -L https://raw.githubusercontent.com/stefaniuk/shell-fusion/master/installer.sh -o - | \
-            /bin/bash -s -- --do-not-run-tests
-    fi
-
-    source ~/.shell-fusion/shell-fusion.sh 2> /dev/null
-    [ $? != 0 ] && source /usr/local/shell-fusion/shell-fusion.sh 2> /dev/null
 }
 
 function program_setup {
@@ -143,7 +118,7 @@ function program_setup {
     # check operating system
     printf "Check OS\n"
     if [ $DIST != "macosx" ] && [ $DIST != "ubuntu" ] && [ $DIST != "scientific" ]; then
-        print_err "Operating system might not be fully supported"
+        print_err "Operating system is not fully supported"
     fi
 
     # prepare
@@ -155,7 +130,7 @@ function program_setup {
 
     # remove not needed resources
     if [ -n "$arg_minimal" ]; then
-        rm -rf ~/{etc,man,sbin,LICENCE,README.md,setup.sh}
+        rm -rf ~/{etc,man,sbin,LICENCE*,README*,setup.sh}
     fi
 }
 
@@ -176,9 +151,6 @@ elif [[ $program_dir == */projects/$REPOSITORY ]]; then
     program_synchronise
 
 fi
-
-# make sure dependencies are installed and loaded
-program_load_dependencies
 
 # perform post-install configuration
 program_setup $*

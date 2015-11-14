@@ -1,0 +1,31 @@
+#!/bin/bash
+
+# define help
+help=$(cat <<HEREDOC
+
+    DESCRIPTION: Replace string in files in the given directory.
+
+    PARAMETERS:
+        \$1 string
+        \$2 new string
+        \$3 directory (optional)
+HEREDOC
+)
+
+# check parameters
+if [ "$1" == "--help" ] || [ $# -lt 2 ]; then
+    echo -e "${help}\n"
+    exit 0
+fi
+
+# get parameters
+str1="$1"
+str2="$2"
+dir=$3
+[ -z "$dir" ] && dir=.
+
+for file in $(find $dir -type f -name "*"); do
+    file_replace_str "$str1" "$str2" $file
+done
+
+exit 0

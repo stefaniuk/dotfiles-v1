@@ -1,0 +1,55 @@
+#!/bin/bash
+
+# define help
+help=$(cat <<HEREDOC
+
+    DESCRIPTION: Sanitise string to meet certain criteria.
+
+    PARAMETERS:
+        \$1 string
+        \$2 character to be used as a replacement
+        --allowed-characters <characters>
+        --max-length <length>
+HEREDOC
+)
+
+# check parameters
+if [ "$1" == "--help" ] || [ $# -lt 1 ]; then
+    echo -e "${help}\n"
+    exit 0
+fi
+
+# get parameters
+str="$1"
+char="$2"
+
+# get optional parameters
+allowed_characters=
+max_length=255
+if [ "$3" != "" ] && [ "$3" != "--allowed-characters" ]; then
+    len=$3
+fi
+while [ "$1" != "" ]; do
+    case $1 in
+        --allowed-characters)   shift; allowed_characters="$1"
+                                ;;
+        --max-length)           shift; max_length=$1
+                                ;;
+    esac
+    shift
+done
+
+# remove unwanted characters
+sanitised=$(echo $str | sed "s/[^A-Za-z0-9$allowed_characters]/$char/g")
+# remove multiple instances of the replacement character
+if [ "$DIST" == "macosx" ]; then
+    sanitised=$(echo $sanitised | sed -E "s/($char)+/$char/g")
+else
+    sanitised=$(echo $sanitised | sed -r "s/($char)+/$char/g")
+fi
+# limit the length
+sanitised=$(echo $sanitised | cut -c1-${max_length})
+# make it lower case
+echo $sanitised | tr "[:upper:]" "[:lower:]"
+
+exit 0

@@ -1,0 +1,46 @@
+#!/bin/bash
+
+# define help
+help=$(cat <<HEREDOC
+
+    DESCRIPTION: Get website content.
+
+    PARAMETERS:
+        \$1                 URL address
+        --filter <string>   include only lines that contain given string
+HEREDOC
+)
+
+# check parameters
+if [ "$1" == "--help" ] || [ $# -lt 1 ]; then
+    echo -e "${help}\n"
+    exit 0
+fi
+
+# get parameters
+url=$1
+filter=
+while [ "$1" != "" ]; do
+    case $1 in
+        --filter)   shift; filter=$1
+                    ;;
+    esac
+    shift
+done
+
+if [ -z "$filter" ]; then
+    \curl \
+        --retry 3 --retry-delay 1 \
+        --connect-timeout 5 --max-time 5 \
+        --silent --show-error --location \
+        --url $url
+else
+    \curl \
+        --retry 3 --retry-delay 1 \
+        --connect-timeout 5 --max-time 5 \
+        --silent --show-error --location \
+        --url $url \
+            | \grep "$filter"
+fi
+
+exit 0

@@ -1,0 +1,39 @@
+#!/bin/bash
+
+# define help
+help=$(cat <<HEREDOC
+
+    DESCRIPTION: Check if string contains another string.
+
+    PARAMETERS:
+        \$1 string
+        \$2 search string, regular expression
+
+    EXAMPLES:
+        contains "string" "search"
+        echo "string" | contains "search"
+HEREDOC
+)
+
+# check parameters
+if [ "$1" == "--help" ] || ([ $# -ne 1 ] && [ $# -ne 2 ]); then
+    echo -e "${help}\n"
+    exit 0
+fi
+
+# get parameters
+str=$1
+search=$2
+
+# read from stdin
+if [ -z "$search" ]; then
+    search="$str"
+    str=`cat`
+fi
+
+count=$(echo "$str" | \grep -- "$search" | wc -l | sed "s/^[ ]*//g")
+if [ $count -gt 0 ]; then
+    exit 0
+else
+    exit 1
+fi

@@ -1,0 +1,43 @@
+#!/bin/bash
+
+# define help
+help=$(cat <<HEREDOC
+
+    DESCRIPTION: Drop MySQL database.
+
+    PARAMETERS:
+        \$1 database name
+        -u|--user <user>
+        -p|--pass <password>
+HEREDOC
+)
+
+# check parameters
+if [ "$1" == "--help" ] || [ $# -lt 1 ]; then
+    echo -e "${help}\n"
+    exit 0
+fi
+
+# variables
+db=$1
+user=
+pass=
+
+# get parameters
+while [ "$1" != "" ]; do
+    case $1 in
+        -u|--user)      shift; user=$1
+                        ;;
+        -p|--pass)      shift; pass=$1
+                        ;;
+    esac
+    shift
+done
+[ -z "$user" ] && user="--user=root" || user="--user=$user"
+[ -z "$pass" ] && pass="--password" || pass="--password=$pass"
+
+cat <<EOF | mysql $user $pass
+drop database if exists $db;
+EOF
+
+exit 0

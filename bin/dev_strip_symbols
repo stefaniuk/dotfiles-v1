@@ -1,0 +1,32 @@
+#!/bin/bash
+
+# define help
+help=$(cat <<HEREDOC
+
+    DESCRIPTION: Remove debugging symbol table entries.
+
+    PARAMETERS:
+        \$1 file or directory
+HEREDOC
+)
+
+# check parameters
+if [ "$1" == "--help" ] || [ $# -ne 1 ]; then
+    echo -e "${help}\n"
+    exit 0
+fi
+
+# get parameters
+file=$1
+
+echo "$file size $(du -ch $file | \grep total | awk '{ print $1 }') before"
+if [ -d $file ]; then
+    for item in $(find $1 -type f); do
+        strip -S $item 2> /dev/null
+    done
+elif [ -f $file ]; then
+    strip -S $file
+fi
+echo "$file size $(du -ch $file | \grep total | awk '{ print $1 }') after"
+
+exit 0

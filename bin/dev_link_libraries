@@ -1,0 +1,45 @@
+#!/bin/bash
+
+# define help
+help=$(cat <<HEREDOC
+
+    DESCRIPTION: Link libraries to the system directories.
+
+    PARAMETERS:
+        \$1 directory to link
+HEREDOC
+)
+
+# check parameters
+if [ "$1" == "--help" ] || [ $# -ne 1 ]; then
+    echo -e "${help}\n"
+    exit 0
+fi
+
+# get parameters
+dir=$1
+
+count_dylib=$(\ls -1 $dir/*.dylib 2> /dev/null | wc -l)
+count_so=$(\ls -1 $dir/*.so* 2> /dev/null | wc -l)
+count_a=$(\ls -1 $dir/*.a 2> /dev/null | wc -l)
+
+# /lib
+if [ -d /lib ]; then
+    [ "$count_so" -gt 0 ] && ln -sfv $dir/*.so* /lib
+    if [ -d /lib/x86_64-linux-gnu ]; then
+        [ "$count_so" -gt 0 ] && ln -sfv $dir/*.so* /lib/x86_64-linux-gnu
+    fi
+fi
+
+# /usr/lib
+if [ -d /usr/lib ]; then
+    [ "$count_dylib" -gt 0 ] && ln -sfv $dir/*.dylib /usr/lib
+    [ "$count_so" -gt 0 ] && ln -sfv $dir/*.so* /usr/lib
+    [ "$count_a" -gt 0 ] && ln -sfv $dir/*.a /usr/lib
+    if [ -d /usr/lib/x86_64-linux-gnu ]; then
+        [ "$count_so" -gt 0 ] && ln -sfv $dir/*.so* /usr/lib/x86_64-linux-gnu
+        [ "$count_a" -gt 0 ] && ln -sfv $dir/*.a /usr/lib/x86_64-linux-gnu
+    fi
+fi
+
+exit 0

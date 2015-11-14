@@ -1,0 +1,121 @@
+#!/bin/bash
+
+# define help
+help=$(cat <<HEREDOC
+
+DESCRIPTION: Download file from given URL address.
+
+PARAMETERS:
+    -u|--url <url>
+    -f|--file <name>
+    -c|--cache-dir <dir>
+    -d|--download-dir <directory>
+    -s|--size <size>
+    -h|--hash <hash>
+    -n|--do-not-cache
+    -F|--force
+HEREDOC
+)
+
+# check parameters
+if [ "$1" == "--help" ] || [ $# -lt 4 ]; then
+    echo -e "${help}\n"
+    exit 0
+fi
+
+# variables
+url=
+file=
+cache_dir=$SHELL_FUSION_TMP_DIR
+download_dir=$PWD
+expected_size=0
+expected_hash=
+hash_algorithm=
+do_not_cache="n"
+force="n"
+
+# get parameters
+while [ "$1" != "" ]; do
+    case $1 in
+        -u|--url)           shift; url=$1
+                            ;;
+        -f|--file)          shift; file=$1
+                            ;;
+        -c|--cache-dir)     shift; cache_dir=$1
+                            ;;
+        -d|--download-dir)  shift; download_dir=$1
+                            ;;
+        -s|--size)          shift; expected_size=$1
+                            ;;
+        -h|--hash)          shift; expected_hash=$1
+                            ;;
+        -n|--do-not-cache)  do_not_cache="y"
+                            ;;
+        -F|--force)         force="y"
+                            ;;
+    esac
+    shift
+done
+
+cd $cache_dir
+
+# file may have already been downloaded
+if [ $force == "n" ] && [ -s $cache_dir/$file ] && [ ! -s $download_dir/$file ]; then
+
+    cp -f $cache_dir/$file $download_dir
+
+else
+
+    # download from given URL address
+    if ([ -n $url ] && ([ ! -s $cache_dir/$file ] || [ $force == "y" ])); then
+        \curl \
+            --retry 2 --retry-delay 3 \
+            --connect-timeout 10 \
+            --show-error --location \
+            --url $url --output $file
+    fi
+
+    # copy file to the download directory
+    if [ -s $cache_dir/$file ] && [ $download_dir != $cache_dir ]; then
+        cp -f $cache_dir/$file $download_dir
+    fi
+
+    # do not cache
+    if [ $do_not_cache == "y" ]; then
+        rm -f $cache_dir/$file
+    fi
+
+fi
+
+# check file size in both cache and download directories
+if [ $expected_size -ne 0 ] && [ -s $cache_dir/$file ]; then
+    size=$(\ls -l $cache_dir/$file | awk '{ print $5 }')
+    if [ $expected_size -gt $size ]; then
+        rm -f $cache_dir/$file
+    fi
+fi
+if [ $expected_size -ne 0 ] && [ -s $download_dir/$file ]; then
+    size=$(\ls -l $download_dir/$file | awk '{ print $5 }')
+    if [ $expected_size -gt $size ]; then
+        rm -f $download_dir/$file
+    fi
+fi
+
+# return value
+if [ -s $cache_dir/$file ]; then
+    # check file hash in cache directory
+    if [ -n "$expected_hash" ]; then
+        file_validate_hash $cache_dir/$file $expected_hash
+        exit $?
+    fi
+elif [ -s $download_dir/$file ]; then
+    # check file hash in download directory
+    if [ -n "$expected_hash" ]; then
+        file_validate_hash $download_dir/$file $expected_hash
+        exit $?
+    fi
+else
+    exit 1
+fi
+
+exit 0

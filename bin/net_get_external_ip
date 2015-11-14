@@ -1,0 +1,33 @@
+#!/bin/bash
+
+# define help
+help=$(cat <<HEREDOC
+
+    DESCRIPTION: Get external IP address.
+HEREDOC
+)
+
+# check parameters
+if [ "$1" == "--help" ]; then
+    echo -e "${help}\n"
+    exit 0
+fi
+
+ip=
+function __get_ip() {
+    ip=$(\curl \
+        --retry 2 --retry-delay 1 \
+        --connect-timeout 2 --max-time 2 \
+        --silent --show-error --location \
+        --url "$1" 2> /dev/null \
+            | \grep -oEi "[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+")
+}
+[ -z "$ip" ] && __get_ip "http://myip.dnsomatic.com"
+[ -z "$ip" ] && __get_ip "http://checkip.dyndns.org"
+[ -z "$ip" ] && __get_ip "http://ipinfo.io"
+[ -z "$ip" ] && __get_ip "http://ipecho.net"
+[ -z "$ip" ] && ip="unknown"
+
+echo $ip
+
+[ "$ip" != "unknown" ] && exit 0 || exit 1

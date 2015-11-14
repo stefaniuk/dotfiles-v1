@@ -1,0 +1,540 @@
+#!/bin/bash
+
+# exit if script is sourced
+[ -n "$BASH_SOURCE" ] && [ "$(basename -- "$0")" != "spkg" ] && exit 1
+
+# make sure `shell-fusion.sh` is sourced
+[ -z "$SHELL_FUSION_HOME" ] && exit 2
+
+################################################################################
+# variables
+
+exec_file=$(basename $0 2> /dev/null)
+home_dir=$SHELL_FUSION_HOME
+cache_dir=$SHELL_FUSION_CACHE_DIR
+conf_dir=$SHELL_FUSION_HOME/etc
+pkgs_dir=$SHELL_FUSION_HOME/opt
+
+################################################################################
+# supporting functions
+
+function has_option {
+
+    local arg="$1"
+    local args="$2"
+
+    if echo " $args " | grep -- " $arg " > /dev/null; then
+        return 0
+    else
+        return 1
+    fi
+}
+
+function is_option {
+
+    local arg="$1"
+
+    if echo "$arg" | grep -- "^-" > /dev/null; then
+        return 0
+    else
+        return 1
+    fi
+}
+
+function is_version {
+
+    local ver="$1"
+
+    echo $ver | grep -oE '[0-9]+\.[0-9]+\.[0-9]+' > /dev/null && return 0
+
+    return 1
+}
+
+function match_pkg {
+
+    local name=$1
+    local version=$2
+
+    # make sure name is correct
+    name="$(find_pkg_by_name "$name" | \
+        \grep -oE '"name":"[0-9a-zA-Z\._-]+"' | \
+        sed 's/"//g' | \
+        sed 's/name://g' | \
+        \grep "^$name" | \
+        head -1)"
+    # make sure version is correct
+    version="$(find_pkg_by_version "$name" "$version" | \
+        \grep -oE '"version":"[0-9a-zA-Z\._-]+"' | \
+        sed 's/"//g' | \
+        sed 's/version://g' | \
+        \grep "^$version" | \
+        sort | sortvr | \
+        head -1)"
+    # get corresponding entry
+    local meta="$(find_pkg "$name" "$version" | filter_pkg)"
+
+    PKG_NAME=$name
+    PKG_VERSION=$version
+    PKG_URL=$(echo "$meta" | grep -oE '"url":"[:/a-zA-Z0-9~\._-]+"' | sed 's/"//g' | sed 's/url://g')
+    PKG_FILE=$(echo "$meta" | grep -oE '"file":"[0-9a-zA-Z~\._-]+"' | sed 's/"//g' | sed 's/file://g')
+    PKG_HASH=$(echo "$meta" | grep -oE '"hash":"[0-9a-fA-F]+"' | sed 's/"//g' | sed 's/hash://g')
+    PKG_TYPE=$(echo "$meta" | grep -oE '"type":"[a-zA-Z0-9]+"' | sed 's/"//g' | sed 's/type://g')
+
+    #echo "$PKG_NAME $PKG_VERSION $PKG_FILE $PKG_HASH $PKG_TYPE $PKG_URL"
+}
+
+function find_pkg {
+
+    local name=$1
+    local version=$2
+
+    if [ $(find_pkg_by_version "$name" "$version" | wc -l) -gt 0 ]; then
+        find_pkg_by_version "$name" "$version"
+    elif [ $(find_pkg_by_name "$name" | wc -l) -gt 0 ]; then
+        find_pkg_by_name "$name"
+    fi
+}
+
+function find_pkg_by_name {
+
+    local name=$1
+
+    if [ -f $conf_dir/$name/$name.json ]; then
+        cat $conf_dir/$name/$name.json | json_parse | \
+            \grep -E '\["downloads",[0-9]+\]' | \
+            tr '\t' ' ' | \
+            awk '{ print $2 }' | \
+            \grep "\"name\":\"$name\""
+    fi
+}
+
+function find_pkg_by_version {
+
+    local name=$1
+    local version=$2
+
+    if [ -f $conf_dir/$name/$name.json ]; then
+        find_pkg_by_name "$name" | \
+            \grep -F "\"version\":\"$version"
+    fi
+}
+
+function filter_pkg {
+
+    local meta=$1
+    local found="n"
+
+    # read from stdin
+    if [ -z "$meta" ]; then
+        meta=`cat`
+    fi
+
+    # match `$DIST and $ARCH`
+    if [ $found == "n" ] && echo $meta | \grep -E "\"platform\":" | \grep -E "\"arch\":" > /dev/null; then
+        for json in $(echo "$meta"); do
+            if echo $json | \grep -E "\"platform\":\"$DIST\"" | \grep -E "\"arch\":\"$ARCH\"" > /dev/null; then
+                meta="$json"
+                found="y"
+                break
+            fi
+        done
+    fi
+
+    # match `$DIST`
+    if [ $found == "n" ] && echo $meta | \grep -E "\"platform\":" > /dev/null; then
+        for json in $(echo "$meta"); do
+            if echo $json | \grep -E "\"platform\":\"$DIST\"" > /dev/null; then
+                meta="$json"
+                found="y"
+                break
+            fi
+        done
+    fi
+
+    # match `$OS and $ARCH`
+    if [ $found == "n" ] && echo $meta | \grep -E "\"platform\":" | \grep -E "\"arch\":" > /dev/null; then
+        for json in $(echo "$meta"); do
+            if echo $json | \grep -E "\"platform\":\"$OS\"" | \grep -E "\"arch\":\"$ARCH\"" > /dev/null; then
+                meta="$json"
+                found="y"
+                break
+            fi
+        done
+    fi
+
+    # match `$OS`
+    if [ $found == "n" ] && echo $meta | \grep -E "\"platform\":" > /dev/null; then
+        for json in $(echo "$meta"); do
+            if echo $json | \grep -E "\"platform\":\"$OS\"" > /dev/null; then
+                meta="$json"
+                found="y"
+                break
+            fi
+        done
+    fi
+
+    echo "$meta"
+}
+
+function download_pkg {
+
+    if [ -n "$PKG_HASH" ]; then
+        file_download \
+            --url $PKG_URL \
+            --file $PKG_FILE \
+            --hash $PKG_HASH \
+            --download-dir $cache_dir \
+            --cache-dir $cache_dir
+    else
+        file_download \
+            --url $PKG_URL \
+            --file $PKG_FILE \
+            --download-dir $cache_dir \
+            --cache-dir $cache_dir
+    fi
+}
+
+function clone_pkg {
+
+    local result=0
+
+    if [ ! -f $cache_dir/$PKG_FILE ]; then
+        mkdir -p $cache_dir/$PKG_NAME-$PKG_VERSION
+        cd $cache_dir/$PKG_NAME-$PKG_VERSION
+        git clone $PKG_URL $cache_dir/$PKG_NAME-$PKG_VERSION
+        git reset --hard $PKG_HASH; rm -rf .git
+        cd $cache_dir
+        tar -zcf $cache_dir/$PKG_FILE $PKG_NAME-$PKG_VERSION
+        result=$?
+    fi
+
+    return $result
+}
+
+function sudo_keep_alive {
+
+    # update user's time stamp, prompting for password if necessary
+    sudo -v
+    # keep-alive until script has finished then invalidate sudo session
+    while true; do
+        sudo -n true
+        sleep 1
+        if ! kill -0 "$$"; then
+            sudo -k
+            exit
+        fi
+    done 2>/dev/null &
+}
+
+################################################################################
+# command functions
+
+function _select {
+
+    local is_version_set=$([ -n "$PKG_VERSION" ] && echo "y" || echo "n")
+    match_pkg "$PKG_NAME" "$PKG_VERSION"
+    if [ -z "$PKG_NAME" ] || [ -z "$PKG_TYPE" ] || ([ $is_version_set == "y" ] && [ -z "$PKG_VERSION" ]); then
+        print_err "Cannot find specified package: $PKG_NAME $PKG_VERSION"
+        return 3
+    fi
+
+    if [ -n "$PKG_VERSION" ]; then
+        print_h1 "Selected $PKG_NAME $PKG_VERSION $PKG_TYPE"
+    else
+        print_h1 "Selected $PKG_NAME $PKG_TYPE"
+    fi
+}
+
+function _download {
+
+    local result=0
+
+    print_h2 "Downloading"
+    if [ $PKG_TYPE == "git" ]; then
+        clone_pkg
+        result=$?
+    elif [ $PKG_TYPE != "system" ]; then
+        download_pkg
+        result=$?
+    fi
+
+    [ $result -eq 0 ] && return 0 || return 4
+}
+
+function _prepare {
+
+    print_h2 "Preparing"
+    pkg_conf_dir=$conf_dir/$PKG_NAME
+    mkdir -p $pkgs_dir/$PKG_NAME
+    if [ $PKG_TYPE == "source" ] || [ $PKG_TYPE == "package" ] || [ -n $PKG_VERSION ]; then
+        cd $cache_dir
+        install_dir=$pkgs_dir/$PKG_NAME/$PKG_VERSION
+        [ -d $install_dir ] && [ ! -h $install_dir ] && cp -r $install_dir $install_dir.bak 2> /dev/null
+        mkdir -p $install_dir
+        if [[ $PKG_FILE == *.tar.* ]] || [[ $PKG_FILE == *.tgz ]]; then
+            rm -rf $cache_dir/$PKG_NAME-$PKG_VERSION
+            local dir="unpack-$$"
+            mkdir $dir
+            cd $dir
+            tar -xf ../$PKG_FILE
+            mv "$(\ls)" $cache_dir/$PKG_NAME-$PKG_VERSION
+            cd $cache_dir/$PKG_NAME-$PKG_VERSION
+            rm -rf ../$dir
+        elif [[ $PKG_FILE == *.zip ]]; then
+            rm -rf $cache_dir/$PKG_NAME-$PKG_VERSION
+            unzip -q $PKG_FILE
+            [ ! -d $cache_dir/$PKG_NAME-$PKG_VERSION ] && mv "$(find $cache_dir -maxdepth 1 -type d -name "*$PKG_NAME*")" $cache_dir/$PKG_NAME-$PKG_VERSION
+            cd $cache_dir/$PKG_NAME-$PKG_VERSION
+        elif [[ $PKG_FILE == *.dmg ]]; then
+            volume=$(hdiutil mount $cache_dir/$PKG_FILE | grep -oE "/Volumes/[a-zA-Z0-9 ]+")
+            cd "$volume"
+        fi
+    fi
+}
+
+function _patch {
+
+    if [ $PKG_TYPE == "source" ] && [ $opt_patch == "y" ] && [ -f $conf_dir/$PKG_NAME/patches/$DIST/series ]; then
+        print_h2 "Patch..."
+        while read file; do
+            if [ ! -f "$conf_dir/$PKG_NAME/patches/$DIST/$file" ]; then
+                continue
+            fi
+            print_h3 "Apply patch $file"
+            patch -p1 -N --dry-run --silent < $conf_dir/$PKG_NAME/patches/$DIST/$file 2> /dev/null
+            if [ $? -eq 0 ]; then
+                patch -p1 -N < $conf_dir/$PKG_NAME/patches/$DIST/$file
+            else
+                print_err "Patch $file not applied"
+            fi
+        done < $conf_dir/$PKG_NAME/patches/$DIST/series
+    fi
+}
+
+function _cleanup {
+
+    print_h2 "Cleaning up"
+    if [ $PKG_TYPE == "source" ] || [ $PKG_TYPE == "package" ] || [ -n $PKG_VERSION ]; then
+        cd $home_dir
+        rm -rf $install_dir.bak
+        if [[ $PKG_FILE == *.tar.* ]] || [[ $PKG_FILE == *.tgz ]] || [[ $PKG_FILE == *.zip ]]; then
+            rm -rf $cache_dir/$PKG_NAME-$PKG_VERSION
+        elif [[ $PKG_FILE == *.dmg ]]; then
+            `hdiutil detach "$(echo "$volume" | sed 's/ /\\ /g')" -force > /dev/null 2>&1`
+        fi
+        # create link to the current installation directory
+        if [ ! -d $pkgs_dir/$PKG_NAME/current ] && [ -d $pkgs_dir/$PKG_NAME/$PKG_VERSION ]; then
+            rm -f $pkgs_dir/$PKG_NAME/current
+            ln -sfv $pkgs_dir/$PKG_NAME/$PKG_VERSION $pkgs_dir/$PKG_NAME/current
+        fi
+    fi
+}
+
+function cmd_show_all {
+
+    \ls $conf_dir | sort
+}
+
+function cmd_show_versions {
+
+    for name in $(\ls $conf_dir | sort); do
+        local versions=$(cat $conf_dir/$name/$name.json | json_parse | \
+            \grep -E '\["downloads",[0-9]+,"version"\]' | \
+            tr '\t' ' ' | sed 's/"//'g | \
+            awk '{ print $2 }' | \
+            uniq | sort)
+        echo $name $versions
+    done
+}
+
+function cmd_download {
+
+    _select && \
+    _download
+    local result=$?
+
+    if [ $result -eq 0 ]; then
+        print_h2 "Package downloaded successfully"
+    else
+        print_err "Failed to download requested package"
+    fi
+
+    return $result
+}
+
+function cmd_install {
+
+    [ ! -f $conf_dir/$PKG_NAME/$PKG_NAME.sh ] && return 5
+
+    function _install {
+
+        local archive_file=$cache_dir/$PKG_NAME-$PKG_VERSION-build-$DIST-$ARCH_NAME.tar.gz
+
+        function archive {
+
+            print_h3 "Archive"
+            local dir=$(pwd)
+            cd $install_dir/../..
+            rm -f $archive_file
+            tar -zcf $archive_file $PKG_NAME/$(basename $install_dir)
+            cd $dir
+        }
+
+        function unarchive {
+
+            print_h3 "Unpack"
+            local dir=$(pwd)
+            cd $cache_dir
+            tar -xf $archive_file
+            rm -rf $install_dir; [ -d $install_dir ] && sudo rm -rf $install_dir
+            mv -f $PKG_NAME/$PKG_VERSION $install_dir
+            rm -rf $PKG_NAME
+            cd $dir
+        }
+
+        print_h2 "Installing..."
+        (
+            if [ ! -f $archive_file ] || [ $opt_force_build == "y" ]; then
+                opt_from_archive="n"
+            fi
+            . $conf_dir/$PKG_NAME/$PKG_NAME.sh
+        )
+        # check for any errors
+        local result=$?
+        if [ $result -ne 0 ]; then
+            [ -d $install_dir.bak ] && rm -rf $install_dir
+            [ -d $install_dir.bak ] && mv $install_dir.bak $install_dir
+            print_err "Error installing $PKG_NAME $PKG_VERSION package (code: $result)"
+            return 6
+        fi
+    }
+
+    _select && \
+    _download && \
+    _prepare && \
+    _patch && \
+    _install && \
+    _cleanup
+    local result=$?
+
+    if [ $result -eq 0 ]; then
+        print_h2 "Package installed successfully"
+    else
+        print_err "Failed to install requested package"
+    fi
+
+    return $result
+}
+
+################################################################################
+# functions
+
+function usage {
+
+    echo "
+${exec_file} is a simple command line interface for installing packages.
+
+Usage:
+    ${exec_file} command package_name [pkg_version] [options]
+
+Commands:
+    show-all
+    show-versions
+    download
+    install
+
+Options:
+    -p|--patch
+    -b|--force-build
+    -c|--configure
+    -g|--global
+    -s|--sudo
+"
+}
+
+function main {
+
+    local result=0
+
+    # path
+    opt_patch="n"
+    if has_option "-p" "$*" || has_option "--patch" "$*"; then
+        opt_patch="y"
+    fi
+    # build
+    opt_force_build="n"
+    opt_from_archive="y"
+    if has_option "-b" "$*" || has_option "--force-build" "$*"; then
+        opt_force_build="y"
+        opt_from_archive="n"
+    fi
+    # configure
+    opt_configure="n"
+    if has_option "-c" "$*" || has_option "--configure" "$*"; then
+        opt_configure="y"
+    fi
+    # global
+    opt_scope="local"
+    if has_option "-g" "$*" || has_option "--global" "$*"; then
+        opt_scope="global"
+    fi
+    # sudo
+    opt_keep_alive="n"
+    if has_option "-s" "$*" || has_option "--sudo" "$*"; then
+        opt_keep_alive="y"
+    fi
+
+    local command=$1; shift
+    case $command in
+        show-all)
+            cmd_show_all
+            ;;
+        show-versions)
+            cmd_show_versions
+            ;;
+        download)
+            while true; do
+                [ -z "$1" ] && break
+                # get package name and version
+                PKG_NAME=$1; shift
+                PKG_VERSION=$([ -n "$1" ] && ! is_option $1 && is_version $1 && echo $1); [ -n "$PKG_VERSION" ] && shift
+                # ignore options
+                while true; do is_option "$1" && shift || break; done
+
+                # run command function
+                cmd_download
+                result=$?
+                [ $result -gt 0 ] && break
+            done
+            ;;
+        install)
+            while true; do
+                [ -z "$1" ] && break
+                # get package name and version
+                PKG_NAME=$1; shift
+                PKG_VERSION=$([ -n "$1" ] && ! is_option $1 && is_version $1 && echo $1); [ -n "$PKG_VERSION" ] && shift
+                # ignore options
+                while true; do is_option "$1" && shift || break; done
+                # keep alive
+                [ $opt_keep_alive == "y" ] && sudo_keep_alive
+
+                # run command function
+                cmd_install
+                result=$?
+                [ $result -gt 0 ] && break
+            done
+            ;;
+        *)
+            usage
+            ;;
+    esac
+
+    return $result
+}
+
+################################################################################
+# main
+
+main $*
+
+exit $?

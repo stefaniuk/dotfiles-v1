@@ -1,0 +1,25 @@
+#!/bin/bash
+
+# define help
+help=$(cat <<HEREDOC
+
+    DESCRIPTION: Convert hexadecimal to decimal number.
+
+    PARAMETERS:
+        \$1 hexadecimal number
+HEREDOC
+)
+
+# check parameters
+if [ "$1" == "--help" ] || [ $# -ne 1 ]; then
+    echo -e "${help}\n"
+    exit 0
+fi
+
+# get parameters
+hex=$1
+
+hex=$(echo $hex | tr "[:lower:]" "[:upper:]")
+echo "ibase=16; $hex" | bc
+
+exit 0

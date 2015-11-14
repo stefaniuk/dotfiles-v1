@@ -1,0 +1,57 @@
+#!/bin/bash
+
+# define help
+help=$(cat <<HEREDOC
+
+    DESCRIPTION: Create HTTPD virtual host.
+
+    PARAMETERS:
+        \$1 domain name
+        \$2 HTTP port
+        \$3 HTTPS port
+        \$4 document root
+        \$5 configuration file
+        \$6 certificate dir
+HEREDOC
+)
+
+# check parameters
+if [ "$1" == "--help" ] || [ $# -lt 6 ]; then
+    echo -e "${help}\n"
+    exit 0
+fi
+
+# variables
+domain=$1
+http_port=$2
+https_port=$3
+document_root=$4
+conf_file=$5
+cert_dir=$6
+
+[ -n "$http_port" ] && [ -n "$https_port" ] && cat << EOF > $conf_file.conf
+<VirtualHost *:$http_port>
+    ServerName $domain:$http_port
+    Redirect permanent / https://$domain/
+</VirtualHost>
+EOF
+
+[ -n "$https_port" ] && cat << EOF >> $conf_file.conf
+<VirtualHost *:$https_port>
+    ServerName $domain:$https_port
+    DocumentRoot $document_root
+    <Directory $document_root>
+        Options Indexes FollowSymLinks
+        AllowOverride AuthConfig FileInfo Indexes Limit Options=ExecCGI,Includes,Indexes,MultiViews,SymlinksIfOwnerMatch
+        Order allow,deny
+        Allow from all
+    </Directory>
+    SSLEngine on
+    SSLCertificateFile $cert_dir/$domain.pem
+    SSLCertificateKeyFile $cert_dir/$domain.key
+</VirtualHost>
+EOF
+
+[ -n "$cert_dir" ] && openssl_cert_gen $domain --dir $cert_dir
+
+exit 0

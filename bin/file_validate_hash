@@ -1,0 +1,30 @@
+#!/bin/bash
+
+# define help
+help=$(cat <<HEREDOC
+
+    DESCRIPTION: Validate hash of given file.
+
+    PARAMETERS:
+        \$1 file name
+        \$2 hash
+HEREDOC
+)
+
+# check parameters
+if [ "$1" == "--help" ] || [ $# -lt 2 ]; then
+    echo -e "${help}\n"
+    exit 0
+fi
+
+# get parameters
+file=$1
+hash=$2
+
+algorithm=$(hasht $hash)
+current_hash=$(${algorithm}sum $file | awk '{ print $1 }')
+if [ "$(lower $hash)" == "$(lower $current_hash)" ]; then
+    exit 0
+else
+    exit 1
+fi

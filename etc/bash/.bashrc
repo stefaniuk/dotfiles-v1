@@ -12,11 +12,6 @@ fi
 
 export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
-#### dependencies ##############################################################
-
-source ~/.shell-fusion/shell-fusion.sh 2> /dev/null
-[ $? != 0 ] && source /usr/local/shell-fusion/shell-fusion.sh 2> /dev/null
-
 #### configuration #############################################################
 
 shopt -s nocaseglob # case-insensitive globbing
@@ -41,5 +36,5 @@ unset file
 
 #### path ######################################################################
 
-# make sure PATH variable includes `bin` directory
-export PATH=$PATH:~/bin
+# make sure PATH variable includes `~/bin` and `~/usr/bin` directories
+export PATH=$PATH:~/bin:~/usr/bin

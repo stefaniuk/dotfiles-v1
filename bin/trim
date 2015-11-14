@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# define help
+help=$(cat <<HEREDOC
+
+    DESCRIPTION: Remove whitespaces from the beginning and the end of a string.
+
+    PARAMETERS:
+        \$1 string
+HEREDOC
+)
+
+# check parameters
+if [ "$1" == "--help" ] || [ $# -ne 1 ]; then
+    echo -e "${help}\n"
+    exit 0
+fi
+
+# get parameters
+str="$1"
+
+str=$(sed -e "s/^[[:space:]]*//" <<<"$str")
+str=$(sed -e "s/[[:space:]]*$//" <<<"$str")
+echo "$str"
+
+exit 0

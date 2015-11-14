@@ -1,0 +1,156 @@
+#!/bin/bash
+
+# define help
+help=$(cat <<HEREDOC
+
+    DESCRIPTION: Create daemon.
+
+    PARAMETERS:
+        --name
+        --exec
+        --args
+        --user
+        --group
+        --log-dir
+        --daemon-script
+        --runner-script
+        --config-script
+HEREDOC
+)
+
+# check parameters
+if [ "$1" == "--help" ] || [ $# -lt 1 ]; then
+    echo -e "${help}\n"
+    exit 0
+fi
+
+# get parameters
+name=
+exec=
+args=
+user=
+group=
+log_dir=
+daemon_script=
+runner_script=
+config_script=
+while [ "$1" != "" ]; do
+    case $1 in
+        --name)             shift; name="$1"
+                            ;;
+        --exec)             shift; exec="$1"
+                            ;;
+        --args)             shift; args="$1"
+                            ;;
+        --user)             shift; user="$1"
+                            ;;
+        --group)            shift; group="$1"
+                            ;;
+        --log-dir)          shift; log_dir="$1"
+                            ;;
+        --daemon-script)    shift; daemon_script="$1"
+                            ;;
+        --runner-script)    shift; runner_script="$1"
+                            ;;
+        --config-script)    shift; config_script="$1"
+                            ;;
+    esac
+    shift
+done
+
+# copy daemon and runner scripts
+if [ -n "$daemon_script" ]; then
+    mkdir -p $(dirname $daemon_script)
+    cp $SHELL_FUSION_HOME/etc/daemon $daemon_script
+    chmod +x $daemon_script
+fi
+if [ -n "$runner_script" ]; then
+    mkdir -p $(dirname $runner_script)
+    cp $SHELL_FUSION_HOME/etc/runner $runner_script
+    chmod +x $runner_script
+fi
+if [ -n "$config_script" ]; then
+    [ -n "$daemon_script" ] && file_replace_str '\$config_script' "$config_script" $daemon_script
+    [ -n "$runner_script" ] && file_replace_str '\$config_script' "$config_script" $runner_script
+fi
+
+if [ $DIST == "macosx" ] && [ -n "$exec" ]; then
+
+    file=/System/Library/LaunchDaemons/$name.plist
+
+    # header
+    sudo bash -c "cat << EOF > $file
+<?xml version=\"1.0\" encoding=\"UTF-8\"?>
+<!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">
+<plist version=\"1.0\">
+    <dict>
+        <key>RunAtLoad</key>
+        <true/>
+        <key>KeepAlive</key>
+        <false/>
+        <key>Label</key>
+        <string>$name</string>
+        <key>ProgramArguments</key>
+        <array>
+            <string>$exec</string>
+EOF"
+
+
+    # arguments
+    if [ -n "$args" ]; then
+        sudo bash -c "cat << EOF >> $file
+EOF"
+        for arg in $(echo "$args"); do
+            sudo bash -c "cat << EOF >> $file
+            <string>$arg</string>
+EOF"
+        done
+    fi
+    sudo bash -c "cat << EOF >> $file
+        </array>
+EOF"
+
+
+    # user and group
+    if [ -n "$user" ]; then
+        sudo bash -c "cat << EOF >> $file
+        <key>UserName</key>
+        <string>$user</string>
+EOF"
+    fi
+    if [ -n "$group" ]; then
+        sudo bash -c "cat << EOF >> $file
+        <key>GroupName</key>
+        <string>$group</string>
+EOF"
+    fi
+
+
+    # log files
+    if [ -n "$log_dir" ]; then
+        sudo bash -c "cat << EOF >> $file
+        <key>StandardOutPath</key>
+        <string>$log_dir/$name-daemon.log</string>
+        <key>StandardErrorPath</key>
+        <string>$log_dir/$name-daemon.log</string>
+EOF"
+    fi
+
+
+    # footer
+    sudo bash -c "cat << EOF >> $file
+    </dict>
+</plist>
+EOF"
+
+    echo "  daemon file:    $file"
+    echo "start command:    sudo launchctl load -w $file"
+    echo " stop command:    sudo launchctl unload -w $file"
+
+elif [ $DIST == "ubuntu" ] && [ -n "$exec" ]; then
+
+    :
+
+fi
+
+exit 0

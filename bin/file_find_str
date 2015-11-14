@@ -1,0 +1,31 @@
+#!/bin/bash
+
+# define help
+help=$(cat <<HEREDOC
+
+    DESCRIPTION: Check if file contains given string.
+
+    PARAMETERS:
+        \$1 search string, regular expression, multi-line
+        \$2 file name
+HEREDOC
+)
+
+# check parameters
+if [ "$1" == "--help" ] || [ $# -ne 2 ]; then
+    echo -e "${help}\n"
+    exit 0
+fi
+
+# get parameters
+str="$1"
+file=$2
+
+count=$(cat $file | pcregrep -M "$str" | wc -l | sed "s/^[ ]*//g")
+if [ $count -gt 0 ]; then
+    exit 0
+else
+    exit 1
+fi
+
+exit 0

@@ -1,0 +1,28 @@
+#!/bin/bash
+
+# define help
+help=$(cat <<HEREDOC
+
+    DESCRIPTION: Get hash type by its length.
+
+    PARAMETERS:
+        \$1 hash
+HEREDOC
+)
+
+# check parameters
+if [ "$1" == "--help" ] || [ $# -ne 1 ]; then
+    echo -e "${help}\n"
+    exit 0
+fi
+
+hash=$1
+size=${#hash}
+
+[ $size -eq 32 ] && echo "md5"
+[ $size -eq 40 ] && echo "sha1"
+[ $size -eq 64 ] && echo "sha256"
+[ $size -eq 96 ] && echo "sha384"
+[ $size -eq 128 ] && echo "sha512"
+
+exit 0

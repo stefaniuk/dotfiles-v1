@@ -1,0 +1,31 @@
+#!/bin/bash
+
+# define help
+help=$(cat <<HEREDOC
+
+    DESCRIPTION: Delete an existing system user.
+
+    PARAMETERS:
+        \$1 user
+HEREDOC
+)
+
+# check parameters
+if [ "$1" == "--help" ] || [ $# -ne 1 ]; then
+    echo -e "${help}\n"
+    exit 0
+fi
+
+# get parameters
+user=$1
+
+if [ $DIST == "macosx" ]; then
+    sudo dscl . -delete /Groups/_$user > /dev/null 2>&1
+    sudo dscl . -delete /Users/_$user > /dev/null 2>&1
+    sudo dscl . -delete /Groups/$user > /dev/null 2>&1
+    sudo dscl . -delete /Users/$user > /dev/null 2>&1
+else
+    sudo userdel -f $user > /dev/null 2>&1
+fi
+
+exit 0

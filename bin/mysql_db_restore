@@ -1,0 +1,48 @@
+#!/bin/bash
+
+# define help
+help=$(cat <<HEREDOC
+
+    DESCRIPTION: Restore MySQL database from tar.gz archive.
+
+    PARAMETERS:
+        \$1 input archive file
+        \$2 database name
+        -u|--user <user>
+        -p|--pass <password>
+HEREDOC
+)
+
+# check parameters
+if [ "$1" == "--help" ] || [ $# -lt 2 ]; then
+    echo -e "${help}\n"
+    exit 0
+fi
+
+# variables
+file=$1
+db=$2
+user=
+pass=
+
+# get parameters
+while [ "$1" != "" ]; do
+    case $1 in
+        -u|--user)      shift; user=$1
+                        ;;
+        -p|--pass)      shift; pass=$1
+                        ;;
+    esac
+    shift
+done
+[ -z "$user" ] && user="--user=root" || user="--user=$user"
+[ -z "$pass" ] && exit 1 || pass="--password=$pass"
+
+tar -zxf $file
+list=$(\ls *.sql)
+for item in $list; do
+    mysql $user $pass $db < $item
+done
+rm *.sql
+
+exit 0

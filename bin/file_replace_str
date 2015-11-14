@@ -1,0 +1,56 @@
+#!/bin/bash
+
+# define help
+help=$(cat <<HEREDOC
+
+    DESCRIPTION: Replace string in given file.
+
+    PARAMETERS:
+        \$1 string to search for
+        \$2 new string
+        \$3 file name
+        -m|--multiline
+HEREDOC
+)
+
+# check parameters
+if [ "$1" == "--help" ] || [ $# -lt 3 ]; then
+    echo -e "${help}\n"
+    exit 0
+fi
+
+# get parameters
+str1="$1"
+str2="$2"
+file=$3
+
+# get optional parameters
+multiline="n"
+while [ "$1" != "" ]; do
+    case $1 in
+        -m|--multiline) multiline="y"
+                        ;;
+    esac
+    shift
+done
+
+# exit if no file or string not found
+if [ ! -f $file ] || ([ multiline == "n" ] && ! file_find_str "$str1" $file ); then
+    exit 1
+fi
+
+is_exec=$(test -x $file && echo "yes" || echo "no")
+
+str1=$(echo "$str1" | sed 's/\//\\\//g')
+str2=$(echo "$str2" | sed 's/\//\\\//g')
+tmp_file=$SHELL_FUSION_TMP_DIR/file_replace_str.$$
+if [ $multiline == "y" ]; then
+    cat $file | perl -0777 -pe "s/$str1/$str2/gs" > $tmp_file
+else
+    sed -E "s/$str1/$str2/g" $file > $tmp_file
+fi
+mv $tmp_file $file
+
+[ $is_exec == "yes" ] && chmod +x $file
+
+exit 0

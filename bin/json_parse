@@ -1,0 +1,33 @@
+#!/bin/bash
+
+# define help
+help=$(cat <<HEREDOC
+
+    DESCRIPTION: Parse JSON.
+
+    PARAMETERS:
+        \$1 JSON string
+
+    EXAMPLES:
+        json_parse "\$json"
+        echo "\$json" | json_parse
+HEREDOC
+)
+
+# check parameters
+if [ "$1" == "--help" ]; then
+    echo -e "${help}\n"
+    exit 0
+fi
+
+# get parameters
+json=$1
+
+# read from stdin
+if [ -z "$json" ]; then
+    json=`cat`
+fi
+
+echo "$json" | $SHELL_FUSION_HOME/lib/json.sh
+
+exit 0

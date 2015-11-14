@@ -1,0 +1,24 @@
+#!/bin/bash
+
+# define help
+help=$(cat <<HEREDOC
+
+    DESCRIPTION: Sort version strings in reverse order from stdin.
+
+    EXAMPLE: cat versions.txt | sortvr
+HEREDOC
+)
+
+# check parameters
+if [ "$1" == "--help" ]; then
+    echo -e "${help}\n"
+    exit 0
+fi
+
+if [ "$DIST" == "macosx" ]; then
+    sort -t. -k 1,1nr -k 2,2nr -k 3,3nr -k 4,4nr < /dev/stdin
+else
+    sort -V -r < /dev/stdin
+fi
+
+exit 0

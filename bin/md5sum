@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# define help
+help=$(cat <<HEREDOC
+
+    DESCRIPTION: Create MD5 hash.
+
+    EXAMPLE: echo "test" | md5sum
+HEREDOC
+)
+
+# check parameters
+if [ "$1" == "--help" ]; then
+    echo -e "${help}\n"
+    exit 0
+fi
+
+md5 -r $*
+
+exit $?

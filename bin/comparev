@@ -1,0 +1,66 @@
+#!/bin/bash
+
+# define help
+help=$(cat <<HEREDOC
+
+    DESCRIPTION: Compare two version strings.
+
+    PARAMETERS:
+        \$1 version
+        \$2 version
+
+    RETURN: -1, 0 or 1 as the first argument is less than, equal to or greater than the second.
+HEREDOC
+)
+
+# check parameters
+if [ "$1" == "--help" ] || [ $# -ne 2 ]; then
+    echo -e "${help}\n"
+    exit 0
+fi
+
+if [[ $1 == $2 ]]; then
+    echo 0
+    exit 0
+fi
+
+ver1a=$(echo $1 | \grep -oEi "[0-9\.]*" | head -1)
+ver1b=$(substring $1 $ver1a)
+ver2a=$(echo $2 | \grep -oEi "[0-9\.]*" | head -1)
+ver2b=$(substring $2 $ver2a)
+
+IFS=.
+i=
+ver1=($ver1a)
+ver2=($ver2a)
+
+# test the 1st part
+for ((i=${#ver1[@]}; i<${#ver2[@]}; i++)); do
+    ver1[i]=0
+done
+for ((i=0; i<${#ver1[@]}; i++)); do
+    if [[ -z ${ver2[i]} ]]; then
+        ver2[i]=0
+    fi
+    if ((10#${ver1[i]} > 10#${ver2[i]})); then
+        echo 1
+        exit 0
+    fi
+    if ((10#${ver1[i]} < 10#${ver2[i]})); then
+        echo -1
+        exit 0
+    fi
+done
+
+# test the 2nd part
+if [ "$ver1b" \< "$ver2b" ]; then
+    echo -1
+    exit 0
+elif [ "$ver1b" \> "$ver2b" ]; then
+    echo 1
+    exit 0
+fi
+
+echo 0
+
+exit 0

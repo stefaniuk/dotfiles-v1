@@ -1,0 +1,41 @@
+#!/bin/bash
+
+# define help
+help=$(cat <<HEREDOC
+
+    DESCRIPTION: Run MySQL expression and return value.
+
+    PARAMETERS:
+        \$1 SQL expression
+        -u|--user <user>
+        -p|--pass <password>
+HEREDOC
+)
+
+# check parameters
+if [ "$1" == "--help" ] || [ $# -lt 1 ]; then
+    echo -e "${help}\n"
+    exit 0
+fi
+
+# variables
+sql=$1
+user=
+pass=
+
+# get parameters
+while [ "$1" != "" ]; do
+    case $1 in
+        -u|--user)      shift; user=$1
+                        ;;
+        -p|--pass)      shift; pass=$1
+                        ;;
+    esac
+    shift
+done
+[ -z "$user" ] && user="--user=root" || user="--user=$user"
+[ -z "$pass" ] && pass="--password" || pass="--password=$pass"
+
+echo "$sql" | mysql $user $pass | awk "{ if ( NR > 1 ) { print } }"
+
+exit 0

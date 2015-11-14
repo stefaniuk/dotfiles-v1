@@ -1,0 +1,30 @@
+#!/bin/bash
+
+# define help
+help=$(cat <<HEREDOC
+
+    DESCRIPTION: Return random string (A-Za-z0-9) with the given length.
+
+    PARAMETERS:
+        \$1 length
+HEREDOC
+)
+
+# check parameters
+if [ "$1" == "--help" ] || [ $# -ne 1 ]; then
+    echo -e "${help}\n"
+    exit 0
+fi
+
+# get parameters
+len=$1
+
+str=
+if [ "$OS" == "unix" ]; then
+    str=$(env LC_ALL=C tr -dc 'A-Za-z0-9' < /dev/urandom | head -c $len)
+else
+    str=</dev/urandom LC_ALL=C tr -dc A-Za-z0-9 | (head -c $ > /dev/null 2>&1 || head -c $len)
+fi
+echo "$str"
+
+exit 0

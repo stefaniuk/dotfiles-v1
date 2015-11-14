@@ -1,0 +1,29 @@
+#!/bin/bash
+
+# define help
+help=$(cat <<HEREDOC
+
+    DESCRIPTION: Escape file name using the same way bash does it.
+
+    PARAMETERS:
+        \$1 file or directory
+HEREDOC
+)
+
+# check parameters
+if [ "$1" == "--help" ]; then
+    echo -e "${help}\n"
+    exit 0
+fi
+
+# get parameters
+file=$1
+
+# read from stdin
+if [ -z "$file" ]; then
+    file=`cat`
+fi
+
+printf '%q' "$file" | sed s/=/\\\\=/g
+
+exit 0

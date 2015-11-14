@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# define help
+help=$(cat <<HEREDOC
+
+    DESCRIPTION: Create SHA-256 hash.
+
+    EXAMPLE: echo "test" | sha256sum
+HEREDOC
+)
+
+# check parameters
+if [ "$1" == "--help" ]; then
+    echo -e "${help}\n"
+    exit 0
+fi
+
+shasum --algorithm 256 $*
+
+exit $?

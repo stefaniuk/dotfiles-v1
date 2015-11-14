@@ -21,7 +21,6 @@ All files will be installed in the user directory.
 
 Here is a list of additional options that can be used from the command-line during the installation:
 
-    --virtualised
     --install-server-tools
     --install-workstation-tools
     --install-build-tools

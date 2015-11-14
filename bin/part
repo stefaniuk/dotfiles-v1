@@ -1,0 +1,33 @@
+#!/bin/bash
+
+# define help
+help=$(cat <<HEREDOC
+
+    DESCRIPTION: Split string and return part given by the third argument.
+
+    PARAMETERS:
+        \$1 string
+        \$2 separator
+        \$3 part (index starts from 1)
+HEREDOC
+)
+
+# check parameters
+if [ "$1" == "--help" ] || [ $# -ne 3 ]; then
+    echo -e "${help}\n"
+    exit 0
+fi
+
+# get parameters
+str=$1
+separator=$2
+part=$3
+
+if [ "$DIST" == "macosx" ]; then
+    part=$(expr $part - 1)
+    ruby -e "a = '$str'.split('$separator'); print a[$part]"
+else
+    echo "$str" | awk '{ split($str,a,v1); print a[v2]; }' v1=$separator v2=$part
+fi
+
+exit 0

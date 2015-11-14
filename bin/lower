@@ -1,0 +1,24 @@
+#!/bin/bash
+
+# define help
+help=$(cat <<HEREDOC
+
+    DESCRIPTION: Convert string to lower case.
+
+    PARAMETERS:
+        \$1 string
+HEREDOC
+)
+
+# check parameters
+if [ "$1" == "--help" ] || [ $# -ne 1 ]; then
+    echo -e "${help}\n"
+    exit 0
+fi
+
+# get parameters
+str="$1"
+
+echo $str | tr "[:upper:]" "[:lower:]"
+
+exit 0

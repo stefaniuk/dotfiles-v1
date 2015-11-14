@@ -1,0 +1,29 @@
+#!/bin/bash
+
+# define help
+help=$(cat <<HEREDOC
+
+DESCRIPTION: Return substring by removing its prefix and suffix.
+
+PARAMETERS:
+    \$1 string
+    \$2 prefix
+    \$3 suffix
+HEREDOC
+)
+
+# check parameters
+if [ "$1" == "--help" ] || [ $# -lt 3 ]; then
+    echo -e "${help}\n"
+    exit 0
+fi
+
+# get parameters
+str="$1"
+pre="$2"
+suf="$3"
+
+str="${str#${str%${pre}*}${pre}}"
+echo "${str%${suf}*}"
+
+exit 0

@@ -1,0 +1,99 @@
+#!/bin/bash
+
+# define help
+help=$(cat <<HEREDOC
+
+    DESCRIPTION: Create a new system user.
+
+    PARAMETERS:
+        \$1 user
+        \$2 group
+        --uid <user id>
+        --gid <group id>
+        --groups <list>
+        --home <home directory>
+        --shell <path>
+HEREDOC
+)
+
+# check parameters
+if [ "$1" == "--help" ] || [ $# -lt 2 ]; then
+    echo -e "${help}\n"
+    exit 0
+fi
+
+# get parameters
+user=$1
+group=$2
+
+# get optional parameters
+uid=
+gid=
+home=
+shell=
+while [ "$1" != "" ]; do
+    case $1 in
+        --uid)      shift; uid="$1"
+                    ;;
+        --gid)      shift; gid="$1"
+                    ;;
+        --groups)   shift; groups="$1"
+                    ;;
+        --home)     shift; home="$1"
+                    ;;
+        --shell)    shift; shell="$1"
+                    ;;
+    esac
+    shift
+done
+
+if [ $DIST == "macosx" ]; then
+    if [ -z "$uid" ]; then
+        max_uid=$(dscl . -list users uid | awk '{ print $2 }' | sort -ug | tail -1)
+        uid=$((max_uid+1))
+    fi
+    if [ -z "$gid" ]; then
+        if dscl . -list groups gid | awk '{ print $2 }' | grep "^${uid}$" > /dev/null; then
+            max_gid=$(dscl . -list groups gid | awk '{ print $2 }' | sort -ug | tail -1)
+            gid=$((max_gid+1))
+        else
+            gid=$uid
+        fi
+    fi
+    [ -z "$home" ] && home="/dev/null"
+    if [ -z "$shell" ]; then
+        shell="/sbin/nologin"
+        group="_${group}"
+        user="_${user}"
+    fi
+    sudo dscl . -create /Groups/$group
+    sudo dscl . -create /Groups/$group PrimaryGroupID $gid
+    sudo dscl . -create /Groups/$group RecordName $group $(echo $group | sed s/^_//g)
+    sudo dscl . -create /Groups/$group Password \*
+    sudo dscl . -create /Users/$user
+    sudo dscl . -create /Users/$user NFSHomeDirectory $home
+    sudo dscl . -create /Users/$user Password \*
+    sudo dscl . -create /Users/$user PrimaryGroupID $gid
+    sudo dscl . -create /Users/$user RecordName $user $(echo $user | sed s/^_//g)
+    sudo dscl . -create /Users/$user UniqueID $uid
+    sudo dscl . -create /Users/$user UserShell $shell
+    if [ $shell == "/sbin/nologin" ]; then
+        sudo dscl . -delete /Users/$user PasswordPolicyOptions
+        sudo dscl . -delete /Users/$user AuthenticationAuthority
+    fi
+    if [ -n "$groups" ]; then
+        for g in $(echo "$groups"); do
+            sudo dseditgroup -o edit -a $user -t user $g
+        done
+    fi
+else
+    [ -z "$uid" ] && uid="-K UID_MIN=1000 -K UID_MAX=10000" || uid="-u $uid"
+    [ -z "$gid" ] && gid="-K GID_MIN=1000 -K GID_MAX=10000" || gid="-g $gid"
+    [ -n "$groups" ] && groups="-G $groups"
+    [ -z "$home" ] && home="-d /dev/null" || home="-d $home"
+    [ -z "$shell" ] && shell="-s /usr/sbin/nologin" || shell="-s $shell"
+    sudo groupadd $group $gid
+    sudo useradd $user $uid -g $group $groups $home $shell
+fi
+
+exit 0

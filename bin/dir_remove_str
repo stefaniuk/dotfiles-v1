@@ -1,0 +1,29 @@
+#!/bin/bash
+
+# define help
+help=$(cat <<HEREDOC
+
+    DESCRIPTION: Remove string in files in the given directory.
+
+    PARAMETERS:
+        \$1 string
+        \$2 directory (optional)
+HEREDOC
+)
+
+# check parameters
+if [ "$1" == "--help" ] || [ $# -lt 1 ]; then
+    echo -e "${help}\n"
+    exit 0
+fi
+
+# get parameters
+str="$1"
+dir=$2
+[ -z "$dir" ] && dir=.
+
+for file in $(find $dir -type f -name "*"); do
+    file_remove_str "$str" $file
+done
+
+exit 0

@@ -1,0 +1,9 @@
+#!/bin/bash
+
+tput setaf 136 # yellow
+tput bold
+printf "$*"
+tput sgr 0
+printf "\n"
+
+exit 0

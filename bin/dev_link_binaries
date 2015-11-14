@@ -1,0 +1,46 @@
+#!/bin/bash
+
+# define help
+help=$(cat <<HEREDOC
+
+    DESCRIPTION: Link binaries to the system directory /usr/bin by default.
+
+    PARAMETERS:
+        \$1 directory or file to link
+        \$2 link name if first argument is a file (optional)
+        --dir name (optional)
+HEREDOC
+)
+
+# check parameters
+if [ "$1" == "--help" ] || [ $# -lt 1 ]; then
+    echo -e "${help}\n"
+    exit 0
+fi
+
+# variables
+file=$1
+name=$2
+dir=/usr/bin
+
+# get parameters
+while [ "$1" != "" ]; do
+    case $1 in
+        -d|--dir)   shift; dir=$1
+                    ;;
+    esac
+    shift
+done
+
+
+if [ -f $file ] && [ -n $name ]; then
+    ln -sfv $file $dir/$name
+elif [ -f $file ]; then
+    ln -sfv $file $dir
+elif [ -d $file ]; then
+    for item in $(find $file -maxdepth 1 -type f); do
+        ln -sfv $item $dir
+    done
+fi
+
+exit 0

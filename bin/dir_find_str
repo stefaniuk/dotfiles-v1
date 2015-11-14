@@ -1,0 +1,32 @@
+#!/bin/bash
+
+# define help
+help=$(cat <<HEREDOC
+
+    DESCRIPTION: Search directory for files that contain given string.
+
+    PARAMETERS:
+        \$1 search string
+        \$2 directory (optional)
+HEREDOC
+)
+
+# check parameters
+if [ "$1" == "--help" ] || [ $# -lt 1 ]; then
+    echo -e "${help}\n"
+    exit 0
+fi
+
+# get parameters
+str="$1"
+dir=$2
+
+if [ -z "$dir" ]; then
+    find . -iname "*" -print0 | xargs -0 \grep -iR -- "$str" | \
+        sort | uniq
+else
+    find $dir -iname "*" -print0 | xargs -0 \grep -iR -- "$str" | \
+        sort | uniq
+fi
+
+exit 0

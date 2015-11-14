@@ -1,0 +1,32 @@
+#!/bin/bash
+
+# define help
+help=$(cat <<HEREDOC
+
+    DESCRIPTION: Check if group exists.
+
+    PARAMETERS:
+        \$1 group name
+HEREDOC
+)
+
+# check parameters
+if [ "$1" == "--help" ]; then
+    echo -e "${help}\n"
+    exit 0
+fi
+
+# get parameters
+group=$1
+
+if [ $DIST == "macosx" ]; then
+    if sudo dscl . -list groups | grep "^${group}$" > /dev/null || sudo dscl . -list groups | grep "^_${group}$" > /dev/null; then
+        exit 0
+    fi
+else
+    if sudo grep "^$group:" /etc/group > /dev/null; then
+        exit 0
+    fi
+fi
+
+exit 1

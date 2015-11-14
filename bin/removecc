@@ -1,0 +1,24 @@
+#!/bin/bash
+
+# define help
+help=$(cat <<HEREDOC
+
+    DESCRIPTION: Remove colour codes from the output.
+
+    EXAMPLE: printf "\e[0;33myellow\e[0m" | removecc
+HEREDOC
+)
+
+# check parameters
+if [ "$1" == "--help" ]; then
+    echo -e "${help}\n"
+    exit 0
+fi
+
+if [ "$DIST" == "macosx" ]; then
+    sed -E "s/"$'\E'"\[([0-9]{1,3}((;[0-9]{1,3})*)?)?[m|K]//g"
+else
+    sed -r "s/\x1B\[([0-9]{1,3}(;[0-9]{1,3})*)?[m|K]//g"
+fi
+
+exit 0
