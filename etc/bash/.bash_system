@@ -101,4 +101,88 @@ function system_info {
     [ -n "$VIRTUALISATION" ] && echo "VIRTUALISATION: $VIRTUALISATION"
 }
 
+function system_test {
+
+    # get optional parameters
+    local skip_selected_tests="n"
+    while [ "$1" != "" ]; do
+        case $1 in
+            --skip-selected-tests)  skip_selected_tests="y"
+                                    ;;
+        esac
+        shift
+    done
+
+    source ~/lib/asserts.sh
+
+    print_h1 "Run tests...\n"
+    system_info
+    printf "\n"
+
+    local log=~/tmp/dotfiles-test.log
+
+    (
+        assert_prog_exists "awk"
+        assert_prog_exists "bc"
+        assert_prog_exists "cat"
+        assert_prog_exists "chmod"
+        assert_prog_exists "cut"
+        assert_prog_exists "du"
+        assert_prog_exists "echo"
+        assert_prog_exists "expr"
+        assert_prog_exists "find"
+        assert_prog_exists "grep"
+        assert_prog_exists "head"
+        assert_prog_exists "ln"
+        assert_prog_exists "ls"
+        assert_prog_exists "pcregrep"
+        assert_prog_exists "perl"
+        assert_prog_exists "printf"
+        assert_prog_exists "sed"
+        assert_prog_exists "sort"
+        assert_prog_exists "strip"
+        assert_prog_exists "sudo"
+        assert_prog_exists "test"
+        assert_prog_exists "tr"
+        assert_prog_exists "wc"
+        if [ "$DIST" == "macosx" ]; then
+            assert_prog_exists "dscl"
+            assert_prog_exists "dseditgroup"
+            assert_prog_exists "ruby"
+        fi
+        if [ "$OS" == "linux" ]; then
+            assert_prog_exists "groupadd"
+            assert_prog_exists "useradd"
+            assert_prog_exists "userdel"
+        fi
+    ) 2>&1 | tee -a $log
+
+    local count_programs_found=$(cat $log | \grep "^program " | \grep "ok$" | wc -l | sed "s/^[ ]*//g")
+    local count_programs_missing=$(cat $log | \grep "^program " | \grep -v "ok$" | wc -l | sed "s/^[ ]*//g")
+    if [ $count_programs_missing -gt 0 ]; then
+        print_h2 "$count_programs_found programs found, $count_programs_missing missing\n"
+        rm -f $log
+        return 1
+    else
+        print_h2 "$count_programs_found programs found\n"
+    fi
+
+    for file in $(\ls -1 ~/bin/test/*.test 2> /dev/null); do
+        [ -x $file ] && $file $skip_selected_tests #2>&1 | tee -a $log
+    done
+    local count_passed=$(cat $log | \grep "^test " | \grep "ok$" | wc -l | sed "s/^[ ]*//g")
+    local count_skipped=$(cat $log | \grep "^test " | \grep " skip" | wc -l | sed "s/^[ ]*//g")
+    local count_failed=$(cat $log | \grep "^test " | \grep -v "ok$" | \grep -v " skip" |  wc -l | sed "s/^[ ]*//g")
+    if [ $count_failed -gt 0 ]; then
+        print_h2 "$count_passed tests passed, $count_skipped skipped, $count_failed failed\n"
+        rm -f $log
+        return 1
+    else
+        print_h2 "$count_passed tests passed, $count_skipped skipped\n"
+    fi
+
+    rm -f $log
+    return 0
+}
+
 system_detect
