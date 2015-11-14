@@ -11,6 +11,7 @@ function system_detect {
     ARCH=$(uname -m)
     ARCH_NAME="unknown" # can be "i386" or "amd64"
     KERNEL=$(uname -r)
+    VIRTUALISATION=""
 
     # mac os x
     if [[ "$OSTYPE" == "darwin"* ]]; then
@@ -70,6 +71,13 @@ function system_detect {
 
     fi
 
+    # virtualisation
+    if cat /proc/1/cgroup 2> /dev/null | grep -i lxc > /dev/null 2>&1; then
+        VIRTUALISATION="lxc"
+    elif cat /proc/1/cgroup 2> /dev/null | grep -i docker > /dev/null 2>&1; then
+        VIRTUALISATION="docker"
+    fi
+
     # convert it to lowercase
     export OS=$(echo $OS | tr "[A-Z]" "[a-z]")
     export DIST=$(echo $DIST | tr "[A-Z]" "[a-z]")
@@ -79,6 +87,7 @@ function system_detect {
     export ARCH=$(echo $ARCH | tr "[A-Z]" "[a-z]")
     export ARCH_NAME=$(echo $ARCH_NAME | tr "[A-Z]" "[a-z]")
     export KERNEL=$(echo $KERNEL | tr "[A-Z]" "[a-z]")
+    [ -n "$VIRTUALISATION" ] && export VIRTUALISATION=$(echo $VIRTUALISATION | tr "[A-Z]" "[a-z]")
 }
 
 function system_info {
@@ -91,6 +100,7 @@ function system_info {
     echo "ARCH: $ARCH"
     echo "ARCH NAME: $ARCH_NAME"
     echo "KERNEL: $KERNEL"
+    [ -n "$VIRTUALISATION" ] && echo "VIRTUALISATION: $VIRTUALISATION"
 }
 
 system_detect
