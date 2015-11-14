@@ -72,10 +72,8 @@ function system_detect {
     fi
 
     # virtualisation
-    if cat /proc/1/cgroup 2> /dev/null | grep -i lxc > /dev/null 2>&1; then
-        VIRTUALISATION="lxc"
-    elif cat /proc/1/cgroup 2> /dev/null | grep -i docker > /dev/null 2>&1; then
-        VIRTUALISATION="docker"
+    if cat /proc/1/cgroup 2> /dev/null | grep -i docker > /dev/null 2>&1; then
+        VIRTUALISATION="container"
     fi
 
     # convert it to lowercase
