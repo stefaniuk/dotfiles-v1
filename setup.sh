@@ -101,9 +101,9 @@ function program_synchronise {
 
 function program_setup {
 
+    chmod 700 ~/{bin,lib,sbin,usr,usr/bin,test,test/bin,tmp}
+    chmod 500 ~/{bin,usr/bin,test/bin}/*
     chmod 500 ~/setup.sh
-    chmod 500 ~/{bin,usr/bin}/*
-    chmod 700 ~/{bin,usr,usr/bin}
 
     # detect operating system
     source ~/etc/bash/.bash_system
@@ -135,8 +135,9 @@ function program_setup {
 
     # remove not needed resources
     if [ -n "$arg_minimal" ]; then
-        rm -rf ~/{etc,man,sbin,LICENCE*,README*,setup.sh}
+        rm -rf ~/{etc,man,sbin,test,LICENCE*,README*,setup.sh}
     fi
+    rm -rf ~/tmp/*
 }
 
 ################################################################################

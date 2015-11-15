@@ -168,7 +168,7 @@ function system_test {
         print_h2 "$count_programs_found programs found\n"
     fi
 
-    for file in $(\ls -1 ~/bin/test/*.test 2> /dev/null); do
+    for file in $(\ls -1 ~/test/bin/*.test 2> /dev/null); do
         [ -x $file ] && $file $skip_selected_tests 2>&1 | tee -a $log
     done
 
