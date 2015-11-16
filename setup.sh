@@ -92,7 +92,13 @@ function program_synchronise {
 
     rsync -rav \
         --include=/ \
-        --exclude=.git* --exclude=README* --exclude=LICENCE* \
+        --exclude=.git* \
+        --exclude=Dockerfile* \
+        --exclude=LICENCE \
+        --exclude=Makefile \
+        --exclude=provision.sh \
+        --exclude=README.md \
+        --exclude=Vagrantfile \
         $program_dir/* \
         ~
 
@@ -137,6 +143,7 @@ function program_setup {
     if [ -n "$arg_minimal" ]; then
         rm -rf ~/{etc,man,sbin,test,LICENCE*,README*,setup.sh}
     fi
+    rm -rf ~/{.gitignore,Makefile,provision.sh,Vagrantfile}
     rm -rf ~/tmp/*
 }
 
