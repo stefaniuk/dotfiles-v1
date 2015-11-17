@@ -1,4 +1,7 @@
-# vim:set ft=dockerfile:
 FROM debian:latest
 
-RUN apt-get update
+WORKDIR /project
+
+RUN apt-get --yes update && apt-get --yes --ignore-missing --no-install-recommends install \
+    rsync \
+    curl

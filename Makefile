@@ -13,18 +13,34 @@ help:
 # Targets to manage containers
 ################################################################################
 
+all: build test
 build:
 	@if [ "$(NAME)" = "" ]; then \
 		make build NAME=debian; \
 	else \
 		echo "Building 'dotfiles/$(NAME)' image..."; \
-		docker build --tag dotfiles/$(NAME) --rm --file ./test/Dockerfile.$(NAME) .; \
+		docker build --file ./test/Dockerfile.$(NAME) --tag dotfiles/$(NAME) --rm .; \
 	fi
+test:
+	@if [ "$(NAME)" = "" ]; then \
+		make test NAME=debian; \
+	else \
+		echo "Testing 'dotfiles-$(NAME)' container..."; \
+		docker stop dotfiles-$(NAME) > /dev/null 2>&1 ||:; \
+		docker rm dotfiles-$(NAME) > /dev/null 2>&1 ||:; \
+		docker run --interactive --tty --rm \
+			--name dotfiles-$(NAME) \
+			--hostname dotfiles-$(NAME) \
+			--volume $(DIR):/project \
+			dotfiles/$(NAME) \
+			./test/run.sh; \
+	fi ||:
 create:
 	@if [ "$(NAME)" = "" ]; then \
 		make create NAME=debian; \
 	else \
 		echo "Creating 'dotfiles-$(NAME)' container..."; \
+		docker stop dotfiles-$(NAME) > /dev/null 2>&1 ||:; \
 		docker rm dotfiles-$(NAME) > /dev/null 2>&1 ||:; \
 		docker create --interactive --tty \
 			--name dotfiles-$(NAME) \
@@ -33,6 +49,12 @@ create:
 			dotfiles/$(NAME) \
 			/bin/bash --login; \
 	fi
+start:
+	@echo "Starting 'dotfiles-$(NAME)' container..."
+	@docker start dotfiles-$(NAME)
+stop:
+	@echo "Stopping 'dotfiles-$(NAME)' container..."
+	@docker stop dotfiles-$(NAME)
 bash:
 	@echo "Bashing into 'dotfiles-$(NAME)' container..."
 	@docker exec --interactive --tty \
@@ -51,4 +73,5 @@ clean:
 # Configuration
 ################################################################################
 
+.PHONY: test
 .SILENT:

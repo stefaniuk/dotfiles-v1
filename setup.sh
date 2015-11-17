@@ -121,7 +121,7 @@ function program_setup {
 
     # check internet connection
     printf "Check internet connection\n"
-    curl --silent  --max-time 10 --retry 3 "https://google.com" > /dev/null
+    curl --silent --insecure --max-time 10 --retry 3 "https://google.com" > /dev/null
     if [[ $? -ne 0 ]]; then
         print_err "No internet connection"
     fi
@@ -158,7 +158,7 @@ if [ -z "$BASH_SOURCE" ] || [ -n "$arg_force_download" ]; then
     # download from repository
     program_download
 
-elif [[ $program_dir == */projects/$REPOSITORY ]]; then
+elif [[ $program_dir == */projects/$REPOSITORY ]] || [[ $program_dir == /project ]]; then
 
     # synchronise with project
     program_synchronise
