@@ -4,8 +4,10 @@ help:
 	@echo
 	@echo "Usage:"
 	@echo
-	@echo "    make build [NAME=name] [ENVIRONMENT=environment]"
-	@echo "    make bash NAME=name"
+	@echo "    make all"
+	@echo "    make build [NAME=name]"
+	@echo "    make test [NAME=name]"
+	@echo "    make create|start|stop|bash [NAME=name]"
 	@echo "    make clean [NAME=name]"
 	@echo
 
@@ -34,7 +36,7 @@ test:
 			--volume $(DIR):/project \
 			dotfiles/$(NAME) \
 			./test/run.sh; \
-	fi ||:
+	fi
 create:
 	@if [ "$(NAME)" = "" ]; then \
 		make create NAME=debian; \
@@ -50,21 +52,34 @@ create:
 			/bin/bash --login; \
 	fi
 start:
-	@echo "Starting 'dotfiles-$(NAME)' container..."
-	@docker start dotfiles-$(NAME)
+	@if [ "$(NAME)" = "" ]; then \
+		make test NAME=debian; \
+	else \
+		echo "Starting 'dotfiles-$(NAME)' container..."; \
+		docker start dotfiles-$(NAME); \
+	fi
 stop:
-	@echo "Stopping 'dotfiles-$(NAME)' container..."
-	@docker stop dotfiles-$(NAME)
+	@if [ "$(NAME)" = "" ]; then \
+		make test NAME=debian; \
+	else \
+		echo "Stopping 'dotfiles-$(NAME)' container..."; \
+		docker stop dotfiles-$(NAME); \
+	fi
 bash:
-	@echo "Bashing into 'dotfiles-$(NAME)' container..."
-	@docker exec --interactive --tty \
-		dotfiles-$(NAME) \
-		/bin/bash --login
+	@if [ "$(NAME)" = "" ]; then \
+		make test NAME=debian; \
+	else \
+		echo "Bashing into 'dotfiles-$(NAME)' container..."; \
+		docker exec --interactive --tty \
+			dotfiles-$(NAME) \
+			/bin/bash --login; \
+	fi
 clean:
 	@if [ "$(NAME)" = "" ]; then \
 		make clean NAME=debian; \
 	else \
 		echo "Removing 'dotfiles-$(NAME)' container..."; \
+		docker stop dotfiles-$(NAME) > /dev/null 2>&1 ||:; \
 		docker rm dotfiles-$(NAME) > /dev/null 2>&1 ||:; \
 		docker rmi dotfiles/$(NAME) > /dev/null 2>&1 ||:; \
 	fi
