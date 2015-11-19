@@ -58,7 +58,7 @@ alias lsd="ls -lF ${colorflag} | \grep --color=never '^d'"
 # always use colour output for `grep`
 alias grep="\grep --color=auto"
 
-# enable aliases to be sudo’ed
+# enable aliases to be sudo'ed
 alias sudo="sudo "
 
 # ip address
