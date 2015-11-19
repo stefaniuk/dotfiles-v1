@@ -15,7 +15,7 @@ help:
 # Targets to manage containers
 ################################################################################
 
-all: build test
+all: clean build test
 build:
 	@if [ "$(NAME)" = "" ]; then \
 		make build NAME=debian; \
