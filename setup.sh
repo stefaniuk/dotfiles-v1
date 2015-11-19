@@ -128,7 +128,7 @@ function program_setup {
 
     # check operating system
     printf "Check OS\n"
-    if [ $DIST != "macosx" ] && [ $DIST != "ubuntu" ] && [ $DIST != "scientific" ]; then
+    if [ $DIST != "macosx" ] && [ $DIST != "ubuntu" ]; then
         print_err "Operating system is not fully supported"
     fi
 
