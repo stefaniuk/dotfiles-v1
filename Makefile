@@ -53,21 +53,21 @@ create:
 	fi
 start:
 	@if [ "$(NAME)" = "" ]; then \
-		make test NAME=debian; \
+		make start NAME=debian; \
 	else \
 		echo "Starting 'dotfiles-$(NAME)' container..."; \
 		docker start dotfiles-$(NAME); \
 	fi
 stop:
 	@if [ "$(NAME)" = "" ]; then \
-		make test NAME=debian; \
+		make stop NAME=debian; \
 	else \
 		echo "Stopping 'dotfiles-$(NAME)' container..."; \
 		docker stop dotfiles-$(NAME); \
 	fi
 bash:
 	@if [ "$(NAME)" = "" ]; then \
-		make test NAME=debian; \
+		make bash NAME=debian; \
 	else \
 		echo "Bashing into 'dotfiles-$(NAME)' container..."; \
 		docker exec --interactive --tty \
