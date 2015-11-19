@@ -105,9 +105,12 @@ function system_test {
 
     # get optional parameters
     local skip_selected_tests="n"
+    local show_errors="n"
     while [ "$1" != "" ]; do
         case $1 in
             --skip-selected-tests)  skip_selected_tests="y"
+                                    ;;
+            --show-errors)          show_errors="y"
                                     ;;
         esac
         shift
@@ -121,6 +124,7 @@ function system_test {
     printf "\n"
 
     local log=~/tmp/dotfiles-test.log
+    rm -f $log
 
     (
         assert_prog_exists "awk"
@@ -146,6 +150,7 @@ function system_test {
         assert_prog_exists "test"
         assert_prog_exists "tr"
         assert_prog_exists "wc"
+        assert_prog_exists "wget"
         if [ "$DIST" == "macosx" ]; then
             assert_prog_exists "dscl"
             assert_prog_exists "dseditgroup"
@@ -156,20 +161,23 @@ function system_test {
             assert_prog_exists "useradd"
             assert_prog_exists "userdel"
         fi
-    ) 2>&1 | tee -a $log
+    ) 2>&1 | tee $log
 
     local count_programs_found=$(cat $log | removecc | \grep "^program " | \grep "ok$" | wc -l | sed "s/^[ ]*//g")
     local count_programs_missing=$(cat $log | removecc | \grep "^program " | \grep -v "ok$" | wc -l | sed "s/^[ ]*//g")
     if [ $count_programs_missing -gt 0 ]; then
         print_h2 "$count_programs_found programs found, $count_programs_missing missing\n"
-        rm -f $log
-        return 1
     else
         print_h2 "$count_programs_found programs found\n"
     fi
 
+    rm -f $log
     for file in $(\ls -1 ~/test/bin/*.test 2> /dev/null); do
-        [ -x $file ] && $file $skip_selected_tests 2>&1 | tee -a $log
+        if [ $show_errors == "y" ]; then
+            [ -x $file ] && $file $skip_selected_tests 2>&1 | tee -a $log
+        else
+            [ -x $file ] && $file $skip_selected_tests 2> /dev/null | tee -a $log
+        fi
     done
 
     local count_passed=$(cat $log | removecc | \grep "^test " | \grep "ok$" | wc -l | sed "s/^[ ]*//g")
@@ -177,8 +185,6 @@ function system_test {
     local count_failed=$(cat $log | removecc | \grep "^test " | \grep -v "ok$" | \grep -v " skip" |  wc -l | sed "s/^[ ]*//g")
     if [ $count_failed -gt 0 ]; then
         print_h2 "$count_passed tests passed, $count_skipped skipped, $count_failed failed\n"
-        rm -f $log
-        return 1
     else
         print_h2 "$count_passed tests passed, $count_skipped skipped\n"
     fi
