@@ -151,7 +151,7 @@ function assert_prog_exists {
     local progs=$*
 
     for prog in $progs; do
-        if [ `which $prog 2> /dev/null | wc -l` -gt 0 ]; then
+        if [ `\which $prog 2> /dev/null | wc -l` -gt 0 ]; then
             echo "program ${prog} ok"
         else
             print_err "program ${progs} missing"
