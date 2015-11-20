@@ -21,15 +21,21 @@ RUN yum --assumeyes install \
     openssl \
     pcre-tools \
     perl \
+    python34 \
     rsync \
     sudo \
     wget
-# tools
+# tools (1)
 RUN yum --assumeyes install \
     ack \
+    mc \
+    traceroute \
+    vim
+# tools (2)
+RUN yum --assumeyes install \
     git \
     gitflow \
     grc \
-    vim \
-    mc \
+    htop \
+    lnav \
     zsh

@@ -25,15 +25,21 @@ RUN apt-get --yes --ignore-missing --no-install-recommends install \
     openssl \
     pcregrep \
     perl \
+    python3 \
     rsync \
     sudo \
     wget
-# tools
+# tools (1)
 RUN apt-get --yes --ignore-missing --no-install-recommends install \
     ack-grep \
+    mc \
+    traceroute \
+    vim
+# tools (2)
+RUN apt-get --yes --ignore-missing --no-install-recommends install \
     git \
     git-flow \
     grc \
-    vim \
-    mc \
+    htop \
+    lnav \
     zsh

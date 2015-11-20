@@ -66,6 +66,25 @@ if which zsh > /dev/null 2>&1; then
 fi
 
 ################################################################################
+# Python
+
+if which python3 > /dev/null 2>&1; then
+
+    print_h2 "Configure Python"
+
+    dir=$(dirname $(which python3))
+    [ -f $dir/python3 ] && ln -sf $dir/python3 $dir/python
+    unset dir
+
+fi
+if [ $DIST == "centos" ]; then
+    file=$(ls -1 /usr/bin/python3.* | head -n 1)
+    [ -f $file ] && ln -sf $file /usr/bin/python
+    [ -f $file ] && ln -sf $file /usr/bin/python3
+    unset file
+fi
+
+################################################################################
 # Git
 
 if which git > /dev/null 2>&1; then
