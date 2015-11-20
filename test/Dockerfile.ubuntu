@@ -1,4 +1,4 @@
-FROM debian:latest
+FROM ubuntu:latest
 
 WORKDIR /project
 
@@ -8,7 +8,7 @@ RUN apt-get --yes update
 # locale & timezone
 RUN apt-get --yes --ignore-missing --no-install-recommends install \
         locales \
-    && localedef -i en_GB -c -f UTF-8 -A /usr/share/locale/locale.alias en_GB.UTF-8
+    && locale-gen en_GB.UTF-8 && update-locale LANG=en_GB.UTF-8 LC_CTYPE=en_GB.UTF-8
 ENV LANG "en_GB.UTF-8"
 RUN echo "Europe/London" | tee /etc/timezone \
     && dpkg-reconfigure -f noninteractive tzdata
