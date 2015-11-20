@@ -2,24 +2,34 @@ FROM centos:latest
 
 WORKDIR /project
 
-RUN yum --assumeyes update
+RUN yum --assumeyes update \
+    && yum --assumeyes install epel-release
 
-# locale & timezone
+# settings
 RUN localedef -c -i en_GB -f UTF-8 en_GB.UTF-8
 ENV LANG "en_GB.UTF-8"
 RUN ln -sf /usr/share/zoneinfo/Europe/London /etc/localtime
-
-# basic 'dotfiles' dependencies
 RUN yum --assumeyes install \
+    ca-certificates
+
+# dependencies
+RUN yum --assumeyes install \
+    bash-completion \
     bc \
     curl \
+    expect \
     openssl \
     pcre-tools \
     perl \
     rsync \
     sudo \
     wget
-# additional 'dotfiles' dependencies
+# tools
 RUN yum --assumeyes install \
+    ack \
     git \
-    vim
+    gitflow \
+    grc \
+    vim \
+    mc \
+    zsh

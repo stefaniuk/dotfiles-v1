@@ -26,7 +26,8 @@ TODO List
  * Configure vim on Mac OSX
  * Check thoughtbot's [dotfiles](https://github.com/thoughtbot/dotfiles)
  * Check Justin Force's [dotfiles](https://github.com/justinforce/dotfiles)
- * Check Gediminas Morkevicius' [dotfiles](https://github.com/l3pp4rd/dotfiles) for anything useful
+ * Check Gediminas Morkevicius' [dotfiles](https://github.com/l3pp4rd/dotfiles)
+ * Check Keith Smiley's [dotfiles](https://github.com/keith/dotfiles)
  * Explore [bash-it](https://github.com/revans/bash-it)
  * Explore [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh)
  * Explore [Prezto](https://github.com/sorin-ionescu/prezto)

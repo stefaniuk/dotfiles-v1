@@ -93,6 +93,7 @@ function program_synchronise {
     rsync -rav \
         --include=/ \
         --exclude=/.git* \
+        --exclude=.gitkeep \
         --exclude=Dockerfile* \
         --exclude=LICENCE \
         --exclude=Makefile \

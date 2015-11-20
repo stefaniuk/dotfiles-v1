@@ -55,7 +55,9 @@ if which zsh > /dev/null 2>&1; then
     # install Oh My Zsh
     if [ ! -f ~/.oh-my-zsh/oh-my-zsh.sh ]; then
         rm -rf ~/{.oh-my-zsh,.zcompdump-*,.zlogin,.zsh*}
-        git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
+        git clone \
+            https://github.com/robbyrussell/oh-my-zsh.git \
+            ~/.oh-my-zsh
         cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
     elif [ -d ~/.oh-my-zsh/.git ]; then
         (cd ~/.oh-my-zsh; git pull)
@@ -83,11 +85,13 @@ if which git > /dev/null 2>&1; then
     fi
 
     # completion
-    [ -f /etc/bash_completion ] && bcpath=/etc/bash_completion.d || bcpath=/usr/local/etc/bash_completion.d
-    if [ -d $bcpath ] && [ ! -f $bcpath/git-completion.bash ]; then
-        sudo wget https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash -O $bcpath/git-completion.bash
+    [ -f /etc/bash_completion ] && dir=/etc/bash_completion.d || dir=/usr/local/etc/bash_completion.d
+    if [ -d $dir ] && [ ! -f $dir/git-completion.bash ]; then
+        sudo wget \
+            https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash \
+            -O $dir/git-completion.bash
     fi
-    unset bcpath
+    unset dir
 
 fi
 
@@ -99,14 +103,18 @@ if which docker > /dev/null 2>&1; then
     print_h2 "Configure Docker"
 
     # completion
-    [ -f /etc/bash_completion ] && bcpath=/etc/bash_completion.d || bcpath=/usr/local/etc/bash_completion.d
-    if [ -d $bcpath ] && [ ! -f $bcpath/docker-completion.bash ]; then
-        sudo wget https://raw.githubusercontent.com/docker/docker/master/contrib/completion/bash/docker -O $bcpath/docker-completion.bash
+    [ -f /etc/bash_completion ] && dir=/etc/bash_completion.d || dir=/usr/local/etc/bash_completion.d
+    if [ -d $dir ] && [ ! -f $dir/docker-completion.bash ]; then
+        sudo wget \
+            https://raw.githubusercontent.com/docker/docker/master/contrib/completion/bash/docker \
+            -O $dir/docker-completion.bash
     fi
-    if [ -d $bcpath ] && [ ! -f $bcpath/docker-compose-completion.bash ]; then
-        sudo wget https://raw.githubusercontent.com/docker/compose/master/contrib/completion/bash/docker-compose -O $bcpath/docker-compose-completion.bash
+    if [ -d $dir ] && [ ! -f $dir/docker-compose-completion.bash ]; then
+        sudo wget \
+            https://raw.githubusercontent.com/docker/compose/master/contrib/completion/bash/docker-compose \
+            -O $dir/docker-compose-completion.bash
     fi
-    unset bcpath
+    unset dir
 
 fi
 
@@ -118,11 +126,13 @@ if which vagrant > /dev/null 2>&1; then
     print_h2 "Configure Vagrant"
 
     # completion
-    [ -f /etc/bash_completion ] && bcpath=/etc/bash_completion.d || bcpath=/usr/local/etc/bash_completion.d
-    if [ -d $bcpath ] && [ ! -f $bcpath/vagrant-completion.bash ]; then
-        sudo wget https://raw.github.com/kura/vagrant-bash-completion/master/etc/bash_completion.d/vagrant -O $bcpath/vagrant-completion.bash
+    [ -f /etc/bash_completion ] && dir=/etc/bash_completion.d || dir=/usr/local/etc/bash_completion.d
+    if [ -d $dir ] && [ ! -f $dir/vagrant-completion.bash ]; then
+        sudo wget \
+            https://raw.github.com/kura/vagrant-bash-completion/master/etc/bash_completion.d/vagrant \
+            -O $dir/vagrant-completion.bash
     fi
-    unset bcpath
+    unset dir
 
 fi
 
@@ -140,16 +150,22 @@ if which vim > /dev/null 2>&1; then
 
     # vundle - plugin manager
     if [ ! -d ~/.vim/bundle/vundle ]; then
-        git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/vundle
+        git clone \
+            https://github.com/gmarik/Vundle.vim.git \
+            ~/.vim/bundle/vundle
     else
         (cd ~/.vim/bundle/vundle; git pull)
     fi
     # pathogen - plugin manager
-    curl -LSso ~/.vim/autoload/pathogen.vim https://raw.githubusercontent.com/tpope/vim-pathogen/master/autoload/pathogen.vim
+    wget \
+        https://raw.githubusercontent.com/tpope/vim-pathogen/master/autoload/pathogen.vim \
+        -O ~/.vim/autoload/pathogen.vim
 
     # solarized
     if [ ! -d ~/.vim/bundle/solarized ]; then
-        git clone https://github.com/altercation/vim-colors-solarized.git ~/.vim/bundle/solarized
+        git clone \
+            https://github.com/altercation/vim-colors-solarized.git \
+            ~/.vim/bundle/solarized
     else
         (cd ~/.vim/bundle/solarized; git pull)
     fi

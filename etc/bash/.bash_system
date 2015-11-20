@@ -134,6 +134,7 @@ function system_test {
         assert_prog_exists "cut"
         assert_prog_exists "du"
         assert_prog_exists "echo"
+        assert_prog_exists "expect"
         assert_prog_exists "expr"
         assert_prog_exists "find"
         assert_prog_exists "grep"

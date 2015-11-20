@@ -1,5 +1,5 @@
 DIR := $(shell pwd)
-OS := debian
+OS := centos
 
 help:
 	@echo
@@ -72,11 +72,14 @@ bash:
 	else \
 		make create; \
 		make start; \
+		docker exec --interactive --tty \
+			dotfiles-$(NAME) \
+			./test/run.sh; \
 		echo "Opening Bash for '$(NAME)'..."; \
 		docker exec --interactive --tty \
 			dotfiles-$(NAME) \
 			/bin/bash --login; \
-	fi
+	fi ||:
 clean:
 	@if [ "$(NAME)" = "" ]; then \
 		make clean NAME=$(OS); \

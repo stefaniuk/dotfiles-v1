@@ -76,7 +76,7 @@ if which grc > /dev/null 2>&1; then
     [ -d /usr/local/share/grc ] && dir=/usr/local/share/grc || dir=/usr/share/grc
     for file in $(ls -1 $dir); do
         prog=$(echo $file | awk 'BEGIN { FS = "." } ; { print $2 }')
-        alias $prog="grc $prog"
+        alias $prog="grc -es --colour=auto $prog"
     done
     unset dir file prog
 fi
