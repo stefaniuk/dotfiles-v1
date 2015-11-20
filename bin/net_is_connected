@@ -14,7 +14,7 @@ if [ "$1" == "--help" ]; then
 fi
 
 \wget \
-    --quiet --spider \
+    --quiet --spider --no-check-certificate \
     --timeout=10 --tries=3 \
     "https://google.com"
 exit $?

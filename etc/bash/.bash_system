@@ -140,6 +140,7 @@ function system_test {
         assert_prog_exists "head"
         assert_prog_exists "ln"
         assert_prog_exists "ls"
+        assert_prog_exists "openssl"
         assert_prog_exists "pcregrep"
         assert_prog_exists "perl"
         assert_prog_exists "printf"

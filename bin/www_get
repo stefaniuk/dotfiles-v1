@@ -32,13 +32,13 @@ if [ -z "$filter" ]; then
     \curl \
         --retry 3 --retry-delay 1 \
         --connect-timeout 5 --max-time 5 \
-        --silent --show-error --location \
+        --silent --show-error --location --insecure \
         --url $url
 else
     \curl \
         --retry 3 --retry-delay 1 \
         --connect-timeout 5 --max-time 5 \
-        --silent --show-error --location \
+        --silent --show-error --location --insecure \
         --url $url \
             | \grep "$filter"
 fi
