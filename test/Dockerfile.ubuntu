@@ -3,7 +3,7 @@ FROM ubuntu:latest
 WORKDIR /project
 
 ENV DEBIAN_FRONTEND "noninteractive"
-RUN apt-get --yes update
+RUN apt-get --yes update && apt-get --yes upgrade
 
 # locale & timezone
 RUN apt-get --yes --ignore-missing --no-install-recommends install \
@@ -20,6 +20,11 @@ RUN apt-get --yes --ignore-missing --no-install-recommends install \
     curl \
     openssl \
     pcregrep \
+    perl \
     rsync \
     sudo \
     wget
+# additional 'dotfiles' dependencies
+RUN apt-get --yes --ignore-missing --no-install-recommends install \
+    git \
+    vim
