@@ -92,7 +92,7 @@ function program_synchronise {
 
     rsync -rav \
         --include=/ \
-        --exclude=.git* \
+        --exclude=/.git* \
         --exclude=Dockerfile* \
         --exclude=LICENCE \
         --exclude=Makefile \
@@ -128,7 +128,7 @@ function program_setup {
 
     # check operating system
     printf "Check OS\n"
-    if [ $DIST != "macosx" ] && [ $DIST != "ubuntu" ]; then
+    if [ $DIST != "macosx" ] && [ $DIST != "ubuntu" ] && [ $DIST != "debian" ] && [ $DIST != "centos" ]; then
         print_err "Operating system is not fully supported"
     fi
 
