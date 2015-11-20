@@ -4,7 +4,7 @@ WORKDIR /project
 
 RUN apt-get --yes update
 
-# set locale & timezone
+# locale & timezone
 RUN apt-get --yes --ignore-missing --no-install-recommends install \
         locales \
     && localedef -i en_GB -c -f UTF-8 -A /usr/share/locale/locale.alias en_GB.UTF-8
@@ -12,6 +12,13 @@ ENV LANG en_GB.UTF-8
 RUN echo "Europe/London" | tee /etc/timezone \
     && dpkg-reconfigure -f noninteractive tzdata
 
+# basic dependencies
 RUN apt-get --yes --ignore-missing --no-install-recommends install \
+    bc \
+    binutils \
+    curl \
+    openssl \
+    pcregrep \
     rsync \
-    curl
+    sudo \
+    wget
