@@ -70,6 +70,8 @@ bash:
 	@if [ "$(NAME)" = "" ]; then \
 		make bash NAME=$(OS); \
 	else \
+		make create; \
+		make start; \
 		echo "Opening Bash for '$(NAME)'..."; \
 		docker exec --interactive --tty \
 			dotfiles-$(NAME) \
