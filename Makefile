@@ -1,4 +1,5 @@
 DIR := $(shell pwd)
+OS := debian
 
 help:
 	@echo
@@ -18,16 +19,16 @@ help:
 all: clean build test
 build:
 	@if [ "$(NAME)" = "" ]; then \
-		make build NAME=debian; \
+		make build NAME=$(OS); \
 	else \
-		echo "Building 'dotfiles/$(NAME)' image..."; \
+		echo "Building '$(NAME)'..."; \
 		docker build --file ./test/Dockerfile.$(NAME) --tag dotfiles/$(NAME) --rm .; \
 	fi
 test:
 	@if [ "$(NAME)" = "" ]; then \
-		make test NAME=debian; \
+		make test NAME=$(OS); \
 	else \
-		echo "Testing 'dotfiles-$(NAME)' container..."; \
+		echo "Testing '$(NAME)'..."; \
 		docker stop dotfiles-$(NAME) > /dev/null 2>&1 ||:; \
 		docker rm dotfiles-$(NAME) > /dev/null 2>&1 ||:; \
 		docker run --interactive --tty --rm \
@@ -39,9 +40,9 @@ test:
 	fi
 create:
 	@if [ "$(NAME)" = "" ]; then \
-		make create NAME=debian; \
+		make create NAME=$(OS); \
 	else \
-		echo "Creating 'dotfiles-$(NAME)' container..."; \
+		echo "Creating '$(NAME)'..."; \
 		docker stop dotfiles-$(NAME) > /dev/null 2>&1 ||:; \
 		docker rm dotfiles-$(NAME) > /dev/null 2>&1 ||:; \
 		docker create --interactive --tty \
@@ -53,32 +54,32 @@ create:
 	fi
 start:
 	@if [ "$(NAME)" = "" ]; then \
-		make start NAME=debian; \
+		make start NAME=$(OS); \
 	else \
-		echo "Starting 'dotfiles-$(NAME)' container..."; \
+		echo "Starting '$(NAME)'..."; \
 		docker start dotfiles-$(NAME); \
 	fi
 stop:
 	@if [ "$(NAME)" = "" ]; then \
-		make stop NAME=debian; \
+		make stop NAME=$(OS); \
 	else \
-		echo "Stopping 'dotfiles-$(NAME)' container..."; \
+		echo "Stopping '$(NAME)'..."; \
 		docker stop dotfiles-$(NAME); \
 	fi
 bash:
 	@if [ "$(NAME)" = "" ]; then \
-		make bash NAME=debian; \
+		make bash NAME=$(OS); \
 	else \
-		echo "Bashing into 'dotfiles-$(NAME)' container..."; \
+		echo "Opening Bash for '$(NAME)'..."; \
 		docker exec --interactive --tty \
 			dotfiles-$(NAME) \
 			/bin/bash --login; \
 	fi
 clean:
 	@if [ "$(NAME)" = "" ]; then \
-		make clean NAME=debian; \
+		make clean NAME=$(OS); \
 	else \
-		echo "Removing 'dotfiles-$(NAME)' container..."; \
+		echo "Removing '$(NAME)'..."; \
 		docker stop dotfiles-$(NAME) > /dev/null 2>&1 ||:; \
 		docker rm dotfiles-$(NAME) > /dev/null 2>&1 ||:; \
 		docker rmi dotfiles/$(NAME) > /dev/null 2>&1 ||:; \
