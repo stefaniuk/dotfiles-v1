@@ -153,6 +153,7 @@ function system_test {
         assert_prog_exists "sudo"
         assert_prog_exists "test"
         assert_prog_exists "tr"
+        assert_prog_exists "unzip"
         assert_prog_exists "wc"
         assert_prog_exists "wget"
         if [ "$DIST" == "macosx" ]; then
