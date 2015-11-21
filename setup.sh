@@ -133,7 +133,10 @@ function program_setup {
 
     # check operating system
     printf "Check OS\n"
-    if [ $DIST != "macosx" ] && [ $DIST != "ubuntu" ] && [ $DIST != "debian" ] && [ $DIST != "centos" ]; then
+    if [ $DIST != "macosx" ] \
+            && [ $DIST != "ubuntu" ] \
+            && [ $DIST != "debian" ] \
+            && [ $DIST != "centos" ]; then
         print_err "Operating system is not fully supported"
     fi
 
