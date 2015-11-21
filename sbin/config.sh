@@ -79,7 +79,6 @@ if which python3 > /dev/null 2>&1; then
 fi
 if [ $DIST == "centos" ]; then
     file=$(ls -1 /usr/bin/python3.* | head -n 1)
-    [ -f $file ] && ln -sf $file /usr/bin/python
     [ -f $file ] && ln -sf $file /usr/bin/python3
     unset file
 fi
