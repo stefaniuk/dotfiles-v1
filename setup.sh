@@ -21,6 +21,7 @@ arg_install_common_tools=$(echo "$*" | grep -o -- "--install-common-tools")
 arg_install_server_tools=$(echo "$*" | grep -o -- "--install-server-tools")
 arg_install_workstation_tools=$(echo "$*" | grep -o -- "--install-workstation-tools")
 arg_config=$(echo "$*" | grep -o -- "--config")
+arg_test=$(echo "$*" | grep -o -- "--test")
 arg_synchronise_only=$(echo "$*" | grep -o -- "--synchronise-only")
 arg_force_download=$(echo "$*" | grep -o -- "--force-download")
 arg_minimal=$(echo "$*" | grep -o -- "--minimal")
@@ -49,6 +50,7 @@ Options:
     --install-server-tools
     --install-workstation-tools
     --config                        step (4)
+    --test                          step (5)
     --synchronise-only              copy files to the user's directory only
     --force-download
     --minimal                       remove unnecessary project resources
@@ -143,13 +145,14 @@ function program_setup {
     [ -n "$arg_install" ] && (. ~/sbin/install.sh $*)
     # config
     [ -n "$arg_config" ] && (. ~/sbin/config.sh $*)
+    # test
+    [ -n "$arg_test" ] && /bin/bash -cli "system_test --skip-selected-tests"
 
     # remove not needed resources
     if [ -n "$arg_minimal" ]; then
         rm -rf ~/{etc,man,sbin,test,LICENCE*,README*,setup.sh}
     fi
-    rm -rf ~/{.gitignore,Makefile,provision.sh,Vagrantfile}
-    rm -rf ~/tmp/*
+    rm -rf ~/{.gitignore,Makefile,provision.sh,Vagrantfile,test/{Dockerfile.*,run.sh},tmp/*}
 }
 
 ################################################################################

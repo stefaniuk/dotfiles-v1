@@ -7,7 +7,8 @@
     --install-common-tools \
     --install-server-tools \
     --install-workstation-tools \
-    --config
-/bin/bash -cli "system_test --skip-selected-tests"
+    --config \
+    --test \
+    --minimal
 
 exit 0
