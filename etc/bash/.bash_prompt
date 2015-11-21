@@ -38,7 +38,7 @@ else
 fi
 
 # highlight the user and host name when logged in as root
-if [[ "$USER" == "root" ]]; then
+if [[ $(id -un) == "root" ]]; then
     userStyle="${pink}"
     hostStyle="${pink}"
 else
