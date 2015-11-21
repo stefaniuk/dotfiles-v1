@@ -1,5 +1,5 @@
 DIR := $(shell pwd)
-DEFAULT_OS := ubuntu
+DEFAULT_OS := debian
 
 help:
 	@echo
@@ -22,6 +22,7 @@ build-all:
 	make clean build OS=centos
 	#make clean build OS=scientific
 	#make clean build OS=fedora
+	#make clean build OS=opensuse
 build:
 	@if [ "$(OS)" = "" ]; then \
 		make build OS=$(DEFAULT_OS); \
