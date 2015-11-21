@@ -15,7 +15,13 @@ RUN echo "Europe/London" | tee /etc/timezone \
 RUN apt-get --yes --ignore-missing --no-install-recommends install \
     ca-certificates
 
-# dependencies
+# system specific
+RUN apt-get --yes --ignore-missing --no-install-recommends install \
+    apt-file \
+    apt-utils \
+    debconf-utils \
+    software-properties-common
+# dotfiles dependencies
 RUN apt-get --yes --ignore-missing --no-install-recommends install \
     bash-completion \
     bc \
@@ -28,18 +34,31 @@ RUN apt-get --yes --ignore-missing --no-install-recommends install \
     python3 \
     rsync \
     sudo \
-    wget
-# tools (1)
+    unzip \
+    wget \
+    xz-utils
+
+# common tools
 RUN apt-get --yes --ignore-missing --no-install-recommends install \
     ack-grep \
-    mc \
-    traceroute \
-    vim
-# tools (2)
-RUN apt-get --yes --ignore-missing --no-install-recommends install \
-    git \
-    git-flow \
     grc \
     htop \
     lnav \
+    mc \
+    patch \
+    strace \
+    traceroute \
+    tree \
+    vim \
     zsh
+# server tools
+RUN apt-get --yes --ignore-missing --no-install-recommends install \
+    heirloom-mailx
+# workstation tools
+RUN apt-get --yes --ignore-missing --no-install-recommends install \
+    git \
+    git-flow \
+    irssi \
+    lynx \
+    openjdk-7-jdk \
+    tmux

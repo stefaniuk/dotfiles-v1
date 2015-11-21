@@ -12,7 +12,7 @@ RUN ln -sf /usr/share/zoneinfo/Europe/London /etc/localtime
 RUN yum --assumeyes install \
     ca-certificates
 
-# dependencies
+# dotfiles dependencies
 RUN yum --assumeyes install \
     bash-completion \
     bc \
@@ -21,21 +21,34 @@ RUN yum --assumeyes install \
     openssl \
     pcre-tools \
     perl \
-    python34 \
+    python python34 \
     rsync \
     sudo \
-    wget
-# tools (1)
+    unzip \
+    wget \
+    xz
+
+# common tools
 RUN yum --assumeyes install \
     ack \
+    htop \
+    lnav \
     mc \
+    patch \
+    strace \
     traceroute \
-    vim
-# tools (2)
+    tree \
+    vim \
+    zsh
+    # grc
+# server tools
+RUN yum --assumeyes install \
+    mailx
+# workstation tools
 RUN yum --assumeyes install \
     git \
     gitflow \
-    grc \
-    htop \
-    lnav \
-    zsh
+    irssi \
+    java-1.7.0-openjdk \
+    lynx \
+    tmux
