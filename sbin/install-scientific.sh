@@ -1,59 +1,34 @@
 #!/bin/bash
 
-################################################################################
-# update
-
-if [ -n "$arg_update_system" ]; then
-    print_h2 "Update operating system"
-    :
-fi
-if [ -n "$arg_update_packages" ]; then
-    print_h2 "Update packages"
-    :
-fi
+yum_install="sudo yum --assumeyes install"
 
 ################################################################################
-# install basic tools
 
-if [ -n "$arg_install" ]; then
-    print_h2 "Install basic tools"
-    sudo yum --assumeyes install \
-        ack \
-        bash \
-        bash-completion \
-        bc \
-        curl \
-        expect \
-        gcc \
-        git \
-        gitflow \
-        irssi \
-        lynx \
-        mc \
-        net-tools \
-        patch \
-        pcre \
-        ruby \
-        strace \
-        tmux \
-        tree \
-        unzip \
-        vim \
-        wget \
-        zsh
+if [ -n "$arg_install_system_tools" ]; then
+    print_h2 "Install system tools"
+    #$yum_install
 fi
 
-################################################################################
-# install server tools
+print_h2 "Install dotfiles tools"
+$yum_install \
 
-if [ -n "$arg_install_server_tools" ] && [ -z "$arg_install_workstation_tools" ]; then
+if [ -n "$arg_install_common_tools" ]; then
+    print_h2 "Install common tools"
+    $yum_install \
+fi
+
+if [ -n "$arg_install_server_tools" ]; then
     print_h2 "Install server tools"
-    sudo yum --assumeyes install \
-        m4 \
-        mailx \
-        sendmail
+    $yum_install \
+fi
+
+if [ -n "$arg_install_workstation_tools" ]; then
+    print_h2 "Install workstation tools"
+    $yum_install \
 fi
 
 ################################################################################
+
+sudo yum clean packages
 
 exit 0

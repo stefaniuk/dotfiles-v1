@@ -1,0 +1,65 @@
+FROM cern/slc6-base:latest
+
+RUN yum --assumeyes install yum-plugin-fastestmirror xz
+RUN cd ~ \
+    && curl -O http://ftp.scientificlinux.org/linux/scientific/7.1/x86_64/os/Packages/sl-release-7.1-2.sl7.x86_64.rpm \
+    && curl -O http://ftp.scientificlinux.org/linux/scientific/7.1/x86_64/os/Packages/epel-release-7-5.noarch.rpm \
+    && rpm --force -Uvh sl-release-7.1-2.sl7.x86_64.rpm \
+    && rpm --force -Uvh epel-release-7-5.noarch.rpm \
+    && rm *.rpm
+
+WORKDIR /project
+
+RUN yum --assumeyes update \
+    && yum --assumeyes install epel-release
+
+# # settings
+# RUN localedef -c -i en_GB -f UTF-8 en_GB.UTF-8
+# ENV LANG "en_GB.UTF-8"
+# RUN ln -sf /usr/share/zoneinfo/Europe/London /etc/localtime
+# RUN yum --assumeyes install \
+#     ca-certificates
+
+# # dotfiles tools
+# RUN yum --assumeyes install \
+#     bash-completion \
+#     bc \
+#     curl \
+#     expect \
+#     openssl \
+#     pcre-tools \
+#     perl \
+#     python python34 \
+#     rsync \
+#     sudo \
+#     unzip \
+#     wget \
+#     xz
+#     # PROBLEMS: pcre-tools python34
+# # common tools
+# RUN yum --assumeyes install \
+#     ack \
+#     grc \
+#     htop \
+#     lnav \
+#     mc \
+#     patch \
+#     strace \
+#     traceroute \
+#     tree \
+#     vim \
+#     zsh
+#     # PROBLEMS: grc
+# # server tools
+# RUN yum --assumeyes install \
+#     mailx
+# # workstation tools
+# RUN yum --assumeyes install \
+#     git \
+#     gitflow \
+#     gtypist \
+#     irssi \
+#     java-1.7.0-openjdk \
+#     lynx \
+#     tmux
+#     # PROBLEMS: gtypist

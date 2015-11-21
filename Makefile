@@ -1,5 +1,5 @@
 DIR := $(shell pwd)
-DEFAULT_OS := debian
+DEFAULT_OS := scientific
 
 help:
 	@echo
