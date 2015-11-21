@@ -8,16 +8,12 @@ Installation
 
 All files will be installed in the user directory.
 
-    COMP_NAME="home"
+    HOST_NAME="home"
     USER_NAME="Daniel Stefaniuk"
     USER_EMAIL="daniel.stefaniuk@gmail.com"
     curl -L https://raw.githubusercontent.com/stefaniuk/dotfiles/master/setup.sh -o - | /bin/bash -s -- \
-        --prepare \
-        --install \
-        --config \
-        --update-system --update-packages \
-        --minimal \
-        --sudo
+        --prepare --update --install --config \
+        --minimal --sudo
 
 TODO List
 ---------

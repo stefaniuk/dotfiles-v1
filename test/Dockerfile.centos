@@ -12,7 +12,7 @@ RUN ln -sf /usr/share/zoneinfo/Europe/London /etc/localtime
 RUN yum --assumeyes install \
     ca-certificates
 
-# dotfiles dependencies
+# dotfiles tools
 RUN yum --assumeyes install \
     bash-completion \
     bc \
@@ -27,7 +27,6 @@ RUN yum --assumeyes install \
     unzip \
     wget \
     xz
-
 # common tools
 RUN yum --assumeyes install \
     ack \
@@ -48,6 +47,7 @@ RUN yum --assumeyes install \
 RUN yum --assumeyes install \
     git \
     gitflow \
+    gtypist \
     irssi \
     java-1.7.0-openjdk \
     lynx \

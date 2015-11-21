@@ -15,7 +15,7 @@ sed -i "/cd \/project/d" /home/vagrant/.bashrc
 echo "cd /project" >> /home/vagrant/.bashrc
 
 # build Docker test images
-cd /project
-make clean build
+#cd /project
+#make clean build
 
 exit 0

@@ -1,5 +1,5 @@
 DIR := $(shell pwd)
-DEFAULT_OS := fedora
+DEFAULT_OS := ubuntu
 
 help:
 	@echo
@@ -33,7 +33,7 @@ test:
 		docker rm dotfiles-$(OS) > /dev/null 2>&1 ||:; \
 		docker run --interactive --tty --rm \
 			--name dotfiles-$(OS) \
-			--hostname dotfiles-$(OS) \
+			--hostname $(OS) \
 			--volume $(DIR):/project \
 			dotfiles/$(OS) \
 			./test/run.sh; \
@@ -47,7 +47,7 @@ create:
 		docker rm dotfiles-$(OS) > /dev/null 2>&1 ||:; \
 		docker create --interactive --tty \
 			--name dotfiles-$(OS) \
-			--hostname dotfiles-$(OS) \
+			--hostname $(OS) \
 			--volume $(DIR):/project \
 			dotfiles/$(OS) \
 			/bin/bash --login; \

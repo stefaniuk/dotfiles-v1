@@ -14,12 +14,13 @@ USER_EMAIL=${USER_EMAIL-$USER@$HOSTNAME}
 
 program_dir=$(cd "$(dirname "$0" 2> /dev/null)"; pwd)
 arg_prepare=$(echo "$*" | grep -o -- "--prepare")
+arg_update=$(echo "$*" | grep -o -- "--update")
 arg_install=$(echo "$*" | grep -o -- "--install")
-arg_config=$(echo "$*" | grep -o -- "--config")
-arg_update_system=$(echo "$*" | grep -o -- "--update-system")
-arg_update_packages=$(echo "$*" | grep -o -- "--update-packages")
+arg_install_system_tools=$(echo "$*" | grep -o -- "--install-system-tools")
+arg_install_common_tools=$(echo "$*" | grep -o -- "--install-common-tools")
 arg_install_server_tools=$(echo "$*" | grep -o -- "--install-server-tools")
 arg_install_workstation_tools=$(echo "$*" | grep -o -- "--install-workstation-tools")
+arg_config=$(echo "$*" | grep -o -- "--config")
 arg_synchronise_only=$(echo "$*" | grep -o -- "--synchronise-only")
 arg_force_download=$(echo "$*" | grep -o -- "--force-download")
 arg_minimal=$(echo "$*" | grep -o -- "--minimal")
@@ -41,12 +42,13 @@ Usage:
 
 Options:
     --prepare                       step (1)
-    --install                       step (2)
-    --config                        step (3)
-    --update-system                 only if step (2) is executed
-    --update-packages               only if step (2) is executed
+    --update                        step (2)
+    --install                       step (3)
+    --install-system-tools
+    --install-common-tools
     --install-server-tools
     --install-workstation-tools
+    --config                        step (4)
     --synchronise-only              copy files to the user's directory only
     --force-download
     --minimal                       remove unnecessary project resources

@@ -15,13 +15,13 @@ RUN echo "Europe/London" | tee /etc/timezone \
 RUN apt-get --yes --ignore-missing --no-install-recommends install \
     ca-certificates
 
-# system specific
+# system tools
 RUN apt-get --yes --ignore-missing --no-install-recommends install \
     apt-file \
     apt-utils \
     debconf-utils \
     software-properties-common
-# dotfiles dependencies
+# dotfiles tools
 RUN apt-get --yes --ignore-missing --no-install-recommends install \
     bash-completion \
     bc \
@@ -37,7 +37,6 @@ RUN apt-get --yes --ignore-missing --no-install-recommends install \
     unzip \
     wget \
     xz-utils
-
 # common tools
 RUN apt-get --yes --ignore-missing --no-install-recommends install \
     ack-grep \
@@ -58,6 +57,7 @@ RUN apt-get --yes --ignore-missing --no-install-recommends install \
 RUN apt-get --yes --ignore-missing --no-install-recommends install \
     git \
     git-flow \
+    gtypist \
     irssi \
     lynx \
     openjdk-7-jdk \
