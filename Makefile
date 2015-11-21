@@ -1,15 +1,15 @@
 DIR := $(shell pwd)
-OS := centos
+DEFAULT_OS := fedora
 
 help:
 	@echo
 	@echo "Usage:"
 	@echo
 	@echo "    make all"
-	@echo "    make build [NAME=name]"
-	@echo "    make test [NAME=name]"
-	@echo "    make create|start|stop|bash [NAME=name]"
-	@echo "    make clean [NAME=name]"
+	@echo "    make build [OS=name]"
+	@echo "    make test [OS=name]"
+	@echo "    make create|start|stop|bash [OS=name]"
+	@echo "    make clean [OS=name]"
 	@echo
 
 ################################################################################
@@ -18,76 +18,76 @@ help:
 
 all: clean build test
 build:
-	@if [ "$(NAME)" = "" ]; then \
-		make build NAME=$(OS); \
+	@if [ "$(OS)" = "" ]; then \
+		make build OS=$(DEFAULT_OS); \
 	else \
-		echo "Building '$(NAME)'..."; \
-		docker build --file ./test/Dockerfile.$(NAME) --tag dotfiles/$(NAME) --rm .; \
+		echo "Building '$(OS)'..."; \
+		docker build --file ./test/Dockerfile.$(OS) --tag dotfiles/$(OS) --rm .; \
 	fi
 test:
-	@if [ "$(NAME)" = "" ]; then \
-		make test NAME=$(OS); \
+	@if [ "$(OS)" = "" ]; then \
+		make test OS=$(DEFAULT_OS); \
 	else \
-		echo "Testing '$(NAME)'..."; \
-		docker stop dotfiles-$(NAME) > /dev/null 2>&1 ||:; \
-		docker rm dotfiles-$(NAME) > /dev/null 2>&1 ||:; \
+		echo "Testing '$(OS)'..."; \
+		docker stop dotfiles-$(OS) > /dev/null 2>&1 ||:; \
+		docker rm dotfiles-$(OS) > /dev/null 2>&1 ||:; \
 		docker run --interactive --tty --rm \
-			--name dotfiles-$(NAME) \
-			--hostname dotfiles-$(NAME) \
+			--name dotfiles-$(OS) \
+			--hostname dotfiles-$(OS) \
 			--volume $(DIR):/project \
-			dotfiles/$(NAME) \
+			dotfiles/$(OS) \
 			./test/run.sh; \
 	fi
 create:
-	@if [ "$(NAME)" = "" ]; then \
-		make create NAME=$(OS); \
+	@if [ "$(OS)" = "" ]; then \
+		make create OS=$(DEFAULT_OS); \
 	else \
-		echo "Creating '$(NAME)'..."; \
-		docker stop dotfiles-$(NAME) > /dev/null 2>&1 ||:; \
-		docker rm dotfiles-$(NAME) > /dev/null 2>&1 ||:; \
+		echo "Creating '$(OS)'..."; \
+		docker stop dotfiles-$(OS) > /dev/null 2>&1 ||:; \
+		docker rm dotfiles-$(OS) > /dev/null 2>&1 ||:; \
 		docker create --interactive --tty \
-			--name dotfiles-$(NAME) \
-			--hostname dotfiles-$(NAME) \
+			--name dotfiles-$(OS) \
+			--hostname dotfiles-$(OS) \
 			--volume $(DIR):/project \
-			dotfiles/$(NAME) \
+			dotfiles/$(OS) \
 			/bin/bash --login; \
 	fi
 start:
-	@if [ "$(NAME)" = "" ]; then \
-		make start NAME=$(OS); \
+	@if [ "$(OS)" = "" ]; then \
+		make start OS=$(DEFAULT_OS); \
 	else \
-		echo "Starting '$(NAME)'..."; \
-		docker start dotfiles-$(NAME); \
+		echo "Starting '$(OS)'..."; \
+		docker start dotfiles-$(OS); \
 	fi
 stop:
-	@if [ "$(NAME)" = "" ]; then \
-		make stop NAME=$(OS); \
+	@if [ "$(OS)" = "" ]; then \
+		make stop OS=$(DEFAULT_OS); \
 	else \
-		echo "Stopping '$(NAME)'..."; \
-		docker stop dotfiles-$(NAME); \
+		echo "Stopping '$(OS)'..."; \
+		docker stop dotfiles-$(OS); \
 	fi
 bash:
-	@if [ "$(NAME)" = "" ]; then \
-		make bash NAME=$(OS); \
+	@if [ "$(OS)" = "" ]; then \
+		make bash OS=$(DEFAULT_OS); \
 	else \
 		make create; \
 		make start; \
 		docker exec --interactive --tty \
-			dotfiles-$(NAME) \
+			dotfiles-$(OS) \
 			./test/run.sh; \
-		echo "Opening Bash for '$(NAME)'..."; \
+		echo "Opening Bash for '$(OS)'..."; \
 		docker exec --interactive --tty \
-			dotfiles-$(NAME) \
+			dotfiles-$(OS) \
 			/bin/bash --login; \
 	fi ||:
 clean:
-	@if [ "$(NAME)" = "" ]; then \
-		make clean NAME=$(OS); \
+	@if [ "$(OS)" = "" ]; then \
+		make clean OS=$(DEFAULT_OS); \
 	else \
-		echo "Removing '$(NAME)'..."; \
-		docker stop dotfiles-$(NAME) > /dev/null 2>&1 ||:; \
-		docker rm dotfiles-$(NAME) > /dev/null 2>&1 ||:; \
-		docker rmi dotfiles/$(NAME) > /dev/null 2>&1 ||:; \
+		echo "Removing '$(OS)'..."; \
+		docker stop dotfiles-$(OS) > /dev/null 2>&1 ||:; \
+		docker rm dotfiles-$(OS) > /dev/null 2>&1 ||:; \
+		docker rmi dotfiles/$(OS) > /dev/null 2>&1 ||:; \
 	fi
 
 ################################################################################
