@@ -2,4 +2,4 @@ FROM fedora:latest
 
 WORKDIR /project
 
-RUN dnf update --refresh # slow
+#RUN dnf update --refresh
