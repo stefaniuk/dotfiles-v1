@@ -1,8 +1,8 @@
 #!/bin/bash
 
-print_h1 "Preparing..."
+print_h1 "Updating..."
 
-file=~/sbin/prepare-$DIST.sh
+file=~/sbin/update-$DIST.sh
 if [ -f $file ]; then
     (. $file $*)
 fi

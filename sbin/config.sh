@@ -265,7 +265,7 @@ if which mvn > /dev/null 2>&1; then
 fi
 
 ################################################################################
-# configure distribution specific tools
+# config
 
 file=~/sbin/config-$DIST.sh
 if [ -f $file ]; then

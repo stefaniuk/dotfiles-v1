@@ -135,6 +135,8 @@ function program_setup {
         print_err "Operating system is not fully supported"
     fi
 
+    # update
+    [ -n "$arg_update" ] && (. ~/sbin/update.sh $*)
     # prepare
     [ -n "$arg_prepare" ] && (. ~/sbin/prepare.sh $*)
     # install

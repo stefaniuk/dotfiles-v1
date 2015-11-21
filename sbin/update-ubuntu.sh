@@ -1,12 +1,15 @@
 #!/bin/bash
 
-################################################################################
-# locale
-
-print_h2 "Configure locale"
-sudo locale-gen en_GB.UTF-8
-sudo dpkg-reconfigure locales
+DEBIAN_FRONTEND="noninteractive"
 
 ################################################################################
+
+sudo apt-get --yes update
+sudo apt-get --yes upgrade
+
+################################################################################
+
+sudo apt-get --yes autoremove
+sudo apt-get clean
 
 exit 0

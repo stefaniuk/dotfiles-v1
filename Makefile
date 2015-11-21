@@ -5,7 +5,7 @@ help:
 	@echo
 	@echo "Usage:"
 	@echo
-	@echo "    make all"
+	@echo "    make build-all"
 	@echo "    make build [OS=name]"
 	@echo "    make test [OS=name]"
 	@echo "    make create|start|stop|bash [OS=name]"
@@ -16,7 +16,12 @@ help:
 # Targets to manage containers
 ################################################################################
 
-all: clean build test
+build-all:
+	make clean build OS=debian
+	make clean build OS=ubuntu
+	make clean build OS=centos
+	#make clean build OS=scientific
+	#make clean build OS=fedora
 build:
 	@if [ "$(OS)" = "" ]; then \
 		make build OS=$(DEFAULT_OS); \
