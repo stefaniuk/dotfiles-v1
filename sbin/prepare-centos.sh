@@ -19,6 +19,6 @@ $yum_install ca-certificates
 
 ################################################################################
 
-sudo yum clean all
+sudo yum clean packages
 
 exit 0

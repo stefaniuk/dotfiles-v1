@@ -29,6 +29,7 @@ if [ -n "$arg_install_common_tools" ]; then
     print_h2 "Install common tools"
     $yum_install \
         ack \
+        grc \
         htop \
         lnav \
         mc \
@@ -38,7 +39,7 @@ if [ -n "$arg_install_common_tools" ]; then
         tree \
         vim \
         zsh
-        # grc
+        # PROBLEMS: grc
 fi
 
 if [ -n "$arg_install_server_tools" ]; then
@@ -61,6 +62,6 @@ fi
 
 ################################################################################
 
-sudo yum clean all
+sudo yum clean packages
 
 exit 0

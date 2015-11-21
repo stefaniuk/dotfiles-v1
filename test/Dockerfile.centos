@@ -30,6 +30,7 @@ RUN yum --assumeyes install \
 # common tools
 RUN yum --assumeyes install \
     ack \
+    grc \
     htop \
     lnav \
     mc \
@@ -39,7 +40,7 @@ RUN yum --assumeyes install \
     tree \
     vim \
     zsh
-    # grc
+    # PROBLEMS: grc
 # server tools
 RUN yum --assumeyes install \
     mailx

@@ -9,6 +9,6 @@ $yum_install epel-release
 
 ################################################################################
 
-sudo yum clean all
+sudo yum clean packages
 
 exit 0
