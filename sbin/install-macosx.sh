@@ -48,6 +48,9 @@ if [ -n "$arg_install_workstation_tools" ]; then
     $brew_install reattach-to-user-namespace
     $brew_install tmux
     $cask_install java
+
+    # *** Custom Software ***
+
     # configuration and monitoring
     $cask_install seil --appdir=/Applications
     $cask_install karabiner --appdir=/Applications

@@ -16,21 +16,19 @@ $yum_install \
     curl \
     expect \
     openssl \
-    pcre-tools \
     perl \
-    python python34 \
+    python \
     rsync \
     sudo \
     unzip \
     wget \
     xz
-    # PROBLEMS: pcre-tools python34
+    # MISSING: pcre-tools python3
 
 if [ -n "$arg_install_common_tools" ]; then
     print_h2 "Install common tools"
     $yum_install \
         ack \
-        grc \
         htop \
         lnav \
         mc \
@@ -40,7 +38,7 @@ if [ -n "$arg_install_common_tools" ]; then
         tree \
         vim \
         zsh
-        # PROBLEMS: grc
+        # MISSING: grc
 fi
 
 if [ -n "$arg_install_server_tools" ]; then
@@ -51,15 +49,8 @@ fi
 
 if [ -n "$arg_install_workstation_tools" ]; then
     print_h2 "Install workstation tools"
-    $yum_install \
-        git \
-        gitflow \
-        gtypist \
-        irssi \
-        java-1.7.0-openjdk \
-        lynx \
-        tmux
-        # PROBLEMS: gtypist
+    #$yum_install
+    # WARNING: RedHat-based OSes should never be configured as a workstation
 fi
 
 ################################################################################

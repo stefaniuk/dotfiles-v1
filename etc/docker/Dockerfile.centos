@@ -30,7 +30,6 @@ RUN yum --assumeyes install \
 # common tools
 RUN yum --assumeyes install \
     ack \
-    grc \
     htop \
     lnav \
     mc \
@@ -40,16 +39,7 @@ RUN yum --assumeyes install \
     tree \
     vim \
     zsh
-    # PROBLEMS: grc
+    # MISSING: grc
 # server tools
 RUN yum --assumeyes install \
     mailx
-# workstation tools
-RUN yum --assumeyes install \
-    git \
-    gitflow \
-    gtypist \
-    irssi \
-    java-1.7.0-openjdk \
-    lynx \
-    tmux

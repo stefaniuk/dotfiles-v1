@@ -65,6 +65,9 @@ if [ -n "$arg_install_workstation_tools" ]; then
         lynx \
         openjdk-7-jdk \
         tmux
+
+    # *** Custom Software ***
+
     # compiz
     $apt_get_install \
         compiz \
@@ -98,8 +101,9 @@ if [ -n "$arg_install_workstation_tools" ]; then
     $apt_get_update
     $apt_get_install \
         docker-engine
-    $ver=$(www_get https://github.com/docker/compose | grep '/docker/compose/tree/' | egrep '/[0-9]+\.[0-9+]\.[0-9]+"' | egrep -o '[0-9]+\.[0-9+]\.[0-9]+' | sortvr | head -n 1)
+    ver=$(www_get https://github.com/docker/compose | grep '/docker/compose/tree/' | egrep '/[0-9]+\.[0-9+]\.[0-9]+"' | egrep -o '[0-9]+\.[0-9+]\.[0-9]+' | sortvr | head -n 1)
     sudo curl -L https://github.com/docker/compose/releases/download/$ver/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
+    sudo chmod +x /usr/local/bin/docker-compose
     # chrome
     wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
     sudo sh -c "echo 'deb http://dl.google.com/linux/chrome/deb/ stable main' > /etc/apt/sources.list.d/google-chrome.list"

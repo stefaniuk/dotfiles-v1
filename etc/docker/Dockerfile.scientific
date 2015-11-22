@@ -27,19 +27,17 @@ RUN yum --assumeyes install \
     curl \
     expect \
     openssl \
-    pcre-tools \
     perl \
-    python python34 \
+    python \
     rsync \
     sudo \
     unzip \
     wget \
     xz
-    # PROBLEMS: pcre-tools python34
+    # MISSING: pcre-tools python3
 # common tools
 RUN yum --assumeyes install \
     ack \
-    grc \
     htop \
     lnav \
     mc \
@@ -49,17 +47,7 @@ RUN yum --assumeyes install \
     tree \
     vim \
     zsh
-    # PROBLEMS: grc
+    # MISSING: grc
 # server tools
 RUN yum --assumeyes install \
     mailx
-# workstation tools
-RUN yum --assumeyes install \
-    git \
-    gitflow \
-    gtypist \
-    irssi \
-    java-1.7.0-openjdk \
-    lynx \
-    tmux
-    # PROBLEMS: gtypist

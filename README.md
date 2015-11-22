@@ -20,7 +20,6 @@ All files will be installed in the user directory.
         --install-server-tools \
         --install-workstation-tools \
         --config \
-        --minimal \
         --sudo
 
 TODO List
