@@ -153,9 +153,9 @@ function program_setup {
 
     # remove not needed resources
     if [ -n "$arg_minimal" ]; then
-        rm -rf ~/{etc,man,sbin,test,LICENCE*,README*,setup.sh}
+        rm -rf ~/{etc,lib,man,sbin,test,LICENCE*,Makefile,provision.sh,README*,setup.sh,Vagrantfile}
     fi
-    rm -rf ~/{.gitignore,Makefile,provision.sh,Vagrantfile,test/{Dockerfile.*,run.sh},tmp/*}
+    rm -rf ~/{.gitignore,tmp/*}
 }
 
 ################################################################################
