@@ -86,6 +86,8 @@ function system_detect {
     export ARCH_NAME=$(echo $ARCH_NAME | tr "[A-Z]" "[a-z]")
     export KERNEL=$(echo $KERNEL | tr "[A-Z]" "[a-z]")
     [ -n "$VIRTUALISATION" ] && export VIRTUALISATION=$(echo $VIRTUALISATION | tr "[A-Z]" "[a-z]")
+
+    return 0
 }
 
 function system_info {
@@ -99,6 +101,8 @@ function system_info {
     echo "ARCH NAME: $ARCH_NAME"
     echo "KERNEL: $KERNEL"
     [ -n "$VIRTUALISATION" ] && echo "VIRTUALISATION: $VIRTUALISATION"
+
+    return 0
 }
 
 function system_test {
