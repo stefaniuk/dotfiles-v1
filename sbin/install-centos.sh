@@ -15,10 +15,11 @@ $yum_install \
     bc \
     curl \
     expect \
+    git \
     openssl \
     pcre-tools \
     perl \
-    python python34 \
+    python \
     rsync \
     sudo \
     unzip \

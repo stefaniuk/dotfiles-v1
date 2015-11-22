@@ -15,7 +15,9 @@ $yum_install \
     bc \
     curl \
     expect \
+    git \
     openssl \
+    pcre \
     perl \
     python \
     rsync \
@@ -23,7 +25,6 @@ $yum_install \
     unzip \
     wget \
     xz
-    # MISSING: pcre-tools python3
 
 if [ -n "$arg_install_common_tools" ]; then
     print_h2 "Install common tools"

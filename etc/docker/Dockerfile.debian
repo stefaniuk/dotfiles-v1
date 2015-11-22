@@ -28,10 +28,11 @@ RUN apt-get --yes --ignore-missing --no-install-recommends install \
     binutils \
     curl \
     expect \
+    git \
     openssl \
     pcregrep \
     perl \
-    python3 \
+    python \
     rsync \
     sudo \
     unzip \
@@ -54,7 +55,6 @@ RUN apt-get --yes --ignore-missing --no-install-recommends install \
     heirloom-mailx
 # workstation tools
 RUN apt-get --yes --ignore-missing --no-install-recommends install \
-    git \
     git-flow \
     gtypist \
     irssi \

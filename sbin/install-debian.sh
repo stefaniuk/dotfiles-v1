@@ -21,10 +21,11 @@ $apt_get_install \
     binutils \
     curl \
     expect \
+    git \
     openssl \
     pcregrep \
     perl \
-    python3 \
+    python \
     rsync \
     sudo \
     unzip \
@@ -55,7 +56,6 @@ fi
 if [ -n "$arg_install_workstation_tools" ]; then
     print_h2 "Install workstation tools"
     $apt_get_install \
-        git \
         git-flow \
         gtypist \
         irssi \

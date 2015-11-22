@@ -23,6 +23,7 @@ $apt_get_install \
     binutils \
     curl \
     expect \
+    git \
     openssl \
     pcregrep \
     perl \
@@ -41,7 +42,6 @@ if [ -n "$arg_install_common_tools" ]; then
         htop \
         lnav \
         mc \
-        patch \
         strace \
         traceroute \
         tree \
@@ -58,7 +58,6 @@ fi
 if [ -n "$arg_install_workstation_tools" ]; then
     print_h2 "Install workstation tools"
     $apt_get_install \
-        git \
         git-flow \
         gtypist \
         irssi \

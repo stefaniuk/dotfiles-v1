@@ -16,6 +16,7 @@ $brew_install bc
 $brew_install binutils
 $brew_install curl
 $brew_install expect
+$brew_install git
 $brew_install openssl
 $brew_install pcre
 $brew_install perl
@@ -40,7 +41,6 @@ fi
 
 if [ -n "$arg_install_workstation_tools" ]; then
     print_h2 "Install workstation tools"
-    $brew_install git
     $brew_install git-flow
     $brew_install gtypist
     $brew_install irssi

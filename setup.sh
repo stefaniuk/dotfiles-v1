@@ -136,7 +136,8 @@ function program_setup {
     if [ $DIST != "macosx" ] \
             && [ $DIST != "ubuntu" ] \
             && [ $DIST != "debian" ] \
-            && [ $DIST != "centos" ]; then
+            && [ $DIST != "centos" ] \
+            && [ $DIST != "scientific" ]; then
         print_err "Operating system is not fully supported"
     fi
 
