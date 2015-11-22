@@ -13,8 +13,8 @@ USER_NAME=${USER_NAME-$USER}
 USER_EMAIL=${USER_EMAIL-$USER@$HOSTNAME}
 
 program_dir=$(cd "$(dirname "$0" 2> /dev/null)"; pwd)
-arg_prepare=$(echo "$*" | grep -o -- "--prepare")
 arg_update=$(echo "$*" | grep -o -- "--update")
+arg_prepare=$(echo "$*" | grep -o -- "--prepare")
 arg_install=$(echo "$*" | grep -o -- "--install")
 arg_install_system_tools=$(echo "$*" | grep -o -- "--install-system-tools")
 arg_install_common_tools=$(echo "$*" | grep -o -- "--install-common-tools")
@@ -42,8 +42,8 @@ Usage:
     ${file} [options]
 
 Options:
-    --prepare                       step (1)
-    --update                        step (2)
+    --update                        step (1)
+    --prepare                       step (2)
     --install                       step (3)
     --install-system-tools
     --install-common-tools

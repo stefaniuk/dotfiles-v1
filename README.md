@@ -1,7 +1,7 @@
 dotfiles
 ========
 
-The aim of the `dotfiles` project is to configure shell and provide a better experience while using command-line.
+The aim of my `dotfiles` project is to configure Bash and Zsh to provide a better experience while using command-line.
 
 Installation
 ------------
@@ -12,8 +12,16 @@ All files will be installed in the user directory.
     USER_NAME="Daniel Stefaniuk"
     USER_EMAIL="daniel.stefaniuk@gmail.com"
     curl -L https://raw.githubusercontent.com/stefaniuk/dotfiles/master/setup.sh -o - | /bin/bash -s -- \
-        --prepare --update --install --config \
-        --minimal --sudo
+        --update \
+        --prepare \
+        --install \
+        --install-system-tools \
+        --install-common-tools \
+        --install-server-tools \
+        --install-workstation-tools \
+        --config \
+        --minimal \
+        --sudo
 
 TODO List
 ---------
