@@ -34,14 +34,13 @@ RUN yum --assumeyes install \
     unzip \
     wget \
     xz
-    # MISSING: pcre-tools python3
+    # MISSING: pcre-tools
 # common tools
 RUN yum --assumeyes install \
     ack \
     htop \
     lnav \
     mc \
-    patch \
     strace \
     traceroute \
     tree \

@@ -16,8 +16,9 @@ echo "cd /project" >> /home/vagrant/.bashrc
 
 # build Docker test images
 cd /project
-make clean build OS=debian
 make clean build OS=ubuntu
+make clean build OS=debian
 make clean build OS=centos
+make clean build OS=scientific
 
 exit 0

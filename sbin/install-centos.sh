@@ -32,7 +32,6 @@ if [ -n "$arg_install_common_tools" ]; then
         htop \
         lnav \
         mc \
-        patch \
         strace \
         traceroute \
         tree \

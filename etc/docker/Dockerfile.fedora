@@ -1,5 +1,0 @@
-FROM fedora:latest
-
-WORKDIR /project
-
-#RUN dnf update --refresh

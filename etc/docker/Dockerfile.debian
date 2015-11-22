@@ -44,7 +44,6 @@ RUN apt-get --yes --ignore-missing --no-install-recommends install \
     htop \
     lnav \
     mc \
-    patch \
     strace \
     traceroute \
     tree \

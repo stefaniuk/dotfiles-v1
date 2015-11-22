@@ -33,7 +33,6 @@ RUN yum --assumeyes install \
     htop \
     lnav \
     mc \
-    patch \
     strace \
     traceroute \
     tree \

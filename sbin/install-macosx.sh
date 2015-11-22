@@ -7,7 +7,7 @@ cask_install="brew cask install"
 
 if [ -n "$arg_install_system_tools" ]; then
     print_h2 "Install system tools"
-    #$yum_install
+    #$brew_install
 fi
 
 print_h2 "Install dotfiles tools"
@@ -17,13 +17,13 @@ $brew_install binutils
 $brew_install curl
 $brew_install expect
 $brew_install openssl
+$brew_install pcre
 $brew_install perl
 $brew_install python3
 $brew_install rsync
 $brew_install unzip
 $brew_install wget
 $brew_install xz
-# PROBLEM: pcregrep
 
 if [ -n "$arg_install_common_tools" ]; then
     print_h2 "Install common tools"
