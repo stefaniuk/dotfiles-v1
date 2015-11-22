@@ -15,7 +15,7 @@ help:
 all: build create start install test stop
 build:
 	@echo "Building '$(OS)'..."
-	@docker build --file ./test/Dockerfile.$(OS) --tag dotfiles/$(OS) --rm .
+	@docker build --file ./etc/docker/Dockerfile.$(OS) --tag dotfiles/$(OS) --rm .
 create:
 	@echo "Creating '$(OS)'..."
 	@docker stop dotfiles-$(OS) > /dev/null 2>&1 ||:
