@@ -5,37 +5,17 @@ help:
 	@echo
 	@echo "Usage:"
 	@echo
-	@echo "    make build-all"
-	@echo "    make build [OS=name]"
-	@echo "    make test [OS=name]"
-	@echo "    make create|start|stop|bash [OS=name]"
-	@echo "    make clean [OS=name]"
+	@echo "    make all|build|create|start|stop|install|test|bash|clean [OS=name]"
 	@echo
 
 ################################################################################
 # Targets to manage containers
 ################################################################################
 
-build-all:
-	make clean build OS=debian
-	make clean build OS=ubuntu
-	make clean build OS=centos
-	#make clean build OS=scientific
-	#make clean build OS=fedora
-	#make clean build OS=opensuse
+all: build create start install test stop
 build:
 	@echo "Building '$(OS)'..."
 	@docker build --file ./test/Dockerfile.$(OS) --tag dotfiles/$(OS) --rm .
-test:
-	@echo "Testing '$(OS)'..."
-	@docker stop dotfiles-$(OS) > /dev/null 2>&1 ||:
-	@docker rm dotfiles-$(OS) > /dev/null 2>&1 ||:
-	@docker run --interactive --tty --rm \
-		--name dotfiles-$(OS) \
-		--hostname $(OS) \
-		--volume $(DIR):/project \
-		dotfiles/$(OS) \
-		./test/run.sh
 create:
 	@echo "Creating '$(OS)'..."
 	@docker stop dotfiles-$(OS) > /dev/null 2>&1 ||:
@@ -52,13 +32,25 @@ start:
 stop:
 	@echo "Stopping '$(OS)'..."
 	@docker stop dotfiles-$(OS)
-bash:
-	@make create
-	@make start
+install:
+	@echo "Installing dotfiles on '$(OS)'..."
 	@docker exec --interactive --tty \
 		dotfiles-$(OS) \
-		./test/run.sh
-	@echo "Opening Bash for '$(OS)'..."
+		./setup.sh \
+			--prepare \
+			--install \
+			--install-system-tools \
+			--install-common-tools \
+			--install-server-tools \
+			--install-workstation-tools \
+			--config
+test:
+	@echo "Testing '$(OS)'..."
+	@docker exec --interactive --tty \
+		dotfiles-$(OS) \
+		/bin/bash -cli "system_test --skip-selected-tests"
+bash:
+	@echo "Opening bash on '$(OS)'..."
 	@docker exec --interactive --tty \
 		dotfiles-$(OS) \
 		/bin/bash --login ||:
