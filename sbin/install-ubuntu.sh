@@ -65,8 +65,6 @@ if [ -n "$arg_install_workstation_tools" ]; then
         openjdk-7-jdk \
         tmux
 
-    # *** Custom Software ***
-
     # compiz
     $apt_get_install \
         compiz \

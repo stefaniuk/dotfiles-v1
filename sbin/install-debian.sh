@@ -5,15 +5,6 @@ DEBIAN_FRONTEND="noninteractive"
 
 ################################################################################
 
-if [ -n "$arg_install_system_tools" ]; then
-    print_h2 "Install system tools"
-    $apt_get_install \
-        apt-file \
-        apt-utils \
-        debconf-utils \
-        software-properties-common
-fi
-
 print_h2 "Install dotfiles tools"
 $apt_get_install \
     bash-completion \
@@ -51,17 +42,6 @@ if [ -n "$arg_install_server_tools" ]; then
     print_h2 "Install server tools"
     $apt_get_install \
         heirloom-mailx
-fi
-
-if [ -n "$arg_install_workstation_tools" ]; then
-    print_h2 "Install workstation tools"
-    $apt_get_install \
-        git-flow \
-        gtypist \
-        irssi \
-        lynx \
-        openjdk-7-jdk \
-        tmux
 fi
 
 ################################################################################

@@ -7,7 +7,16 @@ cask_install="brew cask install"
 
 if [ -n "$arg_install_system_tools" ]; then
     print_h2 "Install system tools"
-    #$brew_install
+    $cask_install seil --appdir=/Applications
+    $cask_install karabiner --appdir=/Applications
+    $cask_install bettertouchtool --appdir=/Applications
+    $cask_install witch --appdir=/Applications
+    $cask_install moom --appdir=/Applications
+    $cask_install asepsis --appdir=/Applications
+    $cask_install caffeine --appdir=/Applications
+    $cask_install menumeters --appdir=/Applications
+    $cask_install android-file-transfer --appdir=/Applications
+    $brew_install ddclient
 fi
 
 print_h2 "Install dotfiles tools"
@@ -45,23 +54,9 @@ if [ -n "$arg_install_workstation_tools" ]; then
     $brew_install gtypist
     $brew_install irssi
     $brew_install lynx
-    $brew_install reattach-to-user-namespace
-    $brew_install tmux
+    $brew_install tmux reattach-to-user-namespace
     $cask_install java
 
-    # *** Custom Software ***
-
-    # configuration and monitoring
-    $cask_install seil --appdir=/Applications
-    $cask_install karabiner --appdir=/Applications
-    $cask_install bettertouchtool --appdir=/Applications
-    $cask_install witch --appdir=/Applications
-    $cask_install moom --appdir=/Applications
-    $cask_install asepsis --appdir=/Applications
-    $cask_install caffeine --appdir=/Applications
-    $cask_install menumeters --appdir=/Applications
-    $cask_install android-file-transfer --appdir=/Applications
-    $brew_install ddclient
     # developer tools
     $cask_install iterm2-beta
     $cask_install sublime-text3

@@ -15,12 +15,6 @@ RUN echo "Europe/London" | tee /etc/timezone \
 RUN apt-get --yes --ignore-missing --no-install-recommends install \
     ca-certificates
 
-# system tools
-RUN apt-get --yes --ignore-missing --no-install-recommends install \
-    apt-file \
-    apt-utils \
-    debconf-utils \
-    software-properties-common
 # dotfiles tools
 RUN apt-get --yes --ignore-missing --no-install-recommends install \
     bash-completion \
@@ -53,11 +47,3 @@ RUN apt-get --yes --ignore-missing --no-install-recommends install \
 # server tools
 RUN apt-get --yes --ignore-missing --no-install-recommends install \
     heirloom-mailx
-# workstation tools
-RUN apt-get --yes --ignore-missing --no-install-recommends install \
-    git-flow \
-    gtypist \
-    irssi \
-    lynx \
-    openjdk-7-jdk \
-    tmux
