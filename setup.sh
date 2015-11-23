@@ -11,6 +11,7 @@ GITHUB_ACCOUNT=${GITHUB_ACCOUNT-stefaniuk}
 GITLAB_ACCOUNT=${GITLAB_ACCOUNT-stefaniuk}
 USER_NAME=${USER_NAME-$USER}
 USER_EMAIL=${USER_EMAIL-$USER@$HOSTNAME}
+DIR=~ # TODO: Pass custom installation directory as an argument
 
 program_dir=$(cd "$(dirname "$0" 2> /dev/null)"; pwd)
 arg_update=$(echo "$*" | grep -o -- "--update")
@@ -53,6 +54,7 @@ Options:
     --test                          step (5)
     --synchronise-only              copy files to the user's directory only
     --force-download
+    --directory                     installation directory
     --minimal                       remove unnecessary project resources
     --sudo                          execute sudo-keep-alive
     --help
@@ -82,12 +84,12 @@ function program_download {
 
     curl -L \
         "https://github.com/${GITHUB_ACCOUNT}/${REPOSITORY}/tarball/master" \
-        -o ~/$REPOSITORY.tar.gz
-    tar -zxf ~/$REPOSITORY.tar.gz -C ~
-    rm -f ~/$REPOSITORY.tar.gz
-    cp -rf ~/$GITHUB_ACCOUNT-$REPOSITORY-*/* ~
-    rm -rf ~/$GITHUB_ACCOUNT-$REPOSITORY-*
-    rm -rf ~/tmp/*
+        -o $DIR/$REPOSITORY.tar.gz
+    tar -zxf $DIR/$REPOSITORY.tar.gz -C $DIR
+    rm -f $DIR/$REPOSITORY.tar.gz
+    cp -rf $DIR/$GITHUB_ACCOUNT-$REPOSITORY-*/* $DIR
+    rm -rf $DIR/$GITHUB_ACCOUNT-$REPOSITORY-*
+    rm -rf $DIR/tmp/*
 }
 
 function program_synchronise {
@@ -105,21 +107,21 @@ function program_synchronise {
         --exclude=README.md \
         --exclude=Vagrantfile \
         $program_dir/* \
-        ~
+        $DIR
 
     printf "\n"
 }
 
 function program_setup {
 
-    chmod 700 ~/{bin,lib,sbin,usr,usr/bin,test,test/bin,tmp}
-    chmod 500 ~/{bin,usr/bin,test/bin}/*
-    chmod 500 ~/setup.sh
+    chmod 700 $DIR/{bin,lib,sbin,usr,usr/bin,test,test/bin,tmp}
+    chmod 500 $DIR/{bin,usr/bin,test/bin}/*
+    chmod 500 $DIR/setup.sh
 
     # detect operating system
-    source ~/etc/bash/.bash_system
+    source $DIR/etc/bash/.bash_system
     # make available custom scripts
-    export PATH=$PATH:~/bin:~/usr/bin
+    export PATH=$PATH:$DIR/bin:$DIR/usr/bin
 
     # synchronise only
     [ -n "$arg_synchronise_only" ] && exit 0
@@ -142,21 +144,21 @@ function program_setup {
     fi
 
     # update
-    [ -n "$arg_update" ] && (. ~/sbin/update.sh $*)
+    [ -n "$arg_update" ] && (. $DIR/sbin/update.sh $*)
     # prepare
-    [ -n "$arg_prepare" ] && (. ~/sbin/prepare.sh $*)
+    [ -n "$arg_prepare" ] && (. $DIR/sbin/prepare.sh $*)
     # install
-    [ -n "$arg_install" ] && (. ~/sbin/install.sh $*)
+    [ -n "$arg_install" ] && (. $DIR/sbin/install.sh $*)
     # config
-    [ -n "$arg_config" ] && (. ~/sbin/config.sh $*)
+    [ -n "$arg_config" ] && (. $DIR/sbin/config.sh $*)
     # test
     [ -n "$arg_test" ] && /bin/bash -cli "system_test --skip-selected-tests"
 
     # remove not needed resources
     if [ -n "$arg_minimal" ]; then
-        rm -rf ~/{etc,man,sbin,test,LICENCE*,Makefile,provision.sh,README*,setup.sh,Vagrantfile}
+        rm -rf $DIR/{etc,man,sbin,test,LICENCE*,Makefile,provision.sh,README*,setup.sh,Vagrantfile}
     fi
-    rm -rf ~/{.gitignore,tmp/*}
+    rm -rf $DIR/{.gitignore,tmp/*}
 }
 
 ################################################################################

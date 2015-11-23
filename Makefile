@@ -38,11 +38,7 @@ install:
 		dotfiles-$(OS) \
 		./setup.sh \
 			--prepare \
-			--install \
-			--install-system-tools \
-			--install-common-tools \
-			--install-server-tools \
-			--install-workstation-tools \
+			--install --install-common-tools --install-server-tools \
 			--config
 test:
 	@echo "Testing '$(OS)'..."
