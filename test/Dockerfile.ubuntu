@@ -32,7 +32,7 @@ RUN apt-get --yes --ignore-missing --no-install-recommends install \
     openssl \
     pcregrep \
     perl \
-    python3 \
+    python \
     rsync \
     sudo \
     unzip \

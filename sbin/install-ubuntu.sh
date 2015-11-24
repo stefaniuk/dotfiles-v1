@@ -27,7 +27,7 @@ $apt_get_install \
     openssl \
     pcregrep \
     perl \
-    python3 \
+    python \
     rsync \
     sudo \
     unzip \
