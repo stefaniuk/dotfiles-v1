@@ -23,9 +23,9 @@ arg_install_server_tools=$(echo "$*" | grep -o -- "--install-server-tools")
 arg_install_workstation_tools=$(echo "$*" | grep -o -- "--install-workstation-tools")
 arg_config=$(echo "$*" | grep -o -- "--config")
 arg_test=$(echo "$*" | grep -o -- "--test")
-arg_directory=$(echo "$*" | grep -Eo -- "--directory [-_A-Za-z0-9/]+" | awk '{print $2}')
 arg_synchronise_only=$(echo "$*" | grep -o -- "--synchronise-only")
 arg_force_download=$(echo "$*" | grep -o -- "--force-download")
+arg_directory=$(echo "$*" | grep -Eo -- "--directory [-_A-Za-z0-9/]+" | awk '{print $2}')
 arg_minimal=$(echo "$*" | grep -o -- "--minimal")
 arg_sudo=$(echo "$*" | grep -o -- "--sudo")
 arg_help=$(echo "$*" | grep -o -- "--help")
@@ -53,7 +53,7 @@ Options:
     --install-workstation-tools
     --config                        step (4)
     --test                          step (5)
-    --synchronise-only              copy files to the user's directory only
+    --synchronise-only              copy files only
     --force-download
     --directory                     installation directory
     --minimal                       remove unnecessary project resources
