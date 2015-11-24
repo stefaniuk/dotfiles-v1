@@ -11,7 +11,7 @@ GITHUB_ACCOUNT=${GITHUB_ACCOUNT-stefaniuk}
 GITLAB_ACCOUNT=${GITLAB_ACCOUNT-stefaniuk}
 USER_NAME=${USER_NAME-$USER}
 USER_EMAIL=${USER_EMAIL-$USER@$HOSTNAME}
-DIR=~ # TODO: Pass custom installation directory as an argument
+DIR=~
 
 program_dir=$(cd "$(dirname "$0" 2> /dev/null)"; pwd)
 arg_update=$(echo "$*" | grep -o -- "--update")
@@ -23,6 +23,7 @@ arg_install_server_tools=$(echo "$*" | grep -o -- "--install-server-tools")
 arg_install_workstation_tools=$(echo "$*" | grep -o -- "--install-workstation-tools")
 arg_config=$(echo "$*" | grep -o -- "--config")
 arg_test=$(echo "$*" | grep -o -- "--test")
+arg_directory=$(echo "$*" | grep -Eo -- "--directory [-_A-Za-z0-9/]+" | awk '{print $2}')
 arg_synchronise_only=$(echo "$*" | grep -o -- "--synchronise-only")
 arg_force_download=$(echo "$*" | grep -o -- "--force-download")
 arg_minimal=$(echo "$*" | grep -o -- "--minimal")
@@ -166,6 +167,7 @@ function program_setup {
 
 [ -n "$arg_help" ] && usage
 [ -n "$arg_sudo" ] && sudo_keep_alive
+[ -n "$arg_directory" ] && DIR=$arg_directory
 
 if [ -z "$BASH_SOURCE" ] || [ -n "$arg_force_download" ]; then
 
