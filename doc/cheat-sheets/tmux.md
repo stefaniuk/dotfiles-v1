@@ -1,4 +1,11 @@
-#### Tmux
+#### tmux command
+
+    tmux ls                         # list sessions
+    tmux new -s <name>              # create new session
+    tmux attach -t <name>           # attach to session
+    tmux kill-session -t <name>     # kill session
+
+#### tmux shortcuts
 
 Tmux has been configured with `ctrl+a` prefix.
 

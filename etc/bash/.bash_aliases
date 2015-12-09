@@ -83,10 +83,9 @@ fi
 
 # show manual
 alias sb="show-manual best-practices"
-alias sc="show-manual commands"
+alias sc="show-manual cheat-sheets"
 alias sd="show-manual design-patterns"
 alias se="show-manual settings"
-alias ss="show-manual shortcuts"
 alias st="show-manual templates"
 
 # reload bash

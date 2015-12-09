@@ -1,4 +1,13 @@
-#### Ubuntu
+#### ubuntu commands
+
+##### configuration
+
+    lspci
+    lshw -c network
+    iwconfig
+    ifconfig
+
+#### ubuntu shortcuts
 
 ##### Desktop
 

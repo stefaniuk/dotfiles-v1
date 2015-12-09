@@ -3,7 +3,7 @@
 # define help
 help=$(cat <<HEREDOC
 
-    DESCRIPTION: Show manual entries from the ~/man directory.
+    DESCRIPTION: Show documentation entries from the ~/doc directory.
 
     PARAMETERS:
         \$1 kind
@@ -21,12 +21,12 @@ fi
 # print list
 if [ -n "$(echo "$*" | grep -o -- "-l")" ] || [ -n "$(echo "$*" | grep -o -- "--list")" ]; then
     if [ $# -gt 1 ]; then
-        ls -1 ~/man/*${1}* | \
+        ls -1 ~/doc/*${1}* | \
             sed 's/\.[^.]*$//g' | \
             sort | \
             uniq
     else
-        ls -1 ~/man
+        ls -1 ~/doc
     fi
     exit 0
 fi
@@ -36,8 +36,8 @@ kind="$1"
 name="$2"
 type="${3:-md}"
 
-for dir in $(ls ~/man | grep $kind 2> /dev/null); do
-    for file in $(ls -1 ~/man/$dir/*${name}*.${type} 2> /dev/null); do
+for dir in $(ls ~/doc | grep $kind 2> /dev/null); do
+    for file in $(ls -1 ~/doc/$dir/*${name}*.${type} 2> /dev/null); do
 
         # handle markdown
         if [ "${file##*.}" == "md" ]; then
