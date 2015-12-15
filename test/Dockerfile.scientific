@@ -11,7 +11,7 @@ RUN cd ~ \
 WORKDIR /project
 
 RUN yum --assumeyes update \
-    && yum --assumeyes install epel-release
+    && yum --assumeyes install epel-release # 2015/12/15
 
 # settings
 RUN localedef -c -i en_GB -f UTF-8 en_GB.UTF-8

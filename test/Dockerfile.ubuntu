@@ -3,7 +3,7 @@ FROM ubuntu:latest
 WORKDIR /project
 
 ENV DEBIAN_FRONTEND "noninteractive"
-RUN apt-get --yes update && apt-get --yes upgrade
+RUN apt-get --yes update && apt-get --yes upgrade # 2015/12/15
 
 # settings
 RUN apt-get --yes --ignore-missing --no-install-recommends install \
