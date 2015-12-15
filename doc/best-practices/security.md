@@ -1,7 +1,7 @@
 Security
 ========
 
-A guide for practicing safe web.
+A guide for practising safe web.
 
 Think
 -----
