@@ -1,22 +1,22 @@
-#### tmux command
+## Commands
 
     tmux ls                         # list sessions
     tmux new -s <name>              # create new session
     tmux attach -t <name>           # attach to session
     tmux kill-session -t <name>     # kill session
 
-#### tmux shortcuts
+## Shortcuts
 
-Tmux has been configured with `ctrl+a` prefix.
+`tmux` has been configured with `ctrl+a` prefix.
 
-##### Sessions
+#### Sessions
 
     s               list sessions
     :new<CR>        new session
     $               name session
     d               detach from session
 
-##### Windows
+#### Windows
 
     c               create new window
     &               kill the current window
@@ -28,7 +28,7 @@ Tmux has been configured with `ctrl+a` prefix.
     .               move window
     ,               rename the current window
 
-##### Panes
+#### Panes
 
     %               horizontal split
     "               vertical split
@@ -39,14 +39,13 @@ Tmux has been configured with `ctrl+a` prefix.
     q               show pane numbers
     q <number>      go to the specific pane number
 
-##### Text (Mac OSX)
-
-    Select text using mouse. Before releasing mouse button press y then q.
-    Text is copied into the clipboard. Use ctrl+v to paste it in.
-
-##### Misc
+#### Misc
 
     :               prompt
     ?               list all key bindings
-
     ctrl+l ctrl+k   clear history (doesn't need the prefix)
+
+###### Mac OS X
+
+    fn+up           scroll up, press q to quit
+    fn+down         scroll down, press q to quit
