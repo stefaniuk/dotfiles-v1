@@ -157,7 +157,7 @@ function program_setup {
 
     # remove not needed resources
     if [ -n "$arg_minimal" ]; then
-        rm -rf $DIR/{etc,man,sbin,test,LICENCE*,Makefile,provision.sh,README*,setup.sh,Vagrantfile}
+        rm -rf $DIR/{etc,doc,sbin,test,LICENCE*,Makefile,provision.sh,README*,setup.sh,Vagrantfile}
     fi
     rm -rf $DIR/{.gitignore,tmp/*}
 }
