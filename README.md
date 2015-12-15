@@ -8,7 +8,6 @@ Installation
 
 All files will be installed in the user directory.
 
-    HOST_NAME="home"
     USER_NAME="Daniel Stefaniuk"
     USER_EMAIL="daniel.stefaniuk@gmail.com"
     curl -L https://raw.githubusercontent.com/stefaniuk/dotfiles/master/setup.sh -o - | /bin/bash -s -- \
@@ -21,6 +20,17 @@ All files will be installed in the user directory.
         --install-workstation-tools \
         --config \
         --sudo
+
+Testing
+-------
+
+This project can be tested in the Docker containers defined in the `test` directory. VirtualBox and Vagrant have to be installed first.
+
+```bash
+vagrant up
+vagrant ssh
+make build create start install test stop OS=debian
+```
 
 TODO List
 ---------
