@@ -7,8 +7,6 @@
 
 ## Shortcuts
 
-`tmux` has been configured with `ctrl+a` prefix.
-
 #### Sessions
 
     s               list sessions
@@ -45,7 +43,13 @@
     ?               list all key bindings
     ctrl+l ctrl+k   clear history (doesn't need the prefix)
 
-###### Mac OS X
+    pageUp          scroll up, press q to quit
+    fn+up
+    pageDown        scroll down, press q to quit
+    fn+down
 
-    fn+up           scroll up, press q to quit
-    fn+down         scroll down, press q to quit
+## Notes
+
+1. To copy and paste use the default arrangment provided by your teminal
+   application.
+2. 'tmux` was configured with `ctrl+a` prefix.
