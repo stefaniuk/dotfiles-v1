@@ -45,7 +45,7 @@ for dir in $(ls ~/doc | grep $kind 2> /dev/null); do
             cat $file | \
                 sed "s/^## /`printf "${bold}${white}"`## /g" | \
                 sed "s/^#### /`printf "${blue}"`#### /g" | \
-                sed ":a;N;\$!ba;s/\n/${reset}\n/g"
+                perl -p -e "s/\n/${reset}\n/"
             echo
 
         # handle images
