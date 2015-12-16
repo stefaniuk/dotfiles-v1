@@ -47,9 +47,3 @@
     fn+up
     pageDown        scroll down, press q to quit
     fn+down
-
-## Notes
-
-1. To copy and paste use the default arrangment provided by your teminal
-   application.
-2. 'tmux` was configured with `ctrl+a` prefix.
