@@ -33,6 +33,7 @@ RUN apt-get --yes --ignore-missing --no-install-recommends install \
     pcregrep \
     perl \
     python \
+    python-pygments \
     rsync \
     sudo \
     unzip \

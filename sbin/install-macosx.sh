@@ -34,6 +34,7 @@ $brew_install rsync
 $brew_install unzip
 $brew_install wget
 $brew_install xz
+sudo easy_install Pygments
 
 if [ -n "$arg_install_common_tools" ]; then
     print_h2 "Install common tools"

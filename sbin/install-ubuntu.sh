@@ -28,6 +28,7 @@ $apt_get_install \
     pcregrep \
     perl \
     python \
+    python-pygments \
     rsync \
     sudo \
     unzip \

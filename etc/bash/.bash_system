@@ -149,6 +149,7 @@ function system_test {
         assert_prog_exists "pcregrep"
         assert_prog_exists "perl"
         assert_prog_exists "printf"
+        assert_prog_exists "pygmentize"
         assert_prog_exists "python"
         assert_prog_exists "sed"
         assert_prog_exists "sort"
