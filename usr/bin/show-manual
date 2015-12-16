@@ -43,8 +43,8 @@ for dir in $(ls ~/doc | grep $kind 2> /dev/null); do
         if [ "${file##*.}" == "md" ]; then
             echo
             cat $file | \
-                sed "s/^#### /`printf "${bold}${white}"`#### /g" | \
-                sed "s/^##### /`printf "${blue}"`##### /g" | \
+                sed "s/^## /`printf "${bold}${white}"`## /g" | \
+                sed "s/^#### /`printf "${blue}"`#### /g" | \
                 sed ":a;N;\$!ba;s/\n/${reset}\n/g"
             echo
 
