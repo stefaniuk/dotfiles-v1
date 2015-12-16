@@ -5,7 +5,7 @@ print_h1 "Configuring..."
 ################################################################################
 # SSH
 
-if which ssh > /dev/null 2>&1; then
+if should_config "ssh"; then
 
     print_h2 "Configure SSH"
 
@@ -20,7 +20,7 @@ fi
 ################################################################################
 # Bash
 
-if which bash > /dev/null 2>&1; then
+if should_config "bash"; then
 
     print_h2 "Configure Bash"
 
@@ -45,7 +45,7 @@ fi
 ################################################################################
 # Zsh
 
-if which zsh > /dev/null 2>&1; then
+if should_config "zsh"; then
 
     print_h2 "Configure Zsh"
 
@@ -68,7 +68,7 @@ fi
 ################################################################################
 # Git
 
-if which git > /dev/null 2>&1; then
+if should_config "git"; then
 
     print_h2 "Configure Git"
 
@@ -98,7 +98,7 @@ fi
 ################################################################################
 # Docker
 
-if which docker > /dev/null 2>&1; then
+if should_config "docker"; then
 
     print_h2 "Configure Docker"
 
@@ -121,7 +121,7 @@ fi
 ################################################################################
 # Vagrant
 
-if which vagrant > /dev/null 2>&1; then
+if should_config "vagrant"; then
 
     print_h2 "Configure Vagrant"
 
@@ -139,7 +139,7 @@ fi
 ################################################################################
 # Vim
 
-if which vim > /dev/null 2>&1; then
+if should_config "vim"; then
 
     print_h2 "Configure Vim"
 
@@ -181,7 +181,7 @@ fi
 ################################################################################
 # Midnight Commander
 
-if which mc > /dev/null 2>&1; then
+if should_config "mc"; then
 
     print_h2 "Configure Midnight Commander"
 
@@ -198,7 +198,7 @@ fi
 ################################################################################
 # Tmux
 
-if which tmux > /dev/null 2>&1; then
+if should_config "tmux"; then
 
     print_h2 "Configure Tmux"
 
@@ -210,7 +210,7 @@ fi
 ################################################################################
 # Lynx
 
-if which lynx > /dev/null 2>&1; then
+if should_config "lynx"; then
 
     print_h2 "Configure Lynx"
 
@@ -222,7 +222,7 @@ fi
 ################################################################################
 # Irssi
 
-if which irssi > /dev/null 2>&1; then
+if should_config "irssi"; then
 
     print_h2 "Configure Irssi"
 
@@ -236,7 +236,7 @@ fi
 ################################################################################
 # Maven
 
-if which mvn > /dev/null 2>&1; then
+if should_config "mvn"; then
 
     print_h2 "Configure Maven"
 

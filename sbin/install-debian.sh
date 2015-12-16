@@ -24,7 +24,7 @@ $apt_get_install \
     wget \
     xz-utils
 
-if [ -n "$arg_install_common_tools" ]; then
+if should_install "common"; then
     print_h2 "Install common tools"
     $apt_get_install \
         ack-grep \
@@ -39,7 +39,7 @@ if [ -n "$arg_install_common_tools" ]; then
         zsh
 fi
 
-if [ -n "$arg_install_server_tools" ]; then
+if should_install "server"; then
     print_h2 "Install server tools"
     $apt_get_install \
         heirloom-mailx

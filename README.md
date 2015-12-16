@@ -13,11 +13,7 @@ All files will be installed in the user directory.
     curl -L https://raw.githubusercontent.com/stefaniuk/dotfiles/master/setup.sh -o - | /bin/bash -s -- \
         --update \
         --prepare \
-        --install \
-        --install-system-tools \
-        --install-common-tools \
-        --install-server-tools \
-        --install-workstation-tools \
+        --install=system,common,server,workstation \
         --config \
         --sudo
 
@@ -35,7 +31,6 @@ make build create start install test stop OS=debian
 TODO List
 ---------
 
- * Configure tmux on Mac OSX
  * Configure vim on Mac OSX
  * Check thoughtbot's [dotfiles](https://github.com/thoughtbot/dotfiles)
  * Check Justin Force's [dotfiles](https://github.com/justinforce/dotfiles)

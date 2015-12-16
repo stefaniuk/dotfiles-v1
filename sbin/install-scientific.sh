@@ -21,7 +21,7 @@ $yum_install \
     wget \
     xz
 
-if [ -n "$arg_install_common_tools" ]; then
+if should_install "common"; then
     print_h2 "Install common tools"
     $yum_install \
         ack \
@@ -36,7 +36,7 @@ if [ -n "$arg_install_common_tools" ]; then
         # MISSING: grc
 fi
 
-if [ -n "$arg_install_server_tools" ]; then
+if should_install "server"; then
     print_h2 "Install server tools"
     $yum_install \
         mailx

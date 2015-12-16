@@ -5,7 +5,7 @@ cask_install="brew cask install"
 
 ################################################################################
 
-if [ -n "$arg_install_system_tools" ]; then
+if should_install "system"; then
     print_h2 "Install system tools"
     $cask_install seil --appdir=/Applications
     $cask_install karabiner --appdir=/Applications
@@ -36,7 +36,7 @@ $brew_install wget
 $brew_install xz
 sudo easy_install Pygments
 
-if [ -n "$arg_install_common_tools" ]; then
+if should_install "common"; then
     print_h2 "Install common tools"
     $brew_install ack
     $brew_install grc
@@ -49,7 +49,7 @@ if [ -n "$arg_install_common_tools" ]; then
     $brew_install zsh
 fi
 
-if [ -n "$arg_install_workstation_tools" ]; then
+if should_install "workstation"; then
     print_h2 "Install workstation tools"
     $brew_install git-flow
     $brew_install gtypist

@@ -7,7 +7,7 @@ DEBIAN_FRONTEND="noninteractive"
 
 ################################################################################
 
-if [ -n "$arg_install_system_tools" ]; then
+if should_install "system"; then
     print_h2 "Install system tools"
     $apt_get_install \
         apt-file \
@@ -35,7 +35,7 @@ $apt_get_install \
     wget \
     xz-utils
 
-if [ -n "$arg_install_common_tools" ]; then
+if should_install "common"; then
     print_h2 "Install common tools"
     $apt_get_install \
         ack-grep \
@@ -50,13 +50,13 @@ if [ -n "$arg_install_common_tools" ]; then
         zsh
 fi
 
-if [ -n "$arg_install_server_tools" ]; then
+if should_install "server"; then
     print_h2 "Install server tools"
     $apt_get_install \
         heirloom-mailx
 fi
 
-if [ -n "$arg_install_workstation_tools" ]; then
+if should_install "workstation"; then
     print_h2 "Install workstation tools"
     $apt_get_install \
         git-flow \

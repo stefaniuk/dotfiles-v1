@@ -17,10 +17,6 @@ program_dir=$(cd "$(dirname "$0" 2> /dev/null)"; pwd)
 arg_update=$(echo "$*" | grep -o -- "--update")
 arg_prepare=$(echo "$*" | grep -o -- "--prepare")
 arg_install=$(echo "$*" | grep -o -- "--install")
-arg_install_system_tools=$(echo "$*" | grep -o -- "--install-system-tools")
-arg_install_common_tools=$(echo "$*" | grep -o -- "--install-common-tools")
-arg_install_server_tools=$(echo "$*" | grep -o -- "--install-server-tools")
-arg_install_workstation_tools=$(echo "$*" | grep -o -- "--install-workstation-tools")
 arg_config=$(echo "$*" | grep -o -- "--config")
 arg_test=$(echo "$*" | grep -o -- "--test")
 arg_synchronise_only=$(echo "$*" | grep -o -- "--synchronise-only")
@@ -29,6 +25,9 @@ arg_directory=$(echo "$*" | grep -Eo -- "--directory [-_A-Za-z0-9/]+" | awk '{pr
 arg_minimal=$(echo "$*" | grep -o -- "--minimal")
 arg_sudo=$(echo "$*" | grep -o -- "--sudo")
 arg_help=$(echo "$*" | grep -o -- "--help")
+
+arg_install_groups=$(echo "$*" | grep -o -- "--install=[-_,A-Za-z0-9]*" | sed "s/--install=//")
+arg_config_progs=$(echo "$*" | grep -o -- "--config=[-_,A-Za-z0-9]*" | sed "s/--config=//")
 
 ################################################################################
 # functions
@@ -44,15 +43,11 @@ Usage:
     ${file} [options]
 
 Options:
-    --update                        step (1)
-    --prepare                       step (2)
-    --install                       step (3)
-    --install-system-tools
-    --install-common-tools
-    --install-server-tools
-    --install-workstation-tools
-    --config                        step (4)
-    --test                          step (5)
+    --update
+    --prepare
+    --install[=system,common,server,workstation]
+    --config[=prog1,prog2,...]
+    --test
     --synchronise-only              copy files only
     --force-download
     --directory                     installation directory
@@ -160,6 +155,35 @@ function program_setup {
         rm -rf $DIR/{etc,doc,sbin,test,LICENCE*,Makefile,provision.sh,README*,setup.sh,Vagrantfile}
     fi
     rm -rf $DIR/{.gitignore,tmp/*}
+}
+
+function should_install {
+
+    group=$1
+    list=$arg_install_groups
+
+    echo "$list" | grep "^${group}$" > /dev/null 2>&1 && return 0 # is a
+    echo "$list" | grep "^${group}," > /dev/null 2>&1 && return 0 # starts with
+    echo "$list" | grep ",${group}$" > /dev/null 2>&1 && return 0 # ends with
+    echo "$list" | grep ",${group}," > /dev/null 2>&1 && return 0 # contains
+
+    return 1
+}
+
+function should_config {
+
+    prog=$1
+    list=$arg_config_progs
+
+    which "$prog" > /dev/null 2>&1 || return 1
+
+    [ -z "$list" ] && return 0
+    echo "$list" | grep "^${prog}$" > /dev/null 2>&1 && return 0 # is a
+    echo "$list" | grep "^${prog}," > /dev/null 2>&1 && return 0 # starts with
+    echo "$list" | grep ",${prog}$" > /dev/null 2>&1 && return 0 # ends with
+    echo "$list" | grep ",${prog}," > /dev/null 2>&1 && return 0 # contains
+
+    return 1
 }
 
 ################################################################################

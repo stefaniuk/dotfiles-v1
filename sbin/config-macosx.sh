@@ -3,7 +3,7 @@
 ################################################################################
 # Bash
 
-if which bash > /dev/null 2>&1; then
+if should_config "bash"; then
 
     print_h2 "Configure Bash"
 
@@ -17,7 +17,7 @@ fi
 ################################################################################
 # Zsh
 
-if which zsh > /dev/null 2>&1; then
+if should_config "zsh"; then
 
     print_h2 "Configure Zsh"
 
@@ -30,7 +30,7 @@ fi
 ################################################################################
 # Tmux
 
-if which tmux > /dev/null 2>&1; then
+if should_config "tmux"; then
 
     print_h2 "Configure Tmux"
 
