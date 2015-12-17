@@ -9,8 +9,8 @@
 REPOSITORY="dotfiles"
 GITHUB_ACCOUNT=${GITHUB_ACCOUNT-stefaniuk}
 GITLAB_ACCOUNT=${GITLAB_ACCOUNT-stefaniuk}
-USER_NAME=${USER_NAME-$USER}
-USER_EMAIL=${USER_EMAIL-$USER@$HOSTNAME}
+USER_NAME=${USER_NAME-Daniel Stefaniuk}
+USER_EMAIL=${USER_EMAIL-daniel.stefaniuk@gmail.com}
 DIR=~
 
 program_dir=$(cd "$(dirname "$0" 2> /dev/null)"; pwd)
