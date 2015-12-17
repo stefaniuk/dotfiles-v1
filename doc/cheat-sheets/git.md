@@ -43,21 +43,6 @@
     git push origin v1.2.3                  # push tag
     git push origin --tags                  # push all tags
 
-#### fix 
-
-    git log --format='%an' | sort | uniq
-    git filter-branch --commit-filter '
-        if [ "$GIT_COMMITTER_NAME" = "daniel" ];
-        then
-                GIT_COMMITTER_NAME="Daniel Stefaniuk";
-                GIT_AUTHOR_NAME="Daniel Stefaniuk";
-                GIT_COMMITTER_EMAIL="daniel.stefaniuk@gmail.com";
-                GIT_AUTHOR_EMAIL="daniel.stefaniuk@gmail.com";
-                git commit-tree "$@";
-        else
-                git commit-tree "$@";
-        fi' HEAD
-
 #### other
 
     git credential-cache exit               # clear cached credentials
