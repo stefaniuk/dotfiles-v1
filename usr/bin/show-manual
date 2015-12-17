@@ -6,9 +6,9 @@ help=$(cat <<HEREDOC
     DESCRIPTION: Show documentation entries from the ~/doc directory.
 
     PARAMETERS:
-        \$1 kind
-        \$2 name
-        \$3 type
+        \$1     Directory name from within ~/doc
+        \$2     File name
+        \$3     File type, optional 
 HEREDOC
 )
 
@@ -34,10 +34,10 @@ fi
 # get parameters
 kind="$1"
 name="$2"
-type="${3:-md}"
+type="${3:-*}"
 
 for dir in $(ls ~/doc | grep $kind 2> /dev/null); do
-    for file in $(ls -1 ~/doc/$dir/*${name}*.${type} 2> /dev/null); do
+    for file in $(ls -1 ~/doc/$dir/*${name}.${type} 2> /dev/null); do
 
         # handle markdown
         if [ "${file##*.}" == "md" ]; then
@@ -48,9 +48,15 @@ for dir in $(ls ~/doc | grep $kind 2> /dev/null); do
                 perl -p -e "s/\n/${reset}\n/"
             echo
 
+        # handle documents
+        elif [[ "${file##*.}" =~ ^(pdf) ]]; then
+            which gnome-open > /dev/null 2>&1 && \
+                gnome-open $file > /dev/null 2>&1 # Ubuntu
+
         # handle images
         elif [[ "${file##*.}" =~ ^(jpeg|png|svg) ]]; then
-            which eog > /dev/null 2>&1 && eog $file
+            which eog > /dev/null 2>&1 && \
+                eog $file > /dev/null 2>&1 # Ubuntu
 
         # handle source code
         elif [[ "${file##*.}" =~ ^(html|java) ]]; then
