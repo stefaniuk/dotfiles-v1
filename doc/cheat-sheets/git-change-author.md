@@ -1,7 +1,7 @@
 #### change author
 
     git log --format='%an' | sort | uniq
-    git filter-branch --commit-filter '
+    git filter-branch --force --commit-filter '
         if [ "$GIT_COMMITTER_NAME" = "daniel" ];
         then
                 GIT_COMMITTER_NAME="Daniel Stefaniuk";
