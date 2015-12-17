@@ -28,8 +28,8 @@ vagrant ssh
 make build create start install test stop OS=debian
 ```
 
-TODO List
----------
+Todo
+----
 
  * Configure vim on Mac OSX
  * Check thoughtbot's [dotfiles](https://github.com/thoughtbot/dotfiles)
