@@ -35,22 +35,7 @@ if should_config "tmux"; then
     print_h2 "Configure Tmux"
 
     # resources
-    cat << EOF >> ~/.tmux.conf
-
-# SEE http://evertpot.com/osx-tmux-vim-copy-paste-clipboard/
-# copy-paste integration
-set-option -g default-command "reattach-to-user-namespace -l bash"
-# use vim keybindings in copy mode
-setw -g mode-keys vi
-# setup 'v' to begin selection as in Vim
-bind-key -t vi-copy v begin-selection
-bind-key -t vi-copy y copy-pipe "reattach-to-user-namespace pbcopy"
-# update default binding of 'Enter' to also use copy-pipe
-unbind -t vi-copy Enter
-bind-key -t vi-copy Enter copy-pipe "reattach-to-user-namespace pbcopy"
-# bind ']' to use pbpaste
-bind ] run "reattach-to-user-namespace pbpaste | tmux load-buffer - && tmux paste-buffer"
-EOF
+    cat ~/etc/tmux/.tmux.macosx.conf >> ~/.tmux.conf
 
 fi
 
@@ -62,7 +47,7 @@ if should_config "iterm" ~/Applications/iTerm.app/Contents/MacOS/iTerm2; then
     print_h2 "Configure iTerm"
 
     # configuration
-    defaults import com.googlecode.iterm2 ./etc/iterm/com.googlecode.iterm2.plist
+    defaults import com.googlecode.iterm2 ~/etc/iterm/com.googlecode.iterm2.plist
 
 fi
 
@@ -75,7 +60,7 @@ if should_config "sublime" ~/Applications/Sublime\ Text.app/Contents/MacOS/Subli
 
     # configuration
     mkdir -p ~/Library/Application\ Support/Sublime\ Text\ 3/{Installed\ Packages,Packages/User}
-    cp -f ./etc/sublime/* ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/User
+    cp -f ~/etc/sublime/* ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/User
 
     # package control
     if [ ! -f ~/Library/Application\ Support/Sublime\ Text\ 3/Installed\ Packages/Package\ Control.sublime-package ]; then

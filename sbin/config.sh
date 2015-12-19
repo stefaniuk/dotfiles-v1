@@ -203,7 +203,7 @@ if should_config "tmux"; then
     print_h2 "Configure Tmux"
 
     # resources
-    cp -f ~/etc/tmux/.tmux* ~
+    cp -f ~/etc/tmux/.tmux.conf ~
 
 fi
 
