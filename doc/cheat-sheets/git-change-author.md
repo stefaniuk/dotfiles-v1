@@ -1,4 +1,6 @@
-#### change author
+## Change Author
+
+#### script
 
     git log --format='%an' | sort | uniq
     git filter-branch --force --commit-filter '
