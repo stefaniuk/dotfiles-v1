@@ -36,8 +36,15 @@ dir_name="$1"
 file_name="$2"
 file_type="${3:-*}"
 
+# search for
+if [[ $file_name == *"-"* ]]; then
+    search=*${file_name}*.${file_type}
+else
+    search=*${file_name}.${file_type}
+fi
+
 for dir in $(ls ~/doc | grep $dir_name 2> /dev/null); do
-    for file in $(ls -1 ~/doc/$dir/*${file_name}.${file_type} 2> /dev/null); do
+    for file in $(ls -1 ~/doc/$dir/$search 2> /dev/null); do
 
         # handle markdown
         if [ "${file##*.}" == "md" ]; then
@@ -50,11 +57,15 @@ for dir in $(ls ~/doc | grep $dir_name 2> /dev/null); do
 
         # handle documents
         elif [[ "${file##*.}" =~ ^(pdf) ]]; then
+            which open > /dev/null 2>&1 && \
+                open $file > /dev/null 2>&1 # Mac OS X
             which gnome-open > /dev/null 2>&1 && \
                 gnome-open $file > /dev/null 2>&1 # Ubuntu
 
         # handle images
         elif [[ "${file##*.}" =~ ^(jpeg|png|svg) ]]; then
+            which open > /dev/null 2>&1 && \
+                open $file > /dev/null 2>&1 # Mac OS X
             which eog > /dev/null 2>&1 && \
                 eog $file > /dev/null 2>&1 # Ubuntu
 
