@@ -94,62 +94,8 @@ if should_config "karabiner" /Applications/Karabiner.app/Contents/Library/bin/ka
     print_h2 "Configure Karabiner"
 
     # configuration
-    cat << EOF > /Users/daniel/Library/Application\ Support/Karabiner/private.xml
-<?xml version="1.0"?>
-<root>
-    <item>
-        <name>Remap Caps Lock</name>
-        <identifier>custom.remap_caps_lock</identifier>
-        <autogen>
-            --KeyToKey--
-            KeyCode::F19,
-            KeyCode::COMMAND_L, ModifierFlag::OPTION_L | ModifierFlag::SHIFT_L | ModifierFlag::CONTROL_L
-        </autogen>
-    </item>
-    <item>
-        <name>Use The Correct Shift Keys</name>
-        <identifier>custom.correct_shift_keys</identifier>
-        <autogen>--KeyToKey-- KeyCode::Q,           ModifierFlag::SHIFT_L, KeyCode::VK_NONE</autogen>
-        <autogen>--KeyToKey-- KeyCode::W,           ModifierFlag::SHIFT_L, KeyCode::VK_NONE</autogen>
-        <autogen>--KeyToKey-- KeyCode::E,           ModifierFlag::SHIFT_L, KeyCode::VK_NONE</autogen>
-        <autogen>--KeyToKey-- KeyCode::R,           ModifierFlag::SHIFT_L, KeyCode::VK_NONE</autogen>
-        <autogen>--KeyToKey-- KeyCode::T,           ModifierFlag::SHIFT_L, KeyCode::VK_NONE</autogen>
-        <autogen>--KeyToKey-- KeyCode::A,           ModifierFlag::SHIFT_L, KeyCode::VK_NONE</autogen>
-        <autogen>--KeyToKey-- KeyCode::S,           ModifierFlag::SHIFT_L, KeyCode::VK_NONE</autogen>
-        <autogen>--KeyToKey-- KeyCode::D,           ModifierFlag::SHIFT_L, KeyCode::VK_NONE</autogen>
-        <autogen>--KeyToKey-- KeyCode::F,           ModifierFlag::SHIFT_L, KeyCode::VK_NONE</autogen>
-        <autogen>--KeyToKey-- KeyCode::G,           ModifierFlag::SHIFT_L, KeyCode::VK_NONE</autogen>
-        <autogen>--KeyToKey-- KeyCode::Z,           ModifierFlag::SHIFT_L, KeyCode::VK_NONE</autogen>
-        <autogen>--KeyToKey-- KeyCode::X,           ModifierFlag::SHIFT_L, KeyCode::VK_NONE</autogen>
-        <autogen>--KeyToKey-- KeyCode::C,           ModifierFlag::SHIFT_L, KeyCode::VK_NONE</autogen>
-        <autogen>--KeyToKey-- KeyCode::V,           ModifierFlag::SHIFT_L, KeyCode::VK_NONE</autogen>
-        <autogen>--KeyToKey-- KeyCode::Y,           ModifierFlag::SHIFT_R, KeyCode::VK_NONE</autogen>
-        <autogen>--KeyToKey-- KeyCode::U,           ModifierFlag::SHIFT_R, KeyCode::VK_NONE</autogen>
-        <autogen>--KeyToKey-- KeyCode::I,           ModifierFlag::SHIFT_R, KeyCode::VK_NONE</autogen>
-        <autogen>--KeyToKey-- KeyCode::O,           ModifierFlag::SHIFT_R, KeyCode::VK_NONE</autogen>
-        <autogen>--KeyToKey-- KeyCode::P,           ModifierFlag::SHIFT_R, KeyCode::VK_NONE</autogen>
-        <autogen>--KeyToKey-- KeyCode::H,           ModifierFlag::SHIFT_R, KeyCode::VK_NONE</autogen>
-        <autogen>--KeyToKey-- KeyCode::J,           ModifierFlag::SHIFT_R, KeyCode::VK_NONE</autogen>
-        <autogen>--KeyToKey-- KeyCode::K,           ModifierFlag::SHIFT_R, KeyCode::VK_NONE</autogen>
-        <autogen>--KeyToKey-- KeyCode::L,           ModifierFlag::SHIFT_R, KeyCode::VK_NONE</autogen>
-        <autogen>--KeyToKey-- KeyCode::SEMICOLON,   ModifierFlag::SHIFT_R, KeyCode::VK_NONE</autogen>
-        <autogen>--KeyToKey-- KeyCode::N,           ModifierFlag::SHIFT_R, KeyCode::VK_NONE</autogen>
-        <autogen>--KeyToKey-- KeyCode::M,           ModifierFlag::SHIFT_R, KeyCode::VK_NONE</autogen>
-        <autogen>--KeyToKey-- KeyCode::COMMA,       ModifierFlag::SHIFT_R, KeyCode::VK_NONE</autogen>
-        <autogen>--KeyToKey-- KeyCode::DOT,         ModifierFlag::SHIFT_R, KeyCode::VK_NONE</autogen>
-        <autogen>--KeyToKey-- KeyCode::QUOTE,       ModifierFlag::SHIFT_R, KeyCode::VK_NONE</autogen>
-    </item>
-    <item>
-        <name>Map Shifts to Parentheses</name>
-        <identifier>custom.shifts_to_parentheses</identifier>
-        <autogen>--KeyOverlaidModifier-- KeyCode::SHIFT_R, ModifierFlag::SHIFT_R | ModifierFlag::NONE, KeyCode::SHIFT_R, KeyCode::KEY_0, ModifierFlag::SHIFT_L</autogen>
-        <autogen>--KeyOverlaidModifier-- KeyCode::SHIFT_L, ModifierFlag::SHIFT_L | ModifierFlag::NONE, KeyCode::SHIFT_L, KeyCode::KEY_9, ModifierFlag::SHIFT_R</autogen>
-        <autogen>--KeyToKey-- KeyCode::SHIFT_L, ModifierFlag::SHIFT_R, KeyCode::KEY_0, ModifierFlag::SHIFT_L, KeyCode::KEY_9, ModifierFlag::SHIFT_L</autogen>
-        <autogen>--KeyToKey-- KeyCode::SHIFT_R, ModifierFlag::SHIFT_L, KeyCode::KEY_9, ModifierFlag::SHIFT_L, KeyCode::KEY_0, ModifierFlag::SHIFT_L</autogen>
-        <autogen>--KeyToKey-- KeyCode::SPACE, ModifierFlag::SHIFT_R, KeyCode::KEY_0, ModifierFlag::SHIFT_L, KeyCode::SPACE</autogen>
-    </item>
-</root>
-EOF
+    cp -f ~/etc/karabiner/private.xml /Users/daniel/Library/Application\ Support/Karabiner
+
     /Applications/Karabiner.app/Contents/Library/bin/karabiner set repeat.initial_wait 333
     /Applications/Karabiner.app/Contents/Library/bin/karabiner set repeat.wait 33
     /Applications/Karabiner.app/Contents/Library/bin/karabiner enable custom.remap_caps_lock
