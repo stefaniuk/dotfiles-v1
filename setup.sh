@@ -173,9 +173,14 @@ function should_install {
 function should_config {
 
     prog=$1
+    file=$2
     list=$arg_config_progs
 
-    which "$prog" > /dev/null 2>&1 || return 1
+    if [ -z "$file" ]; then
+        which "$prog" > /dev/null 2>&1 || return 1
+    else
+        [ ! -x "$file" ] && return 1
+    fi
 
     [ -z "$list" ] && return 0
     echo "$list" | grep "^${prog}$" > /dev/null 2>&1 && return 0 # is a
