@@ -1,5 +1,14 @@
 ## Linux
 
+TODO: check all
+
+    # configuration file
+    /etc/default/docker
+
+    # configuration  variables
+    DOCKER_OPTS=--bip=172.17.0.1/24 --log-level=debug
+    DOCKER_HOST="tcp://0.0.0.0:2375"
+
     # remove default docker0
     ip link set dev docker0 down
     brctl delbr docker0
