@@ -1,0 +1,68 @@
+PROJECT := project
+ENVIRONMENT := local
+
+DIR := $(shell basename $(shell dirname $(realpath  $(lastword $(MAKEFILE_LIST)))))
+
+help:
+	@echo
+	@echo "Usage:"
+	@echo
+	@echo "    make all [NAME=name] [ENVIRONMENT=environment]"
+	@echo "    make build [NAME=name] [ENVIRONMENT=environment]"
+	@echo "    make start"
+	@echo "    make log"
+	@echo "    make bash NAME=name"
+	@echo "    make clean [NAME=name]"
+	@echo "    make export|import|validate NAME=name"
+	@echo
+
+################################################################################
+# Targets to manage containers
+################################################################################
+
+all: clean build start
+build:
+	@if [ "$(NAME)" = "" ]; then \
+		make build NAME=image; \
+	else \
+		echo "Building '$(PROJECT)/$(NAME)' image..."; \
+		docker build --tag=$(PROJECT)/$(NAME) --rm docker/$(ENVIRONMENT)/$(NAME); \
+	fi
+start:
+	@echo "Starting all containers..."
+	@docker-compose up --no-build --no-recreate -d
+stop:
+	@echo "Stopping all containers..."
+	@docker-compose stop
+log:
+	@echo "Logging output..."
+	@docker-compose logs ||:
+bash:
+	@echo "Bashing into '$(NAME)' container..."
+	@docker exec --interactive --tty $(NAME) /bin/bash --login
+clean:
+	@if [ "$(NAME)" = "" ]; then \
+		make clean NAME=image; \
+	else \
+		echo "Removing '$(NAME)' container..."; \
+		docker stop $(NAME) > /dev/null 2>&1 ||:; \
+		docker rm $(NAME) > /dev/null 2>&1 ||:; \
+	fi
+
+export:
+	@echo "Exporting '$(PROJECT)/$(NAME)' image..."
+	@docker save $(PROJECT)/$(NAME) | gzip -1 > dist/$(PROJECT)-$(NAME).tar.gz
+	@sha256sum $(PROJECT)-$(NAME).tar.gz > dist/$(PROJECT)-$(NAME).tar.gz.sha256
+import:
+	@echo "Importing '$(PROJECT)/$(NAME)' image..."
+	@gunzip -c dist/$(PROJECT)-$(NAME).tar.gz | docker load
+validate:
+	@echo "Validating '$(PROJECT)/$(NAME)' image..."
+	@cd dist; sha256sum -c $(PROJECT)-$(NAME).tar.gz.sha256
+
+################################################################################
+# Configuration
+################################################################################
+
+.PHONY: test
+.SILENT:
