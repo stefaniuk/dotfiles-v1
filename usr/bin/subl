@@ -13,6 +13,7 @@ if [ "$1" == "--help" ]; then
     exit 0
 fi
 
-/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl -a "$@"
+[ "$DIST" == "macosx" ] && /Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl --add "$@"
+[ "$DIST" == "ubuntu" ] && /usr/bin/subl --add "$@"
 
 exit 0
