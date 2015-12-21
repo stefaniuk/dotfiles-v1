@@ -40,7 +40,7 @@ file_type="${3:-*}"
 shopt -s nocaseglob
 
 for dir in $(ls ~/doc | grep $dir_name 2> /dev/null); do
-    for file in $(ls -1 ~/doc/$dir/*${file_name}*.${file_type} 2> /dev/null); do
+    for file in $(ls -1 ~/doc/$dir/*${file_name}*.*${file_type}* 2> /dev/null); do
 
         # handle markdown
         if [ "${file##*.}" == "md" ]; then
