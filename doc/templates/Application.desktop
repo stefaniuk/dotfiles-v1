@@ -1,16 +1,10 @@
 [Desktop Entry]
 Version=1.0
-
 Name=Application Name
-GenericName=Application Name
-Comment=This is a comment
-Keywords=term1;term2;
-
 Type=Application
 Exec=/home/daniel/applications/name/start.sh
 Icon=/home/daniel/applications/name/icon.png
 Terminal=false
-
-Categories=Utility;Application;
+Categories=Utility;
 
 # SEE: https://help.ubuntu.com/community/UnityLaunchersAndDesktopFiles
