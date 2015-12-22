@@ -224,7 +224,7 @@ if should_config "subl"; then
                 --output "$pkg_dir/$pkg_name"
         fi
         # configuration
-        cp -f ~/etc/sublime/*.sublime-settings $dir/Packages/User
+        cp -f ~/etc/subl/*.sublime-settings $dir/Packages/User
     fi
 fi
 

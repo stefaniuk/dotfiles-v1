@@ -9,7 +9,7 @@ if should_config "subl"; then
 
     # configuration
     dir=~/.config/sublime-text-3
-    cp -f ~/etc/sublime/ubuntu/* $dir/Packages/User
+    cp -f ~/etc/subl/ubuntu/* $dir/Packages/User
 
 fi
 

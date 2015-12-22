@@ -60,7 +60,7 @@ if should_config "subl"; then
 
     # configuration
     dir=~/Library/Application\ Support/Sublime\ Text\ 3
-    cp -f ~/etc/sublime/macosx/* $dir/Packages/User
+    cp -f ~/etc/subl/macosx/* $dir/Packages/User
 
 fi
 
