@@ -54,20 +54,13 @@ fi
 ################################################################################
 # Sublime Text
 
-if should_config "sublime" ~/Applications/Sublime\ Text.app/Contents/MacOS/Sublime\ Text; then
+if should_config "subl"; then
 
     print_h2 "Configure Sublime Text"
 
     # configuration
-    mkdir -p ~/Library/Application\ Support/Sublime\ Text\ 3/{Installed\ Packages,Packages/User}
-    cp -f ~/etc/sublime/* ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/User
-
-    # package control
-    if [ ! -f ~/Library/Application\ Support/Sublime\ Text\ 3/Installed\ Packages/Package\ Control.sublime-package ]; then
-        curl \
-            --url http://sublime.wbond.net/Package%20Control.sublime-package \
-            --output ~/Library/Application\ Support/Sublime\ Text\ 3/Installed\ Packages/Package\ Control.sublime-package
-    fi
+    dir=~/Library/Application\ Support/Sublime\ Text\ 3
+    cp -f ~/etc/sublime/macosx/* $dir/Packages/User
 
 fi
 

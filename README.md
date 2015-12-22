@@ -31,7 +31,8 @@ make build create start install test stop OS=debian
 Todo
 ----
 
- * Configure vim on Mac OSX
+ * Remap the Caps Lock key in Ubuntu
+ * Configure vim
  * Check thoughtbot's [dotfiles](https://github.com/thoughtbot/dotfiles)
  * Check Justin Force's [dotfiles](https://github.com/justinforce/dotfiles)
  * Check Gediminas Morkevicius' [dotfiles](https://github.com/l3pp4rd/dotfiles)
