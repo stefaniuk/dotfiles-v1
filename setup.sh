@@ -45,7 +45,7 @@ Usage:
 
 Options:
     --prepare
-    --install[=system,common,server,workstation]
+    --install[=system,common,server,workstation[,prog1,prog2,...]]
     --config[=prog1,prog2,...]
     --update[=prog1,prog2,...]
     --test
@@ -160,55 +160,71 @@ function program_setup {
 
 function should_install {
 
-    group=$1
-    list=$arg_install_groups
+    item=$1
+    file=$2
 
-    echo "$list" | grep "^${group}$" > /dev/null 2>&1 && return 0 # is a
-    echo "$list" | grep "^${group}," > /dev/null 2>&1 && return 0 # starts with
-    echo "$list" | grep ",${group}$" > /dev/null 2>&1 && return 0 # ends with
-    echo "$list" | grep ",${group}," > /dev/null 2>&1 && return 0 # contains
+    if [ "$item" == "system" ] || [ "$item" == "common" ] || [ "$item" == "server" ] || [ "$item" == "workstation" ]; then
+        _is_on_list "$item" "$arg_install_groups"
+        return $?
+    fi
 
-    return 1
+    _should_proceed "$arg_install_groups" "$item" "$file"
 }
 
 function should_config {
 
-    prog=$1
+    item=$1
     file=$2
-    list=$arg_config_progs
 
-    if [ -z "$file" ]; then
-        which "$prog" > /dev/null 2>&1 || return 1
-    else
-        [ ! -x "$file" ] && return 1
-    fi
-
-    [ -z "$list" ] && return 0
-    echo "$list" | grep "^${prog}$" > /dev/null 2>&1 && return 0 # is a
-    echo "$list" | grep "^${prog}," > /dev/null 2>&1 && return 0 # starts with
-    echo "$list" | grep ",${prog}$" > /dev/null 2>&1 && return 0 # ends with
-    echo "$list" | grep ",${prog}," > /dev/null 2>&1 && return 0 # contains
-
-    return 1
+    _should_proceed "$arg_config_progs" "$item" "$file"
 }
 
 function should_update {
 
-    prog=$1
+    item=$1
     file=$2
-    list=$arg_update_progs
 
-    if [ -z "$file" ]; then
-        which "$prog" > /dev/null 2>&1 || return 1
-    else
+    _should_proceed "$arg_update_progs" "$item" "$file"
+}
+
+function _should_proceed {
+
+    list=$1
+    item=$2
+    file=$3
+
+    _is_exec "$item" "$file"
+    [ $? -ne 0 ] && return 1
+
+    _is_on_list "$item" "$list"
+    return $?
+}
+
+function _is_exec {
+
+    name=$1
+    file=$2
+
+    if [ -n "$file" ]; then
         [ ! -x "$file" ] && return 1
+    else
+        which "$name" > /dev/null 2>&1 || return 1
     fi
 
+    return 0
+}
+
+function _is_on_list {
+
+    item=$1
+    list=$2
+
     [ -z "$list" ] && return 0
-    echo "$list" | grep "^${prog}$" > /dev/null 2>&1 && return 0 # is a
-    echo "$list" | grep "^${prog}," > /dev/null 2>&1 && return 0 # starts with
-    echo "$list" | grep ",${prog}$" > /dev/null 2>&1 && return 0 # ends with
-    echo "$list" | grep ",${prog}," > /dev/null 2>&1 && return 0 # contains
+
+    echo "$list" | grep "^${item}$" > /dev/null 2>&1 && return 0 # is a
+    echo "$list" | grep "^${item}," > /dev/null 2>&1 && return 0 # starts with
+    echo "$list" | grep ",${item}$" > /dev/null 2>&1 && return 0 # ends with
+    echo "$list" | grep ",${item}," > /dev/null 2>&1 && return 0 # contains
 
     return 1
 }
