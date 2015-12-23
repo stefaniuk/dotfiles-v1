@@ -5,6 +5,15 @@ DEBIAN_FRONTEND="noninteractive"
 
 ################################################################################
 
+if [ -n "$arg_update" ]; then
+
+    sudo apt-get --yes update
+    sudo apt-get --yes upgrade
+
+fi
+
+################################################################################
+
 print_h2 "Install dotfiles tools"
 $apt_get_install \
     bash-completion \

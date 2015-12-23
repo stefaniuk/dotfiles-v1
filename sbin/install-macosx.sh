@@ -5,6 +5,25 @@ cask_install="brew cask install"
 
 ################################################################################
 
+if [ -n "$arg_update" ]; then
+
+    if ! which brew > /dev/null; then
+        softwareupdate --install -all
+        xcode-select --install
+        ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+        brew tap homebrew/dupes
+        brew tap homebrew/versions
+        brew tap homebrew/homebrew-php
+        brew tap caskroom/versions
+        brew install caskroom/cask/brew-cask
+    fi
+    brew update
+    brew upgrade
+
+fi
+
+################################################################################
+
 if should_install "system"; then
     print_h2 "Install system tools"
     $cask_install seil --appdir=/Applications

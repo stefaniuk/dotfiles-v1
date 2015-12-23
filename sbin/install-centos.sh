@@ -4,6 +4,15 @@ yum_install="sudo yum --assumeyes install"
 
 ################################################################################
 
+if [ -n "$arg_update" ]; then
+
+    sudo yum --assumeyes update
+    $yum_install epel-release
+
+fi
+
+################################################################################
+
 print_h2 "Install dotfiles tools"
 $yum_install \
     bash-completion \

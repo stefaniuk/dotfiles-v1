@@ -7,6 +7,15 @@ DEBIAN_FRONTEND="noninteractive"
 
 ################################################################################
 
+if [ -n "$arg_update" ]; then
+
+    sudo apt-get --yes update
+    sudo apt-get --yes upgrade
+
+fi
+
+################################################################################
+
 if should_install "system"; then
     print_h2 "Install system tools"
     $apt_get_install \
