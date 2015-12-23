@@ -14,10 +14,10 @@ USER_EMAIL=${USER_EMAIL-daniel.stefaniuk@gmail.com}
 DIR=~
 
 program_dir=$(cd "$(dirname "$0" 2> /dev/null)"; pwd)
-arg_update=$(echo "$*" | grep -o -- "--update")
 arg_prepare=$(echo "$*" | grep -o -- "--prepare")
 arg_install=$(echo "$*" | grep -o -- "--install")
 arg_config=$(echo "$*" | grep -o -- "--config")
+arg_update=$(echo "$*" | grep -o -- "--update")
 arg_test=$(echo "$*" | grep -o -- "--test")
 arg_synchronise_only=$(echo "$*" | grep -o -- "--synchronise-only")
 arg_force_download=$(echo "$*" | grep -o -- "--force-download")
@@ -28,6 +28,7 @@ arg_help=$(echo "$*" | grep -o -- "--help")
 
 arg_install_groups=$(echo "$*" | grep -o -- "--install=[-_,A-Za-z0-9]*" | sed "s/--install=//")
 arg_config_progs=$(echo "$*" | grep -o -- "--config=[-_,A-Za-z0-9]*" | sed "s/--config=//")
+arg_update_progs=$(echo "$*" | grep -o -- "--update=[-_,A-Za-z0-9]*" | sed "s/--update=//")
 
 ################################################################################
 # functions
@@ -43,10 +44,10 @@ Usage:
     ${file} [options]
 
 Options:
-    --update
     --prepare
     --install[=system,common,server,workstation]
     --config[=prog1,prog2,...]
+    --update[=prog1,prog2,...]
     --test
     --synchronise-only              copy files only
     --force-download
@@ -175,6 +176,27 @@ function should_config {
     prog=$1
     file=$2
     list=$arg_config_progs
+
+    if [ -z "$file" ]; then
+        which "$prog" > /dev/null 2>&1 || return 1
+    else
+        [ ! -x "$file" ] && return 1
+    fi
+
+    [ -z "$list" ] && return 0
+    echo "$list" | grep "^${prog}$" > /dev/null 2>&1 && return 0 # is a
+    echo "$list" | grep "^${prog}," > /dev/null 2>&1 && return 0 # starts with
+    echo "$list" | grep ",${prog}$" > /dev/null 2>&1 && return 0 # ends with
+    echo "$list" | grep ",${prog}," > /dev/null 2>&1 && return 0 # contains
+
+    return 1
+}
+
+function should_update {
+
+    prog=$1
+    file=$2
+    list=$arg_update_progs
 
     if [ -z "$file" ]; then
         which "$prog" > /dev/null 2>&1 || return 1
