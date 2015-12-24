@@ -209,22 +209,23 @@ if should_config "subl"; then
 
     print_h2 "Configure Sublime Text"
 
-    [ "$DIST" == "macosx" ] && dir=~/Library/Application\ Support/Sublime\ Text\ 3
+    [ "$DIST" == "macosx" ] && dir="~/Library/Application Support/Sublime Text 3"
     [ "$DIST" == "ubuntu" ] && dir=~/.config/sublime-text-3
 
     if [ -n "$dir" ]; then
         # install package control
-        mkdir -p $dir/{Installed\ Packages,Packages/User}
+        mkdir -p "$dir/Installed Packages"
+        mkdir -p "$dir/Packages/User"
         pkg_name="Package Control.sublime-package"
         pkg_dir="$dir/Installed Packages"
         if [ ! -f "$pkg_dir/$pkg_name" ]; then
-            rm -rf $dir/Packages/User/Package\ Control*
+            rm -rf "$dir/Packages/User/Package Control*"
             curl -L \
                 --url "http://sublime.wbond.net/$pkg_name" \
                 --output "$pkg_dir/$pkg_name"
         fi
         # configuration
-        cp -f ~/etc/subl/*.sublime-settings $dir/Packages/User
+        cp -f ~/etc/subl/*.sublime-settings "$dir/Packages/User"
     fi
 fi
 

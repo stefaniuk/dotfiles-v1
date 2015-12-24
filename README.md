@@ -31,6 +31,7 @@ make build create start install test stop OS=debian
 Todo
 ----
 
+ * Fix Sublime Text configuration on Mac OS X
  * Remap the Caps Lock key in Ubuntu
  * Configure vim
  * Check thoughtbot's [dotfiles](https://github.com/thoughtbot/dotfiles)
