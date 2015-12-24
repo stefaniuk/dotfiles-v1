@@ -209,7 +209,7 @@ if should_config "subl"; then
 
     print_h2 "Configure Sublime Text"
 
-    [ "$DIST" == "macosx" ] && dir="~/Library/Application Support/Sublime Text 3"
+    [ "$DIST" == "macosx" ] && dir=~/Library/Application\ Support/Sublime\ Text\ 3
     [ "$DIST" == "ubuntu" ] && dir=~/.config/sublime-text-3
 
     if [ -n "$dir" ]; then
