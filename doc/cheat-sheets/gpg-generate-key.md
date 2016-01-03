@@ -10,9 +10,9 @@
         Subkey-Length: 4096
         Name-Real: Daniel Stefaniuk
         Name-Email: daniel.stefaniuk@gmail.com
-        #Name-Comment: comment
+        Name-Comment: comment
         Expire-Date: 0
-        #Passphrase: passphrase
+        Passphrase: passphrase
         %pubring daniel-stefaniuk.gpg-key.pub
         %secring daniel-stefaniuk.gpg-key.sec
         %commit
