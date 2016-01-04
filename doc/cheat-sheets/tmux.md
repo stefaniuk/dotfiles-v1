@@ -28,8 +28,8 @@
 
 #### Panes
 
-    %               horizontal split
-    "               vertical split
+    %               vertical split
+    "               horizontal split
     x               kill pane
     o               go to the next pane (cycle through all of them)
     arrow           go to other pane in that direction
