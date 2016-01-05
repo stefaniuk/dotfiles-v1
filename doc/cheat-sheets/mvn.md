@@ -1,14 +1,30 @@
-#### maven
+## Commands
 
-##### versioning
+#### artefact installation
 
-    mvn versions:set -DnewVersion=1.0.0-SNAPSHOT
-    mvn versions:revert
-    mvn versions:commit
+    mvn install:install-file \
+        -Dfile=json-service-1.2.3.jar \
+        -DgroupId=org.stefaniuk.json \
+        -DartifactId=json-service \
+        -Dversion=1.2.3 \
+        -Dpackaging=jar
 
-##### info
+#### project info
 
     mvn dependency:tree -Doutput=/path/to/file
     mvn dependency:copy-dependencies
     mvn help:effective-settings
     mvn help:effective-pom
+
+#### project versioning
+
+    mvn versions:set -DnewVersion=1.0.0-SNAPSHOT
+    mvn versions:revert
+    mvn versions:commit
+
+#### misc
+
+    mvn clean test
+    mvn install -DskipTests
+    mvn source:jar
+    mvn javadoc:javadoc javadoc:jar
