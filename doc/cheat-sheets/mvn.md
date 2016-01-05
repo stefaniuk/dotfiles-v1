@@ -22,6 +22,12 @@
     mvn versions:revert
     mvn versions:commit
 
+#### publish
+
+    mvn clean deploy -P release
+    mvn nexus-staging:release # if autoReleaseAfterClose is set to false
+    mvn nexus-staging:drop
+
 #### misc
 
     mvn clean test
