@@ -1,3 +1,15 @@
+## Flow
+
+ * Develop, develop, develop
+ * Commit any outstanding changes
+ * Verify build passes
+ * Update versions to release version
+ * Commit release version
+ * Run deployment
+ * Update versions to next snapshot version
+ * Commit new snapshot version
+ * Develop, develop, develop and rinse and repeat
+
 ## Commands
 
 #### artefact installation
