@@ -15,6 +15,7 @@
             </activation>
             <properties>
                 <gpg.executable>gpg2</gpg.executable>
+                <gpg.keyname>C7D58778</gpg.keyname>
                 <gpg.passphrase>your-passphrase</gpg.passphrase>
             </properties>
         </profile>
