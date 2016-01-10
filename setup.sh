@@ -8,6 +8,7 @@
 
 REPOSITORY="dotfiles"
 GITHUB_ACCOUNT=${GITHUB_ACCOUNT-stefaniuk}
+BITBUCKET_ACCOUNT=${BITBUCKET_ACCOUNT-stefaniuk}
 GITLAB_ACCOUNT=${GITLAB_ACCOUNT-stefaniuk}
 USER_NAME=${USER_NAME-Daniel Stefaniuk}
 USER_EMAIL=${USER_EMAIL-daniel.stefaniuk@gmail.com}

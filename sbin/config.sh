@@ -13,6 +13,7 @@ if should_config "ssh"; then
     mkdir -p ~/.ssh
     cp -f ~/etc/ssh/config ~/.ssh
     file_replace_str "github-user" "github-$GITHUB_ACCOUNT" ~/.ssh/config
+    file_replace_str "bitbucket-user" "bitbucket-$BITBUCKET_ACCOUNT" ~/.ssh/config
     file_replace_str "gitlab-user" "gitlab-$GITLAB_ACCOUNT" ~/.ssh/config
 
 fi
