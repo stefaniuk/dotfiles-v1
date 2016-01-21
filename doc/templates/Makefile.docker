@@ -1,7 +1,5 @@
-PROJECT := project
+PROJECT := docker
 ENVIRONMENT := local
-
-DIR := $(shell basename $(shell dirname $(realpath  $(lastword $(MAKEFILE_LIST)))))
 
 help:
 	@echo
@@ -9,21 +7,17 @@ help:
 	@echo
 	@echo "    make all [NAME=name] [ENVIRONMENT=environment]"
 	@echo "    make build [NAME=name] [ENVIRONMENT=environment]"
-	@echo "    make start"
-	@echo "    make log"
+	@echo "    make start|stop"
+	@echo "    make log [NAME=name]"
 	@echo "    make bash NAME=name"
-	@echo "    make clean [NAME=name]"
-	@echo "    make export|import|validate NAME=name"
+	@echo "    make clean|remove [NAME=name]"
+	@echo "    make export-container|import-container|validate-container-archive NAME=name"
 	@echo
-
-################################################################################
-# Targets to manage containers
-################################################################################
 
 all: clean build start
 build:
 	@if [ "$(NAME)" = "" ]; then \
-		make build NAME=image; \
+		make build NAME=name; \
 	else \
 		echo "Building '$(PROJECT)/$(NAME)' image..."; \
 		docker build --tag=$(PROJECT)/$(NAME) --rm docker/$(ENVIRONMENT)/$(NAME); \
@@ -36,33 +30,40 @@ stop:
 	@docker-compose stop
 log:
 	@echo "Logging output..."
-	@docker-compose logs ||:
+	@if [ "$(NAME)" = "" ]; then \
+		docker-compose logs; \
+	else \
+		docker logs --follow $(NAME); \
+	fi
 bash:
 	@echo "Bashing into '$(NAME)' container..."
 	@docker exec --interactive --tty $(NAME) /bin/bash --login
 clean:
 	@if [ "$(NAME)" = "" ]; then \
-		make clean NAME=image; \
+		make clean NAME=name; \
 	else \
 		echo "Removing '$(NAME)' container..."; \
 		docker stop $(NAME) > /dev/null 2>&1 ||:; \
 		docker rm $(NAME) > /dev/null 2>&1 ||:; \
 	fi
-
-export:
-	@echo "Exporting '$(PROJECT)/$(NAME)' image..."
+remove:
+	@if [ "$(NAME)" = "" ]; then \
+		make remove NAME=name; \
+	else \
+		make clean NAME=$(NAME); \
+		echo "Removing '$(PROJECT)/$(NAME)' image..."; \
+		docker rmi $(PROJECT)/$(NAME) > /dev/null 2>&1 ||:; \
+	fi
+export-container:
+	@echo "Exporting '$(PROJECT)/$(NAME)' container..."
 	@docker save $(PROJECT)/$(NAME) | gzip -1 > dist/$(PROJECT)-$(NAME).tar.gz
-	@sha256sum $(PROJECT)-$(NAME).tar.gz > dist/$(PROJECT)-$(NAME).tar.gz.sha256
-import:
-	@echo "Importing '$(PROJECT)/$(NAME)' image..."
+	@cd dist; sha256sum $(PROJECT)-$(NAME).tar.gz > $(PROJECT)-$(NAME).tar.gz.sha256
+import-container:
+	@echo "Importing '$(PROJECT)/$(NAME)' container..."
 	@gunzip -c dist/$(PROJECT)-$(NAME).tar.gz | docker load
-validate:
-	@echo "Validating '$(PROJECT)/$(NAME)' image..."
+validate-container-archive:
+	@echo "Validating '$(PROJECT)/$(NAME)' container archive..."
 	@cd dist; sha256sum -c $(PROJECT)-$(NAME).tar.gz.sha256
 
-################################################################################
-# Configuration
-################################################################################
-
-.PHONY: test
+.PHONY: log
 .SILENT:
