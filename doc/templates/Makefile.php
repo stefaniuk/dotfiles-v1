@@ -6,21 +6,22 @@ help:
 	@echo
 	@echo "Usage:"
 	@echo
-	@echo "    make dependencies|dependencies-force"
+	@echo "    make dependencies|dependencies-force|dependencies-composer|dependencies-bower"
 	@echo "    make test|test-debug|test-short"
 	@echo "    make clean"
 	@echo
 
 # Dependencies
-dependencies:
+dependencies: dependencies-composer dependencies-bower
+dependencies-force: clean dependencies
+dependencies-composer:
 	@docker exec --interactive --tty $(CONTAINER) /bin/bash -c '\
 		cd $(DIR); \
 		composer update'
-dependencies-force:
+dependencies-bower:
 	@docker exec --interactive --tty $(CONTAINER) /bin/bash -c '\
 		cd $(DIR); \
-		rm -rf vendor; rm -f composer.lock; \
-		composer install'
+		bower update'
 # Unit tests
 test:
 	@if [ "$(NAME)" = "" ]; then \
@@ -54,6 +55,7 @@ test-short:
 	fi
 # Clean up
 clean:
+	@rm -rf public/vendor
 	@rm -rf vendor
 	@rm -f composer.lock
 
