@@ -5,16 +5,20 @@ help:
 	@echo
 	@echo "Usage:"
 	@echo
+	@echo "    make all"
 	@echo "    make dependencies|runnable|watch"
 	@echo "    make test|test-debug|test-short"
 	@echo "    make clean"
 	@echo
 
+all: clean dependencies runnable
 dependencies:
 	@docker exec --interactive --tty $(CONTAINER) /bin/bash -c '\
 		cd $(DIR); composer update'
 	@docker exec --interactive --tty $(CONTAINER) /bin/bash -c '\
-		cd $(DIR)/public; bower update'
+		cd $(DIR)/public; \
+		npm update; \
+		bower update'
 runnable:
 	@docker exec --interactive --tty $(CONTAINER) /bin/bash -c '\
 		cd $(DIR)/public; grunt'
