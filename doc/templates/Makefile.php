@@ -1,28 +1,26 @@
 CONTAINER := php
-ENVIRONMENT := local
 DIR := $(shell basename $(shell dirname $(realpath  $(lastword $(MAKEFILE_LIST)))))
 
 help:
 	@echo
 	@echo "Usage:"
 	@echo
-	@echo "    make dependencies|dependencies-force|dependencies-composer|dependencies-bower"
+	@echo "    make dependencies|runnable|watch"
 	@echo "    make test|test-debug|test-short"
 	@echo "    make clean"
 	@echo
 
-# Dependencies
-dependencies: dependencies-composer dependencies-bower
-dependencies-force: clean dependencies
-dependencies-composer:
+dependencies:
 	@docker exec --interactive --tty $(CONTAINER) /bin/bash -c '\
-		cd $(DIR); \
-		composer update'
-dependencies-bower:
+		cd $(DIR); composer update'
 	@docker exec --interactive --tty $(CONTAINER) /bin/bash -c '\
-		cd $(DIR); \
-		bower update'
-# Unit tests
+		cd $(DIR)/public; bower update'
+runnable:
+	@docker exec --interactive --tty $(CONTAINER) /bin/bash -c '\
+		cd $(DIR)/public; grunt'
+watch:
+	@docker exec --interactive --tty $(CONTAINER) /bin/bash -c '\
+		cd $(DIR)/public; grunt watch'
 test:
 	@if [ "$(NAME)" = "" ]; then \
 		docker exec --interactive --tty $(CONTAINER) /bin/bash -c '\
@@ -53,8 +51,11 @@ test-short:
 			cd $(DIR); \
 			vendor/bin/phpunit test/$(NAME)Test.php'; \
 	fi
-# Clean up
 clean:
+	@rm -rf public/dist/*.map
+	@rm -rf public/dist/*.js
+	@rm -rf public/dist/*.css
+	@rm -rf public/node_modules
 	@rm -rf public/vendor
 	@rm -rf vendor
 	@rm -f composer.lock
