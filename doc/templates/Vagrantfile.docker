@@ -1,0 +1,29 @@
+unless Vagrant.has_plugin?("vagrant-docker-compose")
+    system("vagrant plugin install vagrant-docker-compose")
+    puts "Dependencies installed, please try the command again."
+    exit 1
+end
+
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+
+    config.vm.provider :virtualbox do |vb|
+        vb.name = "name"
+        vb.cpus = 2
+        vb.memory = 1024
+        vb.customize ["modifyvm", :id, "--ioapic", "on"]
+        vb.customize ["modifyvm", :id, "--cpuexecutioncap", "66"]
+    end
+
+    config.vm.box = "ubuntu/trusty64"
+    config.vm.hostname = "name"
+    config.vm.synced_folder ".", "/project"
+    config.vm.provision :docker
+    config.vm.provision :docker_compose
+    config.vm.provision "shell", path: "provision.sh"
+
+    config.vm.network :forwarded_port, guest: 8080, host: 8080
+    config.vm.network :forwarded_port, guest: 8443, host: 8443
+
+end
