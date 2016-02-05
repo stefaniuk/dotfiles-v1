@@ -11,7 +11,7 @@ help:
 	@echo "    make log [NAME=name]"
 	@echo "    make bash NAME=name"
 	@echo "    make clean|remove [NAME=name]"
-	@echo "    make export-container|import-container|validate-container-archive NAME=name"
+	@echo "    make export-image|import-image|validate-image-archive NAME=name"
 	@echo "    make export-project|validate-project-archive"
 	@echo
 
@@ -56,15 +56,15 @@ remove:
 		docker rmi $(PROJECT)/$(NAME) > /dev/null 2>&1 ||:; \
 	fi
 
-export-container:
-	@echo "Exporting '$(PROJECT)/$(NAME)' container..."
+export-image:
+	@echo "Exporting '$(PROJECT)/$(NAME)' image..."
 	@docker save $(PROJECT)/$(NAME) | gzip -1 > dist/$(PROJECT)-$(NAME).tar.gz
 	@cd dist; sha256sum $(PROJECT)-$(NAME).tar.gz > $(PROJECT)-$(NAME).tar.gz.sha256
-import-container:
-	@echo "Importing '$(PROJECT)/$(NAME)' container..."
+import-image:
+	@echo "Importing '$(PROJECT)/$(NAME)' image..."
 	@gunzip -c dist/$(PROJECT)-$(NAME).tar.gz | docker load
-validate-container-archive:
-	@echo "Validating '$(PROJECT)/$(NAME)' container archive..."
+validate-image-archive:
+	@echo "Validating '$(PROJECT)/$(NAME)' image archive..."
 	@cd dist; sha256sum -c $(PROJECT)-$(NAME).tar.gz.sha256
 
 export-project:
