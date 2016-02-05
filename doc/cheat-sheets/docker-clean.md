@@ -9,6 +9,7 @@
 #### remove unwanted images
 
     docker rmi $(docker images -f "dangling=true" -q)
+    docker rmi $(docker images | grep "^<none>" | awk '{ print $3 }')
 
 #### remove all images
 
