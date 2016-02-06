@@ -1,14 +1,15 @@
 PROJECT := name
 ENVIRONMENT := local
+DOMAIN := localhost
 
 help:
 	@echo
 	@echo "Usage:"
 	@echo
-	@echo "    make all [NAME=name] [ENVIRONMENT=environment]"
-	@echo "    make build [NAME=name] [ENVIRONMENT=environment]"
-	@echo "    make start|stop"
-	@echo "    make log [NAME=name]"
+	@echo "    make all [NAME=name] [ENVIRONMENT=environment] [DOMAIN=domain]"
+	@echo "    make build [NAME=name] [ENVIRONMENT=environment] [DOMAIN=domain]"
+	@echo "    make start|stop [ENVIRONMENT=environment]"
+	@echo "    make log [NAME=name]  [ENVIRONMENT=environment]"
 	@echo "    make bash NAME=name"
 	@echo "    make clean|remove [NAME=name]"
 	@echo "    make export-image|import-image|validate-image-archive NAME=name"
@@ -18,21 +19,25 @@ help:
 all: clean build start
 build:
 	@if [ "$(NAME)" = "" ]; then \
-		make build NAME=name; \
+		make build NAME=name ENVIRONMENT=$(ENVIRONMENT) DOMAIN=$(DOMAIN); \
 	else \
 		echo "Building '$(PROJECT)/$(NAME)' image..."; \
-		docker build --tag=$(PROJECT)/$(NAME) --rm docker/$(ENVIRONMENT)/$(NAME); \
+		docker build \
+			--build-arg ENVIRONMENT=$(ENVIRONMENT) \
+			--build-arg DOMAIN=$(DOMAIN) \
+			--tag pathwaysdos/$(NAME) \
+			--rm docker/$(ENVIRONMENT)/$(NAME); \
 	fi
 start:
 	@echo "Starting all containers..."
-	@docker-compose up --no-build --no-recreate -d
+	@docker-compose --file docker-compose.$(ENVIRONMENT).yml up --no-build --no-recreate -d
 stop:
 	@echo "Stopping all containers..."
-	@docker-compose stop
+	@docker-compose --file docker-compose.$(ENVIRONMENT).yml stop
 log:
 	@echo "Logging output..."
 	@if [ "$(NAME)" = "" ]; then \
-		docker-compose logs; \
+		docker-compose --file docker-compose.$(ENVIRONMENT).yml logs; \
 	else \
 		docker logs --follow $(NAME); \
 	fi
