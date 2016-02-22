@@ -8,7 +8,6 @@
 
     vagrant box list
     vagrant box add ubuntu/trusty64
-    vagrant init ubuntu/trusty64
-    vagrant up
-
     vagrant box add your/box path/to/your/box/file.box
+    vagrant init your/box
+    vagrant up
