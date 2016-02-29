@@ -28,10 +28,12 @@ vagrant ssh
 make build create start install test stop OS=debian
 ```
 
-Todo
+TODO
 ----
 
- * Install gpg2
+ * Create gtypist alias
+ * Install and configure packer
+ * Install and configure gpg2
  * Remap the Caps Lock key in Ubuntu
  * Configure vim
  * Check Paul Irish's [dotfiles](https://github.com/paulirish/dotfiles)
