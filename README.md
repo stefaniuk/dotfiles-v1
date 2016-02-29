@@ -31,11 +31,12 @@ make build create start install test stop OS=debian
 TODO
 ----
 
- * Create gtypist alias
- * Install and configure packer
- * Install and configure gpg2
+ * Create `gtypist` alias
+ * Install and configure `jekyll`
+ * Install and configure `packer`
+ * Install and configure `gpg2`
  * Remap the Caps Lock key in Ubuntu
- * Configure vim
+ * Configure `vim`
  * Check Paul Irish's [dotfiles](https://github.com/paulirish/dotfiles)
  * Check thoughtbot's [dotfiles](https://github.com/thoughtbot/dotfiles)
  * Check Justin Force's [dotfiles](https://github.com/justinforce/dotfiles)
