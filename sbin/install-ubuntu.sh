@@ -128,7 +128,7 @@ if should_install "workstation"; then
     # Ruby and RubyGems
     $apt_get_install \
         ruby-full
-    gem install \
+    sudo gem install \
         jekyll
 fi
 
