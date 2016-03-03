@@ -29,7 +29,7 @@ unset bcpath
 #### resources #################################################################
 
 # load dotfiles
-for file in ~/.{path,bashrc.*,bash_system,bash_prompt*,bash_exports*,bash_functions*,bash_aliases*,bash_completion*,bash_extra*,bash_custom*}; do
+for file in ~/.{path*,bashrc.*,bash_system,bash_prompt*,bash_exports*,bash_functions*,bash_aliases*,bash_completion*,bash_extra*,bash_custom*}; do
     [ -r $file ] && source $file
 done
 unset file
