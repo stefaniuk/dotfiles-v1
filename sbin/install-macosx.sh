@@ -71,6 +71,7 @@ fi
 if should_install "workstation"; then
     print_h2 "Install workstation tools"
     $brew_install git-flow
+    $brew_install gpg2
     $brew_install gtypist
     $brew_install irssi
     $brew_install lynx

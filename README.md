@@ -31,7 +31,6 @@ make build create start install test stop OS=debian
 TODO
 ----
 
- * Install and configure `gpg2`
  * Remap the Caps Lock key in Ubuntu
  * Configure `vim`
  * Check Paul Irish's [dotfiles](https://github.com/paulirish/dotfiles)

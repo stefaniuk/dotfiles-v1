@@ -69,6 +69,7 @@ if should_install "workstation"; then
     print_h2 "Install workstation tools"
     $apt_get_install \
         git-flow \
+        gpg2 \
         gtypist \
         irssi \
         lynx \
