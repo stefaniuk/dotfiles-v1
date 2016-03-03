@@ -110,6 +110,11 @@ if should_install "workstation"; then
     # Vagrant
     $apt_get_install \
         vagrant
+    # Packer
+    ver=$(www_get https://www.packer.io/downloads.html | grep '_linux_amd64.zip' | egrep '/[0-9]+\.[0-9+]\.[0-9]+' | egrep -o '[0-9]+\.[0-9+]\.[0-9]+' | sortvr | head -n 1)
+    curl -SLO https://releases.hashicorp.com/packer/$ver/packer_${ver}_linux_amd64.zip
+    sudo unzip packer_${ver}_linux_amd64.zip -d /usr/local/bin
+    rm packer_${ver}_linux_amd64.zip
     # Docker
     sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
     sudo sh -c "echo 'deb https://apt.dockerproject.org/repo ubuntu-$PSEUDO_NAME main' > /etc/apt/sources.list.d/docker.list"
@@ -117,7 +122,7 @@ if should_install "workstation"; then
     $apt_get_install \
         docker-engine
     ver=$(www_get https://github.com/docker/compose | grep '/docker/compose/tree/' | egrep '/[0-9]+\.[0-9+]\.[0-9]+"' | egrep -o '[0-9]+\.[0-9+]\.[0-9]+' | sortvr | head -n 1)
-    sudo curl -L https://github.com/docker/compose/releases/download/$ver/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
+    sudo curl -SL https://github.com/docker/compose/releases/download/$ver/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
     sudo chmod +x /usr/local/bin/docker-compose
     # Chrome
     wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
