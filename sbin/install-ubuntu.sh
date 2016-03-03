@@ -72,8 +72,16 @@ if should_install "workstation"; then
         gtypist \
         irssi \
         lynx \
-        openjdk-7-jdk \
         tmux
+    # Java 8
+    apt-add-repository ppa:webupd8team/java --yes
+    $apt_get_update
+    echo debconf shared/accepted-oracle-license-v1-1 select true | debconf-set-selections
+    echo debconf shared/accepted-oracle-license-v1-1 seen true | debconf-set-selections
+    $apt_get_install \
+        oracle-java8-installer
+    $apt_get_install \
+        oracle-java8-set-default
 
     # Compiz
     $apt_get_install \
