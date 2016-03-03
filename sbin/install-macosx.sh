@@ -83,6 +83,7 @@ if should_install "workstation"; then
     $cask_install virtualbox
     $cask_install virtualbox-extension-pack
     $cask_install vagrant
+    $brew_install packer
     $cask_install dockertoolbox
     $cask_install github-desktop
     $cask_install smartgit
