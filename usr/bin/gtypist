@@ -1,0 +1,11 @@
+#!/bin/bash
+
+gtypist \
+    --personal-best \
+    --max-error=5.0 \
+    --term-cursor \
+    --silent \
+    --word-processor \
+    --show-errors \
+    --always-sure \
+    --scoring=cpm

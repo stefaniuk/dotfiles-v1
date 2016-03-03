@@ -26,7 +26,6 @@ alias gpo="git push origin"
 alias gs="git status -s"
 
 alias d="docker"
-alias dup="docker -d -H unix:///var/run/docker.sock -D >> /var/log/docker.log 2>&1 &"
 alias dim="docker images"
 alias dps="docker ps -a"
 alias dst="docker start"
@@ -61,15 +60,12 @@ alias grep="\grep --color=auto"
 # enable aliases to be sudo'ed
 alias sudo="sudo "
 
-# ip address
-alias ipi="ifconfig | \grep -oE '192\.168\.[0-9]+\.[0-9]+' | \grep -v '.255$' | sort | uniq"
+# IP address
+alias ipi="ifconfig | \grep -oE '(10\.[0-9]+\.[0-9]+\.[0-9]+|172\.(1[6-9]|2[0-9]|3[0-1])\.[0-9]+\.[0-9]+|192\.168\.[0-9]+\.[0-9]+)' | \grep -v '.255$' | sort | uniq"
 alias ipe="net_get_external_ip"
 
 # canonical hex dump
 command -v hd > /dev/null || alias hd="hexdump -C"
-
-# url encode strings
-alias urlencode="python -c 'import sys, urllib as ul; print ul.quote_plus(sys.argv[1]);'"
 
 # colourise output of some commands
 if which grc > /dev/null 2>&1; then
@@ -82,10 +78,12 @@ if which grc > /dev/null 2>&1; then
 fi
 
 # show manual
-alias sb="show-manual best-practices"
-alias sc="show-manual cheat-sheets"
-alias sd="show-manual design-patterns"
-alias st="show-manual templates"
+if which show-manual > /dev/null 2>&1; then
+    alias sb="show-manual best-practices"
+    alias sc="show-manual cheat-sheets"
+    alias sd="show-manual design-patterns"
+    alias st="show-manual templates"
+fi
 
 # reload bash
 alias reload="exec $SHELL -l"
