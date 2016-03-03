@@ -31,7 +31,6 @@ make build create start install test stop OS=debian
 TODO
 ----
 
- * Install and configure `jekyll`
  * Install and configure `packer`
  * Install and configure `gpg2`
  * Remap the Caps Lock key in Ubuntu
