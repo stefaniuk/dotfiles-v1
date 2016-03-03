@@ -10,9 +10,6 @@ alias -- -="cd -"
 
 # --- shortcuts ----------------------------------------------------------------
 
-alias dl="cd ~/Downloads"
-alias p="cd ~/projects"
-
 alias g="git"
 alias ga="git add -A"
 alias gb="git branch -vv"
