@@ -242,7 +242,7 @@ if [ -z "$BASH_SOURCE" ] || [ -n "$arg_force_download" ]; then
     # download from repository
     program_download
 
-elif [[ $program_dir == */projects/$REPOSITORY ]] || [[ $program_dir == */projects/stefaniuk/$REPOSITORY ]] || [[ $program_dir == /project ]]; then
+elif [[ $program_dir == */projects/$REPOSITORY ]] || [[ $program_dir == */projects/$GITLAB_ACCOUNT/$REPOSITORY ]] || [[ $program_dir == /project ]]; then
 
     # synchronise with project
     program_synchronise

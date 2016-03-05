@@ -85,7 +85,8 @@ fi
 # reload bash
 alias reload="exec $SHELL -l"
 # sync bash
-alias synchronise="(cd ~/projects/dotfiles; ./setup.sh --synchronise-only); exec $SHELL -l"
+alias synchronise="([ -d ~/projects/dotfiles ] && cd ~/projects/dotfiles || cd ~/projects/$GITHUB_ACCOUNT/dotfiles; \
+    ./setup.sh --synchronise-only); exec $SHELL -l"
 
 ################################################################################
 # macosx
