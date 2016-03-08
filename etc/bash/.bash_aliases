@@ -75,7 +75,7 @@ if which grc > /dev/null 2>&1; then
 fi
 
 # show manual
-if which show-manual > /dev/null 2>&1; then
+if test -x ~/usr/bin/show-manual; then
     alias sb="show-manual best-practices"
     alias sc="show-manual cheat-sheets"
     alias sd="show-manual design-patterns"
