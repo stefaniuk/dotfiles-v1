@@ -31,6 +31,7 @@ make build create start install test stop OS=debian
 TODO
 ----
 
+ * Install `apt` on Debian-based distros
  * Remap the Caps Lock key in Ubuntu
  * Configure `vim`
  * Check Paul Irish's [dotfiles](https://github.com/paulirish/dotfiles)
