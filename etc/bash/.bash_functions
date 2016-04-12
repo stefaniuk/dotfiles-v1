@@ -52,3 +52,7 @@ function byteme {
     done
     echo $v$(echo $list | cut -f$p -d,)
 }
+
+function jcurl {
+    curl -s -k -H "Accept: application/json" -H "Content-Type: application/json" $1 | json | pygmentize -l json
+}

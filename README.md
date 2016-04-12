@@ -31,6 +31,7 @@ make build create start install test stop OS=debian
 TODO
 ----
 
+ * Install Node.js on Mac OS X and possibly others
  * Install `apt` on Debian-based distros
  * Remap the Caps Lock key in Ubuntu
  * Configure `vim`

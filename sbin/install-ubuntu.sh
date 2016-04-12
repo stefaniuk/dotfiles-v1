@@ -123,6 +123,10 @@ if should_install "workstation"; then
     # Ruby and RubyGems
     $apt_get_install ruby-full
     sudo gem install jekyll
+    # Node.js
+    curl -sL https://deb.nodesource.com/setup_5.x | sudo -E bash -
+    $apt_get_install nodejs
+    sudo npm install -g jsontool
 fi
 
 ################################################################################
