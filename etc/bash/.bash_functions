@@ -54,5 +54,5 @@ function byteme {
 }
 
 function jcurl {
-    curl -s -k -H "Accept: application/json" -H "Content-Type: application/json" $1 | json | pygmentize -l json
+    curl -ksSL -H "Accept: application/json" -H "Content-Type: application/json" $1 | json | pygmentize -l json
 }
