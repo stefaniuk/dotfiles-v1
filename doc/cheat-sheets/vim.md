@@ -1,19 +1,13 @@
-#### Vim
+# Vim
 
-TODO: http://www.lagmonster.org/docs/vi.html
-
-##### Configuration
-
-    :so %       reload configuration
-
-##### Quitting
+## Quitting
 
     :q          exit as long as there have been no changes
     :q!         exit and ignore any changes
     :x          exit saving changes
     ZZ          exit saving changes
 
-##### Navigation
+## Navigation
 
     alt+click   move cursor using mouse
     h           move left
@@ -40,7 +34,7 @@ TODO: http://www.lagmonster.org/docs/vi.html
     L           move to bottom of screen
     %           move to associated ( ), { }, [ ]
 
-##### Inserting
+## Inserting
 
     i           insert before cursor
     I           insert before line
@@ -87,10 +81,6 @@ The change command is a deletion command that leaves the editor in insert mode. 
     TODO: display buffer content
 
 ##### Markers
-##### Search
-
-    TODO: search for string that includes /
-
 ##### Replace
 ##### Regular expressions
 ##### Counts
