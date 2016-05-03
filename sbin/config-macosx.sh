@@ -99,6 +99,18 @@ if should_config "karabiner" /Applications/Karabiner.app/Contents/Library/bin/ka
 fi
 
 ################################################################################
+# Moom
+
+if should_config "moom" /Applications/Moom.app/Contents/MacOS/Moom; then
+
+    print_h2 "Configure Moom"
+
+    # configuration
+    defaults import com.manytricks.Moom ~/etc/moom/com.manytricks.Moom.plist
+
+fi
+
+################################################################################
 # defaults
 
 if [ -z "$arg_config_progs" ] || echo "$arg_config_progs" | grep -o -- "defaults" > /dev/null 2>&1; then
