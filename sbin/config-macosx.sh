@@ -35,7 +35,9 @@ if should_config "tmux"; then
     print_h2 "Configure Tmux"
 
     # resources
+    cp -f ~/etc/tmux/.tmux.conf ~
     cat ~/etc/tmux/.tmux.macosx.conf >> ~/.tmux.conf
+    cat ~/etc/tmux/.tmux-tpm.conf >> ~/.tmux.conf
 
 fi
 

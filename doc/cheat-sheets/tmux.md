@@ -1,20 +1,24 @@
+# Tmux
+
 ## Commands
 
     tmux ls                         # list sessions
     tmux new -s <name>              # create new session
     tmux attach -t <name>           # attach to session
     tmux kill-session -t <name>     # kill session
+    tmux lscm                       # list commands
+    tmux source ~/.tmux.conf        # reload configuration
 
 ## Shortcuts
 
-#### Sessions
+##### Sessions
 
     s               list sessions
     :new<CR>        new session
     $               name session
     d               detach from session
 
-#### Windows
+##### Windows
 
     c               create new window
     &               kill the current window
@@ -26,7 +30,7 @@
     .               move window
     ,               rename the current window
 
-#### Panes
+##### Panes
 
     %               vertical split
     "               horizontal split
@@ -37,7 +41,7 @@
     q               show pane numbers
     q <number>      go to the specific pane number
 
-#### Misc
+##### Misc
 
     :               prompt
     ?               list all key bindings

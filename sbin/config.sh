@@ -201,6 +201,14 @@ if should_config "tmux"; then
     # resources
     cp -f ~/etc/tmux/.tmux.conf ~
 
+    if [ ! -d ~/.tmux/plugins/tpm ]; then
+        git clone \
+            https://github.com/tmux-plugins/tpm \
+            ~/.tmux/plugins/tpm
+    else
+        (cd ~/.tmux/plugins/tpm; git pull)
+    fi
+
 fi
 
 ################################################################################
