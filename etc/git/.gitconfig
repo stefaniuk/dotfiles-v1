@@ -140,8 +140,8 @@
 
 [push]
 
-    # use the Git 1.x.x default to avoid errors on machines with old Git
-    default = matching
+    # push only the current branch
+    default = simple
 
 [http]
 
