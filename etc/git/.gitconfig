@@ -1,5 +1,7 @@
 [alias]
 
+    ############################################################################
+
     # http://stackoverflow.com/questions/2421011/output-of-git-branch-in-tree-like-fashion
     lgb = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset%n' --abbrev-commit --date=relative --branches
 
@@ -21,6 +23,21 @@
 
     # `git di $number` shows the diff between the state `$number` revisions ago and the current state
     di = !"d() { git diff --patch-with-stat HEAD~$1; }; git diff-index --quiet HEAD -- || clear; d"
+
+    ############################################################################
+
+    # find branches containing commit
+    fbc = "!f() { git branch -a --contains $1; }; f"
+    # find tags containing commit
+    ftc = "!f() { git describe --always --contains $1; }; f"
+    # find commits by source code
+    fcs = "!f() { git log --pretty=format:'%C(yellow)%h  %Cblue%ad  %Creset%s%Cgreen  [%cn] %Cred%d' --decorate --date=short -S$1; }; f"
+    # find commits by commit message
+    fcm = "!f() { git log --pretty=format:'%C(yellow)%h  %Cblue%ad  %Creset%s%Cgreen  [%cn] %Cred%d' --decorate --date=short --grep=$1; }; f"
+    # find commit by tag
+    fct = !sh -c 'git rev-list $0 | head -n 1'
+
+    ############################################################################
 
     # Pull in remote changes for the current repository and all its submodules
     p = !"git pull; git submodule foreach git pull origin master"
@@ -47,17 +64,6 @@
 
     # Interactive rebase with the given number of latest commits
     reb = "!r() { git rebase -i HEAD~$1; }; r"
-
-    # find branches containing commit
-    fbc = "!f() { git branch -a --contains $1; }; f"
-    # find tags containing commit
-    ftc = "!f() { git describe --always --contains $1; }; f"
-    # find commits by source code
-    fcs = "!f() { git log --pretty=format:'%C(yellow)%h  %Cblue%ad  %Creset%s%Cgreen  [%cn] %Cred%d' --decorate --date=short -S$1; }; f"
-    # find commits by commit message
-    fcm = "!f() { git log --pretty=format:'%C(yellow)%h  %Cblue%ad  %Creset%s%Cgreen  [%cn] %Cred%d' --decorate --date=short --grep=$1; }; f"
-    # find commit by tag
-    fct = !sh -c 'git rev-list $0 | head -n 1'
 
     # Remove branches that have already been merged with master
     # a.k.a. ‘delete merged’
@@ -113,6 +119,11 @@
 
     # Detect copies as well as renames
     renames = copies
+
+[diff "bin"]
+
+    # Use `hexdump` to diff binary files
+    textconv = hexdump -v -C
 
 [merge]
 
