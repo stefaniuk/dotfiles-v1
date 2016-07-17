@@ -63,85 +63,73 @@
     # a.k.a. ‘delete merged’
     dm = "!git branch --merged | grep -v '\\*' | xargs -n 1 git branch -d"
 
-    # List contributors with number of commits
-    contributors = shortlog --summary --numbered
-
-    # Merge GitHub pull request on top of the `master` branch
-    mpr = "!f() { \
-        if [ $(printf \"%s\" \"$1\" | grep '^[0-9]\\+$' > /dev/null; printf $?) -eq 0 ]; then \
-            git fetch origin refs/pull/$1/head:pr/$1 && \
-            git rebase master pr/$1 && \
-            git checkout master && \
-            git merge pr/$1 && \
-            git branch -D pr/$1 && \
-            git commit --amend -m \"$(git log -1 --pretty=%B)\n\nCloses #$1.\"; \
-        fi \
-    }; f"
-
 [apply]
 
-    # Detect whitespace errors when applying a patch
+    # Fix whitespace errors when applying a patch
     whitespace = fix
 
 [core]
 
-    pager = diff-highlight | less -r
-
-    # Use custom `.gitignore` and `.gitattributes`
-    excludesfile = ~/.gitignore
+    # Use custom `.gitattributes` and `.gitignore`
     attributesfile = ~/.gitattributes
+    excludesfile = ~/.gitignore
 
-    # Treat spaces before tabs and all kinds of trailing whitespace as an error
-    # [default] trailing-space: looks for spaces at the end of a line
-    # [default] space-before-tab: looks for spaces before tabs at the beginning of a line
+    # List of common whitespace problems to notice
     whitespace = space-before-tab,-indent-with-non-tab,trailing-space
 
-    # Make `git rebase` safer on OS X
-    # More info: <http://www.git-tower.com/blog/make-git-rebase-safe-on-osx/>
+    # Use word diff highlighting by default
+    pager = diff-highlight | less -r
+
+    # SEE: http://www.git-tower.com/blog/make-git-rebase-safe-on-osx/
     trustctime = false
 
 [color]
 
-    diff = auto
-    status = auto
     branch = auto
+    diff = auto
+    grep = auto
     interactive = auto
+    showBranch = auto
+    status = auto
     ui = true
 
 [color "diff"]
 
+    #context =
     meta = blue
     frag = white bold
+    #func =
     old = red
     new = green
-    #plain =
+    #commit =
     #whitespace =
 
 [credential]
 
+    # Temporarily store passwords in memory
     helper = cache --timeout 300
 
 [diff]
 
-    # detect copies as well as renames
+    # Detect copies as well as renames
     renames = copies
-
-[help]
-
-    # automatically correct and execute mistyped commands
-    autocorrect = 1
 
 [merge]
 
-    # include summaries of merged commits in newly created merge commit messages
-    log = true
-    # improve resolving merge conflicts
-    conflictstyle = diff3
+    # Include summaries of merged commits in newly created merge commit messages
+    log = 1000
+    # Improve resolving merge conflicts
+    conflictStyle = diff3
 
 [push]
 
-    # push only the current branch
+    # Push only the current branch
     default = simple
+
+[pull]
+
+    # Rebase the current branch on top of the upstream branch after fetching
+    rebase = preserve
 
 [http]
 
