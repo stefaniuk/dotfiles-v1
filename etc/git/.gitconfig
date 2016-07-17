@@ -146,7 +146,7 @@
 [http]
 
     # accept self-signed SSL certificate
-    sslVerify = false
+    #sslVerify = false
 
 # URL shorthands
 
