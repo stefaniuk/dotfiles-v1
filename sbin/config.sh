@@ -89,6 +89,14 @@ if should_config "git"; then
     fi
     unset dir
 
+    # diff-highlight
+    if [ ! -f ~/bin/diff-highlight ]; then
+        wget \
+            https://raw.githubusercontent.com/git/git/master/contrib/diff-highlight/diff-highlight \
+            -O ~/bin/diff-highlight
+        chmod +x ~/bin/diff-highlight
+    fi
+
 fi
 
 ################################################################################

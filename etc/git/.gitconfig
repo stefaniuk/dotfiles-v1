@@ -85,6 +85,8 @@
 
 [core]
 
+    pager = diff-highlight | less -r
+
     # Use custom `.gitignore` and `.gitattributes`
     excludesfile = ~/.gitignore
     attributesfile = ~/.gitattributes
