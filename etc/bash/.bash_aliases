@@ -28,12 +28,11 @@ alias dim="docker images"
 alias dps="docker ps -a"
 alias dst="docker start"
 alias dto="docker top"
-alias dlo="docker logs -f"
-alias dex="docker exec -it"
+alias dlo="docker logs --follow"
+alias dex="docker exec --interactive --tty"
 alias dat="docker attach"
 alias dip="docker inspect --format '{{ .NetworkSettings.IPAddress }}'"
-function dbu { docker build -t $GITHUB_ACCOUNT/$(basename $(pwd) | sed s/docker-//) --rm . ; }
-export -f dbu
+alias docker-prune="docker rm --force $(docker ps --all --quiet); docker rmi $(docker images | grep "<none>" | awk '{print $3}')"
 
 alias tmux="TERM=screen-256color-bce tmux"
 
