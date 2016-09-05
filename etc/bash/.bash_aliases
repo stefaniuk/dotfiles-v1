@@ -41,10 +41,10 @@ alias dlo="docker logs --follow"
 alias dex="docker exec --interactive --tty"
 alias dat="docker attach"
 alias dip="docker inspect --format '{{ .NetworkSettings.IPAddress }}'"
-alias dcc='docker rm --force $(docker ps --all --quiet) 2> /dev/null'
-alias dcv='docker volume rm $(docker volume ls --quiet --filter dangling=true) 2> /dev/null'
-alias dci='docker rmi --force $(docker images | grep "<none>" | awk "{print $3}") 2> /dev/null'
-alias dci-own='docker rmi --force $(docker images | grep "$GITHUB_ACCOUNT" | awk "{print $3}") 2> /dev/null'
+alias drc='docker rm --force $(docker ps --all --quiet) 2> /dev/null'
+alias drv='docker volume rm $(docker volume ls --quiet --filter dangling=true) 2> /dev/null'
+alias dri='docker rmi --force $(docker images | grep "<none>" | awk "{print $3}") 2> /dev/null'
+alias dri-own='docker rmi --force $(docker images | grep "$GITHUB_ACCOUNT" | awk "{print $3}") 2> /dev/null'
 
 alias tmux="TERM=screen-256color-bce tmux"
 
