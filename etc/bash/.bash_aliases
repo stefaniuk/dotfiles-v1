@@ -41,8 +41,10 @@ alias dlo="docker logs --follow"
 alias dex="docker exec --interactive --tty"
 alias dat="docker attach"
 alias dip="docker inspect --format '{{ .NetworkSettings.IPAddress }}'"
-alias docker-prune='docker rm --force $(docker ps --all --quiet) 2> /dev/null; docker rmi --force $(docker images | grep "<none>" | awk "{print $3}") 2> /dev/null'
-alias docker-prune-mine='docker rmi --force $(docker images | grep "$GITHUB_ACCOUNT" | awk "{print $3}") 2> /dev/null'
+alias dcc='docker rm --force $(docker ps --all --quiet) 2> /dev/null'
+alias dcv='docker volume rm $(docker volume ls --quiet --filter dangling=true) 2> /dev/null'
+alias dci='docker rmi --force $(docker images | grep "<none>" | awk "{print $3}") 2> /dev/null'
+alias dci-own='docker rmi --force $(docker images | grep "$GITHUB_ACCOUNT" | awk "{print $3}") 2> /dev/null'
 
 alias tmux="TERM=screen-256color-bce tmux"
 
