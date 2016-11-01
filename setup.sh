@@ -156,20 +156,27 @@ function program_setup {
     if [ -n "$arg_minimal" ]; then
         rm -rf $DIR/{etc,doc,sbin,test,LICENCE*,Makefile,provision.sh,README*,setup.sh,Vagrantfile}
     fi
-    rm -rf $DIR/{.gitignore,tmp/*}
+    rm -rf $DIR/{.gitignore}
 }
 
 function should_install {
 
     item=$1
-    file=$2
 
     if [ "$item" == "system" ] || [ "$item" == "common" ] || [ "$item" == "server" ] || [ "$item" == "workstation" ]; then
         _is_on_list "$item" "$arg_install_groups"
         return $?
     fi
 
-    _should_proceed "$arg_install_groups" "$item" "$file"
+    _should_proceed "$arg_install_groups" "$item"
+}
+
+function should_update {
+
+    item=$1
+    file=$2
+
+    _should_proceed "$arg_update_progs" "$item"
 }
 
 function should_config {
@@ -180,39 +187,18 @@ function should_config {
     _should_proceed "$arg_config_progs" "$item" "$file"
 }
 
-function should_update {
-
-    item=$1
-    file=$2
-
-    _should_proceed "$arg_update_progs" "$item" "$file"
-}
-
 function _should_proceed {
 
-    list=$1
-    item=$2
-    file=$3
-
-    _is_exec "$item" "$file"
-    [ $? -ne 0 ] && return 1
-
-    _is_on_list "$item" "$list"
-    return $?
-}
-
-function _is_exec {
-
-    name=$1
-    file=$2
+    list=$1 # command-line arguments
+    item=$2 # program to install/config/update
+    file=$3 # executable to check
 
     if [ -n "$file" ]; then
         [ ! -x "$file" ] && return 1
-    else
-        which "$name" > /dev/null 2>&1 || return 1
     fi
 
-    return 0
+    _is_on_list "$item" "$list"
+    return $?
 }
 
 function _is_on_list {
