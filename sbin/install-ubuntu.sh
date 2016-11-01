@@ -127,6 +127,8 @@ fi
 
 should_install "node" && \
     (. $DIR/sbin/lib/node.sh $*)
+should_install "vscode" &&
+    (. $DIR/sbin/lib/vscode.sh $*)
 
 ################################################################################
 
