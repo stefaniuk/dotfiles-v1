@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 
 if [ $DIST = "ubuntu" ]; then
     curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash -
