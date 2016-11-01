@@ -120,15 +120,14 @@ if should_install "workstation"; then
     sudo chmod +x /usr/local/bin/docker-compose
     # Chrome
     $apt_get_install google-chrome-stable
-    # Ruby and RubyGems
-    $apt_get_install ruby-full
-    sudo gem install jekyll
 fi
 
 should_install "node" && \
     (. $DIR/sbin/lib/node.sh $*)
-should_install "vscode" &&
+should_install "vscode" && \
     (. $DIR/sbin/lib/vscode.sh $*)
+should_install "ruby" && \
+    (. $DIR/sbin/lib/ruby.sh $*)
 
 ################################################################################
 
