@@ -14,14 +14,4 @@ dpkg-reconfigure -f noninteractive tzdata
 sed -i "/cd \/project/d" /home/vagrant/.bashrc
 echo "cd /project" >> /home/vagrant/.bashrc
 
-# remove Docker unwanted containers and images
-docker rm -v $(docker ps -a -q -f status=exited) > /dev/null 2>&1
-docker rmi $(docker images -f "dangling=true" -q) > /dev/null 2>&1
-# build Docker test images
-cd /project
-make build OS=ubuntu
-make build OS=debian
-make build OS=centos
-make build OS=scientific
-
 exit 0

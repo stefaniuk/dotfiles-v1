@@ -8,10 +8,6 @@ help:
 	@echo "    make all|build|create|start|stop|install|test|bash|clean [OS=name]"
 	@echo
 
-################################################################################
-# Targets to manage containers
-################################################################################
-
 all: build create start install test stop
 build:
 	@echo "Building '$(OS)'..."
@@ -33,7 +29,7 @@ stop:
 	@echo "Stopping '$(OS)'..."
 	@docker stop dotfiles-$(OS)
 install:
-	@echo "Installing dotfiles on '$(OS)'..."
+	@echo "Installing 'dotfiles' on '$(OS)'..."
 	@docker exec --interactive --tty \
 		dotfiles-$(OS) \
 		./setup.sh \
@@ -46,7 +42,7 @@ test:
 		dotfiles-$(OS) \
 		/bin/bash -cli "system_test --skip-selected-tests"
 bash:
-	@echo "Opening bash on '$(OS)'..."
+	@echo "Opening command-line on '$(OS)'..."
 	@docker exec --interactive --tty \
 		dotfiles-$(OS) \
 		/bin/bash --login ||:
@@ -55,10 +51,6 @@ clean:
 	@docker stop dotfiles-$(OS) > /dev/null 2>&1 ||:
 	@docker rm dotfiles-$(OS) > /dev/null 2>&1 ||:
 	@docker rmi dotfiles/$(OS) > /dev/null 2>&1 ||:
-
-################################################################################
-# Configuration
-################################################################################
 
 .PHONY: test
 .SILENT:
