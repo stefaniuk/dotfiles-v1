@@ -5,10 +5,9 @@ help:
 	@echo
 	@echo "Usage:"
 	@echo
-	@echo "    make all|build|create|start|stop|install|test|bash|clean [OS=name]"
+	@echo "    make build|create|start|stop|install|test|bash|clean|remove [OS=name]"
 	@echo
 
-all: build create start install test stop
 build:
 	@echo "Building '$(OS)'..."
 	@docker build --file ./test/Dockerfile.$(OS) --tag dotfiles/$(OS) --rm .
@@ -34,7 +33,7 @@ install:
 		dotfiles-$(OS) \
 		./setup.sh \
 			--prepare \
-			--install --install-common-tools --install-server-tools \
+			--install --install-common-tools \
 			--config
 test:
 	@echo "Testing '$(OS)'..."
@@ -47,9 +46,11 @@ bash:
 		dotfiles-$(OS) \
 		/bin/bash --login ||:
 clean:
-	@echo "Removing '$(OS)'..."
+	@echo "Cleaning '$(OS)'..."
 	@docker stop dotfiles-$(OS) > /dev/null 2>&1 ||:
 	@docker rm dotfiles-$(OS) > /dev/null 2>&1 ||:
+remove:
+	@echo "Removing '$(OS)'..."
 	@docker rmi dotfiles/$(OS) > /dev/null 2>&1 ||:
 
 .PHONY: test

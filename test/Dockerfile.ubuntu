@@ -1,64 +1,12 @@
-FROM ubuntu:latest
+FROM stefaniuk/ubuntu
+
+RUN apt-get --yes update \
+    \
+    # system tools
+    && apt-get --yes --ignore-missing --no-install-recommends install \
+        apt-file \
+        apt-utils \
+        debconf-utils \
+        software-properties-common
 
 WORKDIR /project
-
-ENV DEBIAN_FRONTEND "noninteractive"
-RUN apt-get --yes update && apt-get --yes upgrade # 2015/12/15
-
-# settings
-RUN apt-get --yes --ignore-missing --no-install-recommends install \
-        locales \
-    && locale-gen en_GB.UTF-8 && dpkg-reconfigure locales
-ENV LANG "en_GB.UTF-8"
-RUN echo "Europe/London" | tee /etc/timezone \
-    && dpkg-reconfigure -f noninteractive tzdata
-RUN apt-get --yes --ignore-missing --no-install-recommends install \
-    ca-certificates
-
-# system tools
-RUN apt-get --yes --ignore-missing --no-install-recommends install \
-    apt-file \
-    apt-utils \
-    debconf-utils \
-    software-properties-common
-# dotfiles tools
-RUN apt-get --yes --ignore-missing --no-install-recommends install \
-    bash-completion \
-    bc \
-    binutils \
-    curl \
-    expect \
-    git \
-    openssl \
-    pcregrep \
-    perl \
-    python \
-    python-pygments \
-    rsync \
-    sudo \
-    unzip \
-    wget \
-    xz-utils
-# common tools
-RUN apt-get --yes --ignore-missing --no-install-recommends install \
-    ack-grep \
-    grc \
-    htop \
-    lnav \
-    mc \
-    strace \
-    traceroute \
-    tree \
-    vim \
-    zsh
-# server tools
-RUN apt-get --yes --ignore-missing --no-install-recommends install \
-    heirloom-mailx
-# workstation tools
-RUN apt-get --yes --ignore-missing --no-install-recommends install \
-    git-flow \
-    gtypist \
-    irssi \
-    lynx \
-    openjdk-7-jdk \
-    tmux
