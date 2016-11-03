@@ -31,6 +31,10 @@ make build create start install test stop OS=debian
 TODO
 ----
 
+ * Rename `doc` directory to `usr/man`
+ * Remove/move `test` directory and `lib/asserts.sh` file
+ * What to do with the content of `sbin` directory?
+
  * Install Node.js on Mac OS X and possibly others
  * Install `apt` on Debian-based distros
  * Remap the Caps Lock key in Ubuntu
