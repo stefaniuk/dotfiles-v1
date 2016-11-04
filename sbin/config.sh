@@ -31,6 +31,7 @@ if should_config "bash"; then
 
     # resources
     cp -f ~/etc/bash/.bash* ~
+    file_replace_str 'DOTFILES_DIR=~' "DOTFILES_DIR=$DOTFILES_DIR" ~/.bash_exports
     file_replace_str "USER_NAME=\"unknown\"" "USER_NAME=\"$USER_NAME\"" ~/.bash_exports
     file_replace_str "USER_EMAIL=\"unknown\"" "USER_EMAIL=\"$USER_EMAIL\"" ~/.bash_exports
     file_replace_str "GITHUB_ACCOUNT=\"unknown\"" "GITHUB_ACCOUNT=\"$GITHUB_ACCOUNT\"" ~/.bash_exports
@@ -293,7 +294,3 @@ if [ -f $file ]; then
     (. $file $*)
 fi
 unset file
-
-################################################################################
-
-exit 0

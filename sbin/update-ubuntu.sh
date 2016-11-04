@@ -1,15 +1,6 @@
 #!/bin/bash
 
-DEBIAN_FRONTEND="noninteractive"
+. $DIR/sbin/common-ubuntu.sh
 
-################################################################################
-
-sudo apt-get --yes update
-sudo apt-get --yes upgrade
-
-################################################################################
-
-sudo apt-get --yes autoremove
-sudo apt-get clean
-
-exit 0
+$apt_get_update
+$apt_get_upgrade

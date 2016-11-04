@@ -1,6 +1,7 @@
 #!/bin/sh
 
 # these variables are updated during the installation
+export DOTFILES_DIR=~
 export USER_NAME="unknown"
 export USER_EMAIL="unknown"
 export GITHUB_ACCOUNT="unknown" # your GitHub account name

@@ -12,7 +12,3 @@ if should_config "subl"; then
     cp -f ~/etc/subl/ubuntu/* $dir/Packages/User
 
 fi
-
-################################################################################
-
-exit 0

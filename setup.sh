@@ -15,6 +15,8 @@ USER_EMAIL=${USER_EMAIL-daniel.stefaniuk@gmail.com}
 DIR=~
 
 program_dir=$(cd "$(dirname "$0" 2> /dev/null)"; pwd)
+
+arg_container=$(echo "$*" | grep -o -- "--container")
 arg_prepare=$(echo "$*" | grep -o -- "--prepare")
 arg_install=$(echo "$*" | grep -o -- "--install")
 arg_config=$(echo "$*" | grep -o -- "--config")
@@ -22,12 +24,11 @@ arg_update=$(echo "$*" | grep -o -- "--update")
 arg_test=$(echo "$*" | grep -o -- "--test")
 arg_synchronise_only=$(echo "$*" | grep -o -- "--synchronise-only")
 arg_force_download=$(echo "$*" | grep -o -- "--force-download")
-arg_directory=$(echo "$*" | grep -Eo -- "--directory [-_A-Za-z0-9/]+" | awk '{print $2}')
 arg_minimal=$(echo "$*" | grep -o -- "--minimal")
 arg_sudo=$(echo "$*" | grep -o -- "--sudo")
 arg_help=$(echo "$*" | grep -o -- "--help")
 
-arg_install_groups=$(echo "$*" | grep -o -- "--install=[-_,A-Za-z0-9]*" | sed "s/--install=//")
+arg_install_progs=$(echo "$*" | grep -o -- "--install=[-_,A-Za-z0-9]*" | sed "s/--install=//")
 arg_config_progs=$(echo "$*" | grep -o -- "--config=[-_,A-Za-z0-9]*" | sed "s/--config=//")
 arg_update_progs=$(echo "$*" | grep -o -- "--update=[-_,A-Za-z0-9]*" | sed "s/--update=//")
 
@@ -39,22 +40,20 @@ function usage {
     local file=$(basename $0 2> /dev/null)
 
     echo "
-File: ${file}
-
 Usage:
     ${file} [options]
 
 Options:
+    --container
+    --update
     --prepare
-    --install[=system,common,server,workstation[,prog1,prog2,...]]
+    --install[=prog1,prog2,...]
     --config[=prog1,prog2,...]
-    --update[=prog1,prog2,...]
     --test
-    --synchronise-only              copy files only
+    --synchronise-only              Copy files only
     --force-download
-    --directory                     installation directory
-    --minimal                       remove unnecessary project resources
-    --sudo                          execute sudo-keep-alive
+    --minimal                       Remove unnecessary resources
+    --sudo                          Execute sudo-keep-alive
     --help
 "
 
@@ -112,8 +111,8 @@ function program_synchronise {
 
 function program_setup {
 
-    chmod 700 $DIR/{bin,lib,sbin,usr,usr/bin,test,test/bin,tmp}
-    chmod 500 $DIR/{bin,usr/bin,test/bin}/*
+    chmod 700 $DIR/{bin,etc,lib,sbin,tmp,usr}
+    chmod 500 $DIR/{bin,usr/{bin,test/bin}}/*
     chmod 500 $DIR/setup.sh
 
     # detect operating system
@@ -154,29 +153,19 @@ function program_setup {
 
     # remove not needed resources
     if [ -n "$arg_minimal" ]; then
-        rm -rf $DIR/{etc,doc,sbin,test,LICENCE*,Makefile,provision.sh,README*,setup.sh,Vagrantfile}
+        rm -rf $DIR/{etc,lib,sbin,usr/{man,test},setup.sh}
     fi
-    rm -rf $DIR/{.gitignore}
+    rm -rf $DIR/{.gitignore,LICENCE,Makefile,README.md,Vagrantfile,provision.sh}
 }
 
 function should_install {
 
-    item=$1
-
-    if [ "$item" == "system" ] || [ "$item" == "common" ] || [ "$item" == "server" ] || [ "$item" == "workstation" ]; then
-        _is_on_list "$item" "$arg_install_groups"
-        return $?
-    fi
-
-    _should_proceed "$arg_install_groups" "$item"
+    _should_proceed "$arg_install_progs" "$1"
 }
 
 function should_update {
 
-    item=$1
-    file=$2
-
-    _should_proceed "$arg_update_progs" "$item"
+    _should_proceed "$arg_update_progs" "$1"
 }
 
 function should_config {
@@ -197,16 +186,16 @@ function _should_proceed {
         [ ! -x "$file" ] && return 1
     fi
 
-    _is_on_list "$item" "$list"
+    _is_on_list "$list" "$item"
     return $?
 }
 
 function _is_on_list {
 
-    item=$1
-    list=$2
+    list=$1
+    item=$2
 
-    [ -z "$list" ] && return 0
+    [ -z "$list" ] && return 1
 
     echo "$list" | grep "^${item}$" > /dev/null 2>&1 && return 0 # is a
     echo "$list" | grep "^${item}," > /dev/null 2>&1 && return 0 # starts with
@@ -221,7 +210,12 @@ function _is_on_list {
 
 [ -n "$arg_help" ] && usage
 [ -n "$arg_sudo" ] && sudo_keep_alive
-[ -n "$arg_directory" ] && DIR=$arg_directory
+
+if [[ $COLORTERM = gnome-* && $TERM = xterm ]] && infocmp gnome-256color > /dev/null 2>&1; then
+    export TERM="gnome-256color"
+elif infocmp xterm-256color > /dev/null 2>&1; then
+    export TERM="xterm-256color"
+fi
 
 if [ -z "$BASH_SOURCE" ] || [ -n "$arg_force_download" ]; then
 

@@ -1,26 +1,13 @@
 #!/bin/bash
 
-apt_get_update="sudo apt-get --yes update"
-apt_get_install="sudo apt-get --yes --ignore-missing --no-install-recommends install"
-apt_add_repository="sudo add-apt-repository --yes"
-DEBIAN_FRONTEND="noninteractive"
-
-################################################################################
-
-if [ -n "$arg_update" ]; then
-
-    sudo apt-get --yes update
-    sudo apt-get --yes upgrade
-
-fi
-
-################################################################################
+. $DIR/sbin/common-ubuntu.sh
 
 if should_install "system"; then
     print_h2 "Install system tools"
     $apt_get_install \
         apt-file \
         apt-utils \
+        ca-certificates \
         debconf-utils \
         software-properties-common
 fi
@@ -39,7 +26,6 @@ $apt_get_install \
     python \
     python-pygments \
     rsync \
-    sudo \
     unzip \
     wget \
     xz-utils
@@ -122,16 +108,6 @@ if should_install "workstation"; then
     $apt_get_install google-chrome-stable
 fi
 
-should_install "node" && \
-    (. $DIR/sbin/lib/node.sh $*)
-should_install "vscode" && \
-    (. $DIR/sbin/lib/vscode.sh $*)
-should_install "ruby" && \
-    (. $DIR/sbin/lib/ruby.sh $*)
-
-################################################################################
-
-sudo apt-get --yes autoremove
-sudo apt-get clean
-
-exit 0
+should_install "node"   && (. $DIR/lib/node.sh $*)
+should_install "vscode" && (. $DIR/lib/vscode.sh $*)
+should_install "ruby"   && (. $DIR/lib/ruby.sh $*)

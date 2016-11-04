@@ -1,42 +1,35 @@
 dotfiles
 ========
 
-The aim of my `dotfiles` project is to configure Bash and Zsh to provide a better experience while using command-line.
+The aim of my `dotfiles` project is to configure terminal to provide a better user experience while using the command-line.
 
 Installation
 ------------
-
-All files will be installed in the user directory.
 
     USER_NAME="Daniel Stefaniuk"
     USER_EMAIL="daniel.stefaniuk@gmail.com"
     curl -L https://raw.githubusercontent.com/stefaniuk/dotfiles/master/setup.sh -o - | /bin/bash -s -- \
         --update \
         --prepare \
-        --install=system,common,server,workstation \
+        --install \
         --config \
         --sudo
+
+All files will be installed in the user directory.
 
 Testing
 -------
 
-This project can be tested in the Docker containers defined in the `test` directory. VirtualBox and Vagrant have to be installed first.
+This project can be tested in a Docker containers defined in the `test` directory. VirtualBox and Vagrant have to be installed first.
 
-```bash
-vagrant up
-vagrant ssh
-make build create start install test stop OS=debian
-```
+    vagrant up
+    vagrant ssh
+    make build create start install test
 
 TODO
 ----
 
- * Rename `doc` directory to `usr/man`
- * Remove/move `test` directory and `lib/asserts.sh` file
- * What to do with the content of `sbin` directory?
-
  * Install Node.js on Mac OS X and possibly others
- * Install `apt` on Debian-based distros
  * Remap the Caps Lock key in Ubuntu
  * Configure `vim`
  * Check Paul Irish's [dotfiles](https://github.com/paulirish/dotfiles)

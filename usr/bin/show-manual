@@ -1,12 +1,14 @@
 #!/bin/bash
 
+MAN_DIR=~/usr/man
+
 # define help
 help=$(cat <<HEREDOC
 
-    DESCRIPTION: Show documentation entries from the ~/doc directory.
+    DESCRIPTION: Show manual entries.
 
     PARAMETERS:
-        \$1     Directory name from within ~/doc
+        \$1     Directory name from within $MAN_DIR
         \$2     File name
         \$3     File type, optional
 HEREDOC
@@ -21,12 +23,12 @@ fi
 # print list
 if [ -n "$(echo "$*" | grep -o -- "-l")" ] || [ -n "$(echo "$*" | grep -o -- "--list")" ]; then
     if [ $# -gt 1 ]; then
-        ls -1 ~/doc/*${1}* | \
+        ls -1 $MAN_DIR/*${1}* | \
             sed 's/\.[^.]*$//g' | \
             sort | \
             uniq
     else
-        ls -1 ~/doc
+        ls -1 $MAN_DIR
     fi
     exit 0
 fi
@@ -39,15 +41,15 @@ file_type="${3:-*}"
 # case-insensitive globbing
 shopt -s nocaseglob
 
-for dir in $(ls ~/doc | grep $dir_name 2> /dev/null); do
+for dir in $(ls $MAN_DIR | grep $dir_name 2> /dev/null); do
 
     # if multiple files match list them all and break
-    if [ $(ls -1 ~/doc/$dir/*${file_name}*.*${file_type}* 2> /dev/null | wc -l) -gt 1 ]; then
-        ls -1 ~/doc/$dir/*${file_name}*.*${file_type}* | xargs -n1 basename
+    if [ $(ls -1 $MAN_DIR/$dir/*${file_name}*.*${file_type}* 2> /dev/null | wc -l) -gt 1 ]; then
+        ls -1 $MAN_DIR/$dir/*${file_name}*.*${file_type}* | xargs -n1 basename
         break
     fi
 
-    for file in $(ls -1 ~/doc/$dir/*${file_name}*.*${file_type}* 2> /dev/null); do
+    for file in $(ls -1 $MAN_DIR/$dir/*${file_name}*.*${file_type}* 2> /dev/null); do
 
         # handle markdown
         if [ "${file##*.}" == "md" ]; then
