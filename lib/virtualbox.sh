@@ -7,6 +7,5 @@ if [ $DIST = "ubuntu" ]; then
     sudo sh -c "echo 'deb http://download.virtualbox.org/virtualbox/debian $PSEUDO_NAME non-free contrib' > /etc/apt/sources.list.d/virtualbox.list"
     $apt_get_update
     $apt_get_install \
-        virtualbox-5.1 \
-        dkms
+        virtualbox-5.1
 fi
