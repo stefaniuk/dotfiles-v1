@@ -66,12 +66,7 @@ fi
 
     # Conky
     #$apt_add_repository ppa:teejee2008/ppa
-
     #$apt_get_update
-
-    # Compiz
-    #$apt_get_install compiz compizconfig-settings-manager compiz-plugins-default compiz-plugins
-    # Conky
     #$apt_get_install conky conky-manager lm-sensors hddtemp
 
 should_install "java"       && (. $DIR/lib/java.sh $*)
@@ -84,3 +79,4 @@ should_install "vagrant"    && (. $DIR/lib/vagrant.sh $*)
 should_install "packer"     && (. $DIR/lib/packer.sh $*)
 should_install "subl"       && (. $DIR/lib/subl.sh $*)
 should_install "chrome"     && (. $DIR/lib/chrome.sh $*)
+should_install "compiz"     && (. $DIR/lib/compiz.sh $*)
