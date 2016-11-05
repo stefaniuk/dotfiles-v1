@@ -150,7 +150,7 @@ function program_setup {
 
     # remove not needed resources
     if [ -n "$arg_minimal" ]; then
-        rm -rf $DIR/{etc,lib,sbin,usr/{man,test},setup.sh,.profile.old}
+        rm -rf $DIR/{etc,lib,sbin,usr/{man,test},.profile.old}
     fi
     rm -rf $DIR/{tmp/.gitkeep,.gitignore,LICENCE,Makefile,README.md,Vagrantfile,provision.sh}
 }
