@@ -1,11 +1,12 @@
 #!/bin/bash
 
-if [ $DIST = "ubuntu" ]; then
-    file_download \
-        --url "https://vscode-update.azurewebsites.net/1.6.1/linux-deb-x64/stable" \
-        --file "vscode-1.6.1.deb"
-    sudo dpkg -i ./vscode-1.6.1.deb
-    rm ./vscode-1.6.1.deb
-fi
+print_h2 "Visual Studio Code"
 
-exit 0
+if [ $DIST = "ubuntu" ]; then
+    ver="1.6.1"
+    file_download \
+        --url "https://vscode-update.azurewebsites.net/$ver/linux-deb-x64/stable" \
+        --file "vscode-$ver.deb"
+    sudo dpkg -i vscode-$ver.deb
+    rm vscode-$ver.deb
+fi

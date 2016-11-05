@@ -46,10 +46,10 @@ Options:
     --install[=prog1,prog2,...]
     --config[=all,prog1,prog2,...]
     --test
-    --synchronise-only              Copy files only
+    --synchronise-only
     --force-download
-    --minimal                       Remove unnecessary resources
-    --sudo                          Execute sudo-keep-alive
+    --minimal
+    --sudo
     --help
 "
 
@@ -207,6 +207,7 @@ function _is_on_list {
 [ -n "$arg_help" ] && usage
 [ -n "$arg_sudo" ] && sudo_keep_alive
 
+# use colours in terminal
 if [[ $COLORTERM = gnome-* && $TERM = xterm ]] && infocmp gnome-256color > /dev/null 2>&1; then
     export TERM="gnome-256color"
 elif infocmp xterm-256color > /dev/null 2>&1; then
