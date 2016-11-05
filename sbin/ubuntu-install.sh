@@ -1,37 +1,38 @@
 #!/bin/bash
 
-. $DIR/sbin/common-ubuntu.sh
+if should_install "dependencies-package"; then
+    print_h2 "Dependencies"
+    $apt_get_install \
+        bash-completion \
+        bc \
+        binutils \
+        curl \
+        expect \
+        git \
+        openssl \
+        pcregrep \
+        perl \
+        python \
+        python-pygments \
+        rsync \
+        unzip \
+        wget \
+        xz-utils
+fi
 
-if should_install "system"; then
-    print_h2 "Install system tools"
+if should_install "system-package"; then
+    print_h2 "System tools"
     $apt_get_install \
         apt-file \
         apt-utils \
         ca-certificates \
         debconf-utils \
+        locales \
         software-properties-common
 fi
 
-print_h2 "Install dotfiles tools"
-$apt_get_install \
-    bash-completion \
-    bc \
-    binutils \
-    curl \
-    expect \
-    git \
-    openssl \
-    pcregrep \
-    perl \
-    python \
-    python-pygments \
-    rsync \
-    unzip \
-    wget \
-    xz-utils
-
-if should_install "common"; then
-    print_h2 "Install common tools"
+if should_install "common-package"; then
+    print_h2 "Common tools"
     $apt_get_install \
         ack-grep \
         grc \
@@ -41,25 +42,25 @@ if should_install "common"; then
         strace \
         traceroute \
         tree \
-        vim \
-        zsh
+        vim
 fi
 
-if should_install "server"; then
-    print_h2 "Install server tools"
+if should_install "server-package"; then
+    print_h2 "Server tools"
     $apt_get_install \
         heirloom-mailx
 fi
 
-if should_install "workstation"; then
-    print_h2 "Install workstation tools"
+if should_install "workstation-package"; then
+    print_h2 "Workstation tools"
     $apt_get_install \
         git-flow \
         gpgv2 \
         gtypist \
         irssi \
         lynx \
-        tmux
+        tmux \
+        zsh
 
     # Java 8
     $apt_add_repository ppa:webupd8team/java
@@ -80,10 +81,10 @@ if should_install "workstation"; then
     $apt_get_update
 
     # Java 8
-    echo debconf shared/accepted-oracle-license-v1-1 select true | debconf-set-selections
-    echo debconf shared/accepted-oracle-license-v1-1 seen true | debconf-set-selections
-    $apt_get_install oracle-java8-installer
-    $apt_get_install oracle-java8-set-default
+    #echo debconf shared/accepted-oracle-license-v1-1 select true | debconf-set-selections
+    #echo debconf shared/accepted-oracle-license-v1-1 seen true | debconf-set-selections
+    #$apt_get_install oracle-java8-installer
+    #$apt_get_install oracle-java8-set-default
     # Compiz
     $apt_get_install compiz compizconfig-settings-manager compiz-plugins-default compiz-plugins
     # Conky

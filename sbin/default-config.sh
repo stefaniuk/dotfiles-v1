@@ -7,9 +7,8 @@ print_h1 "Configuring..."
 
 if should_config "ssh"; then
 
-    print_h2 "Configure SSH"
+    print_h2 "SSH"
 
-    # resources
     mkdir -p ~/.ssh
     cp -f ~/etc/ssh/config ~/.ssh
     file_replace_str "github-user" "github-$GITHUB_ACCOUNT" ~/.ssh/config
@@ -23,13 +22,11 @@ fi
 
 if should_config "bash"; then
 
-    print_h2 "Configure Bash"
+    print_h2 "Bash"
 
-    # profile
     [ -f ~/.profile ] && [ ! -f ~/.profile.old ] && mv ~/.profile ~/.profile.old
     [ -f ~/.bash_profile ] && [ ! -f ~/.bash_profile.old ] && mv ~/.bash_profile ~/.bash_profile.old
 
-    # resources
     cp -f ~/etc/bash/.bash* ~
     file_replace_str 'DOTFILES_DIR=~' "DOTFILES_DIR=$DOTFILES_DIR" ~/.bash_exports
     file_replace_str "USER_NAME=\"unknown\"" "USER_NAME=\"$USER_NAME\"" ~/.bash_exports
@@ -44,12 +41,10 @@ fi
 
 if should_config "zsh"; then
 
-    print_h2 "Configure Zsh"
+    print_h2 "Zsh"
 
-    # resources
     cp -f ~/etc/zsh/.zsh* ~
 
-    # install Oh My Zsh
     if [ ! -f ~/.oh-my-zsh/oh-my-zsh.sh ]; then
         rm -rf ~/{.oh-my-zsh,.zcompdump-*,.zlogin,.zsh*}
         git clone \
@@ -67,12 +62,10 @@ fi
 
 if should_config "git"; then
 
-    print_h2 "Configure Git"
+    print_h2 "Git"
 
-    # resources
     cp -f ~/etc/git/.git* ~
 
-    # configuration
     git config --global user.name "$USER_NAME"
     git config --global user.email "$USER_EMAIL"
     if [ $(comparev $(git --version | grep -oE [0-9]+\.[0-9]+\.[0-9]+) 2.0.0) != "-1" ]; then
@@ -105,7 +98,7 @@ fi
 
 if should_config "docker"; then
 
-    print_h2 "Configure Docker"
+    print_h2 "Docker"
 
     # completion
     [ -f /etc/bash_completion ] && dir=/etc/bash_completion.d || dir=/usr/local/etc/bash_completion.d
@@ -128,7 +121,7 @@ fi
 
 if should_config "vagrant"; then
 
-    print_h2 "Configure Vagrant"
+    print_h2 "Vagrant"
 
     # completion
     [ -f /etc/bash_completion ] && dir=/etc/bash_completion.d || dir=/usr/local/etc/bash_completion.d
@@ -146,9 +139,8 @@ fi
 
 if should_config "vim"; then
 
-    print_h2 "Configure Vim"
+    print_h2 "Vim"
 
-    # resources
     cp -f ~/etc/vim/.vimrc ~
     mkdir -p ~/.vim/{autoload,bundle}
     #cp -Rf ~/etc/vim/plugin ~/.vim
@@ -188,9 +180,8 @@ fi
 
 if should_config "mc"; then
 
-    print_h2 "Configure Midnight Commander"
+    print_h2 "Midnight Commander"
 
-    # resources
     mkdir -p ~/.config/mc
     [ -f /etc/mc/mc.keymap ] && cp -L /etc/mc/mc.keymap ~/.config/mc
     [ -f /usr/local/etc/mc/mc.keymap ] && cp -L /usr/local/etc/mc/mc.keymap ~/.config/mc
@@ -205,9 +196,8 @@ fi
 
 if should_config "tmux"; then
 
-    print_h2 "Configure Tmux"
+    print_h2 "Tmux"
 
-    # resources
     cp -f ~/etc/tmux/.tmux.conf ~
 
     if [ ! -d ~/.tmux/plugins/tpm ]; then
@@ -225,13 +215,12 @@ fi
 
 if should_config "subl"; then
 
-    print_h2 "Configure Sublime Text"
+    print_h2 "Sublime Text"
 
     [ "$DIST" == "macosx" ] && dir=~/Library/Application\ Support/Sublime\ Text\ 3
     [ "$DIST" == "ubuntu" ] && dir=~/.config/sublime-text-3
 
     if [ -n "$dir" ]; then
-        # install package control
         mkdir -p "$dir/Installed Packages"
         mkdir -p "$dir/Packages/User"
         pkg_name="Package Control.sublime-package"
@@ -242,7 +231,7 @@ if should_config "subl"; then
                 --url "http://sublime.wbond.net/$pkg_name" \
                 --output "$pkg_dir/$pkg_name"
         fi
-        # configuration
+
         cp -f ~/etc/subl/*.sublime-settings "$dir/Packages/User"
     fi
 fi
@@ -252,9 +241,8 @@ fi
 
 if should_config "lynx"; then
 
-    print_h2 "Configure Lynx"
+    print_h2 "Lynx"
 
-    # resources
     cp -f ~/etc/lynx/.lynx* ~
 
 fi
@@ -264,9 +252,8 @@ fi
 
 if should_config "irssi"; then
 
-    print_h2 "Configure Irssi"
+    print_h2 "Irssi"
 
-    # resources
     mkdir -p ~/.irssi
     cp -f ~/etc/irssi/config ~/.irssi
     file_replace_str "real_name = \"\"" "real_name = \"$USER_NAME\"" ~/.irssi/config
@@ -278,19 +265,16 @@ fi
 
 if should_config "mvn"; then
 
-    print_h2 "Configure Maven"
+    print_h2 "Maven"
 
-    # resources
     mkdir -p ~/.m2
     cp -f ~/etc/maven/settings*.xml ~/.m2
 
 fi
 
 ################################################################################
-# config
 
-file=~/sbin/config-$DIST.sh
-if [ -f $file ]; then
-    (. $file $*)
-fi
-unset file
+(
+    [ -f $DIR/sbin/$DIST-common.sh ] && . $DIR/sbin/$DIST-common.sh $*
+    [ -f $DIR/sbin/$DIST-config.sh ] && . $DIR/sbin/$DIST-config.sh $*
+)

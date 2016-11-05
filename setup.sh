@@ -16,8 +16,6 @@ DIR=~
 
 program_dir=$(cd "$(dirname "$0" 2> /dev/null)"; pwd)
 
-arg_container=$(echo "$*" | grep -o -- "--container")
-arg_prepare=$(echo "$*" | grep -o -- "--prepare")
 arg_install=$(echo "$*" | grep -o -- "--install")
 arg_config=$(echo "$*" | grep -o -- "--config")
 arg_update=$(echo "$*" | grep -o -- "--update")
@@ -28,9 +26,9 @@ arg_minimal=$(echo "$*" | grep -o -- "--minimal")
 arg_sudo=$(echo "$*" | grep -o -- "--sudo")
 arg_help=$(echo "$*" | grep -o -- "--help")
 
+arg_update_progs=$(echo "$*" | grep -o -- "--update=[-_,A-Za-z0-9]*" | sed "s/--update=//")
 arg_install_progs=$(echo "$*" | grep -o -- "--install=[-_,A-Za-z0-9]*" | sed "s/--install=//")
 arg_config_progs=$(echo "$*" | grep -o -- "--config=[-_,A-Za-z0-9]*" | sed "s/--config=//")
-arg_update_progs=$(echo "$*" | grep -o -- "--update=[-_,A-Za-z0-9]*" | sed "s/--update=//")
 
 ################################################################################
 # functions
@@ -44,11 +42,9 @@ Usage:
     ${file} [options]
 
 Options:
-    --container
     --update
-    --prepare
     --install[=prog1,prog2,...]
-    --config[=prog1,prog2,...]
+    --config[=all,prog1,prog2,...]
     --test
     --synchronise-only              Copy files only
     --force-download
@@ -124,70 +120,70 @@ function program_setup {
     [ -n "$arg_synchronise_only" ] && exit 0
 
     # check internet connection
-    printf "Check internet connection\n"
+    print_h1 "Checking network connectivity..."
     curl --silent --insecure --max-time 10 --retry 3 "https://google.com" > /dev/null
     if [[ $? -ne 0 ]]; then
-        print_err "No internet connection"
+        print_err "No network"
     fi
 
     # check operating system
-    printf "Check OS\n"
+    print_h1 "Checking operating system..."
     if [ $DIST != "macosx" ] \
             && [ $DIST != "ubuntu" ] \
             && [ $DIST != "debian" ] \
             && [ $DIST != "centos" ] \
             && [ $DIST != "scientific" ]; then
-        print_err "Operating system is not fully supported"
+        print_err "Operating system not supported"
     fi
 
+    # initialise
+    (. $DIR/sbin/default-initialise.sh $*)
     # update
-    [ -n "$arg_update" ] && (. $DIR/sbin/update.sh $*)
-    # prepare
-    [ -n "$arg_prepare" ] && (. $DIR/sbin/prepare.sh $*)
+    [ -n "$arg_update" ] && (. $DIR/sbin/default-update.sh $*)
     # install
-    [ -n "$arg_install" ] && (. $DIR/sbin/install.sh $*)
+    [ -n "$arg_install" ] && (. $DIR/sbin/default-install.sh $*)
     # config
-    [ -n "$arg_config" ] && (. $DIR/sbin/config.sh $*)
+    [ -n "$arg_config" ] && (. $DIR/sbin/default-config.sh $*)
     # test
     [ -n "$arg_test" ] && /bin/bash -cli "system_test --skip-selected-tests"
 
     # remove not needed resources
     if [ -n "$arg_minimal" ]; then
-        rm -rf $DIR/{etc,lib,sbin,usr/{man,test},setup.sh}
+        rm -rf $DIR/{etc,lib,sbin,usr/{man,test},setup.sh,.profile.old}
     fi
     rm -rf $DIR/{.gitignore,LICENCE,Makefile,README.md,Vagrantfile,provision.sh}
 }
 
 function should_install {
 
-    _should_proceed "$arg_install_progs" "$1"
+    _is_on_list "$arg_install_progs" "$1"
+    return $?
 }
 
 function should_update {
 
-    _should_proceed "$arg_update_progs" "$1"
+    _is_on_list "$arg_update_progs" "$1"
+    return $?
 }
 
 function should_config {
 
+    list=$arg_config_progs
     item=$1
     file=$2
 
-    _should_proceed "$arg_config_progs" "$item" "$file"
-}
-
-function _should_proceed {
-
-    list=$1 # command-line arguments
-    item=$2 # program to install/config/update
-    file=$3 # executable to check
-
     if [ -n "$file" ]; then
-        [ ! -x "$file" ] && return 1
+        which "$file" > /dev/null 2>&1
+        [ $? -ne 0 ] && [ ! -x "$file" ] && return 1
+    else
+        which "$item" > /dev/null 2>&1 || return 1
     fi
 
-    _is_on_list "$list" "$item"
-    return $?
+    if _is_on_list "$list" "$item" || _is_on_list "$list" "all"; then
+        return 0
+    fi
+
+    return 1
 }
 
 function _is_on_list {

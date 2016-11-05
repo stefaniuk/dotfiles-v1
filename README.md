@@ -29,7 +29,6 @@ This project can be tested in a Docker containers defined in the `test` director
 TODO
 ----
 
- * Install Node.js on Mac OS X and possibly others
  * Remap the Caps Lock key in Ubuntu
  * Configure `vim`
  * Check Paul Irish's [dotfiles](https://github.com/paulirish/dotfiles)
