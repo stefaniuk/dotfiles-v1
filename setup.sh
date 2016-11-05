@@ -43,7 +43,7 @@ Usage:
 
 Options:
     --update
-    --install[=prog1,prog2,...]
+    --install[=dependencies,{utils|tools|workstation}-package,prog1,prog2,...]
     --config[=all,prog1,prog2,...]
     --test
     --synchronise-only
@@ -119,15 +119,16 @@ function program_setup {
     # synchronise only
     [ -n "$arg_synchronise_only" ] && exit 0
 
+    print_h1 "Checking..."
+
     # check internet connection
-    print_h1 "Checking network connectivity..."
+    print_h2 "Network connectivity"
     curl --silent --insecure --max-time 10 --retry 3 "https://google.com" > /dev/null
     if [[ $? -ne 0 ]]; then
         print_err "No network"
     fi
-
     # check operating system
-    print_h1 "Checking operating system..."
+    print_h2 "Operating system"
     if [ $DIST != "macosx" ] \
             && [ $DIST != "ubuntu" ] \
             && [ $DIST != "debian" ] \
@@ -151,7 +152,7 @@ function program_setup {
     if [ -n "$arg_minimal" ]; then
         rm -rf $DIR/{etc,lib,sbin,usr/{man,test},setup.sh,.profile.old}
     fi
-    rm -rf $DIR/{.gitignore,LICENCE,Makefile,README.md,Vagrantfile,provision.sh}
+    rm -rf $DIR/{tmp/.gitkeep,.gitignore,LICENCE,Makefile,README.md,Vagrantfile,provision.sh}
 }
 
 function should_install {

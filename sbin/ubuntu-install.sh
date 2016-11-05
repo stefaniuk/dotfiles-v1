@@ -68,9 +68,6 @@ fi
     #$apt_add_repository ppa:teejee2008/ppa
     # Sublime Text
     #$apt_add_repository ppa:webupd8team/sublime-text-3
-    # VirtualBox
-    #wget -q -O - http://download.virtualbox.org/virtualbox/debian/oracle_vbox.asc | sudo apt-key add -
-    #sudo sh -c "echo 'deb http://download.virtualbox.org/virtualbox/debian $PSEUDO_NAME non-free contrib' > /etc/apt/sources.list.d/virtualbox.list"
     # Chrome
     #wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
     #sudo sh -c "echo 'deb http://dl.google.com/linux/chrome/deb/ stable main' > /etc/apt/sources.list.d/google-chrome.list"
@@ -83,8 +80,6 @@ fi
     #$apt_get_install conky conky-manager lm-sensors hddtemp
     # Sublime Text
     #$apt_get_install sublime-text-installer
-    # VirtualBox
-    #$apt_get_install virtualbox-5.0
     # Chrome
     #$apt_get_install google-chrome-stable
 
@@ -93,5 +88,6 @@ should_install "node"       && (. $DIR/lib/node.sh $*)
 should_install "vscode"     && (. $DIR/lib/vscode.sh $*)
 should_install "ruby"       && (. $DIR/lib/ruby.sh $*)
 should_install "docker"     && (. $DIR/lib/docker.sh $*)
-should_install "packer"     && (. $DIR/lib/packer.sh $*)
+should_install "virtualbox" && (. $DIR/lib/virtualbox.sh $*)
 should_install "vagrant"    && (. $DIR/lib/vagrant.sh $*)
+should_install "packer"     && (. $DIR/lib/packer.sh $*)
