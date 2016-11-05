@@ -1,29 +1,37 @@
 dotfiles
 ========
 
-The aim of my `dotfiles` project is to configure terminal to provide a better user experience while using the command-line.
+The aim of the `dotfiles` project is to configure Bash to provide a better user experience while using the command-line.
 
 Installation
 ------------
+
+Most common installation
 
     USER_NAME="Daniel Stefaniuk"
     USER_EMAIL="daniel.stefaniuk@gmail.com"
     curl -L https://raw.githubusercontent.com/stefaniuk/dotfiles/master/dotfiles -o - | /bin/bash -s -- \
         --update \
-        --install=bash \
-        --config=bash \
+        --install=dependencies,utils-package,tools-package,workstation-package,subl,chrome \
+        --config=all \
         --sudo
 
-All files will be installed in the user's directory.
+Minimal installation
+
+    curl -L https://raw.githubusercontent.com/stefaniuk/dotfiles/master/dotfiles -o - | /bin/bash -s -- \
+        --config=bash \
+        --minimal
+
+All files will be installed in the user's home directory.
 
 Testing
 -------
 
-This project can be tested in a Docker containers defined in the `test` directory. VirtualBox and Vagrant have to be installed first.
+This project can be tested in a Docker container defined in the `./usr/test/etc` directory. To use this facility, please make sure that VirtualBox and Vagrant are installed.
 
     vagrant up
     vagrant ssh
-    make build create start install test
+    make build create start install bash
 
 TODO
 ----
