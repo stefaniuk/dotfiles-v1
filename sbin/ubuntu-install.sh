@@ -1,18 +1,6 @@
 #!/bin/bash
 
-if should_install "utils-package"; then
-    print_h2 "Utils"
-    $apt_get_install \
-        apt-file \
-        apt-transport-https \
-        apt-utils \
-        ca-certificates \
-        debconf-utils \
-        locales \
-        software-properties-common
-fi
-
-if should_install "dependencies-package"; then
+if should_install "dependencies"; then
     print_h2 "Dependencies"
     $apt_get_install \
         bash-completion \
@@ -32,61 +20,73 @@ if should_install "dependencies-package"; then
         xz-utils
 fi
 
-if should_install "common-package"; then
-    print_h2 "Common tools"
+if should_install "utils-package"; then
+    print_h2 "Utils Package"
+    $apt_get_install \
+        apt-file \
+        apt-transport-https \
+        apt-utils \
+        ca-certificates \
+        debconf-utils \
+        dialog \
+        locales \
+        software-properties-common
+fi
+
+if should_install "tools-package"; then
+    print_h2 "Tools Package"
     $apt_get_install \
         ack-grep \
         grc \
+        heirloom-mailx \
         htop \
+        iputils-ping \
         lnav \
+        lsof \
+        lynx \
         mc \
+        net-tools \
+        netcat \
         strace \
         traceroute \
         tree \
         vim
 fi
 
-if should_install "server-package"; then
-    print_h2 "Server tools"
-    $apt_get_install \
-        heirloom-mailx
-fi
-
 if should_install "workstation-package"; then
-    print_h2 "Workstation tools"
+    print_h2 "Workstation Package"
     $apt_get_install \
         git-flow \
         gpgv2 \
         gtypist \
         irssi \
-        lynx \
         tmux \
         zsh
+fi
 
     # Conky
-    $apt_add_repository ppa:teejee2008/ppa
+    #$apt_add_repository ppa:teejee2008/ppa
     # Sublime Text
-    $apt_add_repository ppa:webupd8team/sublime-text-3
+    #$apt_add_repository ppa:webupd8team/sublime-text-3
     # VirtualBox
-    wget -q -O - http://download.virtualbox.org/virtualbox/debian/oracle_vbox.asc | sudo apt-key add -
-    sudo sh -c "echo 'deb http://download.virtualbox.org/virtualbox/debian $PSEUDO_NAME non-free contrib' > /etc/apt/sources.list.d/virtualbox.list"
+    #wget -q -O - http://download.virtualbox.org/virtualbox/debian/oracle_vbox.asc | sudo apt-key add -
+    #sudo sh -c "echo 'deb http://download.virtualbox.org/virtualbox/debian $PSEUDO_NAME non-free contrib' > /etc/apt/sources.list.d/virtualbox.list"
     # Chrome
-    wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-    sudo sh -c "echo 'deb http://dl.google.com/linux/chrome/deb/ stable main' > /etc/apt/sources.list.d/google-chrome.list"
+    #wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+    #sudo sh -c "echo 'deb http://dl.google.com/linux/chrome/deb/ stable main' > /etc/apt/sources.list.d/google-chrome.list"
 
-    $apt_get_update
+    #$apt_get_update
 
     # Compiz
-    $apt_get_install compiz compizconfig-settings-manager compiz-plugins-default compiz-plugins
+    #$apt_get_install compiz compizconfig-settings-manager compiz-plugins-default compiz-plugins
     # Conky
-    $apt_get_install conky conky-manager lm-sensors hddtemp
+    #$apt_get_install conky conky-manager lm-sensors hddtemp
     # Sublime Text
-    $apt_get_install sublime-text-installer
+    #$apt_get_install sublime-text-installer
     # VirtualBox
-    $apt_get_install virtualbox-5.0
+    #$apt_get_install virtualbox-5.0
     # Chrome
-    $apt_get_install google-chrome-stable
-fi
+    #$apt_get_install google-chrome-stable
 
 should_install "java"       && (. $DIR/lib/java.sh $*)
 should_install "node"       && (. $DIR/lib/node.sh $*)
