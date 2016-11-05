@@ -66,8 +66,6 @@ fi
 
     # Conky
     #$apt_add_repository ppa:teejee2008/ppa
-    # Sublime Text
-    #$apt_add_repository ppa:webupd8team/sublime-text-3
     # Chrome
     #wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
     #sudo sh -c "echo 'deb http://dl.google.com/linux/chrome/deb/ stable main' > /etc/apt/sources.list.d/google-chrome.list"
@@ -78,8 +76,6 @@ fi
     #$apt_get_install compiz compizconfig-settings-manager compiz-plugins-default compiz-plugins
     # Conky
     #$apt_get_install conky conky-manager lm-sensors hddtemp
-    # Sublime Text
-    #$apt_get_install sublime-text-installer
     # Chrome
     #$apt_get_install google-chrome-stable
 
@@ -91,3 +87,4 @@ should_install "docker"     && (. $DIR/lib/docker.sh $*)
 should_install "virtualbox" && (. $DIR/lib/virtualbox.sh $*)
 should_install "vagrant"    && (. $DIR/lib/vagrant.sh $*)
 should_install "packer"     && (. $DIR/lib/packer.sh $*)
+should_install "subl"       && (. $DIR/lib/subl.sh $*)
