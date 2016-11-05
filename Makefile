@@ -32,7 +32,7 @@ stop:
 
 install:
 	@docker exec --interactive --tty dotfiles-$(OS) \
-		./setup.sh \
+		./dotfiles \
 			--config=bash \
 			--minimal
 

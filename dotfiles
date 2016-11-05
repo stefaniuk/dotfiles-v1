@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # exit if script is sourced
-[ -n "$BASH_SOURCE" ] && [ "$(basename -- "$0")" != "setup.sh" ] && exit 1
+[ -n "$BASH_SOURCE" ] && [ "$(basename -- "$0")" != "dotfiles" ] && exit 1
 
 ################################################################################
 # variables
@@ -109,7 +109,7 @@ function program_setup {
 
     chmod 700 $DIR/{bin,etc,lib,sbin,tmp,usr}
     chmod 500 $DIR/{bin,usr/{bin,test/bin}}/*
-    chmod 500 $DIR/setup.sh
+    chmod 500 $DIR/dotfiles
 
     # detect operating system
     source $DIR/etc/bash/.bash_system

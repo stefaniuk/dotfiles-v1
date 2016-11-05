@@ -8,13 +8,13 @@ Installation
 
     USER_NAME="Daniel Stefaniuk"
     USER_EMAIL="daniel.stefaniuk@gmail.com"
-    curl -L https://raw.githubusercontent.com/stefaniuk/dotfiles/master/setup.sh -o - | /bin/bash -s -- \
+    curl -L https://raw.githubusercontent.com/stefaniuk/dotfiles/master/dotfiles -o - | /bin/bash -s -- \
         --update \
         --install=bash \
         --config=bash \
         --sudo
 
-All files will be installed in the user directory.
+All files will be installed in the user's directory.
 
 Testing
 -------
