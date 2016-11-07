@@ -56,6 +56,7 @@ fi
 if should_install "workstation-package"; then
     print_h2 "Workstation Package"
     $apt_get_install \
+        byobu \
         git-flow \
         gpgv2 \
         gtypist \

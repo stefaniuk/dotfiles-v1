@@ -36,8 +36,8 @@ This project can be tested in a Docker container defined in the `./usr/test/etc`
 TODO
 ----
 
+ * Configure `byobu`
  * Remap the Caps Lock key in Ubuntu
- * Configure `vim`
  * Check Paul Irish's [dotfiles](https://github.com/paulirish/dotfiles)
  * Check thoughtbot's [dotfiles](https://github.com/thoughtbot/dotfiles)
  * Check Justin Force's [dotfiles](https://github.com/justinforce/dotfiles)
