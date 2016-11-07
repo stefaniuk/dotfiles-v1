@@ -8,6 +8,6 @@ if [ $DIST = "ubuntu" ]; then
     echo debconf shared/accepted-oracle-license-v1-1 select true | debconf-set-selections
     echo debconf shared/accepted-oracle-license-v1-1 seen true | debconf-set-selections
     $apt_get_install \
-        oracle-java9-installer \
-        oracle-java9-set-default
+        oracle-java8-installer \
+        oracle-java8-set-default
 fi
