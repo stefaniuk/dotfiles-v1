@@ -22,6 +22,7 @@ arg_update=$(echo "$*" | grep -o -- "--update")
 arg_test=$(echo "$*" | grep -o -- "--test")
 arg_synchronise_only=$(echo "$*" | grep -o -- "--synchronise-only")
 arg_force_download=$(echo "$*" | grep -o -- "--force-download")
+arg_directory=$(echo "$*" | grep -Eo -- "--directory=[-_A-Za-z0-9/]+" | sed "s/--directory=//")
 arg_minimal=$(echo "$*" | grep -o -- "--minimal")
 arg_sudo=$(echo "$*" | grep -o -- "--sudo")
 arg_help=$(echo "$*" | grep -o -- "--help")
@@ -48,6 +49,7 @@ Options:
     --test
     --synchronise-only
     --force-download
+    --directory=/dir
     --minimal
     --sudo
     --help
@@ -72,8 +74,6 @@ function sudo_keep_alive {
 }
 
 function program_download {
-
-    printf "Download $REPOSITORY\n\n"
 
     curl -L \
         "https://github.com/${GITHUB_ACCOUNT}/${REPOSITORY}/tarball/master" \
@@ -207,6 +207,7 @@ function _is_on_list {
 
 [ -n "$arg_help" ] && usage
 [ -n "$arg_sudo" ] && sudo_keep_alive
+[ -n "$arg_directory" ] && DIR=$arg_directory
 
 # use colours in terminal
 if [[ $COLORTERM = gnome-* && $TERM = xterm ]] && infocmp gnome-256color > /dev/null 2>&1; then
