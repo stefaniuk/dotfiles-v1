@@ -36,6 +36,7 @@ This project can be tested in a Docker container defined in the `./usr/test/etc`
 TODO
 ----
 
+ * Version `dotfiles`
  * Configure `byobu`
  * Remap the Caps Lock key in Ubuntu
  * Check Paul Irish's [dotfiles](https://github.com/paulirish/dotfiles)
