@@ -1,4 +1,4 @@
-dotfiles
+Dotfiles
 ========
 
 The aim of the `dotfiles` project is to configure Bash to provide a better user experience while using the command-line.
