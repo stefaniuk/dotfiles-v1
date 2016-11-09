@@ -9,11 +9,11 @@ if should_config "ssh"; then
 
     print_h2 "SSH"
 
-    mkdir -p ~/.ssh
-    cp -f ~/etc/ssh/config ~/.ssh
-    file_replace_str "github-user" "github-$GITHUB_ACCOUNT" ~/.ssh/config
-    file_replace_str "bitbucket-user" "bitbucket-$BITBUCKET_ACCOUNT" ~/.ssh/config
-    file_replace_str "gitlab-user" "gitlab-$GITLAB_ACCOUNT" ~/.ssh/config
+    mkdir -p $DIR/.ssh
+    cp -f $DIR/etc/ssh/config $DIR/.ssh
+    file_replace_str "github-user" "github-$GITHUB_ACCOUNT" $DIR/.ssh/config
+    file_replace_str "bitbucket-user" "bitbucket-$BITBUCKET_ACCOUNT" $DIR/.ssh/config
+    file_replace_str "gitlab-user" "gitlab-$GITLAB_ACCOUNT" $DIR/.ssh/config
 
 fi
 
@@ -24,15 +24,14 @@ if should_config "bash"; then
 
     print_h2 "Bash"
 
-    [ -f ~/.profile ] && [ ! -f ~/.profile.old ] && mv ~/.profile ~/.profile.old
-    [ -f ~/.bash_profile ] && [ ! -f ~/.bash_profile.old ] && mv ~/.bash_profile ~/.bash_profile.old
+    [ -f $DIR/.profile ] && [ ! -f $DIR/.profile.old ] && mv $DIR/.profile $DIR/.profile.old
+    [ -f $DIR/.bash_profile ] && [ ! -f $DIR/.bash_profile.old ] && mv $DIR/.bash_profile $DIR/.bash_profile.old
 
-    cp -f ~/etc/bash/.bash* ~
-    file_replace_str 'DOTFILES_DIR=~' "DOTFILES_DIR=$DOTFILES_DIR" ~/.bash_exports
-    file_replace_str "USER_NAME=\"unknown\"" "USER_NAME=\"$USER_NAME\"" ~/.bash_exports
-    file_replace_str "USER_EMAIL=\"unknown\"" "USER_EMAIL=\"$USER_EMAIL\"" ~/.bash_exports
-    file_replace_str "GITHUB_ACCOUNT=\"unknown\"" "GITHUB_ACCOUNT=\"$GITHUB_ACCOUNT\"" ~/.bash_exports
-    file_replace_str "GITLAB_ACCOUNT=\"unknown\"" "GITLAB_ACCOUNT=\"$GITLAB_ACCOUNT\"" ~/.bash_exports
+    cp -f $DIR/etc/bash/.bash* $DIR
+    file_replace_str "USER_NAME=\"unknown\"" "USER_NAME=\"$USER_NAME\"" $DIR/.bash_exports
+    file_replace_str "USER_EMAIL=\"unknown\"" "USER_EMAIL=\"$USER_EMAIL\"" $DIR/.bash_exports
+    file_replace_str "GITHUB_ACCOUNT=\"unknown\"" "GITHUB_ACCOUNT=\"$GITHUB_ACCOUNT\"" $DIR/.bash_exports
+    file_replace_str "GITLAB_ACCOUNT=\"unknown\"" "GITLAB_ACCOUNT=\"$GITLAB_ACCOUNT\"" $DIR/.bash_exports
 
 fi
 
@@ -43,16 +42,16 @@ if should_config "zsh"; then
 
     print_h2 "Zsh"
 
-    cp -f ~/etc/zsh/.zsh* ~
+    cp -f $DIR/etc/zsh/.zsh* $DIR
 
-    if [ ! -f ~/.oh-my-zsh/oh-my-zsh.sh ]; then
-        rm -rf ~/{.oh-my-zsh,.zcompdump-*,.zlogin,.zsh*}
+    if [ ! -f $DIR/.oh-my-zsh/oh-my-zsh.sh ]; then
+        rm -rf $DIR/{.oh-my-zsh,.zcompdump-*,.zlogin,.zsh*}
         git clone \
             https://github.com/robbyrussell/oh-my-zsh.git \
-            ~/.oh-my-zsh
-        cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
-    elif [ -d ~/.oh-my-zsh/.git ]; then
-        (cd ~/.oh-my-zsh; git pull)
+            $DIR/.oh-my-zsh
+        cp $DIR/.oh-my-zsh/templates/zshrc.zsh-template $DIR/.zshrc
+    elif [ -d $DIR/.oh-my-zsh/.git ]; then
+        (cd $DIR/.oh-my-zsh; git pull)
     fi
 
 fi
@@ -64,7 +63,7 @@ if should_config "git"; then
 
     print_h2 "Git"
 
-    cp -f ~/etc/git/.git* ~
+    cp -f $DIR/etc/git/.git* $DIR
 
     git config --global user.name "$USER_NAME"
     git config --global user.email "$USER_EMAIL"
@@ -84,11 +83,11 @@ if should_config "git"; then
     unset dir
 
     # diff-highlight
-    if [ ! -f ~/bin/diff-highlight ]; then
+    if [ ! -f $DIR/bin/diff-highlight ]; then
         wget \
             https://raw.githubusercontent.com/git/git/master/contrib/diff-highlight/diff-highlight \
-            -O ~/bin/diff-highlight
-        chmod +x ~/bin/diff-highlight
+            -O $DIR/bin/diff-highlight
+        chmod +x $DIR/bin/diff-highlight
     fi
 
 fi
@@ -141,36 +140,36 @@ if should_config "vim"; then
 
     print_h2 "Vim"
 
-    cp -f ~/etc/vim/.vimrc ~
-    mkdir -p ~/.vim/{autoload,bundle}
-    #cp -Rf ~/etc/vim/plugin ~/.vim
+    cp -f $DIR/etc/vim/.vimrc $DIR
+    mkdir -p $DIR/.vim/{autoload,bundle}
+    #cp -Rf $DIR/etc/vim/plugin $DIR/.vim
 
     # vundle - plugin manager
-    if [ ! -d ~/.vim/bundle/vundle ]; then
+    if [ ! -d $DIR/.vim/bundle/vundle ]; then
         git clone \
             https://github.com/gmarik/Vundle.vim.git \
-            ~/.vim/bundle/vundle
+            $DIR/.vim/bundle/vundle
     else
-        (cd ~/.vim/bundle/vundle; git pull)
+        (cd $DIR/.vim/bundle/vundle; git pull)
     fi
     # pathogen - plugin manager
     wget \
         https://raw.githubusercontent.com/tpope/vim-pathogen/master/autoload/pathogen.vim \
-        -O ~/.vim/autoload/pathogen.vim
+        -O $DIR/.vim/autoload/pathogen.vim
 
     # solarized
-    if [ ! -d ~/.vim/bundle/solarized ]; then
+    if [ ! -d $DIR/.vim/bundle/solarized ]; then
         git clone \
             https://github.com/altercation/vim-colors-solarized.git \
-            ~/.vim/bundle/solarized
+            $DIR/.vim/bundle/solarized
     else
-        (cd ~/.vim/bundle/solarized; git pull)
+        (cd $DIR/.vim/bundle/solarized; git pull)
     fi
     # nerdtree
-    #if [ ! -d ~/.vim/bundle/nerdtree ]; then
-    #    git clone https://github.com/scrooloose/nerdtree.git ~/.vim/bundle/nerdtree
+    #if [ ! -d $DIR/.vim/bundle/nerdtree ]; then
+    #    git clone https://github.com/scrooloose/nerdtree.git $DIR/.vim/bundle/nerdtree
     #else
-    #    (cd ~/.vim/bundle/nerdtree; git pull)
+    #    (cd $DIR/.vim/bundle/nerdtree; git pull)
     #fi
 
 fi
@@ -182,12 +181,12 @@ if should_config "mc"; then
 
     print_h2 "Midnight Commander"
 
-    mkdir -p ~/.config/mc
-    [ -f /etc/mc/mc.keymap ] && cp -L /etc/mc/mc.keymap ~/.config/mc
-    [ -f /usr/local/etc/mc/mc.keymap ] && cp -L /usr/local/etc/mc/mc.keymap ~/.config/mc
-    [ -f /etc/mc/mc.menu ] && cp -L /etc/mc/mc.menu ~/.config/mc/menu
-    [ -f /usr/local/etc/mc/mc.menu ] && cp -L /usr/local/etc/mc/mc.menu ~/.config/mc/menu
-    cp -f ~/etc/mc/* ~/.config/mc
+    mkdir -p $DIR/.config/mc
+    [ -f /etc/mc/mc.keymap ] && cp -L /etc/mc/mc.keymap $DIR/.config/mc
+    [ -f /usr/local/etc/mc/mc.keymap ] && cp -L /usr/local/etc/mc/mc.keymap $DIR/.config/mc
+    [ -f /etc/mc/mc.menu ] && cp -L /etc/mc/mc.menu $DIR/.config/mc/menu
+    [ -f /usr/local/etc/mc/mc.menu ] && cp -L /usr/local/etc/mc/mc.menu $DIR/.config/mc/menu
+    cp -f $DIR/etc/mc/* $DIR/.config/mc
 
 fi
 
@@ -198,14 +197,14 @@ if should_config "tmux"; then
 
     print_h2 "Tmux"
 
-    cp -f ~/etc/tmux/.tmux.conf ~
+    cp -f $DIR/etc/tmux/.tmux.conf $DIR
 
-    if [ ! -d ~/.tmux/plugins/tpm ]; then
+    if [ ! -d $DIR/.tmux/plugins/tpm ]; then
         git clone \
             https://github.com/tmux-plugins/tpm \
-            ~/.tmux/plugins/tpm
+            $DIR/.tmux/plugins/tpm
     else
-        (cd ~/.tmux/plugins/tpm; git pull)
+        (cd $DIR/.tmux/plugins/tpm; git pull)
     fi
 
 fi
@@ -217,8 +216,8 @@ if should_config "subl"; then
 
     print_h2 "Sublime Text"
 
-    [ "$DIST" == "macosx" ] && dir=~/Library/Application\ Support/Sublime\ Text\ 3
-    [ "$DIST" == "ubuntu" ] && dir=~/.config/sublime-text-3
+    [ "$DIST" == "macosx" ] && dir=$DIR/Library/Application\ Support/Sublime\ Text\ 3
+    [ "$DIST" == "ubuntu" ] && dir=$DIR/.config/sublime-text-3
 
     if [ -n "$dir" ]; then
         mkdir -p "$dir/Installed Packages"
@@ -232,7 +231,7 @@ if should_config "subl"; then
                 --output "$pkg_dir/$pkg_name"
         fi
 
-        cp -f ~/etc/subl/*.sublime-settings "$dir/Packages/User"
+        cp -f $DIR/etc/subl/*.sublime-settings "$dir/Packages/User"
     fi
 fi
 
@@ -243,7 +242,7 @@ if should_config "lynx"; then
 
     print_h2 "Lynx"
 
-    cp -f ~/etc/lynx/.lynx* ~
+    cp -f $DIR/etc/lynx/.lynx* $DIR
 
 fi
 
@@ -254,9 +253,9 @@ if should_config "irssi"; then
 
     print_h2 "Irssi"
 
-    mkdir -p ~/.irssi
-    cp -f ~/etc/irssi/config ~/.irssi
-    file_replace_str "real_name = \"\"" "real_name = \"$USER_NAME\"" ~/.irssi/config
+    mkdir -p $DIR/.irssi
+    cp -f $DIR/etc/irssi/config $DIR/.irssi
+    file_replace_str "real_name = \"\"" "real_name = \"$USER_NAME\"" $DIR/.irssi/config
 
 fi
 
@@ -267,8 +266,8 @@ if should_config "mvn"; then
 
     print_h2 "Maven"
 
-    mkdir -p ~/.m2
-    cp -f ~/etc/maven/settings*.xml ~/.m2
+    mkdir -p $DIR/.m2
+    cp -f $DIR/etc/maven/settings*.xml $DIR/.m2
 
 fi
 

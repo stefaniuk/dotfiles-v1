@@ -35,21 +35,21 @@ if should_config "tmux"; then
     print_h2 "Configure Tmux"
 
     # resources
-    cp -f ~/etc/tmux/.tmux.conf ~
-    cat ~/etc/tmux/.tmux.macosx.conf >> ~/.tmux.conf
-    cat ~/etc/tmux/.tmux-tpm.conf >> ~/.tmux.conf
+    cp -f $DIR/etc/tmux/.tmux.conf $DIR
+    cat $DIR/etc/tmux/.tmux.macosx.conf >> $DIR/.tmux.conf
+    cat $DIR/etc/tmux/.tmux-tpm.conf >> $DIR/.tmux.conf
 
 fi
 
 ################################################################################
 # iTerm
 
-if should_config "iterm" ~/Applications/iTerm.app/Contents/MacOS/iTerm2; then
+if should_config "iterm" $DIR/Applications/iTerm.app/Contents/MacOS/iTerm2; then
 
     print_h2 "Configure iTerm"
 
     # configuration
-    defaults import com.googlecode.iterm2 ~/etc/iterm/com.googlecode.iterm2.plist
+    defaults import com.googlecode.iterm2 $DIR/etc/iterm/com.googlecode.iterm2.plist
 
 fi
 
@@ -61,8 +61,8 @@ if should_config "subl"; then
     print_h2 "Configure Sublime Text"
 
     # configuration
-    dir=~/Library/Application\ Support/Sublime\ Text\ 3
-    cp -f ~/etc/subl/macosx/* "$dir/Packages/User"
+    dir=$DIR/Library/Application\ Support/Sublime\ Text\ 3
+    cp -f $DIR/etc/subl/macosx/* "$dir/Packages/User"
 
 fi
 
@@ -89,7 +89,7 @@ if should_config "karabiner" /Applications/Karabiner.app/Contents/Library/bin/ka
     print_h2 "Configure Karabiner"
 
     # configuration
-    cp -f ~/etc/karabiner/private.xml /Users/daniel/Library/Application\ Support/Karabiner
+    cp -f $DIR/etc/karabiner/private.xml /Users/daniel/Library/Application\ Support/Karabiner
 
     /Applications/Karabiner.app/Contents/Library/bin/karabiner set repeat.initial_wait 333
     /Applications/Karabiner.app/Contents/Library/bin/karabiner set repeat.wait 33
@@ -108,7 +108,7 @@ if should_config "moom" /Applications/Moom.app/Contents/MacOS/Moom; then
     print_h2 "Configure Moom"
 
     # configuration
-    defaults import com.manytricks.Moom ~/etc/moom/com.manytricks.Moom.plist
+    defaults import com.manytricks.Moom $DIR/etc/moom/com.manytricks.Moom.plist
 
 fi
 
@@ -266,7 +266,7 @@ if [ -z "$arg_config_progs" ] || echo "$arg_config_progs" | grep -o -- "defaults
     defaults write com.apple.finder FXRecentFolders -array
 
     # show the ~/Library folder
-    chflags nohidden ~/Library
+    chflags nohidden $DIR/Library
 
     ##########
     # Safari #
