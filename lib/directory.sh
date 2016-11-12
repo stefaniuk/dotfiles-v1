@@ -13,7 +13,7 @@ if [ $DIST = "ubuntu" ]; then
     rm ApacheDirectoryStudio-${ver}-linux.gtk.x86_64.tar.gz
     cat <<EOF > ~/.local/share/applications/apache-directory-studio.desktop
 [Desktop Entry]
-Version=$ver
+Version=1.0
 Name=Apache Directory Studio
 Type=Application
 Exec=$DIR/usr/applications/apache-directory-studio/ApacheDirectoryStudio
