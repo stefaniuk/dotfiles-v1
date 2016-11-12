@@ -99,6 +99,8 @@ if should_config "docker"; then
 
     print_h2 "Docker"
 
+    sudo usermod -aG docker $USER
+
     # completion
     [ -f /etc/bash_completion ] && dir=/etc/bash_completion.d || dir=/usr/local/etc/bash_completion.d
     if [ -d $dir ] && [ ! -f $dir/docker-completion.bash ]; then
