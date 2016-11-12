@@ -152,7 +152,7 @@ function program_setup {
     if [ -n "$arg_minimal" ]; then
         rm -rf $DIR/{etc,lib,sbin,usr/{man,test},.profile.old}
     fi
-    rm -rf $DIR/{tmp/.gitkeep,.gitignore,LICENCE,Makefile,README.md,Vagrantfile,provision.sh}
+    rm -rf $DIR/{tmp/.gitkeep,usr/applications/.gitkeep,.gitignore,LICENCE,Makefile,README.md,Vagrantfile,provision.sh}
 }
 
 function should_install {
