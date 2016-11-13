@@ -276,6 +276,20 @@ EOF
 fi
 
 ################################################################################
+# Scala
+
+if should_config "scala"; then
+
+    print_h2 "Scala"
+
+    cat <<EOF > $DIR/etc/profile.d/scala.sh
+#!/bin/bash
+export PATH=\$PATH:~/usr/applications/scala/bin
+EOF
+    chmod +x $DIR/etc/profile.d/scala.sh
+fi
+
+################################################################################
 # Gradle
 
 if should_config "gradle"; then
