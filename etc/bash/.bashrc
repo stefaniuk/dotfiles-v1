@@ -28,8 +28,12 @@ unset bcpath
 
 #### resources #################################################################
 
-# load dotfiles
+# load Bash configuration files
 for file in ~/.{path*,bashrc.*,bash_system,bash_prompt*,bash_exports*,bash_functions*,bash_aliases*,bash_completion*,bash_extra*,bash_custom*}; do
+    [ -r $file ] && source $file
+done
+# load Profile configuration files
+for file in ~/etc/profile.d/*; do
     [ -r $file ] && source $file
 done
 unset file

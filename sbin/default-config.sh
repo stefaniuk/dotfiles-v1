@@ -264,13 +264,18 @@ fi
 ################################################################################
 # Maven
 
-if should_config "mvn"; then
+if should_config "maven"; then
 
     print_h2 "Maven"
 
     mkdir -p $DIR/.m2
     cp -f $DIR/etc/maven/settings*.xml $DIR/.m2
 
+    cat <<EOF > $DIR/etc/profile.d/maven.sh
+#!/bin/bash
+export PATH=\$PATH:~/usr/applications/maven/bin
+EOF
+    chmod +x $DIR/etc/profile.d/maven.sh
 fi
 
 ################################################################################

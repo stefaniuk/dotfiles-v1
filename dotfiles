@@ -150,9 +150,11 @@ function program_setup {
 
     # remove not needed resources
     if [ -n "$arg_minimal" ]; then
-        rm -rf $DIR/{etc,lib,sbin,usr/{man,test},.profile.old}
+        rm -rf $DIR/{lib,sbin,usr/{man,test},.profile.old}
+        find $DIR/etc/* ! -name 'profile.d' -type d -exec rm -rf {} +
     fi
-    rm -rf $DIR/{tmp/.gitkeep,usr/applications/.gitkeep,.gitignore,LICENCE,Makefile,README.md,Vagrantfile,provision.sh}
+    rm -rf $DIR/{.gitignore,LICENCE,Makefile,README.md,Vagrantfile,provision.sh}
+    find $DIR/{bin,etc,lib,sbin,tmp,usr} -type f -name '.gitkeep' -exec rm -f {} +
 }
 
 function should_install {
@@ -169,22 +171,8 @@ function should_update {
 
 function should_config {
 
-    list=$arg_config_progs
-    item=$1
-    file=$2
-
-    if [ -n "$file" ]; then
-        which "$file" > /dev/null 2>&1
-        [ $? -ne 0 ] && [ ! -x "$file" ] && return 1
-    else
-        which "$item" > /dev/null 2>&1 || return 1
-    fi
-
-    if _is_on_list "$list" "$item" || _is_on_list "$list" "all"; then
-        return 0
-    fi
-
-    return 1
+    _is_on_list "$arg_config_progs" "$1" || _is_on_list "$arg_config_progs" "all"
+    return $?
 }
 
 function _is_on_list {
