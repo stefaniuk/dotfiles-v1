@@ -262,6 +262,20 @@ if should_config "irssi"; then
 fi
 
 ################################################################################
+# Groovy
+
+if should_config "groovy"; then
+
+    print_h2 "Groovy"
+
+    cat <<EOF > $DIR/etc/profile.d/groovy.sh
+#!/bin/bash
+export PATH=\$PATH:~/usr/applications/groovy/bin
+EOF
+    chmod +x $DIR/etc/profile.d/groovy.sh
+fi
+
+################################################################################
 # Gradle
 
 if should_config "gradle"; then
