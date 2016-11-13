@@ -262,6 +262,20 @@ if should_config "irssi"; then
 fi
 
 ################################################################################
+# Gradle
+
+if should_config "gradle"; then
+
+    print_h2 "Gradle"
+
+    cat <<EOF > $DIR/etc/profile.d/gradle.sh
+#!/bin/bash
+export PATH=\$PATH:~/usr/applications/gradle/bin
+EOF
+    chmod +x $DIR/etc/profile.d/gradle.sh
+fi
+
+################################################################################
 # Maven
 
 if should_config "maven"; then
