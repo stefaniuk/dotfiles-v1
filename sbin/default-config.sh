@@ -262,6 +262,21 @@ if should_config "irssi"; then
 fi
 
 ################################################################################
+# Go
+
+if should_config "go"; then
+
+    print_h2 "Go"
+
+    cat <<EOF > $DIR/etc/profile.d/go.sh
+#!/bin/bash
+export GOROOT=~/usr/applications/go
+export PATH=\$PATH:~/usr/applications/go/bin
+EOF
+    chmod +x $DIR/etc/profile.d/go.sh
+fi
+
+################################################################################
 # Groovy
 
 if should_config "groovy"; then
