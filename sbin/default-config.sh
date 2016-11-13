@@ -279,6 +279,20 @@ EOF
 fi
 
 ################################################################################
+# Ant
+
+if should_config "ant"; then
+
+    print_h2 "Ant"
+
+    cat <<EOF > $DIR/etc/profile.d/ant.sh
+#!/bin/bash
+export PATH=\$PATH:~/usr/applications/ant/bin
+EOF
+    chmod +x $DIR/etc/profile.d/ant.sh
+fi
+
+################################################################################
 
 (
     [ -f $DIR/sbin/$DIST-common.sh ] && . $DIR/sbin/$DIST-common.sh $*

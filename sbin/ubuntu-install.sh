@@ -74,6 +74,7 @@ should_install "java"       && (. $DIR/lib/java.sh $*)
 should_install "node"       && (. $DIR/lib/node.sh $*)
 should_install "ruby"       && (. $DIR/lib/ruby.sh $*)
 
+should_install "ant"        && (. $DIR/lib/ant.sh $*)
 should_install "chrome"     && (. $DIR/lib/chrome.sh $*)
 should_install "compiz"     && (. $DIR/lib/compiz.sh $*)
 should_install "directory"  && (. $DIR/lib/directory.sh $*)
