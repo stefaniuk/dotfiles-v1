@@ -61,6 +61,7 @@ if should_install "workstation-package"; then
         gpgv2 \
         gtypist \
         irssi \
+        nfs-kernel-server \
         tmux \
         zsh
 fi
