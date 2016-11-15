@@ -35,9 +35,9 @@ if should_config "tmux"; then
     print_h2 "Configure Tmux"
 
     # resources
-    cp -f $DIR/etc/tmux/.tmux.conf $DIR
-    cat $DIR/etc/tmux/.tmux.macosx.conf >> $DIR/.tmux.conf
-    cat $DIR/etc/tmux/.tmux-tpm.conf >> $DIR/.tmux.conf
+    cp -f $DIR/lib/tmux/.tmux.conf $DIR
+    cat $DIR/lib/tmux/.tmux.macosx.conf >> $DIR/.tmux.conf
+    cat $DIR/lib/tmux/.tmux-tpm.conf >> $DIR/.tmux.conf
 
 fi
 
@@ -49,7 +49,7 @@ if should_config "iterm" $DIR/Applications/iTerm.app/Contents/MacOS/iTerm2; then
     print_h2 "Configure iTerm"
 
     # configuration
-    defaults import com.googlecode.iterm2 $DIR/etc/iterm/com.googlecode.iterm2.plist
+    defaults import com.googlecode.iterm2 $DIR/lib/iterm/com.googlecode.iterm2.plist
 
 fi
 
@@ -62,7 +62,7 @@ if should_config "subl"; then
 
     # configuration
     dir=$DIR/Library/Application\ Support/Sublime\ Text\ 3
-    cp -f $DIR/etc/subl/macosx/* "$dir/Packages/User"
+    cp -f $DIR/lib/subl/macosx/* "$dir/Packages/User"
 
 fi
 
@@ -89,7 +89,7 @@ if should_config "karabiner" /Applications/Karabiner.app/Contents/Library/bin/ka
     print_h2 "Configure Karabiner"
 
     # configuration
-    cp -f $DIR/etc/karabiner/private.xml /Users/daniel/Library/Application\ Support/Karabiner
+    cp -f $DIR/lib/karabiner/private.xml /Users/daniel/Library/Application\ Support/Karabiner
 
     /Applications/Karabiner.app/Contents/Library/bin/karabiner set repeat.initial_wait 333
     /Applications/Karabiner.app/Contents/Library/bin/karabiner set repeat.wait 33
@@ -108,7 +108,7 @@ if should_config "moom" /Applications/Moom.app/Contents/MacOS/Moom; then
     print_h2 "Configure Moom"
 
     # configuration
-    defaults import com.manytricks.Moom $DIR/etc/moom/com.manytricks.Moom.plist
+    defaults import com.manytricks.Moom $DIR/lib/moom/com.manytricks.Moom.plist
 
 fi
 

@@ -112,7 +112,7 @@ function program_setup {
     chmod 500 $DIR/dotfiles
 
     # detect operating system
-    source $DIR/etc/bash/.bash_system
+    source $DIR/lib/bash/.bash_system
     # make available custom scripts
     export PATH=$PATH:$DIR/bin:$DIR/usr/bin
 
@@ -151,7 +151,7 @@ function program_setup {
     # remove not needed resources
     if [ -n "$arg_minimal" ]; then
         rm -rf $DIR/{lib,sbin,usr/{man,test},.profile.old}
-        find $DIR/etc/* ! -name 'profile.d' -type d -exec rm -rf {} +
+        find $DIR/lib/* ! -name 'profile.d' -type d -exec rm -rf {} +
     fi
     rm -rf $DIR/{.gitignore,LICENCE,Makefile,README.md,Vagrantfile,provision.sh}
     find $DIR/{bin,etc,lib,sbin,tmp,usr} -type f -name '.gitkeep' -exec rm -f {} +

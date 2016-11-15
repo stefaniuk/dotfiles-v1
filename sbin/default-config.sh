@@ -10,7 +10,7 @@ if should_config "ssh"; then
     print_h2 "SSH"
 
     mkdir -p $DIR/.ssh
-    cp -f $DIR/etc/ssh/config $DIR/.ssh
+    cp -f $DIR/lib/ssh/config $DIR/.ssh
     file_replace_str "github-user" "github-$GITHUB_ACCOUNT" $DIR/.ssh/config
     file_replace_str "bitbucket-user" "bitbucket-$BITBUCKET_ACCOUNT" $DIR/.ssh/config
     file_replace_str "gitlab-user" "gitlab-$GITLAB_ACCOUNT" $DIR/.ssh/config
@@ -27,7 +27,7 @@ if should_config "bash"; then
     [ -f $DIR/.profile ] && [ ! -f $DIR/.profile.old ] && mv $DIR/.profile $DIR/.profile.old
     [ -f $DIR/.bash_profile ] && [ ! -f $DIR/.bash_profile.old ] && mv $DIR/.bash_profile $DIR/.bash_profile.old
 
-    cp -f $DIR/etc/bash/.bash* $DIR
+    cp -f $DIR/lib/bash/.bash* $DIR
     file_replace_str "USER_NAME=\"unknown\"" "USER_NAME=\"$USER_NAME\"" $DIR/.bash_exports
     file_replace_str "USER_EMAIL=\"unknown\"" "USER_EMAIL=\"$USER_EMAIL\"" $DIR/.bash_exports
     file_replace_str "GITHUB_ACCOUNT=\"unknown\"" "GITHUB_ACCOUNT=\"$GITHUB_ACCOUNT\"" $DIR/.bash_exports
@@ -42,7 +42,7 @@ if should_config "zsh"; then
 
     print_h2 "Zsh"
 
-    cp -f $DIR/etc/zsh/.zsh* $DIR
+    cp -f $DIR/lib/zsh/.zsh* $DIR
 
     if [ ! -f $DIR/.oh-my-zsh/oh-my-zsh.sh ]; then
         rm -rf $DIR/{.oh-my-zsh,.zcompdump-*,.zlogin,.zsh*}
@@ -63,7 +63,7 @@ if should_config "git"; then
 
     print_h2 "Git"
 
-    cp -f $DIR/etc/git/.git* $DIR
+    cp -f $DIR/lib/git/.git* $DIR
 
     git config --global user.name "$USER_NAME"
     git config --global user.email "$USER_EMAIL"
@@ -142,9 +142,9 @@ if should_config "vim"; then
 
     print_h2 "Vim"
 
-    cp -f $DIR/etc/vim/.vimrc $DIR
+    cp -f $DIR/lib/vim/.vimrc $DIR
     mkdir -p $DIR/.vim/{autoload,bundle}
-    #cp -Rf $DIR/etc/vim/plugin $DIR/.vim
+    #cp -Rf $DIR/lib/vim/plugin $DIR/.vim
 
     # vundle - plugin manager
     if [ ! -d $DIR/.vim/bundle/vundle ]; then
@@ -188,7 +188,7 @@ if should_config "mc"; then
     [ -f /usr/local/etc/mc/mc.keymap ] && cp -L /usr/local/etc/mc/mc.keymap $DIR/.config/mc
     [ -f /etc/mc/mc.menu ] && cp -L /etc/mc/mc.menu $DIR/.config/mc/menu
     [ -f /usr/local/etc/mc/mc.menu ] && cp -L /usr/local/etc/mc/mc.menu $DIR/.config/mc/menu
-    cp -f $DIR/etc/mc/* $DIR/.config/mc
+    cp -f $DIR/lib/mc/* $DIR/.config/mc
 
 fi
 
@@ -199,7 +199,7 @@ if should_config "tmux"; then
 
     print_h2 "Tmux"
 
-    cp -f $DIR/etc/tmux/.tmux.conf $DIR
+    cp -f $DIR/lib/tmux/.tmux.conf $DIR
 
     if [ ! -d $DIR/.tmux/plugins/tpm ]; then
         git clone \
@@ -233,7 +233,7 @@ if should_config "subl"; then
                 --output "$pkg_dir/$pkg_name"
         fi
 
-        cp -f $DIR/etc/subl/*.sublime-settings "$dir/Packages/User"
+        cp -f $DIR/lib/subl/*.sublime-settings "$dir/Packages/User"
     fi
 fi
 
@@ -244,7 +244,7 @@ if should_config "lynx"; then
 
     print_h2 "Lynx"
 
-    cp -f $DIR/etc/lynx/.lynx* $DIR
+    cp -f $DIR/lib/lynx/.lynx* $DIR
 
 fi
 
@@ -256,7 +256,7 @@ if should_config "irssi"; then
     print_h2 "Irssi"
 
     mkdir -p $DIR/.irssi
-    cp -f $DIR/etc/irssi/config $DIR/.irssi
+    cp -f $DIR/lib/irssi/config $DIR/.irssi
     file_replace_str "real_name = \"\"" "real_name = \"$USER_NAME\"" $DIR/.irssi/config
 
 fi
@@ -268,12 +268,12 @@ if should_config "go"; then
 
     print_h2 "Go"
 
-    cat <<EOF > $DIR/etc/profile.d/go.sh
+    cat <<EOF > $DIR/lib/profile.d/go.sh
 #!/bin/bash
 export GOROOT=~/usr/applications/go
 export PATH=\$PATH:~/usr/applications/go/bin
 EOF
-    chmod +x $DIR/etc/profile.d/go.sh
+    chmod +x $DIR/lib/profile.d/go.sh
 fi
 
 ################################################################################
@@ -283,11 +283,11 @@ if should_config "groovy"; then
 
     print_h2 "Groovy"
 
-    cat <<EOF > $DIR/etc/profile.d/groovy.sh
+    cat <<EOF > $DIR/lib/profile.d/groovy.sh
 #!/bin/bash
 export PATH=\$PATH:~/usr/applications/groovy/bin
 EOF
-    chmod +x $DIR/etc/profile.d/groovy.sh
+    chmod +x $DIR/lib/profile.d/groovy.sh
 fi
 
 ################################################################################
@@ -297,11 +297,11 @@ if should_config "scala"; then
 
     print_h2 "Scala"
 
-    cat <<EOF > $DIR/etc/profile.d/scala.sh
+    cat <<EOF > $DIR/lib/profile.d/scala.sh
 #!/bin/bash
 export PATH=\$PATH:~/usr/applications/scala/bin
 EOF
-    chmod +x $DIR/etc/profile.d/scala.sh
+    chmod +x $DIR/lib/profile.d/scala.sh
 fi
 
 ################################################################################
@@ -311,11 +311,11 @@ if should_config "gradle"; then
 
     print_h2 "Gradle"
 
-    cat <<EOF > $DIR/etc/profile.d/gradle.sh
+    cat <<EOF > $DIR/lib/profile.d/gradle.sh
 #!/bin/bash
 export PATH=\$PATH:~/usr/applications/gradle/bin
 EOF
-    chmod +x $DIR/etc/profile.d/gradle.sh
+    chmod +x $DIR/lib/profile.d/gradle.sh
 fi
 
 ################################################################################
@@ -326,13 +326,13 @@ if should_config "maven"; then
     print_h2 "Maven"
 
     mkdir -p $DIR/.m2
-    cp -f $DIR/etc/maven/settings*.xml $DIR/.m2
+    cp -f $DIR/lib/maven/settings*.xml $DIR/.m2
 
-    cat <<EOF > $DIR/etc/profile.d/maven.sh
+    cat <<EOF > $DIR/lib/profile.d/maven.sh
 #!/bin/bash
 export PATH=\$PATH:~/usr/applications/maven/bin
 EOF
-    chmod +x $DIR/etc/profile.d/maven.sh
+    chmod +x $DIR/lib/profile.d/maven.sh
 fi
 
 ################################################################################
@@ -342,11 +342,11 @@ if should_config "ant"; then
 
     print_h2 "Ant"
 
-    cat <<EOF > $DIR/etc/profile.d/ant.sh
+    cat <<EOF > $DIR/lib/profile.d/ant.sh
 #!/bin/bash
 export PATH=\$PATH:~/usr/applications/ant/bin
 EOF
-    chmod +x $DIR/etc/profile.d/ant.sh
+    chmod +x $DIR/lib/profile.d/ant.sh
 fi
 
 ################################################################################

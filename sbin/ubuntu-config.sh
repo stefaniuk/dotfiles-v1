@@ -31,6 +31,6 @@ if should_config "subl"; then
 
     print_h2 "Sublime Text"
 
-    cp -f $DIR/etc/subl/ubuntu/* $DIR/.config/sublime-text-3/Packages/User
+    cp -f $DIR/lib/subl/ubuntu/* $DIR/.config/sublime-text-3/Packages/User
 
 fi
