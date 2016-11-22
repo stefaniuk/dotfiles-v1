@@ -3,4 +3,5 @@
 print_h2 "Angular"
 
 sudo npm install -g \
-    angular-cli
+    angular-cli \
+    angular2-cli
