@@ -1,6 +1,7 @@
 {
     "installed_packages": [
         "AdvancedNewFile",
+        "Angular​JS",
         "ApplySyntax",
         "BracketHighlighter",
         "Color Highlighter",
@@ -18,6 +19,7 @@
         "SideBarEnhancements",
         "Solarized Color Scheme",
         "SublimeLinter",
+        "Type​Script",
         "VimL"
     ]
 }
