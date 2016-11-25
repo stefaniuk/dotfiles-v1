@@ -8,6 +8,4 @@ if [ $DIST = "ubuntu" ]; then
         nodejs
     sudo chown -R $(whoami) /usr/lib/node_modules
     npm update -g
-    npm install -g \
-        json
 fi
