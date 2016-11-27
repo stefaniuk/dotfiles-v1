@@ -2,11 +2,12 @@
 
 print_h2 "NodeJS Tools"
 
-npm install -g \
-    angular-cli angular2-cli \
+sudo npm install -g \
+    angular2-cli \
     bower \
     grunt-cli \
     gulp-cli \
     json \
-    typescript typings \
+    typescript \
+    typings \
     yo
