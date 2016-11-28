@@ -235,6 +235,7 @@ if should_config "subl"; then
 
         cp -f $DIR/lib/subl/*.sublime-settings "$dir/Packages/User"
     fi
+
 fi
 
 ################################################################################
@@ -274,6 +275,7 @@ export GOROOT=~/usr/applications/go
 export PATH=\$PATH:~/usr/applications/go/bin
 EOF
     chmod +x $DIR/lib/profile.d/go.sh
+
 fi
 
 ################################################################################
@@ -288,6 +290,7 @@ if should_config "groovy"; then
 export PATH=\$PATH:~/usr/applications/groovy/bin
 EOF
     chmod +x $DIR/lib/profile.d/groovy.sh
+
 fi
 
 ################################################################################
@@ -302,6 +305,7 @@ if should_config "scala"; then
 export PATH=\$PATH:~/usr/applications/scala/bin
 EOF
     chmod +x $DIR/lib/profile.d/scala.sh
+
 fi
 
 ################################################################################
@@ -316,6 +320,7 @@ if should_config "gradle"; then
 export PATH=\$PATH:~/usr/applications/gradle/bin
 EOF
     chmod +x $DIR/lib/profile.d/gradle.sh
+
 fi
 
 ################################################################################
@@ -333,6 +338,7 @@ if should_config "maven"; then
 export PATH=\$PATH:~/usr/applications/maven/bin
 EOF
     chmod +x $DIR/lib/profile.d/maven.sh
+
 fi
 
 ################################################################################
@@ -347,6 +353,20 @@ if should_config "ant"; then
 export PATH=\$PATH:~/usr/applications/ant/bin
 EOF
     chmod +x $DIR/lib/profile.d/ant.sh
+
+fi
+
+################################################################################
+# NodeJS
+
+if should_config "node"; then
+
+    print_h2 "NodeJS"
+
+    [ -f /etc/bash_completion ] && dir=/etc/bash_completion.d || dir=/usr/local/etc/bash_completion.d
+    sudo /bin/bash -c "npm completion > $dir/node-completion.bash"
+    unset dir
+
 fi
 
 ################################################################################
