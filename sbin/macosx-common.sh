@@ -3,10 +3,8 @@
 brew_update="brew update --verbose"
 brew_upgrade="brew upgrade --verbose"
 brew_tap="brew tap"
-brew_install="brew install --verbose"
-brew_cleanup="brew cleanup"
-cask_install="brew cask install --appdir=$DIR/usr/applications --verbose"
-cask_cleanup="brew cask cleanup"
+brew_install="brew install --force --verbose"
+cask_install="brew cask install --appdir=$DIR/usr/applications --force --verbose"
 
 if ! which brew > /dev/null; then
     softwareupdate --install -all

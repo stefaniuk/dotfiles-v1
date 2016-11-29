@@ -101,6 +101,3 @@ fi
 should_install "chrome"     && (. $DIR/lib/chrome.sh $*)
 should_install "smartgit"   && (. $DIR/lib/smartgit.sh $*)
 should_install "subl"       && (. $DIR/lib/subl.sh $*)
-
-$brew_cleanup
-$cask_cleanup
