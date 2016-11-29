@@ -5,7 +5,7 @@ print_h2 "Sublime Text"
 if [ $DIST = "macosx" ]; then
 
     $cask_install \
-        sublime-text3
+        sublime-text
 
 elif [ $DIST = "ubuntu" ]; then
 
