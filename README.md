@@ -6,13 +6,13 @@ The aim of the `dotfiles` project is to configure Bash to provide a better user 
 Installation
 ------------
 
-Most common installation
+Most common installation on a workstation
 
     USER_NAME="Daniel Stefaniuk"
     USER_EMAIL="daniel.stefaniuk@gmail.com"
     curl -L https://raw.githubusercontent.com/stefaniuk/dotfiles/master/dotfiles -o - | /bin/bash -s -- \
         --update \
-        --install=dependencies,utils-package,tools-package,workstation-package,subl,chrome \
+        --install=dependencies,system-bundle,admin-bundle,developer-bundle,user-bundle \
         --config=all \
         --sudo
 
@@ -36,6 +36,8 @@ This project can be tested in a Docker container defined in the `./usr/test/etc`
 TODO
 ----
 
+ * Move test files next to the implemented commands
+ * Configure `htop` by providing `htoprc` file and user's [man](http://www.thegeekstuff.com/2011/09/linux-htop-examples) entry
  * Version `dotfiles`
  * Configure `byobu`
  * Remap the Caps Lock key in Ubuntu

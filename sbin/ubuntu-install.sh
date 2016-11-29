@@ -20,8 +20,8 @@ if should_install "dependencies"; then
         xz-utils
 fi
 
-if should_install "utils-package"; then
-    print_h2 "Utils Package"
+if should_install "system-bundle"; then
+    print_h2 "System Bundle"
     $apt_get_install \
         apt-file \
         apt-transport-https \
@@ -33,8 +33,8 @@ if should_install "utils-package"; then
         software-properties-common
 fi
 
-if should_install "tools-package"; then
-    print_h2 "Tools Package"
+if should_install "admin-bundle"; then
+    print_h2 "Admin Bundle"
     $apt_get_install \
         ack-grep \
         grc \
@@ -53,8 +53,8 @@ if should_install "tools-package"; then
         vim
 fi
 
-if should_install "workstation-package"; then
-    print_h2 "Workstation Package"
+if should_install "developer-bundle"; then
+    print_h2 "Developer Bundle"
     $apt_get_install \
         byobu \
         git-flow \
@@ -66,10 +66,9 @@ if should_install "workstation-package"; then
         zsh
 fi
 
-    # Conky
-    #$apt_add_repository ppa:teejee2008/ppa
-    #$apt_get_update
-    #$apt_get_install conky conky-manager lm-sensors hddtemp
+if should_install "user-bundle"; then
+    print_h2 "User Bundle"
+fi
 
 should_install "java"           && (. $DIR/lib/java.sh $*)
 should_install "java-tools"     && (. $DIR/lib/java-tools.sh $*)

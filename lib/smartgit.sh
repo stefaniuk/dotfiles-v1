@@ -2,7 +2,13 @@
 
 print_h2 "SmartGit"
 
-if [ $DIST = "ubuntu" ]; then
+if [ $DIST = "macosx" ]; then
+
+    $cask_install \
+        smartgit
+
+elif [ $DIST = "ubuntu" ]; then
+
     ver=$(www_get http://www.syntevo.com/smartgit/download | grep '.tar.gz' | egrep -o '[0-9]+_[0-9]+_[0-9]+' | sortvr | head -n 1)
     file_download \
         --url "http://www.syntevo.com/static/smart/download/smartgit/smartgit-linux-$ver.tar.gz" \
@@ -21,4 +27,5 @@ Icon=$DIR/usr/applications/smartgit/bin/smartgit-64.png
 Terminal=false
 Categories=Utility;
 EOF
+
 fi

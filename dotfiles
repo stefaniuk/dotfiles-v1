@@ -107,7 +107,7 @@ function program_synchronise {
 
 function program_setup {
 
-    chmod 700 $DIR/{bin,etc,lib,sbin,tmp,usr}
+    chmod 700 $DIR/{bin,etc,lib,sbin,tmp,usr/{,bin,test/bin}}
     chmod 500 $DIR/{bin,usr/{bin,test/bin}}/*
     chmod 500 $DIR/dotfiles
 

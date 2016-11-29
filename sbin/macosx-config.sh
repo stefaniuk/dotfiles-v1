@@ -303,7 +303,3 @@ if [ -z "$arg_config_progs" ] || echo "$arg_config_progs" | grep -o -- "defaults
     killall SystemUIServer > /dev/null 2>&1
 
 fi
-
-################################################################################
-
-exit 0
