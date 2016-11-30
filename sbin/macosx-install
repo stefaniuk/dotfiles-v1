@@ -92,7 +92,6 @@ should_install "smartgit"   && (. $DIR/lib/smartgit.sh $*)
 #     $brew_install gtypist
 #     $brew_install irssi
 #     $brew_install lynx
-#     $brew_install tmux reattach-to-user-namespace
 #     $cask_install java
 
 #     # developer tools

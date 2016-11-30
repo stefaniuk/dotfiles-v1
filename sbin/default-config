@@ -168,25 +168,6 @@ if should_config "mc"; then
 fi
 
 ################################################################################
-# Tmux
-
-if should_config "tmux"; then
-
-    print_h2 "Tmux"
-
-    cp -f $DIR/lib/tmux/.tmux.conf $DIR
-
-    if [ ! -d $DIR/.tmux/plugins/tpm ]; then
-        git clone \
-            https://github.com/tmux-plugins/tpm \
-            $DIR/.tmux/plugins/tpm
-    else
-        (cd $DIR/.tmux/plugins/tpm; git pull)
-    fi
-
-fi
-
-################################################################################
 # Lynx
 
 if should_config "lynx"; then

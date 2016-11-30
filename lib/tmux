@@ -2,12 +2,16 @@
 
 function macosx-install-tmux {
 
-    :
+    $brew_install \
+        reattach-to-user-namespace \
+        tmux
 }
 
 function macosx-config-tmux {
 
     _config
+
+    cat $DIR/lib/resources/tmux/.tmux.macosx.conf >> $DIR/.tmux.conf
 }
 
 function ubuntu-install-tmux {
@@ -22,5 +26,13 @@ function ubuntu-config-tmux {
 
 function _config {
 
-    :
+    cp -fv $DIR/lib/resources/tmux/.tmux.conf $DIR
+    cat $DIR/lib/resources/tmux/.tmux-tpm.conf >> $DIR/.tmux.conf
+
+    # plugins
+    if [ ! -d $DIR/.tmux/plugins/tpm ]; then
+        git clone https://github.com/tmux-plugins/tpm.git $DIR/.tmux/plugins/tpm
+    else
+        (cd $DIR/.tmux/plugins/tpm; git pull)
+    fi
 }

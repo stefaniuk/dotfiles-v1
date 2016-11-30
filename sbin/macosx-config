@@ -46,17 +46,6 @@ if should_config "zsh"; then
 
 fi
 
-if should_config "tmux"; then
-
-    print_h2 "Configure Tmux"
-
-    # resources
-    cp -f $DIR/lib/tmux/.tmux.conf $DIR
-    cat $DIR/lib/tmux/.tmux.macosx.conf >> $DIR/.tmux.conf
-    cat $DIR/lib/tmux/.tmux-tpm.conf >> $DIR/.tmux.conf
-
-fi
-
 if should_config "iterm" $DIR/Applications/iTerm.app/Contents/MacOS/iTerm2; then
 
     print_h2 "Configure iTerm"
