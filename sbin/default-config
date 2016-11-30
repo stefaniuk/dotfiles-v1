@@ -1,13 +1,5 @@
 #!/bin/bash
 
-if should_config "lynx"; then
-
-    print_h2 "Lynx"
-
-    cp -f $DIR/lib/lynx/.lynx* $DIR
-
-fi
-
 if should_config "irssi"; then
 
     print_h2 "Irssi"
