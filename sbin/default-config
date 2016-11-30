@@ -1,27 +1,5 @@
 #!/bin/bash
 
-if should_config "docker"; then
-
-    print_h2 "Docker"
-
-    sudo usermod -aG docker $USER
-
-    # completion
-    [ -f /etc/bash_completion ] && dir=/etc/bash_completion.d || dir=/usr/local/etc/bash_completion.d
-    if [ -d $dir ] && [ ! -f $dir/docker-completion.bash ]; then
-        sudo wget \
-            https://raw.githubusercontent.com/docker/docker/master/contrib/completion/bash/docker \
-            -O $dir/docker-completion.bash
-    fi
-    if [ -d $dir ] && [ ! -f $dir/docker-compose-completion.bash ]; then
-        sudo wget \
-            https://raw.githubusercontent.com/docker/compose/master/contrib/completion/bash/docker-compose \
-            -O $dir/docker-compose-completion.bash
-    fi
-    unset dir
-
-fi
-
 if should_config "vagrant"; then
 
     print_h2 "Vagrant"
