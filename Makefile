@@ -1,52 +1,51 @@
-DIR := $(shell pwd)
-OS := ubuntu
-
 help:
-	@echo
-	@echo "Usage:"
-	@echo
-	@echo "    make build|create|start|stop|install|test|bash|clean|remove [APT_PROXY|APT_PROXY_SSL=url]"
-	@echo
+	echo
+	echo "Usage:"
+	echo
+	echo "    make build|create|start|stop|install|test|bash|clean|remove [APT_PROXY|APT_PROXY_SSL=url]"
+	echo
 
 build:
-	@docker build --file ./usr/test/etc/Dockerfile.$(OS) \
+	docker build \
 		--build-arg APT_PROXY=${APT_PROXY} \
 		--build-arg APT_PROXY_SSL=${APT_PROXY_SSL} \
-		--tag dotfiles/$(OS) --rm .
+		--tag dotfiles --rm .
 
 create:
-	@docker stop dotfiles-$(OS) > /dev/null 2>&1 ||:
-	@docker rm dotfiles-$(OS) > /dev/null 2>&1 ||:
-	@docker create --interactive --tty \
-		--name dotfiles-$(OS) \
-		--hostname $(OS) \
-		--volume $(DIR):/project \
-		dotfiles/$(OS) \
+	docker stop dotfiles > /dev/null 2>&1 ||:
+	docker rm dotfiles > /dev/null 2>&1 ||:
+	docker create --interactive --tty \
+		--name dotfiles \
+		--hostname dotfiles \
+		--volume $(shell pwd):/project \
+		dotfiles \
 		/bin/bash --login
 
 start:
-	@docker start dotfiles-$(OS)
+	docker start dotfiles
 
 stop:
-	@docker stop dotfiles-$(OS)
+	docker stop dotfiles
 
 install:
-	@docker exec --interactive --tty dotfiles-$(OS) \
+	docker exec --interactive --tty dotfiles \
 		./dotfiles \
 			--config=bash \
 			--minimal
 
 test:
-	@docker exec --interactive --tty dotfiles-$(OS) \
+	docker exec --interactive --tty dotfiles \
 		/bin/bash -cli "system_test --skip-selected-tests"
 
 bash:
-	@docker exec --interactive --tty dotfiles-$(OS) \
+	docker exec --interactive --tty dotfiles \
 		/bin/bash --login ||:
 
 clean:
-	@docker stop dotfiles-$(OS) > /dev/null 2>&1 ||:
-	@docker rm dotfiles-$(OS) > /dev/null 2>&1 ||:
+	docker stop dotfiles > /dev/null 2>&1 ||:
+	docker rm dotfiles > /dev/null 2>&1 ||:
 
 remove: clean
-	@docker rmi dotfiles/$(OS) > /dev/null 2>&1 ||:
+	docker rmi dotfiles > /dev/null 2>&1 ||:
+
+.SILENT:

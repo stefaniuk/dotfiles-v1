@@ -93,7 +93,7 @@ function program_synchronise {
         --include=/ \
         --exclude=/.git* \
         --exclude=.gitkeep \
-        --exclude=Dockerfile* \
+        --exclude=Dockerfile \
         --exclude=LICENCE \
         --exclude=Makefile \
         --exclude=provision.sh \
@@ -107,8 +107,8 @@ function program_synchronise {
 
 function program_setup {
 
-    chmod 700 $DIR/{bin,etc,lib,sbin,tmp,usr/{,bin,test/bin}}
-    chmod 500 $DIR/{bin,usr/{bin,test/bin}}/*
+    chmod 700 $DIR/{bin,etc,lib,sbin,tmp,usr,usr/bin}
+    chmod 500 $DIR/{bin,usr/bin}/*
     chmod 500 $DIR/dotfiles
 
     # detect operating system
@@ -150,10 +150,10 @@ function program_setup {
 
     # remove not needed resources
     if [ -n "$arg_minimal" ]; then
-        rm -rf $DIR/{lib,sbin,usr/{man,test},.profile.old}
-        find $DIR/lib/* ! -name 'profile.d' -type d -exec rm -rf {} +
+        rm -rf $DIR/{lib,sbin,usr/man,.profile.old}
+        find $DIR/{bin,usr/bin}/* -iname '*.test' -exec rm -rf {} +
     fi
-    rm -rf $DIR/{.gitignore,LICENCE,Makefile,README.md,Vagrantfile,provision.sh}
+    rm -rf $DIR/{.gitignore,Dockerfile,LICENCE,Makefile,README.md,Vagrantfile,provision.sh}
     find $DIR/{bin,etc,lib,sbin,tmp,usr} -type f -name '.gitkeep' -exec rm -f {} +
 }
 
