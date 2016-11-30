@@ -1,9 +1,5 @@
 #!/bin/bash
 
-########################################################################################################################
-### REFACTOR ###########################################################################################################
-########################################################################################################################
-
 if should_config "ssh"; then
 
     print_h2 "SSH"
@@ -67,9 +63,6 @@ if should_config "git"; then
 
 fi
 
-################################################################################
-# Docker
-
 if should_config "docker"; then
 
     print_h2 "Docker"
@@ -92,9 +85,6 @@ if should_config "docker"; then
 
 fi
 
-################################################################################
-# Vagrant
-
 if should_config "vagrant"; then
 
     print_h2 "Vagrant"
@@ -109,9 +99,6 @@ if should_config "vagrant"; then
     unset dir
 
 fi
-
-################################################################################
-# Vim
 
 if should_config "vim"; then
 
@@ -151,9 +138,6 @@ if should_config "vim"; then
 
 fi
 
-################################################################################
-# Midnight Commander
-
 if should_config "mc"; then
 
     print_h2 "Midnight Commander"
@@ -167,9 +151,6 @@ if should_config "mc"; then
 
 fi
 
-################################################################################
-# Lynx
-
 if should_config "lynx"; then
 
     print_h2 "Lynx"
@@ -177,9 +158,6 @@ if should_config "lynx"; then
     cp -f $DIR/lib/lynx/.lynx* $DIR
 
 fi
-
-################################################################################
-# Irssi
 
 if should_config "irssi"; then
 
@@ -190,9 +168,6 @@ if should_config "irssi"; then
     file_replace_str "real_name = \"\"" "real_name = \"$USER_NAME\"" $DIR/.irssi/config
 
 fi
-
-################################################################################
-# Go
 
 if should_config "go"; then
 
@@ -207,9 +182,6 @@ EOF
 
 fi
 
-################################################################################
-# Groovy
-
 if should_config "groovy"; then
 
     print_h2 "Groovy"
@@ -221,9 +193,6 @@ EOF
     chmod +x $DIR/lib/profile.d/groovy.sh
 
 fi
-
-################################################################################
-# Scala
 
 if should_config "scala"; then
 
@@ -237,9 +206,6 @@ EOF
 
 fi
 
-################################################################################
-# Gradle
-
 if should_config "gradle"; then
 
     print_h2 "Gradle"
@@ -251,9 +217,6 @@ EOF
     chmod +x $DIR/lib/profile.d/gradle.sh
 
 fi
-
-################################################################################
-# Maven
 
 if should_config "maven"; then
 
@@ -270,9 +233,6 @@ EOF
 
 fi
 
-################################################################################
-# Ant
-
 if should_config "ant"; then
 
     print_h2 "Ant"
@@ -284,10 +244,3 @@ EOF
     chmod +x $DIR/lib/profile.d/ant.sh
 
 fi
-
-################################################################################
-
-(
-    [ -f $DIR/sbin/$DIST-common.sh ] && . $DIR/sbin/$DIST-common.sh $*
-    [ -f $DIR/sbin/$DIST-config.sh ] && . $DIR/sbin/$DIST-config.sh $*
-)
