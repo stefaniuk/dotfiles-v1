@@ -11,3 +11,12 @@ function install-gradle {
     mv gradle-$ver $DIR/usr/applications/gradle
     rm gradle-$ver-bin.zip
 }
+
+function config-gradle {
+
+    cat <<EOF > $DIR/lib/profile.d/gradle.sh
+#!/bin/bash
+export PATH=\$PATH:~/usr/applications/gradle/bin
+EOF
+    chmod +x $DIR/lib/profile.d/gradle.sh
+}

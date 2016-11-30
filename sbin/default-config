@@ -1,17 +1,5 @@
 #!/bin/bash
 
-if should_config "gradle"; then
-
-    print_h2 "Gradle"
-
-    cat <<EOF > $DIR/lib/profile.d/gradle.sh
-#!/bin/bash
-export PATH=\$PATH:~/usr/applications/gradle/bin
-EOF
-    chmod +x $DIR/lib/profile.d/gradle.sh
-
-fi
-
 if should_config "maven"; then
 
     print_h2 "Maven"
