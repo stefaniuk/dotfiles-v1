@@ -121,7 +121,7 @@ function system_test {
         shift
     done
 
-    source ~/bin/asserts
+    source ~/.bash_asserts
 
     printf "\n"
     print_h1 "Run tests...\n"

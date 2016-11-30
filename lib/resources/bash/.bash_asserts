@@ -8,6 +8,7 @@ function assert_eq {
 
     if [ ! "$arg1" == "$arg2" ]; then
         print_err "test $prog error"
+        return 1
     else
         echo "test $prog ok"
     fi
@@ -21,6 +22,7 @@ function assert_not_eq {
 
     if [ "$arg1" == "$arg2" ]; then
         print_err "test $prog error"
+        return 1
     else
         echo "test $prog ok"
     fi
@@ -34,6 +36,7 @@ function assert_lt {
 
     if [ ! $arg1 -lt $arg2 ]; then
         print_err "test $prog error"
+        return 1
     else
         echo "test $prog ok"
     fi
@@ -47,6 +50,7 @@ function assert_le {
 
     if [ ! $arg1 -le $arg2 ]; then
         print_err "test $prog error"
+        return 1
     else
         echo "test $prog ok"
     fi
@@ -60,6 +64,7 @@ function assert_gt {
 
     if [ ! $arg1 -gt $arg2 ]; then
         print_err "test $prog error"
+        return 1
     else
         echo "test $prog ok"
     fi
@@ -73,6 +78,7 @@ function assert_ge {
 
     if [ ! $arg1 -ge $arg2 ]; then
         print_err "test $prog error"
+        return 1
     else
         echo "test $prog ok"
     fi
@@ -87,6 +93,7 @@ function assert_between {
 
     if [ $arg1 -lt $arg2 ] || [ $arg1 -gt $arg3 ]; then
         print_err "test $prog error"
+        return 1
     else
         echo "test $prog ok"
     fi
@@ -100,6 +107,7 @@ function assert_contains {
 
     if ! contains "$arg1" "$arg2"; then
         print_err "test $prog error"
+        return 1
     else
         echo "test $prog ok"
     fi
@@ -113,6 +121,7 @@ function assert_length {
 
     if [ ${#arg1} -ne $arg2 ]; then
         print_err "test $prog error"
+        return 1
     else
         echo "test $prog ok"
     fi
@@ -121,11 +130,13 @@ function assert_length {
 function assert_result_pos {
 
     assert_eq $1 0
+    return $?
 }
 
 function assert_result_neg {
 
     assert_gt $1 0
+    return $?
 }
 
 function assert_files_exist {
@@ -141,6 +152,7 @@ function assert_files_exist {
     done
     if [ $result != "ok" ]; then
         print_err "test $prog error"
+        return 1
     else
         echo "test $prog ok"
     fi
@@ -149,14 +161,18 @@ function assert_files_exist {
 function assert_prog_exists {
 
     local progs=$*
+    local missing=0
 
     for prog in $progs; do
         if [ `\which $prog 2> /dev/null | wc -l` -gt 0 ]; then
             echo "program ${prog} ok"
         else
             print_err "program ${progs} missing"
+            let "missing++"
         fi
     done
+
+    return $missing
 }
 
 function assert_skip_test {
@@ -174,6 +190,7 @@ function assert_skip_test {
 function assert_skip_slow_test {
 
     assert_skip_test "too slow"
+    return $?
 }
 
 export -f assert_eq
