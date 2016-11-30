@@ -175,3 +175,19 @@ function assert_skip_slow_test {
 
     assert_skip_test "too slow"
 }
+
+export -f assert_eq
+export -f assert_not_eq
+export -f assert_lt
+export -f assert_le
+export -f assert_gt
+export -f assert_ge
+export -f assert_between
+export -f assert_contains
+export -f assert_length
+export -f assert_result_pos
+export -f assert_result_neg
+export -f assert_files_exist
+export -f assert_prog_exists
+export -f assert_skip_test
+export -f assert_skip_slow_test

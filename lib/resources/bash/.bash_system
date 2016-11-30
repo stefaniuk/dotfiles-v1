@@ -23,6 +23,7 @@ function system_detect {
         [[ $(sw_vers -productVersion | \grep 10.9  | wc -l) -gt 0 ]] && PSEUDO_NAME="Mavericks"
         [[ $(sw_vers -productVersion | \grep 10.10 | wc -l) -gt 0 ]] && PSEUDO_NAME="Yosemite"
         [[ $(sw_vers -productVersion | \grep 10.11 | wc -l) -gt 0 ]] && PSEUDO_NAME="El Capitan"
+        [[ $(sw_vers -productVersion | \grep 10.12 | wc -l) -gt 0 ]] && PSEUDO_NAME="Sierra"
         VERSION=$(sw_vers -productVersion)
         ARCH_NAME="i386"
         [[ $(uname -m | \grep 64 | wc -l) -gt 0 ]] && ARCH_NAME="amd64"
@@ -120,7 +121,7 @@ function system_test {
         shift
     done
 
-    source ~/usr/test/lib/asserts.sh
+    source ~/bin/asserts
 
     printf "\n"
     print_h1 "Run tests...\n"
@@ -181,7 +182,7 @@ function system_test {
     fi
 
     rm -f $log
-    for file in $(\ls -1 ~/usr/test/bin/*.test 2> /dev/null); do
+    for file in $(\ls -1 ~/bin/*.test 2> /dev/null); do
         if [ $show_errors == "y" ]; then
             [ -x $file ] && $file $skip_selected_tests 2>&1 | tee -a $log
         else
