@@ -11,3 +11,12 @@ function install-scala {
     mv scala-$ver $DIR/usr/applications/scala
     rm scala-$ver.tgz
 }
+
+function config-scala {
+
+    cat <<EOF > $DIR/lib/profile.d/scala.sh
+#!/bin/bash
+export PATH=\$PATH:~/usr/applications/scala/bin
+EOF
+    chmod +x $DIR/lib/profile.d/scala.sh
+}

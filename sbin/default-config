@@ -1,17 +1,5 @@
 #!/bin/bash
 
-if should_config "scala"; then
-
-    print_h2 "Scala"
-
-    cat <<EOF > $DIR/lib/profile.d/scala.sh
-#!/bin/bash
-export PATH=\$PATH:~/usr/applications/scala/bin
-EOF
-    chmod +x $DIR/lib/profile.d/scala.sh
-
-fi
-
 if should_config "gradle"; then
 
     print_h2 "Gradle"
