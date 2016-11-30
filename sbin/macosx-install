@@ -2,7 +2,8 @@
 
 install_app \
     node \
-    node-tools
+    node-tools \
+    subl
 
 exit 0 # TODO: Remove this line once refactored
 
@@ -41,7 +42,6 @@ fi
 
 should_install "chrome"     && (. $DIR/lib/chrome.sh $*)
 should_install "smartgit"   && (. $DIR/lib/smartgit.sh $*)
-should_install "subl"       && (. $DIR/lib/subl.sh $*)
 
 #     $cask_install asepsis --appdir=/Applications
 #     $cask_install caffeine --appdir=/Applications

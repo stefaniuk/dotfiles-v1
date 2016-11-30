@@ -36,7 +36,6 @@ This project can be tested in a Docker container predefined. To use this facilit
 TODO
 ----
 
- * Move configuration code next to the installation
  * Configure `htop` by providing `htoprc` file and user's [man](http://www.thegeekstuff.com/2011/09/linux-htop-examples) entry
  * Version `dotfiles`
  * Configure `byobu`

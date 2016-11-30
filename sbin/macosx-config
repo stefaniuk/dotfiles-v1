@@ -1,7 +1,8 @@
 #!/bin/bash
 
 config_app \
-    node
+    node \
+    subl
 
 exit 0 # TODO: Remove this line once refactored
 
@@ -47,16 +48,6 @@ if should_config "iterm" $DIR/Applications/iTerm.app/Contents/MacOS/iTerm2; then
 
     # configuration
     defaults import com.googlecode.iterm2 $DIR/lib/iterm/com.googlecode.iterm2.plist
-
-fi
-
-if should_config "subl"; then
-
-    print_h2 "Configure Sublime Text"
-
-    # configuration
-    dir=$DIR/Library/Application\ Support/Sublime\ Text\ 3
-    cp -f $DIR/lib/subl/macosx/* "$dir/Packages/User"
 
 fi
 

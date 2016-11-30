@@ -113,7 +113,7 @@ function program_setup {
     chmod 500 $DIR/dotfiles
 
     # detect operating system
-    source $DIR/lib/bash/.bash_system
+    source $DIR/lib/resources/bash/.bash_system
     # make available custom scripts
     export PATH=$PATH:$DIR/bin:$DIR/usr/bin
 

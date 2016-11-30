@@ -202,33 +202,6 @@ if should_config "tmux"; then
 fi
 
 ################################################################################
-# Sublime Text
-
-if should_config "subl"; then
-
-    print_h2 "Sublime Text"
-
-    [ "$DIST" == "macosx" ] && dir=$DIR/Library/Application\ Support/Sublime\ Text\ 3
-    [ "$DIST" == "ubuntu" ] && dir=$DIR/.config/sublime-text-3
-
-    if [ -n "$dir" ]; then
-        mkdir -p "$dir/Installed Packages"
-        mkdir -p "$dir/Packages/User"
-        pkg_name="Package Control.sublime-package"
-        pkg_dir="$dir/Installed Packages"
-        if [ ! -f "$pkg_dir/$pkg_name" ]; then
-            rm -rf "$dir/Packages/User/Package Control*"
-            curl -L \
-                --url "http://sublime.wbond.net/$pkg_name" \
-                --output "$pkg_dir/$pkg_name"
-        fi
-
-        cp -f $DIR/lib/subl/*.sublime-settings "$dir/Packages/User"
-    fi
-
-fi
-
-################################################################################
 # Lynx
 
 if should_config "lynx"; then
