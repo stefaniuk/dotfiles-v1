@@ -18,7 +18,7 @@ program_dir=$(cd "$(dirname "$0" 2> /dev/null)"; pwd)
 
 arg_install=$(echo "$*" | grep -o -- "--install")
 arg_config=$(echo "$*" | grep -o -- "--config")
-arg_update=$(echo "$*" | grep -o -- "--update")
+arg_update=$(echo "$*" | grep -o -- "--update-os")
 arg_test=$(echo "$*" | grep -o -- "--test")
 arg_synchronise_only=$(echo "$*" | grep -o -- "--synchronise-only")
 arg_force_download=$(echo "$*" | grep -o -- "--force-download")
@@ -27,9 +27,11 @@ arg_minimal=$(echo "$*" | grep -o -- "--minimal")
 arg_sudo=$(echo "$*" | grep -o -- "--sudo")
 arg_help=$(echo "$*" | grep -o -- "--help")
 
-arg_update_progs=$(echo "$*" | grep -o -- "--update=[-_,A-Za-z0-9]*" | sed "s/--update=//")
 arg_install_progs=$(echo "$*" | grep -o -- "--install=[-_,A-Za-z0-9]*" | sed "s/--install=//")
 arg_config_progs=$(echo "$*" | grep -o -- "--config=[-_,A-Za-z0-9]*" | sed "s/--config=//")
+if [ -z "$arg_config_progs" ] && [ -n "$arg_install_progs" ]; then
+    arg_config_progs=$arg_install_progs
+fi
 
 ################################################################################
 # functions
@@ -37,13 +39,12 @@ arg_config_progs=$(echo "$*" | grep -o -- "--config=[-_,A-Za-z0-9]*" | sed "s/--
 function usage {
 
     local file=$(basename $0 2> /dev/null)
-
     echo "
 Usage:
     ${file} [options]
 
 Options:
-    --update
+    --update-os
     --install[=dependencies,{utils|tools|workstation}-package,prog1,prog2,...]
     --config[=all,prog1,prog2,...]
     --test
@@ -138,47 +139,111 @@ function program_setup {
     fi
 
     # initialise
-    (. $DIR/sbin/default-initialise.sh $*)
+    [ -f $DIR/sbin/$DIST-initialise ] && (
+        print_h1 "Initialising..."
+        [ -f $DIR/sbin/$DIST-include ] && . $DIR/sbin/$DIST-include $*
+        [ -f $DIR/sbin/$DIST-initialise ] && . $DIR/sbin/$DIST-initialise $*
+    )
     # update
-    [ -n "$arg_update" ] && (. $DIR/sbin/default-update.sh $*)
+    [ -n "$arg_update" ] && [ -f $DIR/sbin/$DIST-update ] && (
+        print_h1 "Updating..."
+        [ -f $DIR/sbin/$DIST-include ] && . $DIR/sbin/$DIST-include $*
+        [ -f $DIR/sbin/$DIST-update ] && . $DIR/sbin/$DIST-update $*
+    )
     # install
-    [ -n "$arg_install" ] && (. $DIR/sbin/default-install.sh $*)
+    [ -n "$arg_install" ] && [ -f $DIR/sbin/$DIST-install ] && (
+        print_h1 "Installing..."
+        [ -f $DIR/sbin/$DIST-include ] && . $DIR/sbin/$DIST-include $*
+        [ -f $DIR/sbin/$DIST-install ] && . $DIR/sbin/$DIST-install $*
+    )
     # config
-    [ -n "$arg_config" ] && (. $DIR/sbin/default-config.sh $*)
+    [ -n "$arg_config" ] && [ -f $DIR/sbin/$DIST-config ] && (
+        print_h1 "Configuring..."
+        [ -f $DIR/sbin/$DIST-include ] && . $DIR/sbin/$DIST-include $*
+        [ -f $DIR/sbin/$DIST-config ] && . $DIR/sbin/$DIST-config $*
+    )
     # test
     [ -n "$arg_test" ] && /bin/bash -cli "system_test --skip-selected-tests"
 
     # remove not needed resources
     if [ -n "$arg_minimal" ]; then
         rm -rf $DIR/{lib,sbin,usr/man,.profile.old}
+        # remove tests
         find $DIR/{bin,usr/bin}/* -iname '*.test' -exec rm -rf {} +
+        rm $DIR/bin/asserts
     fi
     rm -rf $DIR/{.gitignore,Dockerfile,LICENCE,Makefile,README.md,Vagrantfile,provision.sh}
     find $DIR/{bin,etc,lib,sbin,tmp,usr} -type f -name '.gitkeep' -exec rm -f {} +
 }
 
-function should_install {
+function install_app {
+
+    for app in "$@"; do
+        _should_install $app && _run_install $app
+    done
+}
+
+function _should_install {
 
     _is_on_list "$arg_install_progs" "$1"
     return $?
 }
 
-function should_update {
+function _run_install {
 
-    _is_on_list "$arg_update_progs" "$1"
-    return $?
+     [ -f $DIR/lib/$1 ] && (
+        # source the requested installation script
+        . $DIR/lib/$1 $*
+        # check if installation function exists
+        if type -t "$DIST-install-$1" | grep -q "^function$"; then
+            func="$DIST-install-$1"
+        elif type -t "install-$1" | grep -q "^function$"; then
+            func="install-$1"
+        fi
+        # run the installation function
+        if [ -n "$func" ]; then
+            print_h2 $1
+            $func $*
+        fi
+    )
 }
 
-function should_config {
+function config_app {
+
+    for app in "$@"; do
+        _should_config $app && _run_config $app
+    done
+}
+
+function _should_config {
 
     _is_on_list "$arg_config_progs" "$1" || _is_on_list "$arg_config_progs" "all"
     return $?
 }
 
+function _run_config {
+
+     [ -f $DIR/lib/$1 ] && (
+        # source the requested configuration script
+        . $DIR/lib/$1 $*
+        # check if configuration function exists
+        if type -t "$DIST-config-$1" | grep -q "^function$"; then
+            func="$DIST-config-$1"
+        elif type -t "config-$1" | grep -q "^function$"; then
+            func="config-$1"
+        fi
+        # run the configuration function
+        if [ -n "$func" ]; then
+            print_h2 $1
+            $func $*
+        fi
+    )
+}
+
 function _is_on_list {
 
-    list=$1
-    item=$2
+    local list=$1
+    local item=$2
 
     [ -z "$list" ] && return 1
 

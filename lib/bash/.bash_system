@@ -11,9 +11,9 @@ function system_detect {
     ARCH=$(uname -m)
     ARCH_NAME="unknown" # can be "i386" or "amd64"
     KERNEL=$(uname -r)
-    VIRTUALISATION=""
+    CONTAINER=""
 
-    # mac os x
+    # Mac OS X
     if [[ "$OSTYPE" == "darwin"* ]]; then
 
         OS="unix"
@@ -27,7 +27,7 @@ function system_detect {
         ARCH_NAME="i386"
         [[ $(uname -m | \grep 64 | wc -l) -gt 0 ]] && ARCH_NAME="amd64"
 
-    # debian family
+    # Debian family
     elif [[ -f /etc/debian_version ]]; then
 
         local id=$(cat /etc/os-release | \grep "^ID=" | awk -F= '{ print $2 }')
@@ -44,7 +44,7 @@ function system_detect {
         ARCH_NAME="i386"
         [[ $(uname -m | \grep 64 | wc -l) -gt 0 ]] && ARCH_NAME="amd64"
 
-    # redhat family
+    # RedHat family
     elif [[ -f /etc/redhat-release ]]; then
 
         DIST=$(cat /etc/redhat-release | sed s/\ release.*// | tr "[A-Z]" "[a-z]")
@@ -57,7 +57,7 @@ function system_detect {
         ARCH_NAME="i386"
         [[ $(uname -m | \grep 64 | wc -l) -gt 0 ]] && ARCH_NAME="amd64"
 
-    # cygwin
+    # Windows/Cygwin
     elif [[ "$OSTYPE" == "cygwin"* ]]; then
 
         OS="windows"
@@ -71,12 +71,12 @@ function system_detect {
 
     fi
 
-    # virtualisation
+    # containerisation
     if cat /proc/1/cgroup 2> /dev/null | grep -i docker > /dev/null 2>&1; then
-        VIRTUALISATION="container"
+        CONTAINER="docker"
     fi
 
-    # convert it to lowercase
+    # convert metadata to lower case
     export OS=$(echo $OS | tr "[A-Z]" "[a-z]")
     export DIST=$(echo $DIST | tr "[A-Z]" "[a-z]")
     export DIST_BASED_ON=$(echo $DIST_BASED_ON | tr "[A-Z]" "[a-z]")
@@ -85,7 +85,7 @@ function system_detect {
     export ARCH=$(echo $ARCH | tr "[A-Z]" "[a-z]")
     export ARCH_NAME=$(echo $ARCH_NAME | tr "[A-Z]" "[a-z]")
     export KERNEL=$(echo $KERNEL | tr "[A-Z]" "[a-z]")
-    [ -n "$VIRTUALISATION" ] && export VIRTUALISATION=$(echo $VIRTUALISATION | tr "[A-Z]" "[a-z]")
+    [ -n "$CONTAINER" ] && export CONTAINER=$(echo $CONTAINER | tr "[A-Z]" "[a-z]")
 
     return 0
 }
@@ -100,7 +100,7 @@ function system_info {
     echo "ARCH: $ARCH"
     echo "ARCH NAME: $ARCH_NAME"
     echo "KERNEL: $KERNEL"
-    [ -n "$VIRTUALISATION" ] && echo "VIRTUALISATION: $VIRTUALISATION"
+    [ -n "$CONTAINER" ] && echo "CONTAINER: $CONTAINER"
 
     return 0
 }

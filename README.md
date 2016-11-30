@@ -11,7 +11,7 @@ Most common installation on a workstation
     USER_NAME="Daniel Stefaniuk"
     USER_EMAIL="daniel.stefaniuk@gmail.com"
     curl -L https://raw.githubusercontent.com/stefaniuk/dotfiles/master/dotfiles -o - | /bin/bash -s -- \
-        --update \
+        --update-os \
         --install=dependencies,system-bundle,admin-bundle,developer-bundle,user-bundle \
         --config=all \
         --sudo
@@ -27,7 +27,7 @@ All files will be installed in the user's home directory.
 Testing
 -------
 
-This project can be tested in a Docker container defined in the `./usr/test/etc` directory. To use this facility, please make sure that VirtualBox and Vagrant are installed.
+This project can be tested in a Docker container predefined. To use this facility, please make sure that VirtualBox and Vagrant are installed and available on the command-line.
 
     vagrant up
     vagrant ssh
@@ -37,7 +37,6 @@ TODO
 ----
 
  * Move configuration code next to the installation
- * Move test files next to the implemented commands
  * Configure `htop` by providing `htoprc` file and user's [man](http://www.thegeekstuff.com/2011/09/linux-htop-examples) entry
  * Version `dotfiles`
  * Configure `byobu`

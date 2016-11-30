@@ -1,7 +1,10 @@
 #!/bin/bash
 
-################################################################################
-# Locale
+exit 0 # TODO: Remove this line once refactored
+
+########################################################################################################################
+### REFACTOR ###########################################################################################################
+########################################################################################################################
 
 if should_config "locale" "locale-gen"; then
 
@@ -11,10 +14,6 @@ if should_config "locale" "locale-gen"; then
 
 fi
 
-################################################################################
-# Timezone
-
-
 if should_config "timezone" "dpkg-reconfigure"; then
 
     print_h2 "Timezone"
@@ -23,9 +22,6 @@ if should_config "timezone" "dpkg-reconfigure"; then
     sudo dpkg-reconfigure -f noninteractive tzdata
 
 fi
-
-################################################################################
-# Sublime Text
 
 if should_config "subl"; then
 

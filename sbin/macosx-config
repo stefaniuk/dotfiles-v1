@@ -1,7 +1,13 @@
 #!/bin/bash
 
-################################################################################
-# Bash
+config_app \
+    node
+
+exit 0 # TODO: Remove this line once refactored
+
+########################################################################################################################
+### REFACTOR ###########################################################################################################
+########################################################################################################################
 
 if should_config "bash"; then
 
@@ -14,9 +20,6 @@ if should_config "bash"; then
 
 fi
 
-################################################################################
-# Zsh
-
 if should_config "zsh"; then
 
     print_h2 "Configure Zsh"
@@ -26,9 +29,6 @@ if should_config "zsh"; then
     sudo bash -c "echo $(brew --prefix)/bin/zsh >> /private/etc/shells"
 
 fi
-
-################################################################################
-# Tmux
 
 if should_config "tmux"; then
 
@@ -41,9 +41,6 @@ if should_config "tmux"; then
 
 fi
 
-################################################################################
-# iTerm
-
 if should_config "iterm" $DIR/Applications/iTerm.app/Contents/MacOS/iTerm2; then
 
     print_h2 "Configure iTerm"
@@ -52,9 +49,6 @@ if should_config "iterm" $DIR/Applications/iTerm.app/Contents/MacOS/iTerm2; then
     defaults import com.googlecode.iterm2 $DIR/lib/iterm/com.googlecode.iterm2.plist
 
 fi
-
-################################################################################
-# Sublime Text
 
 if should_config "subl"; then
 
@@ -65,9 +59,6 @@ if should_config "subl"; then
     cp -f $DIR/lib/subl/macosx/* "$dir/Packages/User"
 
 fi
-
-################################################################################
-# Seil
 
 if should_config "seil" /Applications/Seil.app/Contents/Library/bin/seil; then
 
@@ -80,9 +71,6 @@ if should_config "seil" /Applications/Seil.app/Contents/Library/bin/seil; then
     print_h3 "change 'Caps Lock Key' configuration to 'No Action' to reduce delay."
 
 fi
-
-################################################################################
-# Karabiner
 
 if should_config "karabiner" /Applications/Karabiner.app/Contents/Library/bin/karabiner; then
 
@@ -99,9 +87,6 @@ if should_config "karabiner" /Applications/Karabiner.app/Contents/Library/bin/ka
     /Applications/Karabiner.app/Contents/Library/bin/karabiner reloadxml
 
 fi
-
-################################################################################
-# Moom
 
 if should_config "moom" /Applications/Moom.app/Contents/MacOS/Moom; then
 

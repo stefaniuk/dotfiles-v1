@@ -1,9 +1,8 @@
 #!/bin/bash
 
-print_h1 "Configuring..."
-
-################################################################################
-# SSH
+########################################################################################################################
+### REFACTOR ###########################################################################################################
+########################################################################################################################
 
 if should_config "ssh"; then
 
@@ -16,9 +15,6 @@ if should_config "ssh"; then
     file_replace_str "gitlab-user" "gitlab-$GITLAB_ACCOUNT" $DIR/.ssh/config
 
 fi
-
-################################################################################
-# Bash
 
 if should_config "bash"; then
 
@@ -34,9 +30,6 @@ if should_config "bash"; then
     file_replace_str "GITLAB_ACCOUNT=\"unknown\"" "GITLAB_ACCOUNT=\"$GITLAB_ACCOUNT\"" $DIR/.bash_exports
 
 fi
-
-################################################################################
-# Zsh
 
 if should_config "zsh"; then
 
@@ -55,9 +48,6 @@ if should_config "zsh"; then
     fi
 
 fi
-
-################################################################################
-# Git
 
 if should_config "git"; then
 
@@ -353,19 +343,6 @@ if should_config "ant"; then
 export PATH=\$PATH:~/usr/applications/ant/bin
 EOF
     chmod +x $DIR/lib/profile.d/ant.sh
-
-fi
-
-################################################################################
-# NodeJS
-
-if should_config "node"; then
-
-    print_h2 "NodeJS"
-
-    [ -f /etc/bash_completion ] && dir=/etc/bash_completion.d || dir=/usr/local/etc/bash_completion.d
-    sudo /bin/bash -c "npm completion > $dir/node-completion.bash"
-    unset dir
 
 fi
 

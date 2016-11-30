@@ -1,0 +1,14 @@
+#!/bin/bash
+
+function install-node-tools {
+
+    sudo npm install -g \
+        angular2-cli \
+        bower \
+        grunt-cli \
+        gulp-cli \
+        json \
+        typescript \
+        typings \
+        yo
+}
