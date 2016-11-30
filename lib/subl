@@ -31,14 +31,10 @@ function _config {
     mkdir -p "$dir/Installed Packages"
     mkdir -p "$dir/Packages/User"
 
-    pkgc_name="Package Control.sublime-package"
-    pkgc_dir="$dir/Installed Packages"
-    if [ ! -f "$pkgc_dir/$pkgc_name" ]; then
-        rm -rf "$dir/Packages/User/Package Control*"
-        curl -L \
-            --url "http://sublime.wbond.net/$pkgc_name" \
-            --output "$pkgc_dir/$pkgc_name"
-    fi
+    rm -rf "$dir/Packages/User/Package Control*"
+    curl -L \
+        --url "http://sublime.wbond.net/Package Control.sublime-package" \
+        --output "$dir/Installed Packages/Package Control.sublime-package"
 
     cp -fv $DIR/lib/resources/subl/*.sublime* "$dir/Packages/User"
     cp -fv $DIR/lib/resources/subl/$DIST/* "$dir/Packages/User"
