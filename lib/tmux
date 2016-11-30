@@ -1,0 +1,26 @@
+#!/bin/bash
+
+function macosx-install-tmux {
+
+    :
+}
+
+function macosx-config-tmux {
+
+    _config
+}
+
+function ubuntu-install-tmux {
+
+    :
+}
+
+function ubuntu-config-tmux {
+
+    _config
+}
+
+function _config {
+
+    :
+}

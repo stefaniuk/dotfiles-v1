@@ -28,7 +28,9 @@ arg_sudo=$(echo "$*" | grep -o -- "--sudo")
 arg_help=$(echo "$*" | grep -o -- "--help")
 
 arg_install_progs=$(echo "$*" | grep -o -- "--install=[-_,A-Za-z0-9]*" | sed "s/--install=//")
+install_already_processed=""
 arg_config_progs=$(echo "$*" | grep -o -- "--config=[-_,A-Za-z0-9]*" | sed "s/--config=//")
+config_already_processed=""
 if [ -z "$arg_config_progs" ] && [ -n "$arg_install_progs" ]; then
     arg_config_progs=$arg_install_progs
 fi
@@ -179,65 +181,77 @@ function program_setup {
 function install_app {
 
     for app in "$@"; do
-        _should_install $app && _run_install $app
+        should_install $app && run_install $app
     done
 }
 
-function _should_install {
+function should_install {
+
+    # check if already installed at this run
+    _is_on_list "$install_already_processed" "$1" && return 1
 
     _is_on_list "$arg_install_progs" "$1"
     return $?
 }
 
-function _run_install {
+function run_install {
 
-     [ -f $DIR/lib/$1 ] && (
-        # source the requested installation script
-        . $DIR/lib/$1 $*
-        # check if installation function exists
-        if type -t "$DIST-install-$1" | grep -q "^function$"; then
-            func="$DIST-install-$1"
-        elif type -t "install-$1" | grep -q "^function$"; then
-            func="install-$1"
-        fi
-        # run the installation function
-        if [ -n "$func" ]; then
-            print_h2 $1
-            $func $*
-        fi
-    )
+    for app in "$@"; do
+        [ -f $DIR/lib/$app ] && (
+            # source the requested installation script
+            . $DIR/lib/$app $*
+            # check if installation function exists
+            if type -t "$DIST-install-$app" | grep -q "^function$"; then
+                func="$DIST-install-$app"
+            elif type -t "install-$app" | grep -q "^function$"; then
+                func="install-$app"
+            fi
+            # run the installation function
+            if [ -n "$func" ]; then
+                print_h2 $app
+                $func $*
+            fi
+        )
+        install_already_processed="$install_already_processed,$app"
+    done
 }
 
 function config_app {
 
     for app in "$@"; do
-        _should_config $app && _run_config $app
+        should_config $app && run_config $app
     done
 }
 
-function _should_config {
+function should_config {
+
+    # check if already configured at this run
+    _is_on_list "$config_already_processed" "$1" && return 1
 
     _is_on_list "$arg_config_progs" "$1" || _is_on_list "$arg_config_progs" "all"
     return $?
 }
 
-function _run_config {
+function run_config {
 
-     [ -f $DIR/lib/$1 ] && (
-        # source the requested configuration script
-        . $DIR/lib/$1 $*
-        # check if configuration function exists
-        if type -t "$DIST-config-$1" | grep -q "^function$"; then
-            func="$DIST-config-$1"
-        elif type -t "config-$1" | grep -q "^function$"; then
-            func="config-$1"
-        fi
-        # run the configuration function
-        if [ -n "$func" ]; then
-            print_h2 $1
-            $func $*
-        fi
-    )
+    for app in "$@"; do
+        [ -f $DIR/lib/$app ] && (
+            # source the requested configuration script
+            . $DIR/lib/$app $*
+            # check if configuration function exists
+            if type -t "$DIST-config-$app" | grep -q "^function$"; then
+                func="$DIST-config-$app"
+            elif type -t "config-$app" | grep -q "^function$"; then
+                func="config-$app"
+            fi
+            # run the configuration function
+            if [ -n "$func" ]; then
+                print_h2 $app
+                $func $*
+            fi
+        )
+        config_already_processed="$config_already_processed,$app"
+    done
 }
 
 function _is_on_list {

@@ -1,19 +1,40 @@
 #!/bin/bash
 
+if should_install "dependencies"; then
+    :
+fi
+
+if should_install "system-bundle"; then
+    :
+fi
+
+if should_install "admin-bundle"; then
+    :
+fi
+
+if should_install "developer-bundle"; then
+    run_install \
+        node \
+        node-tools \
+        subl \
+        tmux
+fi
+
+if should_install "user-bundle"; then
+    :
+fi
+
 install_app \
     node \
     node-tools \
-    subl
+    subl \
+    tmux
 
 exit 0 # TODO: Remove this line once refactored
 
 ########################################################################################################################
 ### REFACTOR ###########################################################################################################
 ########################################################################################################################
-
-if should_install "dependencies"; then
-    print_h2 "Dependencies"
-fi
 
 if should_install "system-bundle"; then
     print_h2 "System Bundle"
@@ -22,14 +43,6 @@ if should_install "system-bundle"; then
     $cask_install bettertouchtool
     $cask_install witch
     $cask_install moom
-fi
-
-if should_install "admin-bundle"; then
-    print_h2 "Admin Bundle"
-fi
-
-if should_install "developer-bundle"; then
-    print_h2 "Developer Bundle"
 fi
 
 if should_install "user-bundle"; then
