@@ -5,7 +5,7 @@ function config-ssh {
     mkdir -p $DIR/.ssh
     chmod 700 $DIR/.ssh
 
-    cp -f $DIR/lib/resource/ssh/config $DIR/.ssh
+    cp -fv $DIR/lib/resource/ssh/config $DIR/.ssh
     file_replace_str "github-user" "github-$GITHUB_ACCOUNT" $DIR/.ssh/config
     file_replace_str "bitbucket-user" "bitbucket-$BITBUCKET_ACCOUNT" $DIR/.ssh/config
     file_replace_str "gitlab-user" "gitlab-$GITLAB_ACCOUNT" $DIR/.ssh/config

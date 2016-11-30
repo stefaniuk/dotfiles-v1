@@ -1,0 +1,13 @@
+#!/bin/bash
+
+function config-zsh {
+
+    if [ ! -f $DIR/.oh-my-zsh/oh-my-zsh.sh ]; then
+        rm -rf $DIR/{.oh-my-zsh,.zcompdump-*,.zlogin}
+        git clone https://github.com/robbyrussell/oh-my-zsh.git $DIR/.oh-my-zsh
+    elif [ -d $DIR/.oh-my-zsh/.git ]; then
+        (cd $DIR/.oh-my-zsh; git pull)
+    fi
+
+    cp -fv $DIR/lib/resources/zsh/.zsh* $DIR
+}

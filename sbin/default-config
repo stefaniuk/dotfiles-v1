@@ -1,23 +1,5 @@
 #!/bin/bash
 
-if should_config "zsh"; then
-
-    print_h2 "Zsh"
-
-    cp -f $DIR/lib/zsh/.zsh* $DIR
-
-    if [ ! -f $DIR/.oh-my-zsh/oh-my-zsh.sh ]; then
-        rm -rf $DIR/{.oh-my-zsh,.zcompdump-*,.zlogin,.zsh*}
-        git clone \
-            https://github.com/robbyrussell/oh-my-zsh.git \
-            $DIR/.oh-my-zsh
-        cp $DIR/.oh-my-zsh/templates/zshrc.zsh-template $DIR/.zshrc
-    elif [ -d $DIR/.oh-my-zsh/.git ]; then
-        (cd $DIR/.oh-my-zsh; git pull)
-    fi
-
-fi
-
 if should_config "git"; then
 
     print_h2 "Git"
