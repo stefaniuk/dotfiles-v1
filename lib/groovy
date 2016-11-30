@@ -11,3 +11,12 @@ function install-groovy {
     mv groovy-$ver $DIR/usr/applications/groovy
     rm apache-groovy-binary-$ver.zip
 }
+
+function config-groovy {
+
+    cat <<EOF > $DIR/lib/profile.d/groovy.sh
+#!/bin/bash
+export PATH=\$PATH:~/usr/applications/groovy/bin
+EOF
+    chmod +x $DIR/lib/profile.d/groovy.sh
+}

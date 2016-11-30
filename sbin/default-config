@@ -1,17 +1,5 @@
 #!/bin/bash
 
-if should_config "groovy"; then
-
-    print_h2 "Groovy"
-
-    cat <<EOF > $DIR/lib/profile.d/groovy.sh
-#!/bin/bash
-export PATH=\$PATH:~/usr/applications/groovy/bin
-EOF
-    chmod +x $DIR/lib/profile.d/groovy.sh
-
-fi
-
 if should_config "scala"; then
 
     print_h2 "Scala"
