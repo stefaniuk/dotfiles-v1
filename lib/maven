@@ -11,3 +11,15 @@ function install-maven {
     mv apache-maven-$ver $DIR/usr/applications/maven
     rm apache-maven-$ver-bin.tar.gz
 }
+
+function config-maven {
+
+    mkdir -p $DIR/.m2
+    cp -fv $DIR/lib/resources/maven/settings*.xml $DIR/.m2
+
+    cat <<EOF > $DIR/lib/profile.d/maven.sh
+#!/bin/bash
+export PATH=\$PATH:~/usr/applications/maven/bin
+EOF
+    chmod +x $DIR/lib/profile.d/maven.sh
+}
