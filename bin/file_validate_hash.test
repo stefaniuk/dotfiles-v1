@@ -1,8 +1,6 @@
 #!/bin/bash
 
-source ~/lib/asserts.sh
-
-file=~/lib/asserts.sh
+file=$0
 
 hash=`md5sum $file | awk '{ print $1 }'`
 file_validate_hash $file $hash
@@ -15,5 +13,3 @@ assert_result_pos $?
 hash=`sha256sum $file | awk '{ print $1 }'`
 file_validate_hash $file $hash
 assert_result_pos $?
-
-exit 0
