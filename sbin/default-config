@@ -1,18 +1,5 @@
 #!/bin/bash
 
-if should_config "mc"; then
-
-    print_h2 "Midnight Commander"
-
-    mkdir -p $DIR/.config/mc
-    [ -f /etc/mc/mc.keymap ] && cp -L /etc/mc/mc.keymap $DIR/.config/mc
-    [ -f /usr/local/etc/mc/mc.keymap ] && cp -L /usr/local/etc/mc/mc.keymap $DIR/.config/mc
-    [ -f /etc/mc/mc.menu ] && cp -L /etc/mc/mc.menu $DIR/.config/mc/menu
-    [ -f /usr/local/etc/mc/mc.menu ] && cp -L /usr/local/etc/mc/mc.menu $DIR/.config/mc/menu
-    cp -f $DIR/lib/mc/* $DIR/.config/mc
-
-fi
-
 if should_config "lynx"; then
 
     print_h2 "Lynx"

@@ -1,0 +1,12 @@
+#!/bin/bash
+
+function config-mc {
+
+    mkdir -p $DIR/.config/mc
+    [ -f /etc/mc/mc.keymap ] && cp -Lv /etc/mc/mc.keymap $DIR/.config/mc
+    [ -f /usr/local/etc/mc/mc.keymap ] && cp -Lv /usr/local/etc/mc/mc.keymap $DIR/.config/mc
+    [ -f /etc/mc/mc.menu ] && cp -Lv /etc/mc/mc.menu $DIR/.config/mc/menu
+    [ -f /usr/local/etc/mc/mc.menu ] && cp -Lv /usr/local/etc/mc/mc.menu $DIR/.config/mc/menu
+
+    cp -fv $DIR/lib/resources/mc/* $DIR/.config/mc
+}
