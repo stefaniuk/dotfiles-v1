@@ -1,15 +1,5 @@
 #!/bin/bash
 
-if should_config "irssi"; then
-
-    print_h2 "Irssi"
-
-    mkdir -p $DIR/.irssi
-    cp -f $DIR/lib/irssi/config $DIR/.irssi
-    file_replace_str "real_name = \"\"" "real_name = \"$USER_NAME\"" $DIR/.irssi/config
-
-fi
-
 if should_config "go"; then
 
     print_h2 "Go"

@@ -1,0 +1,8 @@
+#!/bin/bash
+
+function config-irssi {
+
+    mkdir -p $DIR/.irssi
+    cp -fv $DIR/lib/resources/irssi/config $DIR/.irssi
+    file_replace_str "real_name = \"\"" "real_name = \"$USER_NAME\"" $DIR/.irssi/config
+}
