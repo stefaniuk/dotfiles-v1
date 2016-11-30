@@ -11,3 +11,13 @@ function ubuntu-install-go {
     mv go $DIR/usr/applications/go
     rm go${ver}.linux-amd64.tar.gz
 }
+
+function config-go {
+
+    cat <<EOF > $DIR/lib/profile.d/go.sh
+#!/bin/bash
+export GOROOT=~/usr/applications/go
+export PATH=\$PATH:~/usr/applications/go/bin
+EOF
+    chmod +x $DIR/lib/profile.d/go.sh
+}

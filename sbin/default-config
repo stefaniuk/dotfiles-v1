@@ -1,18 +1,5 @@
 #!/bin/bash
 
-if should_config "go"; then
-
-    print_h2 "Go"
-
-    cat <<EOF > $DIR/lib/profile.d/go.sh
-#!/bin/bash
-export GOROOT=~/usr/applications/go
-export PATH=\$PATH:~/usr/applications/go/bin
-EOF
-    chmod +x $DIR/lib/profile.d/go.sh
-
-fi
-
 if should_config "groovy"; then
 
     print_h2 "Groovy"
