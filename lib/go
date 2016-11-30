@@ -12,7 +12,7 @@ function ubuntu-install-go {
     rm go${ver}.linux-amd64.tar.gz
 }
 
-function config-go {
+function ubuntu-config-go {
 
     cat <<EOF > $DIR/lib/profile.d/go.sh
 #!/bin/bash
