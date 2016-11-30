@@ -1,17 +1,5 @@
 #!/bin/bash
 
-if should_config "ssh"; then
-
-    print_h2 "SSH"
-
-    mkdir -p $DIR/.ssh
-    cp -f $DIR/lib/ssh/config $DIR/.ssh
-    file_replace_str "github-user" "github-$GITHUB_ACCOUNT" $DIR/.ssh/config
-    file_replace_str "bitbucket-user" "bitbucket-$BITBUCKET_ACCOUNT" $DIR/.ssh/config
-    file_replace_str "gitlab-user" "gitlab-$GITLAB_ACCOUNT" $DIR/.ssh/config
-
-fi
-
 if should_config "zsh"; then
 
     print_h2 "Zsh"
