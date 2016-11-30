@@ -167,7 +167,7 @@ function program_setup {
 
     # remove not needed resources
     if [ -n "$arg_minimal" ]; then
-        rm -rf $DIR/{lib,sbin,usr/man,.profile.old}
+        rm -rf $DIR/{lib,sbin,usr/man,.*profile.old}
         # remove tests
         find $DIR/{bin,usr/bin}/* -iname '*.test' -exec rm -rf {} +
         rm $DIR/bin/asserts

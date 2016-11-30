@@ -1,6 +1,7 @@
 #!/bin/bash
 
 config_app \
+    bash \
     node \
     subl
 
@@ -9,17 +10,6 @@ exit 0 # TODO: Remove this line once refactored
 ########################################################################################################################
 ### REFACTOR ###########################################################################################################
 ########################################################################################################################
-
-if should_config "bash"; then
-
-    print_h2 "Configure Bash"
-
-    # configuration
-    sudo file_remove_str "\n$(brew --prefix)/bin/bash" /etc/shells --multiline
-    sudo bash -c "echo $(brew --prefix)/bin/bash >> /private/etc/shells"
-    sudo chsh -s $(brew --prefix)/bin/bash $USER
-
-fi
 
 if should_config "zsh"; then
 
