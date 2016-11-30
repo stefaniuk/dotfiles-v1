@@ -1,5 +1,31 @@
 #!/bin/bash
 
+if should_install "dependencies"; then
+    :
+fi
+
+if should_install "system-bundle"; then
+    :
+fi
+
+if should_install "admin-bundle"; then
+    :
+fi
+
+if should_install "developer-bundle"; then
+    run_install \
+        node \
+        node-packages
+fi
+
+if should_install "user-bundle"; then
+    :
+fi
+
+install_app \
+    node \
+    node-packages
+
 exit 0 # TODO: Remove this line once refactored
 
 ########################################################################################################################
