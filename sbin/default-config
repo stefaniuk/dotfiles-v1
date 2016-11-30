@@ -1,43 +1,5 @@
 #!/bin/bash
 
-if should_config "vim"; then
-
-    print_h2 "Vim"
-
-    cp -f $DIR/lib/vim/.vimrc $DIR
-    mkdir -p $DIR/.vim/{autoload,bundle}
-    #cp -Rf $DIR/lib/vim/plugin $DIR/.vim
-
-    # vundle - plugin manager
-    if [ ! -d $DIR/.vim/bundle/vundle ]; then
-        git clone \
-            https://github.com/gmarik/Vundle.vim.git \
-            $DIR/.vim/bundle/vundle
-    else
-        (cd $DIR/.vim/bundle/vundle; git pull)
-    fi
-    # pathogen - plugin manager
-    wget \
-        https://raw.githubusercontent.com/tpope/vim-pathogen/master/autoload/pathogen.vim \
-        -O $DIR/.vim/autoload/pathogen.vim
-
-    # solarized
-    if [ ! -d $DIR/.vim/bundle/solarized ]; then
-        git clone \
-            https://github.com/altercation/vim-colors-solarized.git \
-            $DIR/.vim/bundle/solarized
-    else
-        (cd $DIR/.vim/bundle/solarized; git pull)
-    fi
-    # nerdtree
-    #if [ ! -d $DIR/.vim/bundle/nerdtree ]; then
-    #    git clone https://github.com/scrooloose/nerdtree.git $DIR/.vim/bundle/nerdtree
-    #else
-    #    (cd $DIR/.vim/bundle/nerdtree; git pull)
-    #fi
-
-fi
-
 if should_config "mc"; then
 
     print_h2 "Midnight Commander"
