@@ -1,13 +1,12 @@
 #!/bin/bash
 
-print_h2 "SmartGit"
-
-if [ $DIST = "macosx" ]; then
+function macosx-install-smartgit {
 
     $cask_install \
         smartgit
+}
 
-elif [ $DIST = "ubuntu" ]; then
+function ubuntu-install-smartgit {
 
     ver=$(www_get http://www.syntevo.com/smartgit/download | grep '.tar.gz' | egrep -o '[0-9]+_[0-9]+_[0-9]+' | sortvr | head -n 1)
     file_download \
@@ -27,5 +26,4 @@ Icon=$DIR/usr/applications/smartgit/bin/smartgit-64.png
 Terminal=false
 Categories=Utility;
 EOF
-
-fi
+}

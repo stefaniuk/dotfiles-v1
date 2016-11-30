@@ -1,6 +1,6 @@
 #!/bin/bash
 
-function install-node-tools {
+function install-node-packages {
 
     sudo npm install -g \
         angular2-cli \

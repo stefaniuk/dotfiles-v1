@@ -1,13 +1,12 @@
 #!/bin/bash
 
-print_h2 "Chrome"
-
-if [ $DIST = "macosx" ]; then
+function macosx-install-chrome {
 
     $cask_install \
         google-chrome
+}
 
-elif [ $DIST = "ubuntu" ]; then
+function ubuntu-install-chrome {
 
     $apt_get_install \
         libappindicator1 \
@@ -17,5 +16,4 @@ elif [ $DIST = "ubuntu" ]; then
         --file "google-chrome-stable_current_amd64.deb"
     sudo dpkg -i google-chrome-stable_current_amd64.deb
     rm google-chrome-stable_current_amd64.deb
-
-fi
+}

@@ -1,8 +1,7 @@
 #!/bin/bash
 
-print_h2 "Java"
+function ubuntu-install-java {
 
-if [ $DIST = "ubuntu" ]; then
     $apt_add_repository ppa:webupd8team/java
     $apt_get_update
     echo debconf shared/accepted-oracle-license-v1-1 select true | debconf-set-selections
@@ -10,4 +9,4 @@ if [ $DIST = "ubuntu" ]; then
     $apt_get_install \
         oracle-java8-installer \
         oracle-java8-set-default
-fi
+}

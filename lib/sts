@@ -1,8 +1,7 @@
 #!/bin/bash
 
-print_h2 "Spring Tool Suite"
+function ubuntu-install-sts {
 
-if [ $DIST = "ubuntu" ]; then
     ver_sts=$(www_get https://spring.io/tools/sts/all | grep 'linux-gtk-x86_64.tar.gz' | egrep -o '[0-9]+\.[0-9]+\.[0-9]+\.RELEASE' | sortvr | head -n 1)
     ver_ecl=$(www_get https://spring.io/tools/sts/all | grep 'linux-gtk-x86_64.tar.gz' | egrep -o 'e[0-9]+\.[0-9]+\.[0-9]+' | sortvr | head -n 1)
     file_download \
@@ -22,4 +21,4 @@ Icon=$DIR/usr/applications/spring-tool-suite/sts-$ver_sts/icon.xpm
 Terminal=false
 Categories=Utility;
 EOF
-fi
+}

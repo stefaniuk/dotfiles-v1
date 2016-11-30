@@ -1,0 +1,10 @@
+#!/bin/bash
+
+function install-ruby-packages {
+
+    sudo gem install \
+        bundler \
+        jekyll \
+        json \
+        rake
+}

@@ -15,7 +15,7 @@ fi
 if should_install "developer-bundle"; then
     run_install \
         node \
-        node-tools \
+        node-packages \
         subl \
         tmux
 fi
@@ -26,7 +26,7 @@ fi
 
 install_app \
     node \
-    node-tools \
+    node-packages \
     subl \
     tmux
 

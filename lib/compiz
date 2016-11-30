@@ -1,10 +1,9 @@
 #!/bin/bash
 
-print_h2 "Compiz"
+function ubuntu-install-compiz {
 
-if [ $DIST = "ubuntu" ]; then
     $apt_get_install \
         compiz \
         compiz-plugins-default compiz-plugins \
         compizconfig-settings-manager
-fi
+}
