@@ -11,3 +11,12 @@ function install-ant {
     mv apache-ant-$ver $DIR/usr/applications/ant
     rm apache-ant-$ver-bin.tar.gz
 }
+
+function config-ant {
+
+    cat <<EOF > $DIR/lib/profile.d/ant.sh
+#!/bin/bash
+export PATH=\$PATH:~/usr/applications/ant/bin
+EOF
+    chmod +x $DIR/lib/profile.d/ant.sh
+}
