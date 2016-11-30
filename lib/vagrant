@@ -9,3 +9,14 @@ function ubuntu-install-vagrant {
     sudo dpkg -i vagrant_${ver}_x86_64.deb
     rm vagrant_${ver}_x86_64.deb
 }
+
+function config-vagrant {
+
+    # completion
+    [ -f /etc/bash_completion ] && dir=/etc/bash_completion.d || dir=/usr/local/etc/bash_completion.d
+    if [ -d $dir ] && [ ! -f $dir/vagrant-completion.bash ]; then
+        sudo wget \
+            https://raw.github.com/kura/vagrant-bash-completion/master/etc/bash_completion.d/vagrant \
+            -O $dir/vagrant-completion.bash
+    fi
+}
