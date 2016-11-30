@@ -98,6 +98,9 @@ if should_install "user-bundle"; then
     $cask_install boxcryptor
 fi
 
+should_install "node"       && (. $DIR/lib/node.sh $*)
+should_install "node-tools" && (. $DIR/lib/node-tools.sh $*)
+
 should_install "chrome"     && (. $DIR/lib/chrome.sh $*)
 should_install "smartgit"   && (. $DIR/lib/smartgit.sh $*)
 should_install "subl"       && (. $DIR/lib/subl.sh $*)

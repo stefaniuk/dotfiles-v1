@@ -36,6 +36,7 @@ This project can be tested in a Docker container defined in the `./usr/test/etc`
 TODO
 ----
 
+ * Move configuration code next to the installation
  * Move test files next to the implemented commands
  * Configure `htop` by providing `htoprc` file and user's [man](http://www.thegeekstuff.com/2011/09/linux-htop-examples) entry
  * Version `dotfiles`
