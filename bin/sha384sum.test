@@ -1,7 +1,5 @@
 #!/bin/bash
 
-source ~/lib/asserts.sh
-
 text="test"
 hash="768412320f7b0aa5812fce428dc4706b3cae50e02a64caa16a782249bfe8efc4b7ef1ccb126255d196047dfedf17a0a9"
 result=`echo -n $text | sha384sum | awk '{ print $1 }'`
@@ -12,5 +10,3 @@ echo -n $text > $file
 result=`sha384sum $file | awk '{ print $1 }'`
 assert_eq $result $hash
 rm -f ~/tmp/test_sha384sum.*
-
-exit 0

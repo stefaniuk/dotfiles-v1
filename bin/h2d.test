@@ -1,8 +1,4 @@
 #!/bin/bash
 
-source ~/lib/asserts.sh
-
 result=`h2d ff`
 assert_eq $result 255
-
-exit 0

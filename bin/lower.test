@@ -1,8 +1,4 @@
 #!/bin/bash
 
-source ~/lib/asserts.sh
-
 result=`lower "MAKE ME LOWER!"`
 assert_eq "$result" "make me lower!"
-
-exit 0

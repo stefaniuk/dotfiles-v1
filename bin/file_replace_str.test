@@ -1,7 +1,5 @@
 #!/bin/bash
 
-source ~/lib/asserts.sh
-
 file=~/tmp/test_file_replace_str.$$
 
 cat <<EOF > $file
@@ -49,5 +47,3 @@ file_replace_str "/usr/local/include\n" "/var/log\n" $file --multiline
 count=`cat $file | \grep '/var/log' | wc -l`
 assert_eq $count 1
 rm -f ~/tmp/test_file_replace_str.*
-
-exit 0

@@ -1,7 +1,5 @@
 #!/bin/bash
 
-source ~/lib/asserts.sh
-
 contains "This is a test!" "test"
 assert_result_pos $?
 
@@ -13,5 +11,3 @@ assert_result_neg $?
 
 echo "This is a test!" | contains "foo"
 assert_result_neg $?
-
-exit 0

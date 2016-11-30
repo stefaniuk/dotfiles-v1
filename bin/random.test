@@ -1,8 +1,4 @@
 #!/bin/bash
 
-source ~/lib/asserts.sh
-
 result=`random 128`
 assert_length $result 128
-
-exit 0

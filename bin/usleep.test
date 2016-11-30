@@ -1,7 +1,5 @@
 #!/bin/bash
 
-source ~/lib/asserts.sh
-
 ignore_test=$1
 if [ $ignore_test == "y" ]; then
     assert_skip_slow_test
@@ -19,5 +17,3 @@ else
     t2=$(($(date +%s%N)/1000000))
     assert_between `expr $t2 - $t1` 1900 3000
 fi
-
-exit 0

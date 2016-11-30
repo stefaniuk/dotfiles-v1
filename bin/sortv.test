@@ -1,7 +1,5 @@
 #!/bin/bash
 
-source ~/lib/asserts.sh
-
 file1=~/tmp/test_sortv_1.$$
 file2=~/tmp/test_sortv_2.$$
 file3=~/tmp/test_sortv_3.$$
@@ -24,5 +22,3 @@ cmp --silent $file2 $file3
 assert_result_pos $?
 
 rm -f ~/tmp/test_sortv_*
-
-exit 0

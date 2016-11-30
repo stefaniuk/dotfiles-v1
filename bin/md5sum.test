@@ -1,7 +1,5 @@
 #!/bin/bash
 
-source ~/lib/asserts.sh
-
 text="test"
 hash="098f6bcd4621d373cade4e832627b4f6"
 
@@ -13,5 +11,3 @@ echo -n $text > $file
 result=`md5sum $file | awk '{ print $1 }'`
 assert_eq $result $hash
 rm -f ~/tmp/test_md5sum.*
-
-exit 0

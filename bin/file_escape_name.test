@@ -1,7 +1,5 @@
 #!/bin/bash
 
-source ~/lib/asserts.sh
-
 str_in='a = real \good %* load of c$rap='
 str_out='a\ \=\ real\ \\good\ %\*\ load\ of\ c\$rap\='
 
@@ -10,5 +8,3 @@ assert_eq "$result" "$str_out"
 
 result=$(echo "$str_in" | file_escape_name)
 assert_eq "$result" "$str_out"
-
-exit 0

@@ -1,7 +1,5 @@
 #!/bin/bash
 
-source ~/lib/asserts.sh
-
 dir=~/tmp/test_dir_find_str.$$
 mkdir $dir
 cat <<EOF > $dir/test_dir_find_str-file1.txt
@@ -16,5 +14,3 @@ EOF
 result=`dir_find_str "test_dir_find_str-file" $dir | wc -l`
 assert_eq $result 3
 rm -rf ~/tmp/test_dir_find_str.*
-
-exit 0

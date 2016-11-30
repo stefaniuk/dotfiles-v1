@@ -1,7 +1,5 @@
 #!/bin/bash
 
-source ~/lib/asserts.sh
-
 name="this_is_a_test"
 
 user_create $name $name> /dev/null 2>&1
@@ -19,5 +17,3 @@ result1=$?
 group_exists $name
 result2=$?
 assert_eq "$result1 $result2" "1 1"
-
-exit 0

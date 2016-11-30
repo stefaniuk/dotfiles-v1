@@ -1,8 +1,4 @@
 #!/bin/bash
 
-source ~/lib/asserts.sh
-
 net_is_connected
 assert_result_pos $?
-
-exit 0

@@ -1,8 +1,4 @@
 #!/bin/bash
 
-source ~/lib/asserts.sh
-
 result=`part "col1:col2:col3" ":" 2`
 assert_eq $result "col2"
-
-exit 0
