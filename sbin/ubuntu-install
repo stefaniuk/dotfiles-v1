@@ -1,7 +1,8 @@
 #!/bin/bash
 
 if should_install "dependencies"; then
-    :
+    run_install \
+        git
 fi
 
 if should_install "system-bundle"; then
@@ -23,6 +24,7 @@ if should_install "user-bundle"; then
 fi
 
 install_app \
+    git \
     node \
     node-packages
 

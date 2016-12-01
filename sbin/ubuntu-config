@@ -1,7 +1,8 @@
 #!/bin/bash
 
 if should_config "dependencies"; then
-    :
+    run_config \
+        git
 fi
 
 if should_config "system-bundle"; then
@@ -24,6 +25,7 @@ fi
 
 config_app \
     bash \
+    git \
     node
 
 exit 0 # TODO: Remove this line once refactored
