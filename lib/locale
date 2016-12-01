@@ -1,0 +1,6 @@
+#!/bin/bash
+
+function ubuntu-config-locale {
+
+    sudo locale-gen en_GB.UTF-8
+}

@@ -1,0 +1,7 @@
+#!/bin/bash
+
+function ubuntu-config-timezone {
+
+    echo "Europe/London" | sudo tee /etc/timezone
+    sudo dpkg-reconfigure -f noninteractive tzdata
+}

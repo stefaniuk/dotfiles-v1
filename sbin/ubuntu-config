@@ -34,23 +34,6 @@ exit 0 # TODO: Remove this line once refactored
 ### REFACTOR ###########################################################################################################
 ########################################################################################################################
 
-if should_config "locale" "locale-gen"; then
-
-    print_h2 "Locale"
-
-    sudo locale-gen en_GB.UTF-8
-
-fi
-
-if should_config "timezone" "dpkg-reconfigure"; then
-
-    print_h2 "Timezone"
-
-    echo "Europe/London" | sudo tee /etc/timezone
-    sudo dpkg-reconfigure -f noninteractive tzdata
-
-fi
-
 if should_config "subl"; then
 
     print_h2 "Sublime Text"
