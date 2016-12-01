@@ -24,7 +24,7 @@ function config-git {
     if [ ! -f $DIR/bin/diff-highlight ]; then
         wget \
             https://raw.githubusercontent.com/git/git/master/contrib/diff-highlight/diff-highlight \
-            -O $DIR/bin/diff-highlight
-        chmod +x $DIR/bin/diff-highlight
+            -O $DIR/usr/bin/diff-highlight
+        chmod +x $DIR/usr/bin/diff-highlight
     fi
 }
