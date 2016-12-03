@@ -141,33 +141,34 @@ function program_setup {
     fi
 
     # initialise
-    [ -f $DIR/sbin/$DIST-initialise ] && (
+    (
         print_h1 "Initialising..."
-        [ -f $DIR/sbin/$DIST-include ] && . $DIR/sbin/$DIST-include $*
-        [ -f $DIR/sbin/$DIST-initialise ] && . $DIR/sbin/$DIST-initialise $*
+        . $DIR/sbin/include $*
+        . $DIR/sbin/initialise $*
     )
     # update
-    [ -n "$arg_update" ] && [ -f $DIR/sbin/$DIST-update ] && (
+    [ -n "$arg_update" ] && (
         print_h1 "Updating..."
-        [ -f $DIR/sbin/$DIST-include ] && . $DIR/sbin/$DIST-include $*
-        [ -f $DIR/sbin/$DIST-update ] && . $DIR/sbin/$DIST-update $*
+        . $DIR/sbin/include $*
+        . $DIR/sbin/update $*
     )
     # install
-    [ -n "$arg_install" ] && [ -f $DIR/sbin/$DIST-install ] && (
+    [ -n "$arg_install" ] && (
         print_h1 "Installing..."
-        [ -f $DIR/sbin/$DIST-include ] && . $DIR/sbin/$DIST-include $*
-        [ -f $DIR/sbin/$DIST-install ] && . $DIR/sbin/$DIST-install $*
+        . $DIR/sbin/include $*
+        _program_setup_install
     )
     # config
-    [ -n "$arg_config" ] && [ -f $DIR/sbin/$DIST-config ] && (
+    [ -n "$arg_config" ] && (
         print_h1 "Configuring..."
-        [ -f $DIR/sbin/$DIST-include ] && . $DIR/sbin/$DIST-include $*
-        [ -f $DIR/sbin/$DIST-config ] && . $DIR/sbin/$DIST-config $*
+        . $DIR/sbin/include $*
+        _program_setup_config
     )
     # test
     [ -n "$arg_test" ] && /bin/bash -cli "system_test --skip-selected-tests"
 
     # remove not needed resources
+    print_h1 "Cleaning up..."
     if [ -n "$arg_minimal" ]; then
         rm -rf $DIR/{lib,sbin,usr/man,.bash_asserts,.*profile.old}
         # remove tests
@@ -175,6 +176,46 @@ function program_setup {
     fi
     rm -rf $DIR/{.gitignore,Dockerfile,LICENCE,Makefile,README.md,Vagrantfile,provision.sh}
     find $DIR/{bin,etc,lib,sbin,tmp,usr} -type f -name '.gitkeep' -exec rm -f {} +
+}
+
+function _program_setup_install {
+
+    # install requested bundles
+    should_install "dependencies-bundle" \
+        && run_install $(cat $DIR/lib/dependencies-bundle)
+    should_install "system-bundle" \
+        && run_install $(cat $DIR/lib/system-bundle)
+    should_install "admin-bundle" \
+        && run_install $(cat $DIR/lib/admin-bundle)
+    should_install "developer-bundle" \
+        && run_install $(cat $DIR/lib/developer-bundle)
+    should_install "user-bundle" \
+        && run_install $(cat $DIR/lib/user-bundle)
+
+    # install requested  applications
+    for app in $(find $DIR/lib -maxdepth 1 -type f \( ! -iname "*-bundle" \) -exec basename {} \;); do
+        install_app $app
+    done
+}
+
+function _program_setup_config {
+
+    # config requested bundles
+    should_config "dependencies-bundle" \
+        && run_config $(cat $DIR/lib/dependencies-bundle)
+    should_config "system-bundle" \
+        && run_config $(cat $DIR/lib/system-bundle)
+    should_config "admin-bundle" \
+        && run_config $(cat $DIR/lib/admin-bundle)
+    should_config "developer-bundle" \
+        && run_config $(cat $DIR/lib/developer-bundle)
+    should_config "user-bundle" \
+        && run_config $(cat $DIR/lib/user-bundle)
+
+    # config requested applications
+    for app in $(find $DIR/lib -maxdepth 1 -type f \( ! -iname "*-bundle" \) -exec basename {} \;); do
+        config_app $app
+    done
 }
 
 function install_app {

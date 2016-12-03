@@ -1,37 +1,5 @@
 #!/bin/bash
 
-if should_config "dependencies"; then
-    :
-fi
-
-if should_config "system-bundle"; then
-    :
-fi
-
-if should_config "admin-bundle"; then
-    run_config \
-        bash
-fi
-
-if should_config "developer-bundle"; then
-    run_config \
-        node \
-        subl \
-        tmux
-fi
-
-if should_config "user-bundle"; then
-    :
-fi
-
-config_app \
-    bash \
-    node \
-    subl \
-    tmux
-
-exit 0 # TODO: Remove this line once refactored
-
 ########################################################################################################################
 ### REFACTOR ###########################################################################################################
 ########################################################################################################################

@@ -1,0 +1,34 @@
+#!/bin/bash
+
+# ### Mac OS X #################################################################
+
+if [ $DIST = "macosx" ]; then
+
+    brew_update="brew update --verbose"
+    brew_upgrade="brew upgrade --verbose"
+    brew_tap="brew tap"
+    brew_install="brew install --force --verbose"
+    cask_install="brew cask install --appdir=$DIR/usr/applications --force --verbose"
+    if ! which brew > /dev/null; then
+        softwareupdate --install -all
+        xcode-select --install
+        ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+        $brew_tap homebrew/dupes
+        $brew_tap homebrew/versions
+        $brew_tap caskroom/versions
+        $brew_install caskroom/cask/brew-cask
+    fi
+
+fi
+
+# ### Ubuntu ###################################################################
+
+if [ $DIST = "ubuntu" ]; then
+
+    DEBIAN_FRONTEND=noninteractive
+    apt_get_update="sudo apt-get --yes update"
+    apt_get_upgrade="sudo apt-get --yes upgrade"
+    apt_get_install="sudo apt-get --yes --ignore-missing --no-install-recommends install"
+    apt_add_repository="sudo add-apt-repository --yes"
+
+fi

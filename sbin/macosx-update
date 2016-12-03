@@ -1,6 +1,0 @@
-#!/bin/bash
-
-print_h2 "Lists of packages"
-$brew_update
-print_h2 "Packages"
-$brew_upgrade
