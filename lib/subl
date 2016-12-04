@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# ### Mac OS X #################################################################
+
 function macosx-install-subl {
 
     $cask_install \
@@ -11,6 +13,8 @@ function macosx-config-subl {
     dir=$DIR/Library/Application\ Support/Sublime\ Text\ 3
     _config
 }
+
+# ### Ubuntu ###################################################################
 
 function ubuntu-install-subl {
 
@@ -25,6 +29,8 @@ function ubuntu-config-subl {
     dir=$DIR/.config/sublime-text-3
     _config
 }
+
+# ### common ###################################################################
 
 function _config {
 

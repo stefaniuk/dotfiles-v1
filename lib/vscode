@@ -1,5 +1,15 @@
 #!/bin/bash
 
+# ### Mac OS X #################################################################
+
+function macosx-install-vscode {
+
+    $cask_install \
+        visual-studio-code
+}
+
+# ### Ubuntu ###################################################################
+
 function ubuntu-install-vscode {
 
     ver=$(www_get https://code.visualstudio.com/updates | grep 'linux-deb-x64' | egrep -o '[0-9]+\.[0-9]+\.[0-9]+' | sortvr | head -n 1)

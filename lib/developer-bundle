@@ -14,9 +14,12 @@ function macosx-install-developer-bundle {
         zsh
 
     run_install \
+        atom \
         node \
         node-packages \
-        tmux
+        subl \
+        tmux \
+        vscode
 }
 
 # ### Ubuntu ###################################################################
@@ -33,9 +36,12 @@ function ubuntu-install-developer-bundle {
         zsh
 
     run_install \
+        atom \
         node \
         node-packages \
-        tmux
+        subl \
+        tmux \
+        vscode
 }
 
 # ### common ###################################################################
@@ -43,7 +49,10 @@ function ubuntu-install-developer-bundle {
 function config-developer-bundle {
 
     run_config \
+        atom \
         node \
         node-packages \
-        tmux
+        subl \
+        tmux \
+        vscode
 }

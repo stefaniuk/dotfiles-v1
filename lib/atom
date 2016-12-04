@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# ### Mac OS X #################################################################
+
+function macosx-install-atom {
+
+    $cask_install \
+        atom
+}
+
+# ### Ubuntu ###################################################################
+
+function ubuntu-install-atom {
+
+    $apt_add_repository ppa:webupd8team/atom
+    $apt_get_update
+    $apt_get_install \
+        atom
+}

@@ -1,11 +1,15 @@
 #!/bin/bash
 
+# ### Mac OS X #################################################################
+
 function macosx-install-node {
 
     $brew_install \
         node
     sudo npm update -g
 }
+
+# ### Ubuntu ###################################################################
 
 function ubuntu-install-node {
 
@@ -14,6 +18,8 @@ function ubuntu-install-node {
         nodejs
     sudo npm update -g
 }
+
+# ### common ###################################################################
 
 function config-node {
 

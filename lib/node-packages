@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# ### common ###################################################################
+
 function install-node-packages {
 
     sudo npm install -g \
