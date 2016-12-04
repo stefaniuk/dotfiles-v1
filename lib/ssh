@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# ### common ###################################################################
+
 function config-ssh {
 
     mkdir -p $DIR/.ssh

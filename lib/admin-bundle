@@ -46,5 +46,6 @@ function config-admin-bundle {
 
     run_config \
         lynx \
+        ssh \
         vim
 }
