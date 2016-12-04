@@ -20,16 +20,6 @@ should_install "smartgit"   && (. $DIR/lib/smartgit.sh $*)
 #     $cask_install menumeters --appdir=/Applications
 #     $cask_install android-file-transfer --appdir=/Applications
 
-#     $brew_install ack
-#     $brew_install grc
-#     $brew_install htop
-#     $brew_install lnav
-#     $brew_install mc
-#     $brew_install tcptraceroute
-#     $brew_install tree
-#     $brew_install vim
-#     $brew_install zsh
-
 #     $brew_install git-flow
 #     $brew_install gpg2
 #     $brew_install gtypist

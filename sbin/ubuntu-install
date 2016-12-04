@@ -4,26 +4,6 @@
 ### REFACTOR ###########################################################################################################
 ########################################################################################################################
 
-if should_install "admin-bundle"; then
-    print_h2 "Admin Bundle"
-    $apt_get_install \
-        ack-grep \
-        grc \
-        heirloom-mailx \
-        htop \
-        iputils-ping \
-        lnav \
-        lsof \
-        lynx \
-        mc \
-        net-tools \
-        netcat \
-        strace \
-        traceroute \
-        tree \
-        vim
-fi
-
 if should_install "developer-bundle"; then
     print_h2 "Developer Bundle"
     $apt_get_install \

@@ -4,22 +4,47 @@
 
 function macosx-install-admin-bundle {
 
-    :
-}
+    # TODO: Install missing packages
 
-function macosx-config-admin-bundle {
-
-    :
+    $brew_install \
+        ack \
+        grc \
+        htop \
+        lnav \
+        mc \
+        tcptraceroute \
+        tree \
+        vim
 }
 
 # ### Ubuntu ###################################################################
 
 function ubuntu-install-admin-bundle {
 
-    :
+    $apt_get_install \
+        ack-grep \
+        dnsutils \
+        grc \
+        heirloom-mailx \
+        htop \
+        iputils-ping \
+        lnav \
+        lsof \
+        lynx \
+        mc \
+        net-tools \
+        netcat \
+        strace \
+        traceroute \
+        tree \
+        vim
 }
 
-function ubuntu-config-admin-bundle {
+# ### common ###################################################################
 
-    :
+function config-admin-bundle {
+
+    run_config \
+        lynx \
+        vim
 }
