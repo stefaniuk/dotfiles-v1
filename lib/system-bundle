@@ -4,7 +4,10 @@
 
 function macosx-install-system-bundle {
 
-    $cask_install seil \
+    # TODO: configure below packages
+
+    $cask_install \
+        seil \
         karabiner \
         bettertouchtool \
         witch \
