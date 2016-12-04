@@ -12,8 +12,8 @@ Most common installation on a workstation
     USER_EMAIL="daniel.stefaniuk@gmail.com"
     curl -L https://raw.githubusercontent.com/stefaniuk/dotfiles/master/dotfiles -o - | /bin/bash -s -- \
         --update-os \
-        --install=dependencies,system-bundle,admin-bundle,developer-bundle,user-bundle \
-        --config=all \
+        --install=all-bundles \
+        --config \
         --sudo
 
 Minimal installation
@@ -36,6 +36,7 @@ This project can be tested in a Docker container predefined. To use this facilit
 TODO
 ----
 
+ * Refactor installation and configuration files for Mac OS X
  * Configure `htop` by providing `htoprc` file and user's [man](http://www.thegeekstuff.com/2011/09/linux-htop-examples) entry
  * Version `dotfiles`
  * Configure `byobu`
