@@ -4,13 +4,10 @@
 ### REFACTOR ###########################################################################################################
 ########################################################################################################################
 
-if should_install "user-bundle"; then
-    print_h2 "User Bundle"
-    $cask_install dropbox
-    $cask_install megasync
-    $cask_install google-drive
-    $cask_install boxcryptor
-fi
+$cask_install dropbox
+$cask_install megasync
+$cask_install google-drive
+$cask_install boxcryptor
 
 #     $cask_install asepsis --appdir=/Applications
 #     $cask_install caffeine --appdir=/Applications
@@ -18,11 +15,6 @@ fi
 #     $cask_install android-file-transfer --appdir=/Applications
 
 #     $cask_install iterm2-beta
-#     $cask_install virtualbox
-#     $cask_install virtualbox-extension-pack
-#     $cask_install vagrant
-#     $brew_install packer
-#     $cask_install dockertoolbox
 #     $cask_install github-desktop
 #     $cask_install smartsynchronize
 #     $cask_install filezilla
@@ -36,7 +28,7 @@ fi
 #     $cask_install apache-directory-studio
 #     $cask_install xquartz wireshark
 #     $cask_install gimp
-#     # applications and utils
+
 #     $cask_install xtrafinder
 #     $cask_install firefox --appdir=/Applications
 #     $cask_install firefoxdeveloperedition --appdir=/Applications

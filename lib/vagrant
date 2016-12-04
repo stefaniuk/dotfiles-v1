@@ -4,7 +4,8 @@
 
 function macosx-install-vagrant {
 
-    :
+    $cask_install \
+        vagrant
 }
 
 # ### Ubuntu ###################################################################

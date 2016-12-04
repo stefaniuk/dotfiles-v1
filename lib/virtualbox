@@ -4,7 +4,9 @@
 
 function macosx-install-virtualbox {
 
-    :
+    $cask_install \
+        virtualbox \
+        virtualbox-extension-pack
 }
 
 # ### Ubuntu ###################################################################
