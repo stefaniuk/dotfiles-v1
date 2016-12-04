@@ -22,9 +22,9 @@ function config-git {
 
     # diff-highlight
     if [ ! -f $DIR/bin/diff-highlight ]; then
-        wget \
+        sudo wget \
             https://raw.githubusercontent.com/git/git/master/contrib/diff-highlight/diff-highlight \
             -O $DIR/usr/bin/diff-highlight
-        chmod +x $DIR/usr/bin/diff-highlight
+        chmod u+x $DIR/usr/bin/diff-highlight
     fi
 }
