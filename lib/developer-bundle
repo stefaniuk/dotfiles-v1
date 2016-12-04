@@ -17,6 +17,7 @@ function macosx-install-developer-bundle {
         atom \
         node \
         node-packages \
+        smartgit \
         subl \
         tmux \
         vscode
@@ -39,6 +40,7 @@ function ubuntu-install-developer-bundle {
         atom \
         node \
         node-packages \
+        smartgit \
         subl \
         tmux \
         vscode
@@ -52,6 +54,7 @@ function config-developer-bundle {
         atom \
         node \
         node-packages \
+        smartgit \
         subl \
         tmux \
         vscode

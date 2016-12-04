@@ -1,10 +1,14 @@
 #!/bin/bash
 
+# ### Mac OS X #################################################################
+
 function macosx-install-smartgit {
 
     $cask_install \
         smartgit
 }
+
+# ### Ubuntu ###################################################################
 
 function ubuntu-install-smartgit {
 
@@ -14,7 +18,7 @@ function ubuntu-install-smartgit {
         --file "smartgit-linux-$ver.tar.gz"
     tar -zxf smartgit-linux-$ver.tar.gz
     rm -rf $DIR/usr/applications/smartgit
-    mv -f smartgit $DIR/usr/applications/smartgit
+    mv -fv smartgit $DIR/usr/applications/smartgit
     rm smartgit-linux-$ver.tar.gz
     cat <<EOF > ~/.local/share/applications/smartgit.desktop
 [Desktop Entry]
