@@ -1,0 +1,25 @@
+#!/bin/bash
+
+# ### Mac OS X #################################################################
+
+function macosx-install-system-bundle {
+
+    :
+}
+
+function macosx-config-system-bundle {
+
+    :
+}
+
+# ### Ubuntu ###################################################################
+
+function ubuntu-install-system-bundle {
+
+    :
+}
+
+function ubuntu-config-system-bundle {
+
+    :
+}

@@ -1,2 +1,28 @@
-node
-node-packages
+#!/bin/bash
+
+#node
+#node-packages
+
+# ### Mac OS X #################################################################
+
+function macosx-install-developer-bundle {
+
+    :
+}
+
+function macosx-config-developer-bundle {
+
+    :
+}
+
+# ### Ubuntu ###################################################################
+
+function ubuntu-install-developer-bundle {
+
+    :
+}
+
+function ubuntu-config-developer-bundle {
+
+    :
+}

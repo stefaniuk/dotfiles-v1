@@ -1,2 +1,56 @@
-bash
-git
+#!/bin/bash
+
+# ### Mac OS X #################################################################
+
+function macosx-install-dependencies-bundle {
+
+    $brew_install \
+        bc \
+        binutils \
+        curl \
+        expect \
+        openssl \
+        pcre \
+        perl \
+        python3 \
+        rsync \
+        unzip \
+        wget \
+        xz
+    sudo easy_install \
+        Pygments
+
+    run_install \
+        git
+}
+
+# ### Ubuntu ###################################################################
+
+function ubuntu-install-dependencies-bundle {
+
+    $apt_get_install \
+        bc \
+        binutils \
+        curl \
+        expect \
+        openssl \
+        pcregrep \
+        perl \
+        python \
+        python-pygments \
+        rsync \
+        unzip \
+        wget \
+        xz-utils
+
+    run_install \
+        git
+}
+
+# ### common ###################################################################
+
+function config-dependencies-bundle {
+
+    run_config \
+        git
+}

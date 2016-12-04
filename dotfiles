@@ -182,15 +182,15 @@ function _program_setup_install {
 
     # install requested bundles
     should_install "dependencies-bundle" \
-        && run_install $(cat $DIR/lib/dependencies-bundle)
+        && run_install dependencies-bundle
     should_install "system-bundle" \
-        && run_install $(cat $DIR/lib/system-bundle)
+        && run_install system-bundle
     should_install "admin-bundle" \
-        && run_install $(cat $DIR/lib/admin-bundle)
+        && run_install admin-bundle
     should_install "developer-bundle" \
-        && run_install $(cat $DIR/lib/developer-bundle)
+        && run_install developer-bundle
     should_install "user-bundle" \
-        && run_install $(cat $DIR/lib/user-bundle)
+        && run_install user-bundle
 
     # install requested  applications
     for app in $(find $DIR/lib -maxdepth 1 -type f \( ! -iname "*-bundle" \) -exec basename {} \;); do
@@ -202,15 +202,15 @@ function _program_setup_config {
 
     # config requested bundles
     should_config "dependencies-bundle" \
-        && run_config $(cat $DIR/lib/dependencies-bundle)
+        && run_config dependencies-bundle
     should_config "system-bundle" \
-        && run_config $(cat $DIR/lib/system-bundle)
+        && run_config system-bundle
     should_config "admin-bundle" \
-        && run_config $(cat $DIR/lib/admin-bundle)
+        && run_config admin-bundle
     should_config "developer-bundle" \
-        && run_config $(cat $DIR/lib/developer-bundle)
+        && run_config developer-bundle
     should_config "user-bundle" \
-        && run_config $(cat $DIR/lib/user-bundle)
+        && run_config user-bundle
 
     # config requested applications
     for app in $(find $DIR/lib -maxdepth 1 -type f \( ! -iname "*-bundle" \) -exec basename {} \;); do
@@ -241,6 +241,7 @@ function run_install {
             # source the requested installation script
             . $DIR/lib/$app $*
             # check if installation function exists
+            local func=
             if type -t "$DIST-install-$app" | grep -q "^function$"; then
                 func="$DIST-install-$app"
             elif type -t "install-$app" | grep -q "^function$"; then
@@ -248,7 +249,7 @@ function run_install {
             fi
             # run the installation function
             if [ -n "$func" ]; then
-                print_h2 $app
+                echo $app | grep -q -- "-bundle$" && print_h2 $(echo $app | sed s/-bundle//) || print_h3 $app
                 $func $*
             fi
         )
@@ -279,6 +280,7 @@ function run_config {
             # source the requested configuration script
             . $DIR/lib/$app $*
             # check if configuration function exists
+            local func=
             if type -t "$DIST-config-$app" | grep -q "^function$"; then
                 func="$DIST-config-$app"
             elif type -t "config-$app" | grep -q "^function$"; then
@@ -286,7 +288,7 @@ function run_config {
             fi
             # run the configuration function
             if [ -n "$func" ]; then
-                print_h2 $app
+                echo $app | grep -q -- "-bundle$" && print_h2 $(echo $app | sed s/-bundle//) || print_h3 $app
                 $func $*
             fi
         )
