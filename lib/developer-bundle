@@ -15,11 +15,15 @@ function macosx-install-developer-bundle {
 
     run_install \
         atom \
+        docker \
         node \
         node-packages \
+        packer \
         smartgit \
         subl \
         tmux \
+        vagrant \
+        virtualbox \
         vscode
 }
 
@@ -38,11 +42,15 @@ function ubuntu-install-developer-bundle {
 
     run_install \
         atom \
+        docker \
         node \
         node-packages \
+        packer \
         smartgit \
         subl \
         tmux \
+        vagrant \
+        virtualbox \
         vscode
 }
 
@@ -52,10 +60,14 @@ function config-developer-bundle {
 
     run_config \
         atom \
+        docker \
         node \
         node-packages \
+        packer \
         smartgit \
         subl \
         tmux \
+        vagrant \
+        virtualbox \
         vscode
 }

@@ -26,6 +26,7 @@ function config-git {
     git config --global user.email "$USER_EMAIL"
 
     # completion
+    local dir
     [ -f /etc/bash_completion ] && dir=/etc/bash_completion.d || dir=/usr/local/etc/bash_completion.d
     sudo wget \
         "https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash" \

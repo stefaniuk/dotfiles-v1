@@ -1,5 +1,14 @@
 #!/bin/bash
 
+# ### Mac OS X #################################################################
+
+function macosx-install-virtualbox {
+
+    :
+}
+
+# ### Ubuntu ###################################################################
+
 function ubuntu-install-virtualbox {
 
     wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add -
@@ -8,4 +17,16 @@ function ubuntu-install-virtualbox {
     $apt_get_update
     $apt_get_install \
         virtualbox-5.1
+}
+
+# ### common ###################################################################
+
+function config-virtualbox {
+
+    # completion
+    local dir
+    [ -f /etc/bash_completion ] && dir=/etc/bash_completion.d || dir=/usr/local/etc/bash_completion.d
+    sudo wget \
+        "https://raw.githubusercontent.com/Bash-it/bash-it/master/completion/available/virtualbox.completion.bash" \
+        -O $dir/virtualbox-completion.bash
 }
