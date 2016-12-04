@@ -4,15 +4,6 @@
 ### REFACTOR ###########################################################################################################
 ########################################################################################################################
 
-if should_install "system-bundle"; then
-    print_h2 "System Bundle"
-    $cask_install seil
-    $cask_install karabiner
-    $cask_install bettertouchtool
-    $cask_install witch
-    $cask_install moom
-fi
-
 if should_install "user-bundle"; then
     print_h2 "User Bundle"
     $cask_install dropbox

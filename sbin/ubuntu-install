@@ -4,19 +4,6 @@
 ### REFACTOR ###########################################################################################################
 ########################################################################################################################
 
-if should_install "system-bundle"; then
-    print_h2 "System Bundle"
-    $apt_get_install \
-        apt-file \
-        apt-transport-https \
-        apt-utils \
-        ca-certificates \
-        debconf-utils \
-        dialog \
-        locales \
-        software-properties-common
-fi
-
 if should_install "admin-bundle"; then
     print_h2 "Admin Bundle"
     $apt_get_install \

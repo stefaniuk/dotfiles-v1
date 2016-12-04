@@ -4,22 +4,24 @@
 
 function macosx-install-system-bundle {
 
-    :
-}
-
-function macosx-config-system-bundle {
-
-    :
+    $cask_install seil \
+        karabiner \
+        bettertouchtool \
+        witch \
+        moom
 }
 
 # ### Ubuntu ###################################################################
 
 function ubuntu-install-system-bundle {
 
-    :
-}
-
-function ubuntu-config-system-bundle {
-
-    :
+    $apt_get_install \
+        apt-file \
+        apt-transport-https \
+        apt-utils \
+        ca-certificates \
+        debconf-utils \
+        dialog \
+        locales \
+        software-properties-common
 }
