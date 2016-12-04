@@ -1,6 +1,8 @@
 "*":
   autosave:
     enabled: true
+  "command-palette":
+    preserveLastSearch: true
   core:
     disabledPackages: [
       "welcome"
