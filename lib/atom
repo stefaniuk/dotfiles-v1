@@ -17,3 +17,14 @@ function ubuntu-install-atom {
     $apt_get_install \
         atom
 }
+
+# ### common ###################################################################
+
+function config-atom {
+
+    mkdir -p $DIR/.atom
+    cp -fv $DIR/lib/resources/atom/config.cson $DIR/.atom
+
+    apm install \
+        file-icons
+}

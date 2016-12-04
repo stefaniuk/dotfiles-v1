@@ -8,6 +8,12 @@ function macosx-install-vscode {
         visual-studio-code
 }
 
+function macosx-config-vscode {
+
+    dir=$DIR/Library/Application\ Support
+    _config
+}
+
 # ### Ubuntu ###################################################################
 
 function ubuntu-install-vscode {
@@ -18,4 +24,18 @@ function ubuntu-install-vscode {
         --file "vscode-$ver.deb"
     sudo dpkg -i vscode-$ver.deb
     rm vscode-$ver.deb
+}
+
+function ubuntu-config-vscode {
+
+    dir=$DIR/.config
+    _config
+}
+
+# ### common ###################################################################
+
+function _config {
+
+    mkdir -p "$dir/Code/User"
+    cp -fv $DIR/lib/resources/vscode/settings.json "$dir/Code/User"
 }
