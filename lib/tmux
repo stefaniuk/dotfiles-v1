@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# ### Mac OS X #################################################################
+
 function macosx-install-tmux {
 
     $brew_install \
@@ -14,15 +16,20 @@ function macosx-config-tmux {
     cat $DIR/lib/resources/tmux/.tmux.macosx.conf >> $DIR/.tmux.conf
 }
 
+# ### Ubuntu ###################################################################
+
 function ubuntu-install-tmux {
 
-    :
+    $apt_get_install \
+        tmux
 }
 
 function ubuntu-config-tmux {
 
     _config
 }
+
+# ### common ###################################################################
 
 function _config {
 

@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# ### Mac OS X #################################################################
+
 function macosx-config-bash {
 
     _config
@@ -11,12 +13,16 @@ function macosx-config-bash {
     sudo chsh -s $(brew --prefix)/bin/bash $USER
 }
 
+# ### Ubuntu ###################################################################
+
 function ubuntu-config-bash {
 
     _config
 
     $apt_get_install bash-completion
 }
+
+# ### common ###################################################################
 
 function _config {
 

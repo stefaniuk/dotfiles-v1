@@ -1,5 +1,23 @@
 #!/bin/bash
 
+# ### Mac OS X #################################################################
+
+function macosx-install-git {
+
+    $brew_install \
+        git
+}
+
+# ### Ubuntu ###################################################################
+
+function ubuntu-install-git {
+
+    $apt_get_install \
+        git
+}
+
+# ### common ###################################################################
+
 function config-git {
 
     cp -fv $DIR/lib/resources/git/.git* $DIR

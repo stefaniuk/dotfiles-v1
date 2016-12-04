@@ -27,12 +27,12 @@ arg_minimal=$(echo "$*" | grep -o -- "--minimal")
 arg_sudo=$(echo "$*" | grep -o -- "--sudo")
 arg_help=$(echo "$*" | grep -o -- "--help")
 
-arg_install_progs=$(echo "$*" | grep -o -- "--install=[-_,A-Za-z0-9]*" | sed "s/--install=//")
+arg_install_apps=$(echo "$*" | grep -o -- "--install=[-_,A-Za-z0-9]*" | sed "s/--install=//")
 install_already_processed=""
-arg_config_progs=$(echo "$*" | grep -o -- "--config=[-_,A-Za-z0-9]*" | sed "s/--config=//")
+arg_config_apps=$(echo "$*" | grep -o -- "--config=[-_,A-Za-z0-9]*" | sed "s/--config=//")
 config_already_processed=""
-if [ -z "$arg_config_progs" ] && [ -n "$arg_install_progs" ]; then
-    arg_config_progs=$arg_install_progs
+if [ -z "$arg_config_apps" ] && [ -n "$arg_install_apps" ]; then
+    arg_config_apps=$arg_install_apps
 fi
 
 ################################################################################
@@ -47,8 +47,8 @@ Usage:
 
 Options:
     --update-os
-    --install[=dependencies,{utils|tools|workstation}-package,prog1,prog2,...]
-    --config[=all,prog1,prog2,...]
+    --install={dependencies|system|admin|developer|user}-bundle|all-bundles,app1,app2,...
+    --config[=all,app1,app2,...]
     --test
     --synchronise-only
     --force-download
@@ -76,7 +76,7 @@ function sudo_keep_alive {
     done 2>/dev/null &
 }
 
-function program_download {
+function dotfiles_download {
 
     curl -L \
         "https://github.com/${GITHUB_ACCOUNT}/${REPOSITORY}/tarball/master" \
@@ -88,7 +88,7 @@ function program_download {
     rm -rf $DIR/tmp/*
 }
 
-function program_synchronise {
+function dotfiles_synchronise {
 
     printf "Synchronise $REPOSITORY\n\n"
 
@@ -108,7 +108,7 @@ function program_synchronise {
     printf "\n"
 }
 
-function program_setup {
+function dotfiles_setup {
 
     chmod 700 $DIR/{bin,etc,lib,sbin,tmp,usr,usr/bin}
     chmod 500 $DIR/{bin,usr/bin}/*
@@ -156,13 +156,13 @@ function program_setup {
     [ -n "$arg_install" ] && (
         print_h1 "Installing..."
         . $DIR/sbin/include $*
-        _program_setup_install
+        _dotfiles_setup_install
     )
     # config
     [ -n "$arg_config" ] && (
         print_h1 "Configuring..."
         . $DIR/sbin/include $*
-        _program_setup_config
+        _dotfiles_setup_config
     )
     # test
     [ -n "$arg_test" ] && /bin/bash -cli "system_test --skip-selected-tests"
@@ -178,19 +178,24 @@ function program_setup {
     find $DIR/{bin,etc,lib,sbin,tmp,usr} -type f -name '.gitkeep' -exec rm -f {} +
 }
 
-function _program_setup_install {
+function _dotfiles_setup_install {
 
     # install requested bundles
-    should_install "dependencies-bundle" \
-        && run_install dependencies-bundle
-    should_install "system-bundle" \
-        && run_install system-bundle
-    should_install "admin-bundle" \
-        && run_install admin-bundle
-    should_install "developer-bundle" \
-        && run_install developer-bundle
-    should_install "user-bundle" \
-        && run_install user-bundle
+    if should_install "dependencies-bundle" || should_install "all-bundles"; then
+        run_install dependencies-bundle
+    fi
+    if should_install "system-bundle" || should_install "all-bundles"; then
+        run_install system-bundle
+    fi
+    if should_install "admin-bundle" || should_install "all-bundles"; then
+        run_install admin-bundle
+    fi
+    if should_install "developer-bundle" || should_install "all-bundles"; then
+        run_install developer-bundle
+    fi
+    if should_install "user-bundle" || should_install "all-bundles"; then
+        run_install user-bundle
+    fi
 
     # install requested  applications
     for app in $(find $DIR/lib -maxdepth 1 -type f \( ! -iname "*-bundle" \) -exec basename {} \;); do
@@ -198,19 +203,24 @@ function _program_setup_install {
     done
 }
 
-function _program_setup_config {
+function _dotfiles_setup_config {
 
     # config requested bundles
-    should_config "dependencies-bundle" \
-        && run_config dependencies-bundle
-    should_config "system-bundle" \
-        && run_config system-bundle
-    should_config "admin-bundle" \
-        && run_config admin-bundle
-    should_config "developer-bundle" \
-        && run_config developer-bundle
-    should_config "user-bundle" \
-        && run_config user-bundle
+    if should_config "dependencies-bundle" || should_config "all-bundles"; then
+        run_config dependencies-bundle
+    fi
+    if should_config "system-bundle" || should_config "all-bundles"; then
+        run_config system-bundle
+    fi
+    if should_config "admin-bundle" || should_config "all-bundles"; then
+        run_config admin-bundle
+    fi
+    if should_config "developer-bundle" || should_config "all-bundles"; then
+        run_config developer-bundle
+    fi
+    if should_config "user-bundle" || should_config "all-bundles"; then
+        run_config user-bundle
+    fi
 
     # config requested applications
     for app in $(find $DIR/lib -maxdepth 1 -type f \( ! -iname "*-bundle" \) -exec basename {} \;); do
@@ -230,7 +240,7 @@ function should_install {
     # check if already installed at this run
     _is_on_list "$install_already_processed" "$1" && return 1
 
-    _is_on_list "$arg_install_progs" "$1"
+    _is_on_list "$arg_install_apps" "$1"
     return $?
 }
 
@@ -269,7 +279,7 @@ function should_config {
     # check if already configured at this run
     _is_on_list "$config_already_processed" "$1" && return 1
 
-    _is_on_list "$arg_config_progs" "$1" || _is_on_list "$arg_config_progs" "all"
+    _is_on_list "$arg_config_apps" "$1" || _is_on_list "$arg_config_apps" "all"
     return $?
 }
 
@@ -328,16 +338,16 @@ fi
 if [ -z "$BASH_SOURCE" ] || [ -n "$arg_force_download" ]; then
 
     # download from repository
-    program_download
+    dotfiles_download
 
 elif [[ $program_dir == */projects/$REPOSITORY ]] || [[ $program_dir == */projects/$GITLAB_ACCOUNT/$REPOSITORY ]] || [[ $program_dir == /project ]]; then
 
     # synchronise with project
-    program_synchronise
+    dotfiles_synchronise
 
 fi
 
 # perform post-install configuration
-program_setup $*
+dotfiles_setup $*
 
 exit 0

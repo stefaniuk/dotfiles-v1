@@ -1,29 +1,49 @@
 #!/bin/bash
 
-#node
-#node-packages
-# zsh
-
 # ### Mac OS X #################################################################
 
 function macosx-install-developer-bundle {
 
-    :
-}
+    # TODO: Install missing packages
 
-function macosx-config-developer-bundle {
+    $brew_install \
+        git-flow \
+        gpg2 \
+        gtypist \
+        irssi \
+        zsh
 
-    :
+    run_install \
+        node \
+        node-packages \
+        tmux
 }
 
 # ### Ubuntu ###################################################################
 
 function ubuntu-install-developer-bundle {
 
-    :
+    $apt_get_install \
+        byobu \
+        git-flow \
+        gpgv2 \
+        gtypist \
+        irssi \
+        nfs-kernel-server \
+        zsh
+
+    run_install \
+        node \
+        node-packages \
+        tmux
 }
 
-function ubuntu-config-developer-bundle {
+# ### common ###################################################################
 
-    :
+function config-developer-bundle {
+
+    run_config \
+        node \
+        node-packages \
+        tmux
 }
