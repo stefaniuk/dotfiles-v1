@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# ### Ubuntu ###################################################################
+
 function ubuntu-config-timezone {
 
     echo "Europe/London" | sudo tee /etc/timezone

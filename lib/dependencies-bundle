@@ -52,5 +52,7 @@ function ubuntu-install-dependencies-bundle {
 function config-dependencies-bundle {
 
     run_config \
-        git
+        git \
+        locale \
+        timezone
 }
