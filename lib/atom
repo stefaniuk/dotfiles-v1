@@ -36,6 +36,5 @@ function config-atom {
         language-docker \
         pigments \
         set-syntax \
-        sort-lines \
-        terminal-plus
+        sort-lines
 }
