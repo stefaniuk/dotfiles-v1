@@ -7,7 +7,6 @@
 if should_install "dependencies"; then
     print_h2 "Dependencies"
     $apt_get_install \
-        bash-completion \
         bc \
         binutils \
         curl \

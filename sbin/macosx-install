@@ -29,7 +29,6 @@ should_install "smartgit"   && (. $DIR/lib/smartgit.sh $*)
 #     $cask_install menumeters --appdir=/Applications
 #     $cask_install android-file-transfer --appdir=/Applications
 
-# $brew_install bash-completion
 # $brew_install bc
 # $brew_install binutils
 # $brew_install curl
