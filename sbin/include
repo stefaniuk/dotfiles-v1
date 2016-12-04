@@ -8,7 +8,7 @@ if [ $DIST = "macosx" ]; then
     brew_upgrade="brew upgrade --verbose"
     brew_tap="brew tap"
     brew_install="brew install --force --verbose"
-    cask_install="brew cask install --appdir=$DIR/usr/applications --force --verbose"
+    cask_install="brew cask install --force --verbose"
     if ! which brew > /dev/null; then
         softwareupdate --install -all
         xcode-select --install
