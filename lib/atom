@@ -26,5 +26,16 @@ function config-atom {
     cp -fv $DIR/lib/resources/atom/config.cson $DIR/.atom
 
     apm install \
-        file-icons
+        atom-beautify \
+        atom-typescript \
+        clipboard-plus \
+        color-picker \
+        emmet \
+        file-icons \
+        gulp-control \
+        language-docker \
+        pigments \
+        set-syntax \
+        sort-lines \
+        terminal-plus
 }

@@ -1,8 +1,17 @@
 "*":
+  autosave:
+    enabled: true
   core:
+    disabledPackages: [
+      "welcome"
+    ]
     themes: [
       "one-dark-ui"
       "solarized-dark-syntax"
     ]
   editor:
     showInvisibles: true
+  "file-icons":
+    onChanges: true
+  "git-diff":
+    showIconsInEditorGutter: true
