@@ -169,13 +169,12 @@ function dotfiles_setup {
 
     # remove not needed resources
     print_h1 "Cleaning up..."
-    if [ -n "$arg_minimal" ]; then
-        rm -rf $DIR/{lib,sbin,usr/man,.bash_asserts,.*profile.old}
-        # remove tests
-        find $DIR/{bin,usr/bin}/* -iname '*.test' -exec rm -rf {} +
-    fi
     rm -rf $DIR/{.gitignore,Dockerfile,LICENCE,Makefile,README.md,Vagrantfile,provision.sh}
     find $DIR/{bin,etc,lib,sbin,tmp,usr} -type f -name '.gitkeep' -exec rm -f {} +
+    if [ -n "$arg_minimal" ]; then
+        rm -rfv $DIR/{lib,sbin,tmp/*,usr/man,.bash_asserts,.*profile.old}
+        find $DIR/{bin,usr/bin}/* -iname '*.test' -exec rm -rfv {} +
+    fi
 }
 
 function _dotfiles_setup_install {
