@@ -1,9 +1,6 @@
 #!/bin/bash
 
-tput setaf 136 # yellow
-tput bold
+tput setaf 2; tput bold # green bold
 printf "$*"
 tput sgr 0
 printf "\n"
-
-exit 0

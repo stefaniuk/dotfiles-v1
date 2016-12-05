@@ -259,7 +259,7 @@ function run_install {
             fi
             # run the installation function
             if [ -n "$func" ]; then
-                echo $app | grep -q -- "-bundle$" && print_h2 $(echo $app | sed s/-bundle//) || print_h3 $app
+                echo $app | grep -q -- "-bundle$" && print_h2 $(echo $app | sed 's/-/ /') || print_h3 $app
                 $func $*
             fi
         )
@@ -298,7 +298,7 @@ function run_config {
             fi
             # run the configuration function
             if [ -n "$func" ]; then
-                echo $app | grep -q -- "-bundle$" && print_h2 $(echo $app | sed s/-bundle//) || print_h3 $app
+                echo $app | grep -q -- "-bundle$" && print_h2 $(echo $app | sed 's/-/ /') || print_h3 $app
                 $func $*
             fi
         )

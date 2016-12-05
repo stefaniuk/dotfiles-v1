@@ -1,6 +1,6 @@
 #!/bin/bash
 
-tput setaf 15; tput bold # white bold
+tput setaf 11 # yellow
 printf "$*"
 tput sgr 0
 printf "\n"
