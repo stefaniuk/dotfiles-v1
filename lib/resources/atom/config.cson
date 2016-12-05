@@ -13,6 +13,7 @@
     ]
   editor:
     showInvisibles: true
+    tabLength: 4
   "file-icons":
     onChanges: true
   "git-diff":
