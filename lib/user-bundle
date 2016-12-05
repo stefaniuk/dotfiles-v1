@@ -4,7 +4,8 @@
 
 function macosx-install-user-bundle {
 
-    :
+    $brew_install \
+        pandoc
 }
 
 function macosx-config-user-bundle {
@@ -16,7 +17,8 @@ function macosx-config-user-bundle {
 
 function ubuntu-install-user-bundle {
 
-    :
+    $apt_get_install \
+        pandoc
 }
 
 function ubuntu-config-user-bundle {

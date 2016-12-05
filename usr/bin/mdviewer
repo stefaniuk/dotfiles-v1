@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# define help
+help=$(cat <<HEREDOC
+
+    DESCRIPTION: View Markdown file.
+
+    PARAMETERS:
+        \$1 file
+HEREDOC
+)
+
+# check parameters
+if [ "$1" == "--help" ] || [ -z "$1" ]; then
+    echo -e "${help}\n"
+    exit 0
+fi
+
+pandoc -f markdown $1 | lynx -stdin
+
+exit 0
