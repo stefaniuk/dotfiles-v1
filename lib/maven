@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# ### common ###################################################################
+
 function install-maven {
 
     ver=$(www_get https://maven.apache.org/download.cgi | grep 'bin.tar.gz' | egrep -o '[0-9]+\.[0-9]+\.[0-9]+' | sortvr | head -n 1)
@@ -8,7 +10,7 @@ function install-maven {
         --file "apache-maven-$ver-bin.tar.gz"
     tar -zxf apache-maven-$ver-bin.tar.gz
     rm -rf $DIR/usr/applications/maven
-    mv apache-maven-$ver $DIR/usr/applications/maven
+    mv -v apache-maven-$ver $DIR/usr/applications/maven
     rm apache-maven-$ver-bin.tar.gz
 }
 
@@ -17,9 +19,8 @@ function config-maven {
     mkdir -p $DIR/.m2
     cp -fv $DIR/lib/resources/maven/settings*.xml $DIR/.m2
 
-    cat <<EOF > $DIR/lib/profile.d/maven.sh
+    cat <<EOF > $DIR/etc/profile.d/maven.sh
 #!/bin/bash
 export PATH=\$PATH:~/usr/applications/maven/bin
 EOF
-    chmod +x $DIR/lib/profile.d/maven.sh
 }

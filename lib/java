@@ -1,5 +1,15 @@
 #!/bin/bash
 
+# ### Mac OS X #################################################################
+
+function macosx-install-node {
+
+    $cask_install \
+        java
+}
+
+# ### Ubuntu ###################################################################
+
 function ubuntu-install-java {
 
     $apt_add_repository ppa:webupd8team/java

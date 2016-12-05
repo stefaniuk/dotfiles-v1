@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# ### common ###################################################################
+
 function install-scala {
 
     ver=$(www_get http://www.scala-lang.org/download/ | grep '.tgz' | egrep -o '[0-9]+\.[0-9]+(\.[0-9]+)?' | sortvr | head -n 1)
@@ -8,15 +10,14 @@ function install-scala {
         --file "scala-$ver.tgz"
     tar -zxf scala-$ver.tgz
     rm -rf $DIR/usr/applications/scala
-    mv scala-$ver $DIR/usr/applications/scala
+    mv -v scala-$ver $DIR/usr/applications/scala
     rm scala-$ver.tgz
 }
 
 function config-scala {
 
-    cat <<EOF > $DIR/lib/profile.d/scala.sh
+    cat <<EOF > $DIR/etc/profile.d/scala.sh
 #!/bin/bash
 export PATH=\$PATH:~/usr/applications/scala/bin
 EOF
-    chmod +x $DIR/lib/profile.d/scala.sh
 }

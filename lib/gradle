@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# ### common ###################################################################
+
 function install-gradle {
 
     ver=$(www_get https://gradle.org/gradle-download/ | grep 'bin.zip' | egrep -o '[0-9]+\.[0-9]+(\.[0-9]+)?' | sortvr | head -n 1)
@@ -8,15 +10,14 @@ function install-gradle {
         --file "gradle-$ver-bin.zip"
     unzip gradle-$ver-bin.zip > /dev/null
     rm -rf $DIR/usr/applications/gradle
-    mv gradle-$ver $DIR/usr/applications/gradle
+    mv -v gradle-$ver $DIR/usr/applications/gradle
     rm gradle-$ver-bin.zip
 }
 
 function config-gradle {
 
-    cat <<EOF > $DIR/lib/profile.d/gradle.sh
+    cat <<EOF > $DIR/etc/profile.d/gradle.sh
 #!/bin/bash
 export PATH=\$PATH:~/usr/applications/gradle/bin
 EOF
-    chmod +x $DIR/lib/profile.d/gradle.sh
 }
