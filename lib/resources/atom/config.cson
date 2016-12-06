@@ -12,6 +12,7 @@
       "solarized-dark-syntax"
     ]
   editor:
+    autoIndentOnPaste: false
     showInvisibles: true
     tabLength: 4
   "file-icons":

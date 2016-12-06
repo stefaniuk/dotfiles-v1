@@ -28,6 +28,7 @@ function config-atom {
     apm install \
         atom-beautify \
         atom-typescript \
+        auto-detect-indentation \
         clipboard-plus \
         color-picker \
         emmet \
