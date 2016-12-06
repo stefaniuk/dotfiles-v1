@@ -19,3 +19,5 @@
     onChanges: true
   "git-diff":
     showIconsInEditorGutter: true
+  "highlight-selected":
+    lightTheme: true
