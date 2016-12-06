@@ -37,6 +37,7 @@ function config-atom {
         highlight-selected \
         language-docker \
         pigments \
+        platformio-ide-terminal \
         set-syntax \
         sort-lines
 }
