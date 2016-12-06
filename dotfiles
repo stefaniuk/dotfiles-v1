@@ -106,24 +106,25 @@ function dotfiles_synchronise {
         $DIR
 
     printf "\n"
+
+    # synchronise only
+    [ -n "$arg_synchronise_only" ] && exit 0
 }
 
 function dotfiles_setup {
 
+    # set correct permissions
     chmod 700 $DIR/{bin,etc,lib,sbin,tmp,usr,usr/bin}
     chmod 500 $DIR/{bin,usr/bin}/*
     chmod 500 $DIR/dotfiles
 
-    # detect operating system
-    source $DIR/lib/resources/bash/.bash_system
     # make available custom scripts
     export PATH=$PATH:$DIR/bin:$DIR/usr/bin
 
-    # synchronise only
-    [ -n "$arg_synchronise_only" ] && exit 0
+    # detect operating system
+    source $DIR/lib/resources/bash/.bash_system
 
     print_h1 "Checking..."
-
     # check internet connection
     print_h2 "Network connectivity"
     curl --silent --insecure --max-time 10 --retry 3 "https://google.com" > /dev/null
@@ -166,6 +167,9 @@ function dotfiles_setup {
     )
     # test
     [ -n "$arg_test" ] && /bin/bash -cli "system_test --skip-selected-tests"
+
+    # create dotfiles symlink
+    ln -sf $DIR/dotfiles $DIR/usr/bin/dotfiles
 
     # remove not needed resources
     print_h1 "Cleaning up..."
@@ -335,18 +339,13 @@ elif infocmp xterm-256color > /dev/null 2>&1; then
 fi
 
 if [ -z "$BASH_SOURCE" ] || [ -n "$arg_force_download" ]; then
-
-    # download from repository
+    # download from the GitHub repository
     dotfiles_download
-
 elif [[ $program_dir == */projects/$REPOSITORY ]] || [[ $program_dir == */projects/$GITLAB_ACCOUNT/$REPOSITORY ]] || [[ $program_dir == /project ]]; then
-
-    # synchronise with project
+    # synchronise with the project content
     dotfiles_synchronise
-
 fi
-
-# perform post-install configuration
+# perform installation and configuration
 dotfiles_setup $*
 
 exit 0
