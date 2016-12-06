@@ -1,0 +1,34 @@
+#!/bin/bash
+
+# ### Mac OS X #################################################################
+
+function macosx-install-soapui {
+
+    $cask_install \
+        soapui
+}
+
+# ### Ubuntu ###################################################################
+
+function ubuntu-install-soapui {
+
+    ver=$(www_get https://www.soapui.org/downloads/latest-release.html | grep '.tar.gz' | egrep -o '[0-9]+\.[0-9]+\.[0-9]+' | sortvr | head -n 1)
+    file_download \
+        --url "http://cdn01.downloads.smartbear.com/soapui/$ver/SoapUI-$ver-linux-bin.tar.gz" \
+        --file "SoapUI-$ver-linux-bin.tar.gz"
+    tar -zxf SoapUI-$ver-linux-bin.tar.gz
+    rm -rf $DIR/usr/applications/soapui
+    mv -fv SoapUI-$ver $DIR/usr/applications/soapui
+    rm SoapUI-$ver-linux-bin.tar.gz
+    cp $DIR/lib/resources/soapui/soapui.png $DIR/usr/applications/soapui
+    cat <<EOF > ~/.local/share/applications/soapui.desktop
+[Desktop Entry]
+Version=1.0
+Name=SoapUI
+Type=Application
+Exec=$DIR/usr/applications/soapui/bin/soapui.sh
+Icon=$DIR/usr/applications/soapui/soapui.png
+Terminal=false
+Categories=Utility;
+EOF
+}
