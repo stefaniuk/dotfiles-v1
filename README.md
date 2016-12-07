@@ -24,6 +24,10 @@ Minimal installation
 
 All files will be installed in the user's home directory.
 
+After reloading Bash `dotfiles` command should be available on the command-line. Below is a screenshot of an installation of an additional software package managed by the `dotfiles`.
+
+![dotfiles](lib/resources/dotfiles/dotfiles.png)
+
 Testing
 -------
 
