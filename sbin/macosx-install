@@ -4,10 +4,7 @@
 ### REFACTOR ###########################################################################################################
 ########################################################################################################################
 
-$cask_install dropbox
-$cask_install megasync
 $cask_install google-drive
-$cask_install boxcryptor
 
 #     $cask_install asepsis --appdir=/Applications
 #     $cask_install caffeine --appdir=/Applications

@@ -1,0 +1,32 @@
+#!/bin/bash
+
+# ### Mac OS X #################################################################
+
+function macosx-install-megasync {
+
+    $cask_install \
+        megasync
+}
+
+# ### Ubuntu ###################################################################
+
+function ubuntu-install-megasync {
+
+    ver=$VERSION
+
+    $apt_get_install \
+        libc-ares2 \
+        libcrypto++9v5
+
+    file_download \
+        --url "https://mega.nz/linux/MEGAsync/xUbuntu_${ver}/amd64/megasync-xUbuntu_${ver}_amd64.deb" \
+        --file "megasync-xUbuntu_${ver}_amd64.deb"
+    sudo dpkg -i megasync-xUbuntu_${ver}_amd64.deb
+    rm megasync-xUbuntu_${ver}_amd64.deb
+
+    file_download \
+        --url "https://mega.nz/linux/MEGAsync/xUbuntu_${ver}/amd64/nautilus-megasync-xUbuntu_${ver}_amd64.deb" \
+        --file "nautilus-megasync-xUbuntu_${ver}_amd64.deb"
+    sudo dpkg -i nautilus-megasync-xUbuntu_${ver}_amd64.deb
+    rm nautilus-megasync-xUbuntu_${ver}_amd64.deb
+}

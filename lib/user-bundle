@@ -6,6 +6,11 @@ function macosx-install-user-bundle {
 
     $brew_install \
         pandoc
+
+    run_install \
+        boxcryptor \
+        dropbox \
+        megasync
 }
 
 function macosx-config-user-bundle {
@@ -19,6 +24,11 @@ function ubuntu-install-user-bundle {
 
     $apt_get_install \
         pandoc
+
+    run_install \
+        boxcryptor \
+        dropbox \
+        megasync
 }
 
 function ubuntu-config-user-bundle {
