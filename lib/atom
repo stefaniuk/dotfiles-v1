@@ -37,6 +37,7 @@ function config-atom {
         gulp-control \
         highlight-selected \
         language-docker \
+        open-recent \
         pigments \
         platformio-ide-terminal \
         set-syntax \
