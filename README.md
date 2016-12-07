@@ -3,6 +3,13 @@ Dotfiles
 
 The aim of the `dotfiles` project is to configure Bash to provide a better user experience while using the command-line.
 
+Supported operating systems are:
+
+* Mac OS X
+* Ubuntu
+
+However, most of the scripts should work well on the other Linux distributions. If the installation ends with a message _"Operating system not supported"_ see the [`system_detect` function](https://github.com/stefaniuk/dotfiles/blob/master/lib/resources/bash/.bash_system#L3) and examine the following [condition statement](https://github.com/stefaniuk/dotfiles/blob/master/dotfiles#L134-L142).
+
 Installation
 ------------
 
