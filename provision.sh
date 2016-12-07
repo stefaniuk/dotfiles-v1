@@ -13,5 +13,3 @@ dpkg-reconfigure -f noninteractive tzdata
 # make '/project' work directory
 sed -i "/cd \/project/d" /home/vagrant/.bashrc
 echo "cd /project" >> /home/vagrant/.bashrc
-
-exit 0
