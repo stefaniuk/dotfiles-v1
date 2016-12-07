@@ -168,8 +168,11 @@ function dotfiles_setup {
     # test
     [ -n "$arg_test" ] && /bin/bash -cli "system_test --skip-selected-tests"
 
-    # create dotfiles symlink
+    # create dotfiles symlink and copy completion script
     ln -sf $DIR/dotfiles $DIR/usr/bin/dotfiles
+    local dir
+    [ -f /etc/bash_completion ] && dir=/etc/bash_completion.d || dir=/usr/local/etc/bash_completion.d
+    cp $DIR/lib/resources/dotfiles/dotfiles-completion.bash $dir/dotfiles-completion.bash
 
     # remove not needed resources
     print_h1 "Cleaning up..."

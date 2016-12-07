@@ -41,7 +41,6 @@ TODO
 ----
 
  * Refactor installation and configuration files for Mac OS X
- * Create Bash completion for the `dotfiles` command
  * Configure `htop` by providing `htoprc` file and user's [man](http://www.thegeekstuff.com/2011/09/linux-htop-examples) entry
  * Version `dotfiles`
  * Configure `byobu`
