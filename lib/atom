@@ -31,6 +31,7 @@ function config-atom {
         auto-detect-indentation \
         clipboard-plus \
         color-picker \
+        editorconfig \
         emmet \
         file-icons \
         gulp-control \
