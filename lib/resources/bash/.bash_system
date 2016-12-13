@@ -128,7 +128,7 @@ function system_test {
     system_info
     printf "\n"
 
-    local log=~/tmp/dotfiles-test.log
+    local log=/tmp/dotfiles-test.log
     rm -f $log
 
     (

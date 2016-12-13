@@ -1,6 +1,6 @@
 #!/bin/bash
 
-dir=~/tmp
+dir=/tmp
 name="test-certificate"
 openssl_cert_gen $name --dir $dir > /dev/null 2>&1
 assert_files_exist $dir/$name.crt $dir/$name.key $dir/$name.pem

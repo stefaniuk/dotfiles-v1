@@ -5,8 +5,8 @@ hash="a94a8fe5ccb19ba61c4c0873d391e987982fbbd3"
 result=`echo -n $text | sha1sum | awk '{ print $1 }'`
 assert_eq $result $hash
 
-file=~/tmp/test_sha1sum.$$
+file=/tmp/test_sha1sum.$$
 echo -n $text > $file
 result=`sha1sum $file | awk '{ print $1 }'`
 assert_eq $result $hash
-rm -f ~/tmp/test_sha1sum.*
+rm -f /tmp/test_sha1sum.*

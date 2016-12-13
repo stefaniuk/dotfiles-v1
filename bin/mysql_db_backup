@@ -24,7 +24,7 @@ db=$1
 file=$2
 user=
 pass=
-dir=~/tmp/$(basename -- "$0").$$
+dir=/tmp/$(basename -- "$0").$$
 
 # get parameters
 while [ "$1" != "" ]; do

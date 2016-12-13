@@ -1,6 +1,6 @@
 #!/bin/bash
 
-dir=~/tmp/test_dir_replace_str.$$
+dir=/tmp/test_dir_replace_str.$$
 mkdir $dir
 cat <<EOF > $dir/test_dir_replace_str-file1.txt
 test_dir_replace_str-file1
@@ -14,4 +14,4 @@ EOF
 dir_replace_str "test_dir_replace_str-file" "data" $dir
 result=`dir_find_str "data" $dir | wc -l`
 assert_eq $result 3
-rm -rf ~/tmp/test_dir_replace_str.*
+rm -rf /tmp/test_dir_replace_str.*

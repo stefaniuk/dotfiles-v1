@@ -43,7 +43,7 @@ is_exec=$(test -x $file && echo "yes" || echo "no")
 
 str1=$(echo "$str1" | sed 's/\//\\\//g')
 str2=$(echo "$str2" | sed 's/\//\\\//g')
-tmp_file=~/tmp/$(basename -- "$0").$$
+tmp_file=/tmp/$(basename -- "$0").$$
 if [ $multiline == "y" ]; then
     cat $file | perl -0777 -pe "s/$str1/$str2/gs" > $tmp_file
 else

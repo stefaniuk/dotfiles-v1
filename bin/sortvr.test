@@ -1,8 +1,8 @@
 #!/bin/bash
 
-file1=~/tmp/test_sortvr_1.$$
-file2=~/tmp/test_sortvr_2.$$
-file3=~/tmp/test_sortvr_3.$$
+file1=/tmp/test_sortvr_1.$$
+file2=/tmp/test_sortvr_2.$$
+file3=/tmp/test_sortvr_3.$$
 
 cat <<EOF > $file1
 1.2.100.4
@@ -21,4 +21,4 @@ cat $file1 | sortvr > $file3
 cmp --silent $file2 $file3
 assert_result_pos $?
 
-rm -f ~/tmp/test_sortvr_*
+rm -f /tmp/test_sortvr_*

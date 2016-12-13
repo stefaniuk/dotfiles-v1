@@ -6,8 +6,8 @@ hash="098f6bcd4621d373cade4e832627b4f6"
 result=`echo -n $text | md5sum | awk '{ print $1 }'`
 assert_eq $result $hash
 
-file=~/tmp/test_md5sum.$$
+file=/tmp/test_md5sum.$$
 echo -n $text > $file
 result=`md5sum $file | awk '{ print $1 }'`
 assert_eq $result $hash
-rm -f ~/tmp/test_md5sum.*
+rm -f /tmp/test_md5sum.*

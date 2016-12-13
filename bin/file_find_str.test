@@ -1,6 +1,6 @@
 #!/bin/bash
 
-file=~/tmp/test_file_find_str.$$
+file=/tmp/test_file_find_str.$$
 cat <<EOF > $file
 line1
 line2
@@ -8,4 +8,4 @@ line3
 EOF
 file_find_str "1\nline" $file
 assert_result_pos $?
-rm -f ~/tmp/test_file_find_str.*
+rm -f /tmp/test_file_find_str.*
