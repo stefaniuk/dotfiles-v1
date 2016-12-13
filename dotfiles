@@ -172,7 +172,7 @@ function dotfiles_setup {
     ln -sf $DIR/dotfiles $DIR/usr/bin/dotfiles
     local dir
     [ -f /etc/bash_completion ] && dir=/etc/bash_completion.d || dir=/usr/local/etc/bash_completion.d
-    cp $DIR/lib/resources/dotfiles/dotfiles-completion.bash $dir/dotfiles-completion.bash
+    sudo cp $DIR/lib/resources/dotfiles/dotfiles-completion.bash $dir/dotfiles-completion.bash
 
     # remove not needed resources
     print_h1 "Cleaning up..."
