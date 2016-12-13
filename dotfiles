@@ -23,6 +23,7 @@ arg_test=$(echo "$*" | grep -o -- "--test")
 arg_synchronise_only=$(echo "$*" | grep -o -- "--synchronise-only")
 arg_force_download=$(echo "$*" | grep -o -- "--force-download")
 arg_directory=$(echo "$*" | grep -Eo -- "--directory=[-_A-Za-z0-9/]+" | sed "s/--directory=//")
+arg_user=$(echo "$*" | grep -Eo -- "--user=[-_A-Za-z0-9/]+" | sed "s/--user=//")
 arg_minimal=$(echo "$*" | grep -o -- "--minimal")
 arg_sudo=$(echo "$*" | grep -o -- "--sudo")
 arg_help=$(echo "$*" | grep -o -- "--help")
@@ -53,6 +54,7 @@ Options:
     --synchronise-only
     --force-download
     --directory=/dir
+    --user=username
     --minimal
     --sudo
     --help
@@ -117,6 +119,7 @@ function dotfiles_setup {
     chmod 700 $DIR/{bin,etc,lib,sbin,tmp,usr,usr/bin}
     chmod 500 $DIR/{bin,usr/bin}/*
     chmod 500 $DIR/dotfiles
+    [ -n "$arg_user" ] && sudo chown -R $arg_user:$arg_user $DIR
 
     # make available custom scripts
     export PATH=$PATH:$DIR/bin:$DIR/usr/bin
