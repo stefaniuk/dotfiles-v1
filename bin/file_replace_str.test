@@ -47,3 +47,11 @@ file_replace_str "/usr/local/include\n" "/var/log\n" $file --multiline
 count=`cat $file | \grep '/var/log' | wc -l`
 assert_eq $count 1
 rm -f /tmp/test_file_replace_str.*
+
+cat <<EOF > $file
+This is a file permissions test.
+EOF
+chmod 400 $file
+file_replace_str "permissions" "xxx" $file
+assert_eq $(stat -c %a $file) 400
+rm -f /tmp/test_file_remove_str.*

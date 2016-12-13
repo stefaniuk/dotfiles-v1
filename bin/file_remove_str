@@ -37,8 +37,7 @@ if [ ! -f $file ] || ([ multiline == "n" ] && ! file_find_str "$str1" $file ); t
     exit 1
 fi
 
-is_exec=$(test -x $file && echo "yes" || echo "no")
-
+permissions=$(stat -c %a $file)
 str=$(echo "$str" | sed 's/\//\\\//g')
 tmp_file=/tmp/$(basename -- "$0").$$
 if [ $multiline == "y" ]; then
@@ -46,8 +45,7 @@ if [ $multiline == "y" ]; then
 else
     sed -E "s/$str//g" $file > $tmp_file
 fi
-mv $tmp_file $file
-
-[ $is_exec == "yes" ] && chmod +x $file
+mv -f $tmp_file $file
+chmod $permissions $file
 
 exit 0

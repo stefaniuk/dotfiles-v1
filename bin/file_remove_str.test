@@ -47,3 +47,11 @@ file_remove_str "/usr/local/include\n" $file --multiline
 count=`cat $file | sed '/^\s*$/d' | wc -l`
 assert_eq $count 0
 rm -f /tmp/test_file_remove_str.*
+
+cat <<EOF > $file
+This is a file permissions test.
+EOF
+chmod 400 $file
+file_remove_str "permissions" $file
+assert_eq $(stat -c %a $file) 400
+rm -f /tmp/test_file_remove_str.*
