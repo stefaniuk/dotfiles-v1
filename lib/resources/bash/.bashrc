@@ -14,10 +14,11 @@ export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
 #### configuration #############################################################
 
-shopt -s nocaseglob # case-insensitive globbing
-shopt -s cdspell    # auto-correct typos in path names when using `cd`
 shopt -s autocd     # allows `cd **/qux` to enter `./foo/bar/baz/qux`
+shopt -s cdspell    # auto-correct typos in path names when using `cd`
+shopt -s dotglob    # include filenames beginning with a `.` in the results of filename expansion
 shopt -s globstar   # pattern `**` used in a file name expansion context will match all files and zero or more directories and subdirectories
+shopt -s nocaseglob # case-insensitive globbing
 
 # bash completion
 [ -f /etc/bash_completion ] && bcpath=/etc || bcpath=/usr/local/etc
