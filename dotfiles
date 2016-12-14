@@ -119,7 +119,6 @@ function dotfiles_setup {
     chmod 700 $DIR/{bin,etc,lib,sbin,tmp,usr,usr/bin}
     chmod 500 $DIR/{bin,usr/bin}/*
     chmod 500 $DIR/dotfiles
-    [ -n "$arg_user" ] && sudo chown -R $arg_user:$arg_user $DIR
 
     # make available custom scripts
     export PATH=$PATH:$DIR/bin:$DIR/usr/bin
@@ -185,6 +184,9 @@ function dotfiles_setup {
         rm -rfv $DIR/{lib,sbin,tmp/*,usr/man,.bash_asserts,.*profile.old}
         find $DIR/{bin,usr/bin}/* -iname '*.test' -exec rm -rfv {} +
     fi
+
+    # set correct ownership
+    [ -n "$arg_user" ] && sudo chown -R $arg_user:$arg_user $DIR
 }
 
 function _dotfiles_setup_install {
