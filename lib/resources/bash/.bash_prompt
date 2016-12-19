@@ -49,8 +49,11 @@ fi
 
 function __prompt_git_branch() {
 
-    local branch=""
+    if [ "$GIT_PROMPT" != "true" ] && [ "$GIT_PROMPT" != "1" ]; then
+        return
+    fi
 
+    local branch=""
     # check if the current directory is in a git repository
     if [ $(git rev-parse --is-inside-work-tree &> /dev/null; echo "${?}") -eq 0 ]; then
 
@@ -66,11 +69,13 @@ function __prompt_git_branch() {
 
 function __prompt_git_status() {
 
-    local status=""
+    if [ "$GIT_PROMPT" != "true" ] && [ "$GIT_PROMPT" != "1" ]; then
+        return
+    fi
 
+    local status=""
     # check if the current directory is in a git repository
     if [ $(git rev-parse --is-inside-work-tree &> /dev/null; echo "${?}") -eq 0 ]; then
-
         # check if the current directory is in .git before running git checks
         if [ "$(git rev-parse --is-inside-git-dir 2> /dev/null)" == 'false' ]; then
             # ensure the index is up-to-date
@@ -92,7 +97,6 @@ function __prompt_git_status() {
                 status+='$'
             fi
         fi
-
         [ -n "${status}" ] && status="[${status}]"
         echo "${status}"
     else

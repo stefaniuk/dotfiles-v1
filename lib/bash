@@ -35,4 +35,5 @@ function _config {
     file_replace_str "USER_EMAIL=\"unknown\"" "USER_EMAIL=\"$USER_EMAIL\"" $DIR/.bash_exports
     file_replace_str "GITHUB_ACCOUNT=\"unknown\"" "GITHUB_ACCOUNT=\"$GITHUB_ACCOUNT\"" $DIR/.bash_exports
     file_replace_str "GITLAB_ACCOUNT=\"unknown\"" "GITLAB_ACCOUNT=\"$GITLAB_ACCOUNT\"" $DIR/.bash_exports
+    file_replace_str "GIT_PROMPT=true" "GIT_PROMPT=$GIT_PROMPT" $DIR/.bash_exports
 }
