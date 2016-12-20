@@ -49,7 +49,7 @@ fi
 
 function __prompt_git_branch() {
 
-    if [ "$GIT_PROMPT" != "true" ] && [ "$GIT_PROMPT" != "1" ]; then
+    if [ "$BASH_PROMPT_SHOW_GIT" != "true" ] && [ "$BASH_PROMPT_SHOW_GIT" != "1" ]; then
         return
     fi
 
@@ -69,7 +69,7 @@ function __prompt_git_branch() {
 
 function __prompt_git_status() {
 
-    if [ "$GIT_PROMPT" != "true" ] && [ "$GIT_PROMPT" != "1" ]; then
+    if [ "$BASH_PROMPT_SHOW_GIT" != "true" ] && [ "$BASH_PROMPT_SHOW_GIT" != "1" ]; then
         return
     fi
 

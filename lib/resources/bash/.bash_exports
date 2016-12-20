@@ -13,7 +13,7 @@ export GIT_COMMITTER_NAME="$GIT_AUTHOR_NAME"
 export GIT_AUTHOR_EMAIL="$USER_EMAIL"
 export GIT_COMMITTER_EMAIL="$GIT_AUTHOR_EMAIL"
 # enable/disable Bash prompt helper
-export GIT_PROMPT=true
+export BASH_PROMPT_SHOW_GIT=true
 
 # make `vim` or `vi` the default editor
 export EDITOR=$(which vim 2> /dev/null || which vi 2> /dev/null)
