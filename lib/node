@@ -13,7 +13,7 @@ function macosx-install-node {
 
 function ubuntu-install-node {
 
-    curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash -
+    curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
     $apt_get_install \
         nodejs
     sudo npm update -g
