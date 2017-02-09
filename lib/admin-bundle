@@ -27,6 +27,7 @@ function ubuntu-install-admin-bundle {
         grc \
         heirloom-mailx \
         htop \
+        iotop \
         iputils-ping \
         lnav \
         lsof \
