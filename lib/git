@@ -4,16 +4,14 @@
 
 function macosx-install-git {
 
-    $brew_install \
-        git
+    $brew_install git
 }
 
 # ### Ubuntu ###################################################################
 
 function ubuntu-install-git {
 
-    $apt_get_install \
-        git
+    $apt_get_install git
 }
 
 # ### common ###################################################################
@@ -28,14 +26,14 @@ function config-git {
     # completion
     local dir
     [ -f /etc/bash_completion ] && dir=/etc/bash_completion.d || dir=/usr/local/etc/bash_completion.d
-    sudo wget \
+    sudo curl -L \
         "https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash" \
-        -O $dir/git-completion.bash
+        -o $dir/git-completion.bash
 
     # diff-highlight
     sudo rm -f $DIR/usr/bin/diff-highlight
-    wget \
+    curl -L \
         "https://raw.githubusercontent.com/git/git/master/contrib/diff-highlight/diff-highlight" \
-        -O $DIR/usr/bin/diff-highlight
+        -o $DIR/usr/bin/diff-highlight
     chmod u+x $DIR/usr/bin/diff-highlight
 }
