@@ -39,7 +39,7 @@ if [ ! -f $file ] || ([ multiline == "n" ] && ! file_find_str "$str1" $file ); t
     exit 1
 fi
 
-permissions=$(stat -c %a $file)
+[ "$DIST" == "macosx" ] && permissions=$(stat -f %p $file) || permissions=$(stat -c %a $file)
 str1=$(echo "$str1" | sed 's/\//\\\//g')
 str2=$(echo "$str2" | sed 's/\//\\\//g')
 tmp_file=/tmp/$(basename -- "$0").$$
