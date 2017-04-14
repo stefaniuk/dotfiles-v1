@@ -16,10 +16,7 @@ if [ $DIST = "macosx" ]; then
             sudo xcodebuild -license accept
         fi
         ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-        $brew_tap homebrew/dupes
-        $brew_tap homebrew/versions
-        $brew_tap caskroom/versions
-        $brew_install caskroom/cask/brew-cask
+        $brew_tap caskroom/cask
     fi
 
 fi
