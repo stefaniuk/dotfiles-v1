@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# ### Mac OS X #################################################################
+
+function macosx-install-iterm {
+
+    $cask_install iterm2
+}
+
+function macosx-config-iterm {
+
+    defaults import com.googlecode.iterm2 $DIR/lib/resources/iterm/com.googlecode.iterm2.plist
+}

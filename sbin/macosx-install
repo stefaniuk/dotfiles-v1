@@ -11,8 +11,6 @@ $cask_install google-drive
 #     $cask_install menumeters --appdir=/Applications
 #     $cask_install android-file-transfer --appdir=/Applications
 
-#     $cask_install iterm2-beta
-#     $cask_install github-desktop
 #     $cask_install smartsynchronize
 #     $cask_install filezilla
 #     $cask_install sts
