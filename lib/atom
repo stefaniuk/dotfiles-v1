@@ -34,10 +34,13 @@ function config-atom {
         editorconfig \
         emmet \
         file-icons \
+        git-plus \
         gulp-control \
         highlight-selected \
         language-docker \
+        markdown-pdf \
         open-recent \
+        pdf-view \
         pigments \
         platformio-ide-terminal \
         set-syntax \
