@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# ### Mac OS X #################################################################
+
+function macosx-install-github {
+
+    $cask_install github-desktop
+}
