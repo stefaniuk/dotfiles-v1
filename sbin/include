@@ -11,7 +11,10 @@ if [ $DIST = "macosx" ]; then
     cask_install="brew cask install --force --verbose"
     if ! which brew > /dev/null; then
         softwareupdate --install -all
-        xcode-select --install
+        if ! xcode-select -p | grep '/Applications/Xcode.app/Contents/Developer' > /dev/null; then
+            xcode-select --install
+            sudo xcodebuild -license accept
+        fi
         ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
         $brew_tap homebrew/dupes
         $brew_tap homebrew/versions
