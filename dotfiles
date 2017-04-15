@@ -20,13 +20,14 @@ program_dir=$(cd "$(dirname "$0" 2> /dev/null)"; pwd)
 arg_install=$(echo "$*" | grep -o -- "--install")
 arg_config=$(echo "$*" | grep -o -- "--config")
 arg_update=$(echo "$*" | grep -o -- "--update-os")
-arg_test=$(echo "$*" | grep -o -- "--test")
 arg_synchronise_only=$(echo "$*" | grep -o -- "--synchronise-only")
 arg_force_download=$(echo "$*" | grep -o -- "--force-download")
 arg_directory=$(echo "$*" | grep -Eo -- "--directory=[-_A-Za-z0-9/]+" | sed "s/--directory=//")
 arg_user=$(echo "$*" | grep -Eo -- "--user=[-_A-Za-z0-9/]+" | sed "s/--user=//")
 arg_minimal=$(echo "$*" | grep -o -- "--minimal")
+arg_load_secrets=$(echo "$*" | grep -o -- "--load-secrets")
 arg_sudo=$(echo "$*" | grep -o -- "--sudo")
+arg_test=$(echo "$*" | grep -o -- "--test")
 arg_help=$(echo "$*" | grep -o -- "--help")
 
 arg_install_apps=$(echo "$*" | grep -o -- "--install=[-_,A-Za-z0-9]*" | sed "s/--install=//")
@@ -51,13 +52,14 @@ Options:
     --update-os
     --install={dependencies|system|admin|developer|user}-bundle|all-bundles,app1,app2,...
     --config[=all,app1,app2,...]
-    --test
     --synchronise-only
     --force-download
     --directory=/dir
     --user=username
     --minimal
+    --load-secrets
     --sudo
+    --test
     --help
 "
 
@@ -114,12 +116,23 @@ function dotfiles_synchronise {
     [ -n "$arg_synchronise_only" ] && exit 0
 }
 
+function dotfiles_load_secrets {
+
+    for in_file in $(find $DIR/usr/etc -iname '*.enc' 2> /dev/null); do
+        echo $in_file
+        out_file=$(mktemp $DIR/tmp/tmp.XXXXXXXX)
+        openssl enc -aes-256-cbc -d -in $in_file -out $out_file
+        trap "rm -f $out_file" EXIT
+        source $out_file
+    done
+}
+
 function dotfiles_setup {
 
     # set correct permissions
     chmod 700 $DIR/{bin,etc,lib,sbin,tmp,usr,usr/bin}
-    chmod 500 $DIR/{bin,usr/bin}/*
-    chmod 500 $DIR/dotfiles
+    chmod 555 $DIR/{bin,usr/bin}/*
+    chmod 555 $DIR/dotfiles
 
     # make available custom scripts
     export PATH=$PATH:$DIR/bin:$DIR/usr/bin
@@ -362,6 +375,8 @@ elif [[ $program_dir == */projects/$REPOSITORY ]] || [[ $program_dir == */projec
     # synchronise with the project content
     dotfiles_synchronise
 fi
+# decrypt files
+[ -n "$arg_load_secrets" ] && dotfiles_load_secrets
 # perform installation and configuration
 dotfiles_setup $*
 
