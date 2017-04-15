@@ -41,7 +41,7 @@ function ubuntu-install-developer-bundle {
 function install-developer-bundle {
 
     run_install \
-        adstudio \
+        directory-studio \
         ant \
         atom \
         chrome \

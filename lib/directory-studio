@@ -2,14 +2,14 @@
 
 # ### Mac OS X #################################################################
 
-function macosx-install-adstudio {
+function macosx-install-directory-studio {
 
     $cask_install apache-directory-studio
 }
 
 # ### Ubuntu ###################################################################
 
-function ubuntu-install-adstudio {
+function ubuntu-install-directory-studio {
 
     ver=$(www_get https://directory.apache.org/studio/download/download-linux.html | grep 'linux.gtk.x86_64.tar.gz' | grep -Eo '[0-9]+\.[0-9]+\.[0-9]+\.v[0-9]+-M[0-9]+' | sortvr | head -n 1)
     file_download \
