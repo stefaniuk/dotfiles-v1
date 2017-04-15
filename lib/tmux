@@ -10,7 +10,6 @@ function macosx-install-tmux {
 function macosx-config-tmux {
 
     _config
-
     cat $DIR/lib/resources/tmux/.tmux.macosx.conf >> $DIR/.tmux.conf
 }
 
