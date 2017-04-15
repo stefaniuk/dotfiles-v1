@@ -15,7 +15,7 @@ function ubuntu-install-go {
     file_download \
         --url "https://storage.googleapis.com/golang/go${ver}.linux-amd64.tar.gz" \
         --file "go${ver}.linux-amd64.tar.gz"
-    tar -zxf go${ver}.linux-amd64.tar.gz
+    tar -xf go${ver}.linux-amd64.tar.gz
     rm -rf $DIR/usr/applications/go
     mv go $DIR/usr/applications/go
     rm go${ver}.linux-amd64.tar.gz

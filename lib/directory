@@ -15,7 +15,7 @@ function ubuntu-install-directory {
     file_download \
         --url "http://mirrors.ukfast.co.uk/sites/ftp.apache.org/directory/studio/$ver/ApacheDirectoryStudio-$ver-linux.gtk.x86_64.tar.gz" \
         --file "ApacheDirectoryStudio-$ver-linux.gtk.x86_64.tar.gz"
-    tar -zxf ApacheDirectoryStudio-$ver-linux.gtk.x86_64.tar.gz
+    tar -xf ApacheDirectoryStudio-$ver-linux.gtk.x86_64.tar.gz
     rm -rf $DIR/usr/applications/apache-directory-studio
     mv -f ApacheDirectoryStudio $DIR/usr/applications/apache-directory-studio
     rm ApacheDirectoryStudio-$ver-linux.gtk.x86_64.tar.gz
