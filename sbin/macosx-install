@@ -5,26 +5,20 @@
 ########################################################################################################################
 
 $cask_install google-drive
-
-#     $cask_install asepsis --appdir=/Applications
-#     $cask_install caffeine --appdir=/Applications
-#     $cask_install menumeters --appdir=/Applications
-#     $cask_install android-file-transfer --appdir=/Applications
-
-#     $cask_install smartsynchronize
-#     $cask_install filezilla
-#     $cask_install phpstorm
-#     $cask_install android-studio
-#     $brew_install android-sdk
-#     $brew_install android-ndk
-#     $cask_install rdm
-#     $cask_install xquartz wireshark
-#     $cask_install gimp
-
-#     $cask_install firefox --appdir=/Applications
-#     $cask_install firefoxdeveloperedition --appdir=/Applications
-#     $cask_install flash
-#     $cask_install adobe-reader
-#     $cask_install xee22
-#     $cask_install vox
-#     $cask_install vlc
+$cask_install android-file-transfer
+$cask_install smartsynchronize
+$cask_install filezilla
+$cask_install phpstorm
+$cask_install android-studio
+$brew_install android-sdk
+$brew_install android-ndk
+$cask_install rdm
+$cask_install xquartz wireshark
+$cask_install gimp
+$cask_install firefox
+$cask_install firefoxdeveloperedition
+$cask_install flash
+$cask_install adobe-reader
+$cask_install xee22
+$cask_install vox
+$cask_install vlc
