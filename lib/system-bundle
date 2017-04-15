@@ -7,14 +7,12 @@ function macosx-install-system-bundle {
     $brew_install \
         mas
     $cask_install \
-        hammerspoon
+        bettertouchtool \
+        hammerspoon \
+        witch
     run_install \
-        karabiner
-    # TODO
-    #    seil
-    #    bettertouchtool
-    #    witch
-    #    moom
+        karabiner \
+        moom
 }
 
 # ### Ubuntu ###################################################################
