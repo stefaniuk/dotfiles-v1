@@ -9,7 +9,6 @@ function macosx-install-developer-bundle {
         git-flow \
         gpg2 \
         gtypist \
-        irssi \
         zsh
     run_install \
         github \
@@ -31,7 +30,6 @@ function ubuntu-install-developer-bundle {
         git-flow \
         gpgv2 \
         gtypist \
-        irssi \
         nfs-kernel-server \
         zsh
 }
@@ -50,6 +48,7 @@ function install-developer-bundle {
         go \
         gradle \
         groovy \
+        irssi \
         java \
         maven \
         node \
@@ -74,6 +73,7 @@ function config-developer-bundle {
         go \
         gradle \
         groovy \
+        irssi \
         java \
         maven \
         node \
