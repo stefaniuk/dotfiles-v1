@@ -17,8 +17,6 @@ function macosx-install-admin-bundle {
         tcptraceroute \
         tree \
         vim
-    run_install \
-        bash
 }
 
 # ### Ubuntu ###################################################################
@@ -45,6 +43,12 @@ function ubuntu-install-admin-bundle {
 }
 
 # ### common ###################################################################
+
+function install-admin-bundle {
+
+    run_install \
+        bash
+}
 
 function config-admin-bundle {
 
