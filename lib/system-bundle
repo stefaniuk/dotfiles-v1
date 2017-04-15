@@ -8,6 +8,7 @@ function macosx-install-system-bundle {
         mas
     $cask_install \
         bettertouchtool \
+        caffeine \
         hammerspoon \
         witch
     run_install \
