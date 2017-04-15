@@ -17,6 +17,7 @@ if [ $DIST = "macosx" ]; then
         fi
         ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
         $brew_tap caskroom/cask
+        $brew_tap caskroom/versions
     fi
 
 fi
