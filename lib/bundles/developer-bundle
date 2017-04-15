@@ -10,7 +10,7 @@ function macosx-install-developer-bundle {
         gpg2 \
         gtypist
     run_install \
-        github \
+        github-desktop \
         iterm \
         remote-desktop
 }

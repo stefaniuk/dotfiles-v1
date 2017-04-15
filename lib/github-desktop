@@ -2,7 +2,7 @@
 
 # ### Mac OS X #################################################################
 
-function macosx-install-github {
+function macosx-install-github-desktop {
 
     $cask_install github-desktop
 }
