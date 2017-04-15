@@ -47,6 +47,7 @@ function install-developer-bundle {
         directory \
         docker \
         emacs \
+        go \
         gradle \
         groovy \
         java \
@@ -70,6 +71,7 @@ function config-developer-bundle {
         atom \
         docker \
         git \
+        go \
         gradle \
         groovy \
         java \

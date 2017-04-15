@@ -1,5 +1,14 @@
 #!/bin/bash
 
+# ### Mac OS X #################################################################
+
+function macosx-install-go {
+
+    $brew_install go
+}
+
+# ### Ubuntu ###################################################################
+
 function ubuntu-install-go {
 
     ver=$(www_get https://golang.org/dl/ | grep 'linux-amd64.tar.gz' | grep -Eo '[0-9]+\.[0-9]+(\.[0-9]+)?' | sortvr | head -n 1)
