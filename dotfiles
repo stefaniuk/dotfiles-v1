@@ -6,13 +6,14 @@
 ################################################################################
 # variables
 
-REPOSITORY="dotfiles"
-GITHUB_ACCOUNT=${GITHUB_ACCOUNT-stefaniuk}
-BITBUCKET_ACCOUNT=${BITBUCKET_ACCOUNT-stefaniuk}
-GITLAB_ACCOUNT=${GITLAB_ACCOUNT-stefaniuk}
-USER_NAME=${USER_NAME-Daniel Stefaniuk}
-USER_EMAIL=${USER_EMAIL-daniel.stefaniuk@gmail.com}
 DIR=~
+USER_NAME=${USER_NAME:-Daniel Stefaniuk}
+USER_EMAIL=${USER_EMAIL:-daniel.stefaniuk@gmail.com}
+GITHUB_ACCOUNT=${GITHUB_ACCOUNT:-stefaniuk}
+BITBUCKET_ACCOUNT=${BITBUCKET_ACCOUNT:-stefaniuk}
+GITLAB_ACCOUNT=${GITLAB_ACCOUNT:-stefaniuk}
+BASH_PROMPT_SHOW_GIT=${BASH_PROMPT_SHOW_GIT:-true}
+REPOSITORY="dotfiles"
 
 program_dir=$(cd "$(dirname "$0" 2> /dev/null)"; pwd)
 
