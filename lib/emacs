@@ -1,7 +1,15 @@
 #!/bin/bash
 
+# ### Mac OS X #################################################################
+
+function macosx-install-emacs {
+
+    $cask_install emacs
+}
+
+# ### Ubuntu ###################################################################
+
 function ubuntu-install-emacs {
 
-    $apt_get_install \
-        emacs
+    $apt_get_install emacs
 }

@@ -45,6 +45,7 @@ function install-developer-bundle {
         chrome \
         directory \
         docker \
+        emacs \
         gradle \
         groovy \
         java \
