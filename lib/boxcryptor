@@ -19,7 +19,7 @@ function ubuntu-install-boxcryptor {
         --download-dir $DIR/usr/applications/boxcryptor
     (
         cd $DIR/usr/applications/boxcryptor
-        tar -zxf Boxcryptor_Portable_Linux64.tar.gz
+        tar -xf Boxcryptor_Portable_Linux64.tar.gz
         rm Boxcryptor_Portable_Linux64.tar.gz
     )
     cp $DIR/lib/resources/boxcryptor/boxcryptor.png $DIR/usr/applications/boxcryptor
