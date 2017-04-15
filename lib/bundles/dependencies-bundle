@@ -39,9 +39,10 @@ function ubuntu-install-dependencies-bundle {
         xz-utils
 }
 
+# ### common ###################################################################
+
 function install-dependencies-bundle {
 
     run_install \
-        git \
-        vault
+        git
 }
