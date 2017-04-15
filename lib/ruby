@@ -1,11 +1,17 @@
 #!/bin/bash
 
+# ### Ubuntu ###################################################################
+
 function ubuntu-install-ruby {
 
-    $apt_get_install \
-        ruby-full
-    sudo gem install \
-        rubygems-update
+    $apt_get_install ruby-full
+}
+
+# ### common ###################################################################
+
+function install-ruby {
+
+    sudo gem install rubygems-update
     sudo update_rubygems
     sudo gem update --system
 }

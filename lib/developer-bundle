@@ -34,7 +34,8 @@ function ubuntu-install-developer-bundle {
         nfs-kernel-server \
         zsh
     run_install \
-        remmina
+        remmina \
+        ruby
 }
 
 # ### common ###################################################################
@@ -58,6 +59,7 @@ function install-developer-bundle {
         node-packages \
         packer \
         pgadmin \
+        ruby-packages \
         scala \
         smartgit \
         subl \
@@ -83,6 +85,7 @@ function config-developer-bundle {
         node \
         node-packages \
         packer \
+        ruby \
         scala \
         smartgit \
         subl \
