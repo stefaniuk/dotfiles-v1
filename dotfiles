@@ -261,17 +261,21 @@ function run_install {
         [ -f $DIR/lib/$app ] && (
             # source the requested installation script
             . $DIR/lib/$app $*
-            # check if installation function exists
-            local func=
+            # check if system specific installation function exists
+            local func_sys_spec=
             if type -t "$DIST-install-$app" | grep -q "^function$"; then
-                func="$DIST-install-$app"
-            elif type -t "install-$app" | grep -q "^function$"; then
-                func="install-$app"
+                func_sys_spec="$DIST-install-$app"
             fi
-            # run the installation function
-            if [ -n "$func" ]; then
+            # check if generic installation function exists
+            local func_gen=
+            if type -t "install-$app" | grep -q "^function$"; then
+                func_gen="install-$app"
+            fi
+            # run the installation functions
+            if [ -n "$func_sys_spec" ] || [ -n "$func_gen" ]; then
                 echo $app | grep -q -- "-bundle$" && print_h2 $(echo $app | sed 's/-/ /') || print_h3 $app
-                $func $*
+                [ -n "$func_sys_spec" ] && $func_sys_spec $*
+                [ -n "$func_gen" ] && $func_gen $*
             fi
         )
         install_already_processed="$install_already_processed,$app"
@@ -300,17 +304,21 @@ function run_config {
         [ -f $DIR/lib/$app ] && (
             # source the requested configuration script
             . $DIR/lib/$app $*
-            # check if configuration function exists
-            local func=
+            # check if system specific configuration function exists
+            local func_sys_spec=
             if type -t "$DIST-config-$app" | grep -q "^function$"; then
-                func="$DIST-config-$app"
-            elif type -t "config-$app" | grep -q "^function$"; then
-                func="config-$app"
+                func_sys_spec="$DIST-config-$app"
             fi
-            # run the configuration function
-            if [ -n "$func" ]; then
+            # check if generic configuration function exists
+            local func_gen=
+            if type -t "config-$app" | grep -q "^function$"; then
+                func_gen="config-$app"
+            fi
+            # run the configuration functions
+            if [ -n "$func_sys_spec" ] || [ -n "$func_gen" ]; then
                 echo $app | grep -q -- "-bundle$" && print_h2 $(echo $app | sed 's/-/ /') || print_h3 $app
-                $func $*
+                [ -n "$func_sys_spec" ] && $func_sys_spec $*
+                [ -n "$func_gen" ] && $func_gen $*
             fi
         )
         config_already_processed="$config_already_processed,$app"

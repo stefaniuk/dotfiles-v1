@@ -4,8 +4,7 @@
 
 function macosx-install-docker {
 
-    $cask_install \
-        docker
+    $cask_install docker
 }
 
 # ### Ubuntu ###################################################################
@@ -15,9 +14,8 @@ function ubuntu-install-docker {
     sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
     sudo sh -c "echo 'deb http://apt.dockerproject.org/repo ubuntu-$PSEUDO_NAME main' > /etc/apt/sources.list.d/docker.list"
     $apt_get_update
-    $apt_get_install \
-        docker-engine
-    ver=$(www_get https://github.com/docker/compose | grep '/docker/compose/tree/' | egrep '/[0-9]+\.[0-9]+\.[0-9]+"' | egrep -o '[0-9]+\.[0-9]+\.[0-9]+' | sortvr | head -n 1)
+    $apt_get_install docker-engine
+    ver=$(www_get https://github.com/docker/compose | grep '/docker/compose/tree/' | grep -E '/[0-9]+\.[0-9]+\.[0-9]+"' | grep -Eo '[0-9]+\.[0-9]+\.[0-9]+' | sortvr | head -n 1)
     sudo curl -SL https://github.com/docker/compose/releases/download/$ver/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
     sudo chmod +x /usr/local/bin/docker-compose
 }
@@ -27,14 +25,7 @@ function ubuntu-install-docker {
 function config-docker {
 
     sudo usermod -aG docker $USER
-
-    # completion
-    local dir
     [ -f /etc/bash_completion ] && dir=/etc/bash_completion.d || dir=/usr/local/etc/bash_completion.d
-    sudo wget \
-        "https://raw.githubusercontent.com/docker/docker/master/contrib/completion/bash/docker" \
-        -O $dir/docker-completion.bash
-    sudo wget \
-        "https://raw.githubusercontent.com/docker/compose/master/contrib/completion/bash/docker-compose" \
-        -O $dir/docker-compose-completion.bash
+    sudo curl -SL "https://raw.githubusercontent.com/docker/docker/master/contrib/completion/bash/docker" -o $dir/docker-completion.bash
+    sudo curl -SL "https://raw.githubusercontent.com/docker/compose/master/contrib/completion/bash/docker-compose" -o $dir/docker-compose-completion.bash
 }

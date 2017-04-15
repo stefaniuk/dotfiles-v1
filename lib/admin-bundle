@@ -4,17 +4,21 @@
 
 function macosx-install-admin-bundle {
 
-    # TODO: Install missing packages
-
     $brew_install \
         ack \
+        coreutils \
+        diffutils \
+        findutils \
         grc \
         htop \
         lnav \
+        lsof \
         mc \
         tcptraceroute \
         tree \
         vim
+    run_install \
+        bash
 }
 
 # ### Ubuntu ###################################################################
@@ -31,7 +35,6 @@ function ubuntu-install-admin-bundle {
         iputils-ping \
         lnav \
         lsof \
-        lynx \
         mc \
         net-tools \
         netcat \
@@ -46,7 +49,8 @@ function ubuntu-install-admin-bundle {
 function config-admin-bundle {
 
     run_config \
-        lynx \
+        bash \
+        mc \
         ssh \
         vim
 }

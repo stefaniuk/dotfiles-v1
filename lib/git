@@ -19,21 +19,11 @@ function ubuntu-install-git {
 function config-git {
 
     cp -fv $DIR/lib/resources/git/.git* $DIR
-
     git config --global user.name "$USER_NAME"
     git config --global user.email "$USER_EMAIL"
-
-    # completion
-    local dir
     [ -f /etc/bash_completion ] && dir=/etc/bash_completion.d || dir=/usr/local/etc/bash_completion.d
-    sudo curl -L \
-        "https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash" \
-        -o $dir/git-completion.bash
-
-    # diff-highlight
+    sudo curl -SL "https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash" -o $dir/git-completion.bash
     sudo rm -f $DIR/usr/bin/diff-highlight
-    curl -L \
-        "https://raw.githubusercontent.com/git/git/master/contrib/diff-highlight/diff-highlight" \
-        -o $DIR/usr/bin/diff-highlight
+    curl -SL "https://raw.githubusercontent.com/git/git/master/contrib/diff-highlight/diff-highlight" -o $DIR/usr/bin/diff-highlight
     chmod u+x $DIR/usr/bin/diff-highlight
 }

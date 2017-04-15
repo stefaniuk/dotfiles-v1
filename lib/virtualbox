@@ -4,9 +4,7 @@
 
 function macosx-install-virtualbox {
 
-    $cask_install \
-        virtualbox \
-        virtualbox-extension-pack
+    $cask_install virtualbox virtualbox-extension-pack
 }
 
 # ### Ubuntu ###################################################################
@@ -17,18 +15,13 @@ function ubuntu-install-virtualbox {
     wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | sudo apt-key add -
     sudo sh -c "echo 'deb http://download.virtualbox.org/virtualbox/debian $PSEUDO_NAME contrib' > /etc/apt/sources.list.d/virtualbox.list"
     $apt_get_update
-    $apt_get_install \
-        virtualbox-5.1
+    $apt_get_install virtualbox-5.1
 }
 
 # ### common ###################################################################
 
 function config-virtualbox {
 
-    # completion
-    local dir
     [ -f /etc/bash_completion ] && dir=/etc/bash_completion.d || dir=/usr/local/etc/bash_completion.d
-    sudo wget \
-        "https://raw.githubusercontent.com/Bash-it/bash-it/master/completion/available/virtualbox.completion.bash" \
-        -O $dir/virtualbox-completion.bash
+    sudo curl -SL "https://raw.githubusercontent.com/Bash-it/bash-it/master/completion/available/virtualbox.completion.bash" -o $dir/virtualbox-completion.bash
 }

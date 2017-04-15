@@ -4,37 +4,36 @@
 
 function macosx-install-vscode {
 
-    $cask_install \
-        visual-studio-code
+    $cask_install visual-studio-code
 }
 
 function macosx-config-vscode {
 
     dir=$DIR/Library/Application\ Support
-    _config
 }
 
 # ### Ubuntu ###################################################################
 
 function ubuntu-install-vscode {
 
-    ver=$(www_get https://code.visualstudio.com/updates | grep 'linux-deb-x64' | egrep -o '[0-9]+\.[0-9]+\.[0-9]+' | sortvr | head -n 1)
-    file_download \
-        --url "https://vscode-update.azurewebsites.net/$ver/linux-deb-x64/stable" \
-        --file "vscode-$ver.deb"
-    sudo dpkg -i vscode-$ver.deb
-    rm vscode-$ver.deb
+    ver=$(www_get https://code.visualstudio.com/updates | grep -Eo 'v[0-9]+_[0-9]+' | sortvr | head -n 1)
+    # TODO: Download Visual Studio Code
+    # SEE: https://code.visualstudio.com/docs/setup/linux
+    #file_download \
+    #    --url "https://vscode-update.azurewebsites.net/$ver/linux-deb-x64/stable" \
+    #    --file "vscode-$ver.deb"
+    #sudo dpkg -i vscode-$ver.deb
+    #rm vscode-$ver.deb
 }
 
 function ubuntu-config-vscode {
 
     dir=$DIR/.config
-    _config
 }
 
 # ### common ###################################################################
 
-function _config {
+function config-vscode {
 
     mkdir -p "$dir/Code/User"
     cp -fv $DIR/lib/resources/vscode/settings.json "$dir/Code/User"

@@ -4,8 +4,7 @@
 
 function macosx-install-atom {
 
-    $cask_install \
-        atom
+    $cask_install atom
 }
 
 # ### Ubuntu ###################################################################
@@ -14,8 +13,7 @@ function ubuntu-install-atom {
 
     $apt_add_repository ppa:webupd8team/atom
     $apt_get_update
-    $apt_get_install \
-        atom
+    $apt_get_install atom
 }
 
 # ### common ###################################################################
@@ -24,7 +22,6 @@ function config-atom {
 
     mkdir -p $DIR/.atom
     cp -fv $DIR/lib/resources/atom/config.cson $DIR/.atom
-
     apm install \
         atom-beautify \
         atom-typescript \

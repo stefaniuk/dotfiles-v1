@@ -4,15 +4,14 @@
 
 function macosx-install-vagrant {
 
-    $cask_install \
-        vagrant
+    $cask_install vagrant
 }
 
 # ### Ubuntu ###################################################################
 
 function ubuntu-install-vagrant {
 
-    ver=$(www_get https://www.vagrantup.com/downloads.html | grep 'x86_64.deb' | egrep '/[0-9]+\.[0-9]+\.[0-9]+' | egrep -o '[0-9]+\.[0-9]+\.[0-9]+' | sortvr | head -n 1)
+    ver=$(www_get https://www.vagrantup.com/downloads.html | grep 'x86_64.deb' | grep -E '/[0-9]+\.[0-9]+\.[0-9]+' | grep -Eo '[0-9]+\.[0-9]+\.[0-9]+' | sortvr | head -n 1)
     file_download \
         --url "https://releases.hashicorp.com/vagrant/$ver/vagrant_${ver}_x86_64.deb" \
         --file "vagrant_${ver}_x86_64.deb"
@@ -24,10 +23,6 @@ function ubuntu-install-vagrant {
 
 function config-vagrant {
 
-    # completion
-    local dir
     [ -f /etc/bash_completion ] && dir=/etc/bash_completion.d || dir=/usr/local/etc/bash_completion.d
-    sudo wget \
-        "https://raw.githubusercontent.com/Bash-it/bash-it/master/completion/available/vagrant.completion.bash" \
-        -O $dir/vagrant-completion.bash
+    sudo curl -SL "https://raw.githubusercontent.com/Bash-it/bash-it/master/completion/available/vagrant.completion.bash" -o $dir/vagrant-completion.bash
 }

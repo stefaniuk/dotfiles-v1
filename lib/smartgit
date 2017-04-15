@@ -4,15 +4,14 @@
 
 function macosx-install-smartgit {
 
-    $cask_install \
-        smartgit
+    $cask_install smartgit
 }
 
 # ### Ubuntu ###################################################################
 
 function ubuntu-install-smartgit {
 
-    ver=$(www_get http://www.syntevo.com/smartgit/download | grep '.tar.gz' | egrep -o '[0-9]+_[0-9]+_[0-9]+' | sortvr | head -n 1)
+    ver=$(www_get http://www.syntevo.com/smartgit/download | grep '.tar.gz' | grep -Eo '[0-9]+_[0-9]+_[0-9]+' | sortvr | head -n 1)
     file_download \
         --url "http://www.syntevo.com/static/smart/download/smartgit/smartgit-linux-$ver.tar.gz" \
         --file "smartgit-linux-$ver.tar.gz"

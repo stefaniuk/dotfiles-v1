@@ -1,6 +1,0 @@
-#!/bin/bash
-
-function config-lynx {
-
-    cp -fv $DIR/lib/resources/lynx/.lynx* $DIR
-}

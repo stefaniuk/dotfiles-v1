@@ -4,8 +4,7 @@
 
 function macosx-install-boxcryptor {
 
-    $cask_install \
-        boxcryptor
+    $cask_install boxcryptor
 }
 
 # ### Ubuntu ###################################################################

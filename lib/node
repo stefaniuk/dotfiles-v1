@@ -4,26 +4,26 @@
 
 function macosx-install-node {
 
-    $brew_install \
-        node
-    sudo npm update -g
+    $brew_install node
 }
 
 # ### Ubuntu ###################################################################
 
 function ubuntu-install-node {
 
-    curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
-    $apt_get_install \
-        nodejs
-    sudo npm update -g
+    curl -SL https://deb.nodesource.com/setup_6.x | sudo -E bash -
+    $apt_get_install nodejs
 }
 
 # ### common ###################################################################
 
+function install-node {
+
+    sudo npm update -g
+}
+
 function config-node {
 
-    local dir
     [ -f /etc/bash_completion ] && dir=/etc/bash_completion.d || dir=/usr/local/etc/bash_completion.d
     sudo /bin/bash -c "npm completion > $dir/node-completion.bash"
 }

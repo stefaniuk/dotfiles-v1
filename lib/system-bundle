@@ -4,14 +4,14 @@
 
 function macosx-install-system-bundle {
 
-    # TODO: configure below packages
-
-    $cask_install \
-        seil \
-        karabiner \
-        bettertouchtool \
-        witch \
-        moom
+    :
+    # TODO
+    #$cask_install \
+    #    seil \
+    #    karabiner \
+    #    bettertouchtool \
+    #    witch \
+    #    moom
 }
 
 # ### Ubuntu ###################################################################
@@ -27,4 +27,13 @@ function ubuntu-install-system-bundle {
         dialog \
         locales \
         software-properties-common
+}
+
+# ### common ###################################################################
+
+function config-dependencies-bundle {
+
+    run_config \
+        locale \
+        timezone
 }

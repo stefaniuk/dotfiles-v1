@@ -4,8 +4,7 @@
 
 function macosx-install-megasync {
 
-    $cask_install \
-        megasync
+    $cask_install megasync
 }
 
 # ### Ubuntu ###################################################################

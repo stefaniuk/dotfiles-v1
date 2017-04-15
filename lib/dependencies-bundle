@@ -7,7 +7,6 @@ function macosx-install-dependencies-bundle {
     $brew_install \
         bc \
         binutils \
-        curl \
         expect \
         openssl \
         pcre \
@@ -19,7 +18,6 @@ function macosx-install-dependencies-bundle {
         xz
     sudo easy_install \
         Pygments
-
     run_install \
         git
 }
@@ -31,7 +29,6 @@ function ubuntu-install-dependencies-bundle {
     $apt_get_install \
         bc \
         binutils \
-        curl \
         expect \
         openssl \
         pcregrep \
@@ -42,17 +39,6 @@ function ubuntu-install-dependencies-bundle {
         unzip \
         wget \
         xz-utils
-
     run_install \
         git
-}
-
-# ### common ###################################################################
-
-function config-dependencies-bundle {
-
-    run_config \
-        git \
-        locale \
-        timezone
 }

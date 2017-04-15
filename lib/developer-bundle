@@ -4,33 +4,21 @@
 
 function macosx-install-developer-bundle {
 
-    # TODO: Install missing packages
-
     $brew_install \
+        byobu \
         git-flow \
         gpg2 \
         gtypist \
         irssi \
         zsh
-
     run_install \
-        ant \
-        atom \
-        docker \
-        gradle \
-        groovy \
-        java \
-        maven \
-        node \
-        node-packages \
-        packer \
-        scala \
-        smartgit \
-        subl \
-        tmux \
-        vagrant \
-        virtualbox \
-        vscode
+        iterm
+}
+
+function macosx-config-developer-bundle {
+
+    run_config \
+        iterm
 }
 
 # ### Ubuntu ###################################################################
@@ -45,6 +33,11 @@ function ubuntu-install-developer-bundle {
         irssi \
         nfs-kernel-server \
         zsh
+}
+
+# ### common ###################################################################
+
+function install-developer-bundle {
 
     run_install \
         ant \
@@ -66,14 +59,13 @@ function ubuntu-install-developer-bundle {
         vscode
 }
 
-# ### common ###################################################################
-
 function config-developer-bundle {
 
     run_config \
         ant \
         atom \
         docker \
+        git \
         gradle \
         groovy \
         java \

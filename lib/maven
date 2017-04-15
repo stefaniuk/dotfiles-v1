@@ -4,7 +4,7 @@
 
 function install-maven {
 
-    ver=$(www_get https://maven.apache.org/download.cgi | grep 'bin.tar.gz' | egrep -o '[0-9]+\.[0-9]+\.[0-9]+' | sortvr | head -n 1)
+    ver=$(www_get https://maven.apache.org/download.cgi | grep 'bin.tar.gz' | grep -Eo '[0-9]+\.[0-9]+\.[0-9]+' | sortvr | head -n 1)
     file_download \
         --url "http://mirrors.ukfast.co.uk/sites/ftp.apache.org/maven/maven-3/$ver/binaries/apache-maven-$ver-bin.tar.gz" \
         --file "apache-maven-$ver-bin.tar.gz"
@@ -18,7 +18,6 @@ function config-maven {
 
     mkdir -p $DIR/.m2
     cp -fv $DIR/lib/resources/maven/settings*.xml $DIR/.m2
-
     cat <<EOF > $DIR/etc/profile.d/maven.sh
 #!/bin/bash
 export PATH=\$PATH:~/usr/applications/maven/bin

@@ -4,14 +4,12 @@
 
 function macosx-install-subl {
 
-    $cask_install \
-        sublime-text
+    $cask_install sublime-text
 }
 
 function macosx-config-subl {
 
     dir=$DIR/Library/Application\ Support/Sublime\ Text\ 3
-    _config
 }
 
 # ### Ubuntu ###################################################################
@@ -20,28 +18,22 @@ function ubuntu-install-subl {
 
     $apt_add_repository ppa:webupd8team/sublime-text-3
     $apt_get_update
-    $apt_get_install \
-        sublime-text-installer
+    $apt_get_install sublime-text-installer
 }
 
 function ubuntu-config-subl {
 
     dir=$DIR/.config/sublime-text-3
-    _config
 }
 
 # ### common ###################################################################
 
-function _config {
+function config-subl {
 
     mkdir -p "$dir/Installed Packages"
     mkdir -p "$dir/Packages/User"
-
     rm -rf "$dir/Packages/User/Package Control*"
-    curl -L \
-        --url "http://sublime.wbond.net/Package Control.sublime-package" \
-        --output "$dir/Installed Packages/Package Control.sublime-package"
-
+    curl -SL "http://sublime.wbond.net/Package Control.sublime-package" -o "$dir/Installed Packages/Package Control.sublime-package"
     cp -fv $DIR/lib/resources/subl/*.sublime* "$dir/Packages/User"
     cp -fv $DIR/lib/resources/subl/$DIST/* "$dir/Packages/User"
 }
