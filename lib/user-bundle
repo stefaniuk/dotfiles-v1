@@ -25,6 +25,7 @@ function install-user-bundle {
     run_install \
         boxcryptor \
         dropbox \
+        enpass \
         megasync \
         xmarks
 }
