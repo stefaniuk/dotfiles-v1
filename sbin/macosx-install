@@ -13,18 +13,14 @@ $cask_install google-drive
 
 #     $cask_install smartsynchronize
 #     $cask_install filezilla
-#     $cask_install sts
 #     $cask_install phpstorm
 #     $cask_install android-studio
 #     $brew_install android-sdk
 #     $brew_install android-ndk
-#     $cask_install pgadmin3
 #     $cask_install rdm
-#     $cask_install apache-directory-studio
 #     $cask_install xquartz wireshark
 #     $cask_install gimp
 
-#     $cask_install xtrafinder
 #     $cask_install firefox --appdir=/Applications
 #     $cask_install firefoxdeveloperedition --appdir=/Applications
 #     $cask_install flash
