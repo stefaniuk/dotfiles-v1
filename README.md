@@ -26,7 +26,8 @@ Most common installation on a workstation
 Minimal installation
 
     curl -L https://raw.githubusercontent.com/stefaniuk/dotfiles/master/dotfiles -o - | /bin/bash -s -- \
-        --config=bash \
+        --install=bash \
+        --config
         --minimal
 
 All files will be installed in the user's home directory.
@@ -47,8 +48,6 @@ This project can be tested in a Docker container predefined. To use this facilit
 TODO
 ----
 
- * Install `iotop` or an equivalent on Mac OS X
- * Refactor installation and configuration files for Mac OS X
  * Configure `htop` by providing `htoprc` file and user's [man](http://www.thegeekstuff.com/2011/09/linux-htop-examples) entry
  * Version `dotfiles`
  * Configure `byobu`
