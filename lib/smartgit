@@ -15,7 +15,7 @@ function ubuntu-install-smartgit {
     file_download \
         --url "http://www.syntevo.com/static/smart/download/smartgit/smartgit-linux-$ver.tar.gz" \
         --file "smartgit-linux-$ver.tar.gz"
-    tar -zxf smartgit-linux-$ver.tar.gz
+    tar -xf smartgit-linux-$ver.tar.gz
     rm -rf $DIR/usr/applications/smartgit
     mv -fv smartgit $DIR/usr/applications/smartgit
     rm smartgit-linux-$ver.tar.gz

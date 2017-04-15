@@ -87,7 +87,6 @@ function config-developer-bundle {
         packer \
         ruby \
         scala \
-        smartgit \
         subl \
         tmux \
         vagrant \
