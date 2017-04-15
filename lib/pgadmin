@@ -1,7 +1,15 @@
 #!/bin/bash
 
+# ### Mac OS X #################################################################
+
+function macosx-install-pgadmin {
+
+    $cask_install pgadmin4
+}
+
+# ### Ubuntu ###################################################################
+
 function ubuntu-install-pgadmin {
 
-    $apt_get_install \
-        pgadmin3
+    $apt_get_install pgadmin3
 }

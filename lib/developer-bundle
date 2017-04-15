@@ -54,6 +54,7 @@ function install-developer-bundle {
         node \
         node-packages \
         packer \
+        pgadmin \
         scala \
         smartgit \
         subl \
