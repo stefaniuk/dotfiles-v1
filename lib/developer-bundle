@@ -12,7 +12,8 @@ function macosx-install-developer-bundle {
         zsh
     run_install \
         github \
-        iterm
+        iterm \
+        mrdesktop
 }
 
 function macosx-config-developer-bundle {
@@ -32,6 +33,8 @@ function ubuntu-install-developer-bundle {
         gtypist \
         nfs-kernel-server \
         zsh
+    run_install \
+        remmina
 }
 
 # ### common ###################################################################

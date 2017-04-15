@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# ### Mac OS X #################################################################
+
+function macosx-install-mrdesktop {
+
+    $cask_install microsoft-remote-desktop-beta
+}
