@@ -8,7 +8,7 @@ function install-maven {
     file_download \
         --url "http://mirrors.ukfast.co.uk/sites/ftp.apache.org/maven/maven-3/$ver/binaries/apache-maven-$ver-bin.tar.gz" \
         --file "apache-maven-$ver-bin.tar.gz"
-    tar -zxf apache-maven-$ver-bin.tar.gz
+    tar -xf apache-maven-$ver-bin.tar.gz
     rm -rf $DIR/usr/applications/maven
     mv -v apache-maven-$ver $DIR/usr/applications/maven
     rm apache-maven-$ver-bin.tar.gz
