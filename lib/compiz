@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# ### Ubuntu ###################################################################
+
 function ubuntu-install-compiz {
 
     $apt_get_install \

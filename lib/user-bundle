@@ -14,6 +14,8 @@ function ubuntu-install-user-bundle {
 
     $apt_get_install \
         pandoc
+    run_install \
+        compiz
 }
 
 # ### common ###################################################################
