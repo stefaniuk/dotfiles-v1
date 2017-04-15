@@ -4,7 +4,7 @@
 
 function macosx-install-java {
 
-    $cask_install java java9-beta
+    $cask_install java
 }
 
 function macosx-config-java {
