@@ -12,6 +12,7 @@ function macosx-install-developer-bundle {
         irssi \
         zsh
     run_install \
+        github \
         iterm
 }
 
