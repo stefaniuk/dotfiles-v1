@@ -1,32 +1,34 @@
 #!/bin/bash
 
+# ### Mac OS X #################################################################
+
+function macosx-install-vim {
+
+    $brew_install vim
+}
+
+# ### Ubuntu ###################################################################
+
+function ubuntu-install-vim {
+
+    $apt_get_install vim
+}
+
+# ### common ###################################################################
+
 function config-vim {
 
     cp -fv $DIR/lib/resources/vim/.vimrc $DIR
     mkdir -p $DIR/.vim/{autoload,bundle}
-    #cp -Rfv $DIR/lib/resources/vim/plugin $DIR/.vim
-
-    # vundle - plugin manager
-    if [ ! -d $DIR/.vim/bundle/vundle ]; then
-        git clone https://github.com/gmarik/Vundle.vim.git $DIR/.vim/bundle/vundle
-    else
-        (cd $DIR/.vim/bundle/vundle; git pull)
-    fi
-    # pathogen - plugin manager
-    wget \
-        https://raw.githubusercontent.com/tpope/vim-pathogen/master/autoload/pathogen.vim \
-        -O $DIR/.vim/autoload/pathogen.vim
-
-    # solarized
-    if [ ! -d $DIR/.vim/bundle/solarized ]; then
-        git clone https://github.com/altercation/vim-colors-solarized.git $DIR/.vim/bundle/solarized
-    else
-        (cd $DIR/.vim/bundle/solarized; git pull)
-    fi
-    # nerdtree
-    #if [ ! -d $DIR/.vim/bundle/nerdtree ]; then
-    #    git clone https://github.com/scrooloose/nerdtree.git $DIR/.vim/bundle/nerdtree
-    #else
-    #    (cd $DIR/.vim/bundle/nerdtree; git pull)
-    #fi
+    cp -Rfv $DIR/lib/resources/vim/plugin $DIR/.vim
+    curl -SL "https://raw.githubusercontent.com/tpope/vim-pathogen/master/autoload/pathogen.vim" -o $DIR/.vim/autoload/pathogen.vim
+    [ ! -d $DIR/.vim/bundle/vundle ] \
+        && git clone https://github.com/gmarik/Vundle.vim.git $DIR/.vim/bundle/vundle \
+        || (cd $DIR/.vim/bundle/vundle; git pull)
+    [ ! -d $DIR/.vim/bundle/solarized ] \
+        && git clone https://github.com/altercation/vim-colors-solarized.git $DIR/.vim/bundle/solarized \
+        || (cd $DIR/.vim/bundle/solarized; git pull)
+    [ ! -d $DIR/.vim/bundle/nerdtree ] \
+        && git clone https://github.com/scrooloose/nerdtree.git $DIR/.vim/bundle/nerdtree \
+        || (cd $DIR/.vim/bundle/nerdtree; git pull)
 }

@@ -14,8 +14,7 @@ function macosx-install-admin-bundle {
         lnav \
         lsof \
         tcptraceroute \
-        tree \
-        vim
+        tree
 }
 
 # ### Ubuntu ###################################################################
@@ -36,8 +35,7 @@ function ubuntu-install-admin-bundle {
         netcat \
         strace \
         traceroute \
-        tree \
-        vim
+        tree
 }
 
 # ### common ###################################################################
@@ -46,7 +44,8 @@ function install-admin-bundle {
 
     run_install \
         bash \
-        mc
+        mc \
+        vim
 }
 
 function config-admin-bundle {
