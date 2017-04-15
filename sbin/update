@@ -3,21 +3,19 @@
 # ### Mac OS X #################################################################
 
 if [ $DIST = "macosx" ]; then
-
-    print_h2 "Lists of packages"
+    print_h2 "System packages"
+    $mas_upgrade
+    print_h2 "Homebrew metadata"
     $brew_update
-    print_h2 "Packages"
+    print_h2 "Homebrew packages"
     $brew_upgrade
-
 fi
 
 # ### Ubuntu ###################################################################
 
 if [ $DIST = "ubuntu" ]; then
-
-    print_h2 "Lists of packages"
+    print_h2 "System metadata"
     $apt_get_update
-    print_h2 "Packages"
+    print_h2 "System packages"
     $apt_get_upgrade
-
 fi

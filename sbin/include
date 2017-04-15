@@ -3,14 +3,15 @@
 # ### Mac OS X #################################################################
 
 if [ $DIST = "macosx" ]; then
-
     brew_update="brew update --verbose"
     brew_upgrade="brew upgrade --verbose"
     brew_tap="brew tap"
     brew_install="brew install --force --verbose"
     cask_install="brew cask install --force --verbose"
+    mas_upgrade="mas upgrade"
+    mas_install="mas install"
     if ! which brew > /dev/null; then
-        softwareupdate --install -all
+        #softwareupdate --install -all
         if ! xcode-select -p | grep '/Applications/Xcode.app/Contents/Developer' > /dev/null; then
             xcode-select --install
             sudo xcodebuild -license accept
@@ -19,17 +20,18 @@ if [ $DIST = "macosx" ]; then
         $brew_tap caskroom/cask
         $brew_tap caskroom/versions
     fi
-
+    if ! which mas > /dev/null; then
+        $brew_install mas # SEE: https://github.com/mas-cli/mas
+        $mas_upgrade
+    fi
 fi
 
 # ### Ubuntu ###################################################################
 
 if [ $DIST = "ubuntu" ]; then
-
     DEBIAN_FRONTEND=noninteractive
     apt_get_update="sudo apt-get --yes update"
     apt_get_upgrade="sudo apt-get --yes upgrade"
     apt_get_install="sudo apt-get --yes --ignore-missing --no-install-recommends install"
     apt_add_repository="sudo add-apt-repository --yes"
-
 fi

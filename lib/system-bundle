@@ -4,8 +4,6 @@
 
 function macosx-install-system-bundle {
 
-    $brew_install \
-        mas
     $cask_install \
         bettertouchtool \
         caffeine \

@@ -5,7 +5,7 @@
 function macosx-install-moom {
 
     id=$(mas search Moom | awk '{ print $1 }')
-    mas install $id
+    $mas_install $id
 }
 
 function macosx-config-moom {
