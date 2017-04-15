@@ -8,7 +8,7 @@ function install-ant {
     file_download \
         --url "http://mirrors.ukfast.co.uk/sites/ftp.apache.org//ant/binaries/apache-ant-$ver-bin.tar.gz" \
         --file "apache-ant-$ver-bin.tar.gz"
-    tar -zxf apache-ant-$ver-bin.tar.gz
+    tar -xf apache-ant-$ver-bin.tar.gz
     rm -rf $DIR/usr/applications/ant
     mv -v apache-ant-$ver $DIR/usr/applications/ant
     rm apache-ant-$ver-bin.tar.gz
