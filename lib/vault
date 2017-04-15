@@ -27,7 +27,7 @@ function ubuntu-install-vault {
 function install-vault {
 
     unzip $file > /dev/null
-    rm -rf $DIR/usr/bin/vault
-    mv -fv vault $DIR/usr/bin/vault
+    rm -rf /usr/local/bin/vault
+    mv -fv vault /usr/local/bin/vault
     rm $file
 }
