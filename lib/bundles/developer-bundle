@@ -12,7 +12,7 @@ function macosx-install-developer-bundle {
     run_install \
         github \
         iterm \
-        mrdesktop
+        remote-desktop
 }
 
 function macosx-config-developer-bundle {

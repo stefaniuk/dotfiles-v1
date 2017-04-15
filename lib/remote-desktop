@@ -2,7 +2,7 @@
 
 # ### Mac OS X #################################################################
 
-function macosx-install-mrdesktop {
+function macosx-install-remote-desktop {
 
     $cask_install microsoft-remote-desktop-beta
 }
