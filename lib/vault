@@ -1,0 +1,33 @@
+#!/bin/bash
+
+# ### Mac OS X #################################################################
+
+function macosx-install-vault {
+
+    ver=$(www_get https://www.vaultproject.io/downloads.html | grep '_darwin_amd64.zip' | grep -Eo '[0-9]+\.[0-9]+\.[0-9]+' | sortvr | head -n 1)
+    file=vault_${ver}_darwin_amd64.zip
+    file_download \
+        --url "https://releases.hashicorp.com/vault/$ver/vault_${ver}_darwin_amd64.zip" \
+        --file $file
+}
+
+# ### Ubuntu ###################################################################
+
+function ubuntu-install-vault {
+
+    ver=$(www_get https://www.vaultproject.io/downloads.html | grep '_linux_amd64.zip' | grep -Eo '[0-9]+\.[0-9]+\.[0-9]+' | sortvr | head -n 1)
+    file=vault_${ver}_linux_amd64.zip
+    file_download \
+        --url "https://releases.hashicorp.com/vault/$ver/vault_${ver}_linux_amd64.zip" \
+        --file $file
+}
+
+# ### common ###################################################################
+
+function install-vault {
+
+    unzip $file > /dev/null
+    rm -rf $DIR/usr/bin/vault
+    mv -fv vault $DIR/usr/bin/vault
+    rm $file
+}

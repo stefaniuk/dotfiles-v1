@@ -18,8 +18,6 @@ function macosx-install-dependencies-bundle {
         xz
     sudo easy_install \
         Pygments
-    run_install \
-        git
 }
 
 # ### Ubuntu ###################################################################
@@ -39,6 +37,11 @@ function ubuntu-install-dependencies-bundle {
         unzip \
         wget \
         xz-utils
+}
+
+function install-dependencies-bundle {
+
     run_install \
-        git
+        git \
+        vault
 }
