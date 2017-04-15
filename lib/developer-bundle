@@ -62,6 +62,7 @@ function install-developer-bundle {
         ruby-packages \
         scala \
         smartgit \
+        soapui \
         subl \
         tmux \
         vagrant \

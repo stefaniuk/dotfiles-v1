@@ -4,19 +4,18 @@
 
 function macosx-install-soapui {
 
-    $cask_install \
-        soapui
+    $cask_install soapui
 }
 
 # ### Ubuntu ###################################################################
 
 function ubuntu-install-soapui {
 
-    ver=$(www_get https://www.soapui.org/downloads/latest-release.html | grep '.tar.gz' | egrep -o '[0-9]+\.[0-9]+\.[0-9]+' | sortvr | head -n 1)
+    ver=$(www_get https://www.soapui.org/downloads/latest-release.html | grep '.tar.gz' | grep -Eo '[0-9]+\.[0-9]+\.[0-9]+' | sortvr | head -n 1)
     file_download \
         --url "http://cdn01.downloads.smartbear.com/soapui/$ver/SoapUI-$ver-linux-bin.tar.gz" \
         --file "SoapUI-$ver-linux-bin.tar.gz"
-    tar -zxf SoapUI-$ver-linux-bin.tar.gz
+    tar -xf SoapUI-$ver-linux-bin.tar.gz
     rm -rf $DIR/usr/applications/soapui
     mv -fv SoapUI-$ver $DIR/usr/applications/soapui
     rm SoapUI-$ver-linux-bin.tar.gz
