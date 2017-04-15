@@ -4,18 +4,6 @@
 ### REFACTOR ###########################################################################################################
 ########################################################################################################################
 
-if should_config "seil" /Applications/Seil.app/Contents/Library/bin/seil; then
-
-    print_h2 "Configure Seil"
-
-    # configuration
-    /Applications/Seil.app/Contents/Library/bin/seil set keycode_capslock 80
-    /Applications/Seil.app/Contents/Library/bin/seil set enable_capslock 1
-    print_h3 "Open 'System Preferences > Keyboard > Keyboard > Modifier Keys...' and"
-    print_h3 "change 'Caps Lock Key' configuration to 'No Action' to reduce delay."
-
-fi
-
 if should_config "moom" /Applications/Moom.app/Contents/MacOS/Moom; then
 
     print_h2 "Configure Moom"

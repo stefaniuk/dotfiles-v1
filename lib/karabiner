@@ -7,12 +7,15 @@ function macosx-install-karabiner {
     $cask_install karabiner
 }
 
-function config-karabiner {
+function macosx-config-karabiner {
 
+    # TODO: Map CapsLock to 80
     cp -fv $DIR/lib/resources/karabiner/private.xml $DIR/Library/Application\ Support/Karabiner
     /usr/local/bin/karabiner set repeat.initial_wait 250
     /usr/local/bin/karabiner set repeat.wait 33
     /usr/local/bin/karabiner enable custom.remap_caps_lock
     /usr/local/bin/karabiner enable custom.correct_shift_keys
     /usr/local/bin/karabiner reloadxml
+    print_h4 "Open 'System Preferences > Keyboard > Keyboard > Modifier Keys...' and"
+    print_h4 "change 'Caps Lock Key' configuration to 'No Action' to reduce delay."
 }
