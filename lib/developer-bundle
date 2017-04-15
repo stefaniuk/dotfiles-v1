@@ -42,6 +42,7 @@ function install-developer-bundle {
     run_install \
         ant \
         atom \
+        chrome \
         docker \
         gradle \
         groovy \

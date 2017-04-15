@@ -1,10 +1,13 @@
 #!/bin/bash
 
+# ### Mac OS X #################################################################
+
 function macosx-install-chrome {
 
-    $cask_install \
-        google-chrome
+    $cask_install google-chrome
 }
+
+# ### Ubuntu ###################################################################
 
 function ubuntu-install-chrome {
 
