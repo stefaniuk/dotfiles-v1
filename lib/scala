@@ -8,7 +8,7 @@ function install-scala {
     file_download \
         --url "http://downloads.lightbend.com/scala/$ver/scala-$ver.tgz" \
         --file "scala-$ver.tgz"
-    tar -zxf scala-$ver.tgz
+    tar -xf scala-$ver.tgz
     rm -rf $DIR/usr/applications/scala
     mv -v scala-$ver $DIR/usr/applications/scala
     rm scala-$ver.tgz
