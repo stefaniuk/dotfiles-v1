@@ -1,5 +1,21 @@
 #!/bin/bash
 
+# ### Mac OS X #################################################################
+
+function macosx-install-mc {
+
+    $brew_install mc
+}
+
+# ### Ubuntu ###################################################################
+
+function ubuntu-install-mc {
+
+    $apt_get_install mc
+}
+
+# ### common ###################################################################
+
 function config-mc {
 
     mkdir -p $DIR/.config/mc

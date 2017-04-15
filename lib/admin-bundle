@@ -13,7 +13,6 @@ function macosx-install-admin-bundle {
         htop \
         lnav \
         lsof \
-        mc \
         tcptraceroute \
         tree \
         vim
@@ -33,7 +32,6 @@ function ubuntu-install-admin-bundle {
         iputils-ping \
         lnav \
         lsof \
-        mc \
         net-tools \
         netcat \
         strace \
@@ -47,7 +45,8 @@ function ubuntu-install-admin-bundle {
 function install-admin-bundle {
 
     run_install \
-        bash
+        bash \
+        mc
 }
 
 function config-admin-bundle {
