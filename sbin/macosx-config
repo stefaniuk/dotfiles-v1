@@ -4,25 +4,6 @@
 ### REFACTOR ###########################################################################################################
 ########################################################################################################################
 
-if should_config "zsh"; then
-
-    print_h2 "Configure Zsh"
-
-    # configuration
-    sudo file_remove_str "\n$(brew --prefix)/bin/zsh" /etc/shells --multiline
-    sudo bash -c "echo $(brew --prefix)/bin/zsh >> /private/etc/shells"
-
-fi
-
-if should_config "iterm" $DIR/Applications/iTerm.app/Contents/MacOS/iTerm2; then
-
-    print_h2 "Configure iTerm"
-
-    # configuration
-    defaults import com.googlecode.iterm2 $DIR/lib/iterm/com.googlecode.iterm2.plist
-
-fi
-
 if should_config "seil" /Applications/Seil.app/Contents/Library/bin/seil; then
 
     print_h2 "Configure Seil"

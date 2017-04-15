@@ -7,6 +7,14 @@ function macosx-install-zsh {
     $brew_install zsh
 }
 
+function macosx-config-zsh {
+
+    if [ -f $(brew --prefix)/bin/zsh ]; then
+        sudo -E file_remove_str "\n$(brew --prefix)/bin/zsh" /private/etc/shells --multiline
+        sudo bash -c "echo $(brew --prefix)/bin/zsh >> /private/etc/shells"
+    fi
+}
+
 # ### Ubuntu ###################################################################
 
 function ubuntu-install-zsh {
