@@ -16,22 +16,6 @@ if should_config "seil" /Applications/Seil.app/Contents/Library/bin/seil; then
 
 fi
 
-if should_config "karabiner" /Applications/Karabiner.app/Contents/Library/bin/karabiner; then
-
-    print_h2 "Configure Karabiner"
-
-    # configuration
-    cp -f $DIR/lib/karabiner/private.xml /Users/daniel/Library/Application\ Support/Karabiner
-
-    /Applications/Karabiner.app/Contents/Library/bin/karabiner set repeat.initial_wait 333
-    /Applications/Karabiner.app/Contents/Library/bin/karabiner set repeat.wait 33
-    /Applications/Karabiner.app/Contents/Library/bin/karabiner enable custom.remap_caps_lock
-    /Applications/Karabiner.app/Contents/Library/bin/karabiner enable custom.correct_shift_keys
-    /Applications/Karabiner.app/Contents/Library/bin/karabiner disable custom.shifts_to_parentheses
-    /Applications/Karabiner.app/Contents/Library/bin/karabiner reloadxml
-
-fi
-
 if should_config "moom" /Applications/Moom.app/Contents/MacOS/Moom; then
 
     print_h2 "Configure Moom"

@@ -6,12 +6,12 @@ function macosx-install-system-bundle {
 
     $brew_install \
         mas
+    run_install \
+        karabiner
     # TODO
-    #$cask_install \
-    #    seil \
-    #    karabiner \
-    #    bettertouchtool \
-    #    witch \
+    #    seil
+    #    bettertouchtool
+    #    witch
     #    moom
 }
 
