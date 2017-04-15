@@ -43,10 +43,10 @@ function ubuntu-install-developer-bundle {
 function install-developer-bundle {
 
     run_install \
+        adstudio \
         ant \
         atom \
         chrome \
-        directory \
         docker \
         emacs \
         go \
