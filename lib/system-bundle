@@ -4,7 +4,8 @@
 
 function macosx-install-system-bundle {
 
-    :
+    $brew_install \
+        mas
     # TODO
     #$cask_install \
     #    seil \
