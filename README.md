@@ -21,6 +21,7 @@ Most common installation on a workstation
         --update-os \
         --install=all-bundles \
         --config \
+        --customise \
         --load-secrets \
         --sudo
 

@@ -17,9 +17,10 @@ REPOSITORY="dotfiles"
 
 program_dir=$(cd "$(dirname "$0" 2> /dev/null)"; pwd)
 
+arg_update=$(echo "$*" | grep -o -- "--update-os")
 arg_install=$(echo "$*" | grep -o -- "--install")
 arg_config=$(echo "$*" | grep -o -- "--config")
-arg_update=$(echo "$*" | grep -o -- "--update-os")
+arg_customise=$(echo "$*" | grep -o -- "--customise")
 arg_synchronise_only=$(echo "$*" | grep -o -- "--synchronise-only")
 arg_force_download=$(echo "$*" | grep -o -- "--force-download")
 arg_directory=$(echo "$*" | grep -Eo -- "--directory=[-_A-Za-z0-9/]+" | sed "s/--directory=//")
@@ -52,6 +53,7 @@ Options:
     --update-os
     --install={dependencies|system|admin|developer|user}-bundle|all-bundles,app1,app2,...
     --config[=all,app1,app2,...]
+    --customise
     --synchronise-only
     --force-download
     --directory=/dir
@@ -149,11 +151,7 @@ function dotfiles_setup {
     fi
     # check operating system
     print_h2 "Operating system"
-    if [ $DIST != "macosx" ] \
-            && [ $DIST != "ubuntu" ] \
-            && [ $DIST != "debian" ] \
-            && [ $DIST != "centos" ] \
-            && [ $DIST != "scientific" ]; then
+    if [ $DIST != "macosx" ] && [ $DIST != "ubuntu" ]; then
         print_err "Operating system not supported"
     fi
 
@@ -173,20 +171,25 @@ function dotfiles_setup {
     [ -n "$arg_install" ] && (
         print_h1 "Installing..."
         . $DIR/sbin/include $*
-        _dotfiles_setup_install
+        dotfiles_install_apps
     )
     # config
     [ -n "$arg_config" ] && (
         print_h1 "Configuring..."
         . $DIR/sbin/include $*
-        _dotfiles_setup_config
+        dotfiles_config_apps
+    )
+    # customise
+    [ -n "$arg_customise" ] && (
+        print_h1 "Customising..."
+        . $DIR/sbin/include $*
+        dotfiles_customise
     )
     # test
     [ -n "$arg_test" ] && /bin/bash -cli "system_test --skip-selected-tests"
 
     # create dotfiles symlink and copy completion script
     ln -sf $DIR/dotfiles $DIR/usr/bin/dotfiles
-    local dir
     [ -f /etc/bash_completion ] && dir=/etc/bash_completion.d || dir=/usr/local/etc/bash_completion.d
     sudo cp $DIR/lib/resources/dotfiles/dotfiles-completion.bash $dir/dotfiles-completion.bash
 
@@ -203,7 +206,7 @@ function dotfiles_setup {
     [ -n "$arg_user" ] && sudo chown -R $arg_user:$arg_user $DIR
 }
 
-function _dotfiles_setup_install {
+function dotfiles_install_apps {
 
     # install requested bundles
     if should_install "dependencies-bundle" || should_install "all-bundles"; then
@@ -228,31 +231,6 @@ function _dotfiles_setup_install {
     done
 }
 
-function _dotfiles_setup_config {
-
-    # config requested bundles
-    if should_config "dependencies-bundle" || should_config "all-bundles"; then
-        run_config dependencies-bundle
-    fi
-    if should_config "system-bundle" || should_config "all-bundles"; then
-        run_config system-bundle
-    fi
-    if should_config "admin-bundle" || should_config "all-bundles"; then
-        run_config admin-bundle
-    fi
-    if should_config "developer-bundle" || should_config "all-bundles"; then
-        run_config developer-bundle
-    fi
-    if should_config "user-bundle" || should_config "all-bundles"; then
-        run_config user-bundle
-    fi
-
-    # config requested applications
-    for app in $(find $DIR/lib -maxdepth 1 -type f \( ! -iname "*-bundle" \) -exec basename {} \;); do
-        config_app $app
-    done
-}
-
 function install_app {
 
     for app in "$@"; do
@@ -263,9 +241,9 @@ function install_app {
 function should_install {
 
     # check if already installed at this run
-    _is_on_list "$install_already_processed" "$1" && return 1
+    is_on_list "$install_already_processed" "$1" && return 1
 
-    _is_on_list "$arg_install_apps" "$1"
+    is_on_list "$arg_install_apps" "$1"
     return $?
 }
 
@@ -296,6 +274,31 @@ function run_install {
     done
 }
 
+function dotfiles_config_apps {
+
+    # config requested bundles
+    if should_config "dependencies-bundle" || should_config "all-bundles"; then
+        run_config dependencies-bundle
+    fi
+    if should_config "system-bundle" || should_config "all-bundles"; then
+        run_config system-bundle
+    fi
+    if should_config "admin-bundle" || should_config "all-bundles"; then
+        run_config admin-bundle
+    fi
+    if should_config "developer-bundle" || should_config "all-bundles"; then
+        run_config developer-bundle
+    fi
+    if should_config "user-bundle" || should_config "all-bundles"; then
+        run_config user-bundle
+    fi
+
+    # config requested applications
+    for app in $(find $DIR/lib -maxdepth 1 -type f \( ! -iname "*-bundle" \) -exec basename {} \;); do
+        config_app $app
+    done
+}
+
 function config_app {
 
     for app in "$@"; do
@@ -306,9 +309,9 @@ function config_app {
 function should_config {
 
     # check if already configured at this run
-    _is_on_list "$config_already_processed" "$1" && return 1
+    is_on_list "$config_already_processed" "$1" && return 1
 
-    _is_on_list "$arg_config_apps" "$1" || _is_on_list "$arg_config_apps" "all"
+    is_on_list "$arg_config_apps" "$1" || is_on_list "$arg_config_apps" "all"
     return $?
 }
 
@@ -339,7 +342,40 @@ function run_config {
     done
 }
 
-function _is_on_list {
+function dotfiles_customise {
+
+    for task in $(find $DIR/lib/customisations -maxdepth 1 -type f -exec basename {} \;); do
+        run_customise $task
+    done
+}
+
+function run_customise {
+
+    for task in "$@"; do
+        [ -f $DIR/lib/customisations/$task ] && (
+            # source the requested customisations script
+            . $DIR/lib/customisations/$task $*
+            # check if system specific customisations function exists
+            local func_sys_spec=
+            if type -t "$DIST-customise-$task" | grep -q "^function$"; then
+                func_sys_spec="$DIST-customise-$task"
+            fi
+            # check if generic customisations function exists
+            local func_gen=
+            if type -t "customise-$task" | grep -q "^function$"; then
+                func_gen="customise-$task"
+            fi
+            # run the customisations functions
+            if [ -n "$func_sys_spec" ] || [ -n "$func_gen" ]; then
+                print_h3 $task
+                [ -n "$func_sys_spec" ] && $func_sys_spec $*
+                [ -n "$func_gen" ] && $func_gen $*
+            fi
+        )
+    done
+}
+
+function is_on_list {
 
     local list=$1
     local item=$2
