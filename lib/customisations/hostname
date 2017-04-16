@@ -4,17 +4,10 @@
 
 function macosx-customise-hostname {
 
-    [ -z "$HOST_NAME" ] && return 1
+    [ -z "$HOST_NAME" ] && return
     sudo scutil --set ComputerName $HOST_NAME
     sudo scutil --set HostName $HOST_NAME
     sudo scutil --set LocalHostName $HOST_NAME
     sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string $HOST_NAME
     dscacheutil -flushcache
-}
-
-# ### Ubuntu ###################################################################
-
-function ubuntu-customise-hostname {
-
-    :
 }
