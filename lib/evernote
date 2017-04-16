@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# ### Mac OS X #################################################################
+
+function macosx-install-evernote {
+
+    $cask_install evernote
+}
+
+# ### Ubuntu ###################################################################
+
+function ubuntu-install-evernote {
+
+    :
+}
