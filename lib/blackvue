@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# ### Mac OS X #################################################################
+
+function macosx-install-blackvue {
+
+    $cask_install blackvue-viewer
+}
+
+# ### Ubuntu ###################################################################
+
+function ubuntu-install-blackvue {
+
+    :
+}
