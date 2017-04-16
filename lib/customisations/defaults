@@ -4,15 +4,6 @@
 
 function macosx-customise-defaults {
 
-    # # set standby delay to 24 hours (default is 1 hour)
-    # sudo pmset -a standbydelay 86400
-    #
-    # # disable the sound effects on boot
-    # sudo nvram SystemAudioVolume="%80"
-    #
-    # # repeat keyboard keys when held down
-    # defaults write -g ApplePressAndHoldEnabled -bool false
-    #
     # # no animation when new window is created
     # defaults write NSGlobalDomain NSAutomaticWindowAnimationsEnabled -bool false
     #
