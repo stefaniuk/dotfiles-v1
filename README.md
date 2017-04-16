@@ -8,7 +8,7 @@ Supported operating systems are:
 * Mac OS X
 * Ubuntu
 
-However, most of the scripts should work well on the other Linux distributions. If the installation ends with a message _"Operating system not supported"_ see the [`system_detect` function](https://github.com/stefaniuk/dotfiles/blob/master/lib/resources/bash/.bash_system#L3) and examine the following [condition statement](https://github.com/stefaniuk/dotfiles/blob/master/dotfiles#L134-L142).
+Most of the scripts should work well with other Linux distributions. If the installation ends with a message _"Operating system not supported"_ see the [`system_detect` function](https://github.com/stefaniuk/dotfiles/blob/master/lib/resources/bash/.bash_system#L3) and examine the following [condition statement](https://github.com/stefaniuk/dotfiles/blob/master/dotfiles#L153-L156).
 
 Installation
 ------------
@@ -41,7 +41,7 @@ After reloading Bash `dotfiles` command should be available on the command-line.
 Testing
 -------
 
-This project can be tested in a Docker container predefined. To use this facility, please make sure that VirtualBox and Vagrant are installed and available on the command-line.
+This project can be tested in a Docker container provided along with the source code. To use this facility, please make sure that VirtualBox and Vagrant are installed and available on the command-line.
 
     vagrant up
     vagrant ssh
@@ -50,21 +50,27 @@ This project can be tested in a Docker container predefined. To use this facilit
 TODO
 ----
 
- * Configure `htop` by providing `htoprc` file and user's [man](http://www.thegeekstuff.com/2011/09/linux-htop-examples) entry
+ * Install applications in the `/usr/local` directory
+ * Move manuals to their own Git repository
+ * Remap the Caps Lock
+ * [Configure `htop`](http://www.thegeekstuff.com/2011/09/linux-htop-examples)
  * Version `dotfiles`
- * Configure `byobu`
- * Remap the Caps Lock key in Ubuntu
- * Check Paul Irish's [dotfiles](https://github.com/paulirish/dotfiles)
- * Check thoughtbot's [dotfiles](https://github.com/thoughtbot/dotfiles)
- * Check Justin Force's [dotfiles](https://github.com/justinforce/dotfiles)
- * Check Gediminas Morkevicius' [dotfiles](https://github.com/l3pp4rd/dotfiles)
- * Check Keith Smiley's [dotfiles](https://github.com/keith/dotfiles)
- * Explore [bash-it](https://github.com/revans/bash-it)
- * Explore [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh)
- * Explore [Prezto](https://github.com/sorin-ionescu/prezto)
 
 See
 ---
 
+###### Dotfiles
+
+ * [Gediminas Morkevicius](https://github.com/l3pp4rd/dotfiles)
+ * [Justin Force](https://github.com/justinforce/dotfiles)
+ * [Keith Smiley](https://github.com/keith/dotfiles)
  * [Mathias Bynens](https://github.com/mathiasbynens/dotfiles)
  * [Nicolas Gallagher](https://github.com/necolas/dotfiles)
+ * [Paul Irish](https://github.com/paulirish/dotfiles)
+ * [Thoughtbot](https://github.com/thoughtbot/dotfiles)
+
+###### Projects
+
+ * [bash-it](https://github.com/revans/bash-it)
+ * [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh)
+ * [prezto](https://github.com/sorin-ionescu/prezto)
