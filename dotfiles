@@ -121,7 +121,7 @@ function dotfiles_load_secrets {
     for in_file in $(find $DIR/usr/etc -iname '*.enc' 2> /dev/null); do
         echo $in_file
         out_file=$(mktemp $DIR/tmp/tmp.XXXXXXXX)
-        openssl enc -aes-256-cbc -d -in $in_file -out $out_file
+        openssl enc -aes-256-cbc -d -a -in $in_file -out $out_file
         trap "rm -f $out_file" EXIT
         source $out_file
     done
@@ -375,7 +375,7 @@ elif [[ $program_dir == */projects/$REPOSITORY ]] || [[ $program_dir == */projec
     # synchronise with the project content
     dotfiles_synchronise
 fi
-# decrypt files
+# decrypt and load secrets
 [ -n "$arg_load_secrets" ] && dotfiles_load_secrets
 # perform installation and configuration
 dotfiles_setup $*
