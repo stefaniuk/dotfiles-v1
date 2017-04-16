@@ -3,6 +3,7 @@ help:
 	echo "Usage:"
 	echo
 	echo "    make build|create|start|stop|install|test|bash|clean|remove [APT_PROXY|APT_PROXY_SSL=url]"
+	echo "    make encrypt|decrypt FILE=file"
 	echo
 
 build:
@@ -47,5 +48,11 @@ clean:
 
 remove: clean
 	docker rmi dotfiles > /dev/null 2>&1 ||:
+
+encrypt:
+	openssl enc -aes-256-cbc -salt -a -in ${FILE} -out ${FILE}.enc
+
+decrypt:
+	openssl enc -aes-256-cbc -d -a -in ${FILE} -out $(shell echo ${FILE} | sed 's/.enc//')
 
 .SILENT:
