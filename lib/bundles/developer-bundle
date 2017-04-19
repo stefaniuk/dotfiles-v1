@@ -45,6 +45,7 @@ function install-developer-bundle {
         ant \
         atom \
         chrome \
+        dbeaver \
         docker \
         emacs \
         go \
