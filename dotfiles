@@ -29,6 +29,7 @@ arg_minimal=$(echo "$*" | grep -o -- "--minimal")
 arg_load_secrets=$(echo "$*" | grep -o -- "--load-secrets")
 arg_sudo=$(echo "$*" | grep -o -- "--sudo")
 arg_test=$(echo "$*" | grep -o -- "--test")
+arg_debug=$(echo "$*" | grep -o -- "--debug")
 arg_help=$(echo "$*" | grep -o -- "--help")
 
 arg_install_apps=$(echo "$*" | grep -o -- "--install=[-_,A-Za-z0-9]*" | sed "s/--install=//")
@@ -38,6 +39,8 @@ config_already_processed=""
 if [ -z "$arg_config_apps" ] && [ -n "$arg_install_apps" ]; then
     arg_config_apps=$arg_install_apps
 fi
+
+[ -n "$arg_debug" ] && set -x
 
 ################################################################################
 # functions
@@ -62,6 +65,7 @@ Options:
     --load-secrets
     --sudo
     --test
+    --debug
     --help
 "
 
