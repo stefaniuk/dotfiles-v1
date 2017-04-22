@@ -35,6 +35,8 @@ function ubuntu-install-admin-bundle {
         lsof \
         net-tools \
         netcat \
+        nmap \
+        sshpass \
         strace \
         sysstat \
         traceroute \
