@@ -252,7 +252,7 @@ function should_install {
 function run_install {
 
     for app in "$@"; do
-        [ -f $DIR/lib/$app ] && (
+        ([ -f $DIR/lib/$app ] || [ -f $DIR/lib/bundles/$app ]) && (
             # source the requested installation script
             echo $app | grep -q -- "-bundle$" && . $DIR/lib/bundles/$app $* || . $DIR/lib/$app $*
             # check if system specific installation function exists
@@ -320,7 +320,7 @@ function should_config {
 function run_config {
 
     for app in "$@"; do
-        [ -f $DIR/lib/$app ] && (
+        ([ -f $DIR/lib/$app ] || [ -f $DIR/lib/bundles/$app ]) && (
             # source the requested configuration script
             echo $app | grep -q -- "-bundle$" && . $DIR/lib/bundles/$app $* || . $DIR/lib/$app $*
             # check if system specific configuration function exists
