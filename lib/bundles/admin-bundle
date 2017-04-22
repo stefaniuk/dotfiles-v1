@@ -36,6 +36,7 @@ function ubuntu-install-admin-bundle {
         net-tools \
         netcat \
         strace \
+        sysstat \
         traceroute \
         tree
 }
