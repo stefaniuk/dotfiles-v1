@@ -24,7 +24,7 @@ function ubuntu-install-docker {
 
 function config-docker {
 
-    sudo usermod -aG docker $USER
+    [ $OS == "linux" ] && sudo usermod -aG docker $USER
     [ -f /etc/bash_completion ] && dir=/etc/bash_completion.d || dir=/usr/local/etc/bash_completion.d
     sudo curl -SL "https://raw.githubusercontent.com/docker/docker/master/contrib/completion/bash/docker" -o $dir/docker-completion.bash
     sudo curl -SL "https://raw.githubusercontent.com/docker/compose/master/contrib/completion/bash/docker-compose" -o $dir/docker-compose-completion.bash
