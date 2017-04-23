@@ -14,6 +14,7 @@
     ]
   editor:
     autoIndentOnPaste: false
+    fontSize: 12
     showInvisibles: true
     tabLength: 4
   "file-icons":
@@ -22,3 +23,9 @@
     showIconsInEditorGutter: true
   "highlight-selected":
     lightTheme: true
+  "linter-ui-default":
+    showPanel: true
+  minimap:
+    autoToggle: false
+  "tree-view":
+    hideVcsIgnoredFiles: false
