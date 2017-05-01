@@ -399,6 +399,12 @@ function is_on_list {
 [ -n "$arg_sudo" ] && sudo_keep_alive
 [ -n "$arg_directory" ] && DIR=$arg_directory
 
+# use gosu
+if ! whereis sudo > /dev/null 2>&1 && whereis gosu > /dev/null 2>&1; then
+    printf '#!/bin/bash\ngoso root $*\n' > /usr/bin/sudo
+    chmod +x /usr/bin/sudo
+fi
+
 # use colours in terminal
 if [[ $COLORTERM = gnome-* && $TERM = xterm ]] && infocmp gnome-256color > /dev/null 2>&1; then
     export TERM="gnome-256color"
