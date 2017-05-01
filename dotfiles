@@ -400,7 +400,7 @@ function is_on_list {
 [ -n "$arg_directory" ] && DIR=$arg_directory
 
 # use gosu
-if ! whereis sudo > /dev/null 2>&1 && whereis gosu > /dev/null 2>&1; then
+if ! which sudo > /dev/null 2>&1 && which gosu > /dev/null 2>&1; then
     printf '#!/bin/bash\ngoso root $*\n' > /usr/bin/sudo
     chmod +x /usr/bin/sudo
 fi
