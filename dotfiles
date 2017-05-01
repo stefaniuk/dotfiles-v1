@@ -401,7 +401,7 @@ function is_on_list {
 
 # use gosu
 if ! which sudo > /dev/null 2>&1 && which gosu > /dev/null 2>&1; then
-    printf '#!/bin/bash\ngoso root $*\n' > /usr/bin/sudo
+    printf '#!/bin/bash\ngosu root $*\n' > /usr/bin/sudo
     chmod +x /usr/bin/sudo
 fi
 
