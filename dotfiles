@@ -132,6 +132,34 @@ function dotfiles_setup {
         print_err "Operating system not supported"
     fi
 
+    os_common
+    os_initialise
+    [ -n "$arg_update" ]    && ( os_update )
+    [ -n "$arg_install" ]   && ( os_install_apps )
+    [ -n "$arg_config" ]    && ( os_config_apps )
+    [ -n "$arg_customise" ] && ( os_customise )
+    [ -n "$arg_test" ]      && ( os_test )
+
+    # create dotfiles symlink and copy completion script
+    ln -sf $DIR/dotfiles $DIR/usr/bin/dotfiles
+    [ -f /etc/bash_completion ] && dir=/etc/bash_completion.d || dir=/usr/local/etc/bash_completion.d
+    sudo cp $DIR/lib/resources/dotfiles/dotfiles-completion.bash $dir/dotfiles-completion.bash
+
+    # remove not needed resources
+    print_h1 "Cleaning up..."
+    rm -rf $DIR/{.gitignore,Dockerfile,LICENCE,Makefile,README.md,Vagrantfile,provision.sh}
+    find $DIR/{bin,etc,lib,sbin,tmp,usr} -type f -name '.gitkeep' -exec rm -f {} +
+    if [ -n "$arg_minimal" ]; then
+        rm -rfv $DIR/{lib,sbin,tmp/*,usr/man,.bash_asserts,.*profile.old}
+        find $DIR/{bin,usr/bin}/* -iname '*.test' -exec rm -rfv {} +
+    fi
+
+    # set correct ownership
+    [ -n "$arg_user" ] && sudo chown -R $arg_user:$arg_user $DIR
+}
+
+function os_common {
+
     if [ $DIST = "macosx" ]; then
         brew_update="brew update --verbose"
         brew_upgrade="brew upgrade --verbose"
@@ -162,73 +190,41 @@ function dotfiles_setup {
         apt_get_install="sudo apt-get --yes --ignore-missing --no-install-recommends install"
         apt_add_repository="sudo add-apt-repository --yes"
     fi
-
-    # initialise
-    (
-        print_h1 "Initialising..."
-        if [ $DIST = "ubuntu" ]; then
-            if [ -f /etc/sudoers ] && ( sudo cat /etc/sudoers | grep "env_reset" > /dev/null || sudo cat /etc/sudoers | grep "secure_path" > /dev/null ); then
-                print_h2 "Sudo"
-                sudo $DIR/bin/file_remove_str "Defaults[[:space:]]+env_reset" /etc/sudoers
-                sudo $DIR/bin/file_remove_str "Defaults[[:space:]]+secure_path=\".*\"" /etc/sudoers
-            fi
-        fi
-    )
-    # update
-    [ -n "$arg_update" ] && (
-        print_h1 "Updating..."
-        if [ $DIST = "macosx" ]; then
-            print_h2 "System packages"
-            $mas_upgrade
-            print_h2 "Homebrew metadata"
-            $brew_update
-            print_h2 "Homebrew packages"
-            $brew_upgrade
-        fi
-        if [ $DIST = "ubuntu" ]; then
-            print_h2 "System metadata"
-            $apt_get_update
-            print_h2 "System packages"
-            $apt_get_upgrade
-        fi
-    )
-    # install
-    [ -n "$arg_install" ] && (
-        print_h1 "Installing..."
-        dotfiles_install_apps
-    )
-    # config
-    [ -n "$arg_config" ] && (
-        print_h1 "Configuring..."
-        dotfiles_config_apps
-    )
-    # customise
-    [ -n "$arg_customise" ] && (
-        print_h1 "Customising..."
-        dotfiles_customise
-    )
-    # test
-    [ -n "$arg_test" ] && /bin/bash -cli "system_test --skip-selected-tests"
-
-    # create dotfiles symlink and copy completion script
-    ln -sf $DIR/dotfiles $DIR/usr/bin/dotfiles
-    [ -f /etc/bash_completion ] && dir=/etc/bash_completion.d || dir=/usr/local/etc/bash_completion.d
-    sudo cp $DIR/lib/resources/dotfiles/dotfiles-completion.bash $dir/dotfiles-completion.bash
-
-    # remove not needed resources
-    print_h1 "Cleaning up..."
-    rm -rf $DIR/{.gitignore,Dockerfile,LICENCE,Makefile,README.md,Vagrantfile,provision.sh}
-    find $DIR/{bin,etc,lib,sbin,tmp,usr} -type f -name '.gitkeep' -exec rm -f {} +
-    if [ -n "$arg_minimal" ]; then
-        rm -rfv $DIR/{lib,sbin,tmp/*,usr/man,.bash_asserts,.*profile.old}
-        find $DIR/{bin,usr/bin}/* -iname '*.test' -exec rm -rfv {} +
-    fi
-
-    # set correct ownership
-    [ -n "$arg_user" ] && sudo chown -R $arg_user:$arg_user $DIR
 }
 
-function dotfiles_install_apps {
+function os_initialise {
+
+    if [ $DIST = "ubuntu" ]; then
+        if [ -f /etc/sudoers ] && ( sudo cat /etc/sudoers | grep "env_reset" > /dev/null || sudo cat /etc/sudoers | grep "secure_path" > /dev/null ); then
+            sudo $DIR/bin/file_remove_str "Defaults[[:space:]]+env_reset" /etc/sudoers
+            sudo $DIR/bin/file_remove_str "Defaults[[:space:]]+secure_path=\".*\"" /etc/sudoers
+        fi
+    fi
+}
+
+function os_update {
+
+    print_h1 "Updating..."
+
+    if [ $DIST = "macosx" ]; then
+        print_h2 "System packages"
+        $mas_upgrade
+        print_h2 "Homebrew metadata"
+        $brew_update
+        print_h2 "Homebrew packages"
+        $brew_upgrade
+    fi
+    if [ $DIST = "ubuntu" ]; then
+        print_h2 "System metadata"
+        $apt_get_update
+        print_h2 "System packages"
+        $apt_get_upgrade
+    fi
+}
+
+function os_install_apps {
+
+    print_h1 "Installing..."
 
     # install requested bundles
     if should_install "dependencies-bundle" || should_install "all-bundles"; then
@@ -253,6 +249,47 @@ function dotfiles_install_apps {
     done
 }
 
+function os_config_apps {
+
+    print_h1 "Configuring..."
+
+    # config requested bundles
+    if should_config "dependencies-bundle" || should_config "all-bundles"; then
+        run_config dependencies-bundle
+    fi
+    if should_config "system-bundle" || should_config "all-bundles"; then
+        run_config system-bundle
+    fi
+    if should_config "admin-bundle" || should_config "all-bundles"; then
+        run_config admin-bundle
+    fi
+    if should_config "developer-bundle" || should_config "all-bundles"; then
+        run_config developer-bundle
+    fi
+    if should_config "user-bundle" || should_config "all-bundles"; then
+        run_config user-bundle
+    fi
+
+    # config requested applications
+    for app in $(find $DIR/lib -maxdepth 1 -type f \( ! -iname "*-bundle" \) -exec basename {} \;); do
+        config_app $app
+    done
+}
+
+function os_customise {
+
+    print_h1 "Customising..."
+
+    for task in $(find $DIR/lib/customisations -maxdepth 1 -type f -exec basename {} \;); do
+        run_customise $task
+    done
+}
+
+function os_test {
+
+    /bin/bash -cli "system_test --skip-selected-tests"
+}
+
 function install_app {
 
     for app in "$@"; do
@@ -263,9 +300,9 @@ function install_app {
 function should_install {
 
     # check if already installed at this run
-    is_on_list "$install_already_processed" "$1" && return 1
+    _is_on_list "$install_already_processed" "$1" && return 1
 
-    is_on_list "$arg_install_apps" "$1"
+    _is_on_list "$arg_install_apps" "$1"
     return $?
 }
 
@@ -296,31 +333,6 @@ function run_install {
     done
 }
 
-function dotfiles_config_apps {
-
-    # config requested bundles
-    if should_config "dependencies-bundle" || should_config "all-bundles"; then
-        run_config dependencies-bundle
-    fi
-    if should_config "system-bundle" || should_config "all-bundles"; then
-        run_config system-bundle
-    fi
-    if should_config "admin-bundle" || should_config "all-bundles"; then
-        run_config admin-bundle
-    fi
-    if should_config "developer-bundle" || should_config "all-bundles"; then
-        run_config developer-bundle
-    fi
-    if should_config "user-bundle" || should_config "all-bundles"; then
-        run_config user-bundle
-    fi
-
-    # config requested applications
-    for app in $(find $DIR/lib -maxdepth 1 -type f \( ! -iname "*-bundle" \) -exec basename {} \;); do
-        config_app $app
-    done
-}
-
 function config_app {
 
     for app in "$@"; do
@@ -331,9 +343,9 @@ function config_app {
 function should_config {
 
     # check if already configured at this run
-    is_on_list "$config_already_processed" "$1" && return 1
+    _is_on_list "$config_already_processed" "$1" && return 1
 
-    is_on_list "$arg_config_apps" "$1" || is_on_list "$arg_config_apps" "all"
+    _is_on_list "$arg_config_apps" "$1" || _is_on_list "$arg_config_apps" "all"
     return $?
 }
 
@@ -364,13 +376,6 @@ function run_config {
     done
 }
 
-function dotfiles_customise {
-
-    for task in $(find $DIR/lib/customisations -maxdepth 1 -type f -exec basename {} \;); do
-        run_customise $task
-    done
-}
-
 function run_customise {
 
     for task in "$@"; do
@@ -397,7 +402,7 @@ function run_customise {
     done
 }
 
-function is_on_list {
+function _is_on_list {
 
     local list=$1
     local item=$2
