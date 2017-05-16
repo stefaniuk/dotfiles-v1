@@ -51,7 +51,6 @@ TODO
 ----
 
  * Install applications in the `/usr/local` directory
- * Move manuals to their own Git repository
  * Remap the Caps Lock
  * [Configure `htop`](http://www.thegeekstuff.com/2011/09/linux-htop-examples)
  * Version `dotfiles`
