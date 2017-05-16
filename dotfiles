@@ -17,7 +17,7 @@ REPOSITORY="dotfiles"
 
 program_dir=$(cd "$(dirname "$0" 2> /dev/null)"; pwd)
 
-arg_trace=$(echo "$*" | grep -o -- "--trace"); [ -n "$arg_trace" ] && set -x
+arg_debug=$(echo "$*" | grep -o -- "--debug"); [ -n "$arg_debug" ] && set -x
 arg_update=$(echo "$*" | grep -o -- "--update-os")
 arg_install=$(echo "$*" | grep -o -- "--install")
 arg_config=$(echo "$*" | grep -o -- "--config")
@@ -30,6 +30,7 @@ arg_minimal=$(echo "$*" | grep -o -- "--minimal")
 arg_load_secrets=$(echo "$*" | grep -o -- "--load-secrets")
 arg_sudo=$(echo "$*" | grep -o -- "--sudo")
 arg_test=$(echo "$*" | grep -o -- "--test")
+arg_offline=$(echo "$*" | grep -o -- "--offline")
 arg_help=$(echo "$*" | grep -o -- "--help")
 
 arg_install_apps=$(echo "$*" | grep -o -- "--install=[-_,A-Za-z0-9]*" | sed "s/--install=//")
@@ -42,33 +43,6 @@ fi
 
 ################################################################################
 # functions
-
-function usage {
-
-    local file=$(basename $0 2> /dev/null)
-    echo "
-Usage:
-    ${file} [options]
-
-Options:
-    --update-os
-    --install={dependencies|system|admin|developer|user}-bundle|all-bundles,app1,app2,...
-    --config[=all,app1,app2,...]
-    --customise
-    --synchronise-only
-    --force-download
-    --directory=/dir
-    --user=username
-    --minimal
-    --load-secrets
-    --sudo
-    --test
-    --trace
-    --help
-"
-
-    exit 0
-}
 
 function sudo_keep_alive {
 
@@ -149,6 +123,7 @@ function dotfiles_setup {
     print_h2 "Network connectivity"
     curl --silent --insecure --max-time 10 --retry 3 "https://google.com" > /dev/null
     if [[ $? -ne 0 ]]; then
+        $arg_offline=true
         print_err "No network"
     fi
     # check operating system
@@ -390,6 +365,34 @@ function is_on_list {
     echo "$list" | grep ",${item}," > /dev/null 2>&1 && return 0 # contains
 
     return 1
+}
+
+function usage {
+
+    local file=$(basename $0 2> /dev/null)
+    echo "
+Usage:
+    ${file} [options]
+
+Options:
+    --update-os
+    --install={dependencies|system|admin|developer|user}-bundle|all-bundles,app1,app2,...
+    --config[=all,app1,app2,...]
+    --customise
+    --synchronise-only
+    --force-download
+    --directory=/dir
+    --user=username
+    --minimal
+    --load-secrets
+    --sudo
+    --test
+    --debug
+    --offline
+    --help
+"
+
+    exit 0
 }
 
 ################################################################################

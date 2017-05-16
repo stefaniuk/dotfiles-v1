@@ -86,14 +86,6 @@ if which grc > /dev/null 2>&1; then
     unset dir file prog
 fi
 
-# show manual
-if test -x ~/usr/bin/show-manual; then
-    alias sb="show-manual best-practices"
-    alias sc="show-manual cheat-sheets"
-    alias sd="show-manual design-patterns"
-    alias st="show-manual templates"
-fi
-
 # gtypist
 if which gtypist > /dev/null 2>&1; then
     alias gtypist="gtypist \

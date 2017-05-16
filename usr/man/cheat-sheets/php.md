@@ -1,5 +1,0 @@
-#### mysql
-
-##### info
-
-    php -i
