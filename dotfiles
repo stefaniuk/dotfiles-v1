@@ -66,7 +66,7 @@ function dotfiles_download {
         -o $DIR/$REPOSITORY.tar.gz
     tar -zxf $DIR/$REPOSITORY.tar.gz -C $DIR
     rm -f $DIR/$REPOSITORY.tar.gz
-    cp -rf $DIR/$GITHUB_ACCOUNT-$REPOSITORY-*/* $DIR
+    cp -rf $DIR/$GITHUB_ACCOUNT-$REPOSITORY-*/{.bash,}* $DIR
     rm -rf $DIR/$GITHUB_ACCOUNT-$REPOSITORY-*
     rm -rf $DIR/tmp/*
 }
@@ -108,7 +108,7 @@ function dotfiles_load_secrets {
 function dotfiles_setup {
 
     # set correct permissions
-    find $DIR/{bin,etc,lib,sbin,tmp,usr} -type d -exec chmod 700 {} \;
+    find $DIR/{bin,etc,lib,tmp,usr} -type d -exec chmod 700 {} \;
     chmod 555 $DIR/{bin,usr/bin}/*
     chmod 555 $DIR/dotfiles
 
@@ -149,9 +149,9 @@ function dotfiles_setup {
     # remove not needed resources
     print_h1 "Cleaning up..."
     rm -rf $DIR/{.gitignore,Dockerfile,LICENCE,Makefile,README.md,Vagrantfile,provision.sh}
-    find $DIR/{bin,etc,lib,sbin,tmp,usr} -type f -name '.gitkeep' -exec rm -f {} +
+    find $DIR/{bin,etc,lib,tmp,usr} -type f -name '.gitkeep' -exec rm -f {} +
     if [ -n "$arg_minimal" ]; then
-        rm -rfv $DIR/{lib,sbin,tmp/*,.*profile.old}
+        rm -rfv $DIR/{lib,tmp/*,.*profile.old}
         find $DIR/{bin,usr/bin}/* -iname '*.test' -exec rm -rfv {} +
     fi
 
