@@ -26,7 +26,6 @@ arg_synchronise_only=$(echo "$*" | grep -o -- "--synchronise-only")
 arg_force_download=$(echo "$*" | grep -o -- "--force-download")
 arg_directory=$(echo "$*" | grep -Eo -- "--directory=[-_A-Za-z0-9/]+" | sed "s/--directory=//")
 arg_user=$(echo "$*" | grep -Eo -- "--user=[-_A-Za-z0-9/]+" | sed "s/--user=//")
-arg_minimal=$(echo "$*" | grep -o -- "--minimal")
 arg_load_secrets=$(echo "$*" | grep -o -- "--load-secrets")
 arg_sudo=$(echo "$*" | grep -o -- "--sudo")
 arg_test=$(echo "$*" | grep -o -- "--test")
@@ -85,7 +84,7 @@ function dotfiles_synchronise {
         --exclude=provision.sh \
         --exclude=README.md \
         --exclude=Vagrantfile \
-        $program_dir/* \
+        $program_dir/{.bash,}* \
         $DIR
 
     printf "\n"
@@ -106,11 +105,6 @@ function dotfiles_load_secrets {
 }
 
 function dotfiles_setup {
-
-    # set correct permissions
-    find $DIR/{bin,etc,lib,tmp,usr} -type d -exec chmod 700 {} \;
-    chmod 555 $DIR/{bin,usr/bin}/*
-    chmod 555 $DIR/dotfiles
 
     # make available custom scripts
     export PATH=$PATH:$DIR/bin:$DIR/usr/bin
@@ -141,19 +135,9 @@ function dotfiles_setup {
     [ -n "$arg_test" ]      && ( os_test )
     dotfiles_bash
 
-    # create dotfiles symlink and copy completion script
-    ln -sf $DIR/dotfiles $DIR/usr/bin/dotfiles
+    # copy dotfiles completion script
     [ -f /etc/bash_completion ] && dir=/etc/bash_completion.d || dir=/usr/local/etc/bash_completion.d
     sudo cp $DIR/lib/resources/dotfiles/dotfiles-completion.bash $dir/dotfiles-completion.bash
-
-    # remove not needed resources
-    print_h1 "Cleaning up..."
-    rm -rf $DIR/{.gitignore,Dockerfile,LICENCE,Makefile,README.md,Vagrantfile,provision.sh}
-    find $DIR/{bin,etc,lib,tmp,usr} -type f -name '.gitkeep' -exec rm -f {} +
-    if [ -n "$arg_minimal" ]; then
-        rm -rfv $DIR/{lib,tmp/*,.*profile.old}
-        find $DIR/{bin,usr/bin}/* -iname '*.test' -exec rm -rfv {} +
-    fi
 
     # set correct ownership
     [ -n "$arg_user" ] && sudo chown -R $arg_user:$arg_user $DIR
@@ -470,7 +454,8 @@ Options:
 [ -n "$arg_help" ] && usage
 [ -n "$arg_sudo" ] && sudo_keep_alive
 [ -n "$arg_directory" ] && DIR=$arg_directory
-[ -f $DIR/.profile ] && [ ! -f $DIR/.profile.old ] && mv -v $DIR/.profile $DIR/.profile.old
+
+# back up profile
 [ -f $DIR/.profile ] && [ ! -f $DIR/.profile.old ] && mv -v $DIR/.profile $DIR/.profile.old
 [ -f $DIR/.bash_profile ] && [ ! -f $DIR/.bash_profile.old ] && mv -v $DIR/.bash_profile $DIR/.bash_profile.old
 

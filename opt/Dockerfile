@@ -1,4 +1,4 @@
-FROM stefaniuk/ubuntu
+FROM codeworksio/ubuntu
 
 ARG APT_PROXY
 ARG APT_PROXY_SSL
@@ -8,7 +8,6 @@ RUN set -ex \
     && if [ -n "$APT_PROXY_SSL" ]; then echo "Acquire::https { Proxy \"https://${APT_PROXY_SSL}\"; };" > /etc/apt/apt.conf.d/00proxy; fi \
     && apt-get --yes update \
     && apt-get --yes install \
-        rsync \
-        sudo
+        rsync
 
 WORKDIR /project

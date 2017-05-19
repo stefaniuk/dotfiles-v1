@@ -27,10 +27,7 @@ Most common installation on a workstation
 
 Minimal installation
 
-    curl -L https://raw.githubusercontent.com/stefaniuk/dotfiles/master/dotfiles -o - | /bin/bash -s -- \
-        --install=bash \
-        --config
-        --minimal
+    curl -L https://raw.githubusercontent.com/stefaniuk/dotfiles/master/dotfiles -o - | /bin/bash -s
 
 All files will be installed in the user's home directory.
 
