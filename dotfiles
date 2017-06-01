@@ -6,21 +6,22 @@
 ################################################################################
 # variables
 
-DIR=~
 USER_NAME=${USER_NAME:-Daniel Stefaniuk}
 USER_EMAIL=${USER_EMAIL:-daniel.stefaniuk@gmail.com}
 GITHUB_ACCOUNT=${GITHUB_ACCOUNT:-stefaniuk}
 BITBUCKET_ACCOUNT=${BITBUCKET_ACCOUNT:-stefaniuk}
 GITLAB_ACCOUNT=${GITLAB_ACCOUNT:-stefaniuk}
 BASH_PROMPT_SHOW_GIT=${BASH_PROMPT_SHOW_GIT:-true}
-REPOSITORY="dotfiles"
 
+DIR=~
 program_dir=$(cd "$(dirname "$0" 2> /dev/null)"; pwd)
 
 arg_debug=$(echo "$*" | grep -o -- "--debug"); [ -n "$arg_debug" ] && set -x
 arg_update=$(echo "$*" | grep -o -- "--update-os")
 arg_install=$(echo "$*" | grep -o -- "--install")
+arg_install_apps=$(echo "$*" | grep -o -- "--install=[-_,A-Za-z0-9]*" | sed "s/--install=//")
 arg_config=$(echo "$*" | grep -o -- "--config")
+arg_config_apps=$(echo "$*" | grep -o -- "--config=[-_,A-Za-z0-9]*" | sed "s/--config=//")
 arg_customise=$(echo "$*" | grep -o -- "--customise")
 arg_synchronise_only=$(echo "$*" | grep -o -- "--synchronise-only")
 arg_force_download=$(echo "$*" | grep -o -- "--force-download")
@@ -32,9 +33,7 @@ arg_test=$(echo "$*" | grep -o -- "--test")
 arg_offline=$(echo "$*" | grep -o -- "--offline")
 arg_help=$(echo "$*" | grep -o -- "--help")
 
-arg_install_apps=$(echo "$*" | grep -o -- "--install=[-_,A-Za-z0-9]*" | sed "s/--install=//")
 install_already_processed=""
-arg_config_apps=$(echo "$*" | grep -o -- "--config=[-_,A-Za-z0-9]*" | sed "s/--config=//")
 config_already_processed=""
 if [ -z "$arg_config_apps" ] && [ -n "$arg_install_apps" ]; then
     arg_config_apps=$arg_install_apps
@@ -61,18 +60,18 @@ function sudo_keep_alive {
 function dotfiles_download {
 
     curl -L \
-        "https://github.com/${GITHUB_ACCOUNT}/${REPOSITORY}/tarball/master" \
-        -o $DIR/$REPOSITORY.tar.gz
-    tar -zxf $DIR/$REPOSITORY.tar.gz -C $DIR
-    rm -f $DIR/$REPOSITORY.tar.gz
-    cp -rf $DIR/$GITHUB_ACCOUNT-$REPOSITORY-*/{.bash,}* $DIR
-    rm -rf $DIR/$GITHUB_ACCOUNT-$REPOSITORY-*
+        "https://github.com/${GITHUB_ACCOUNT}/dotfiles/tarball/master" \
+        -o $DIR/dotfiles.tar.gz
+    tar -zxf $DIR/dotfiles.tar.gz -C $DIR
+    rm -f $DIR/dotfiles.tar.gz
+    cp -rf $DIR/$GITHUB_ACCOUNT-dotfiles-*/{.bash,}* $DIR
+    rm -rf $DIR/$GITHUB_ACCOUNT-dotfiles-*
     rm -rf $DIR/tmp/*
 }
 
 function dotfiles_synchronise {
 
-    printf "Synchronise $REPOSITORY\n\n"
+    printf "Synchronise dotfiles\n\n"
 
     rsync -rav \
         --include=/ \
@@ -475,7 +474,7 @@ fi
 if [ -z "$BASH_SOURCE" ] || [ -n "$arg_force_download" ]; then
     # download from the GitHub repository
     dotfiles_download
-elif [[ $program_dir == */projects/$REPOSITORY ]] || [[ $program_dir == */projects/$GITLAB_ACCOUNT/$REPOSITORY ]] || [[ $program_dir == /project ]]; then
+elif [[ $program_dir == */projects/$GITLAB_ACCOUNT/dotfiles ]] || [[ $program_dir == */projects/dotfiles ]] || [[ $program_dir == /project ]]; then
     # synchronise with the project content
     dotfiles_synchronise
 fi
