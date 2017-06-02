@@ -423,8 +423,7 @@ function usage {
 
     local file=$(basename $0 2> /dev/null)
     echo "
-Usage:
-    ${file} [options]
+Usage: ${file} [options]
 
 Options:
     --update-os
