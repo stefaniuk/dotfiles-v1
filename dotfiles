@@ -42,6 +42,42 @@ fi
 ################################################################################
 # functions
 
+function main {
+
+    [ -n "$arg_help" ] && { usage; exit 0; }
+    [ -n "$arg_sudo" ] && sudo_keep_alive
+    [ -n "$arg_directory" ] && DIR=$arg_directory
+
+    # back up profile
+    [ -f $DIR/.profile ] && [ ! -f $DIR/.profile.old ] && mv -v $DIR/.profile $DIR/.profile.old
+    [ -f $DIR/.bash_profile ] && [ ! -f $DIR/.bash_profile.old ] && mv -v $DIR/.bash_profile $DIR/.bash_profile.old
+
+    # use gosu
+    if ! which sudo > /dev/null 2>&1 && which gosu > /dev/null 2>&1; then
+        printf '#!/bin/bash\ngosu root $*\n' > /usr/bin/sudo
+        chmod +x /usr/bin/sudo
+    fi
+
+    # use colours in terminal
+    if [[ $COLORTERM = gnome-* && $TERM = xterm ]] && infocmp gnome-256color > /dev/null 2>&1; then
+        export TERM="gnome-256color"
+    elif infocmp xterm-256color > /dev/null 2>&1; then
+        export TERM="xterm-256color"
+    fi
+
+    if [ -z "$BASH_SOURCE" ] || [ -n "$arg_force_download" ]; then
+        # download from the GitHub repository
+        dotfiles_download
+    elif [[ $program_dir == */projects/$GITLAB_ACCOUNT/dotfiles ]] || [[ $program_dir == */projects/dotfiles ]] || [[ $program_dir == /project ]]; then
+        # synchronise with the project content
+        dotfiles_synchronise
+    fi
+    # decrypt and load secrets
+    [ -n "$arg_load_secrets" ] && dotfiles_load_secrets
+    # perform installation and configuration
+    dotfiles_setup $*
+}
+
 function sudo_keep_alive {
 
     # update user's time stamp, prompting for password if necessary
@@ -422,64 +458,26 @@ function _is_on_list {
 function usage {
 
     local file=$(basename $0 2> /dev/null)
-    echo "
-Usage: ${file} [options]
-
-Options:
-    --update-os
-    --install={dependencies|system|admin|developer|user}-bundle|all-bundles,app1,app2,...
-    --config[=all,app1,app2,...]
-    --customise
-    --synchronise-only
-    --force-download
-    --directory=/dir
-    --user=username
-    --minimal
-    --load-secrets
-    --sudo
-    --test
-    --debug
-    --offline
-    --help
-"
-
-    exit 0
+    printf "\nUsage: ${file} [options]\n"
+    printf "\nOptions:\n"
+    printf "\t--update-os\n"
+    printf "\t--install={dependencies|system|admin|developer|user}-bundle|all-bundles,app1,app2,...\n"
+    printf "\t--config[=all,app1,app2,...]\n"
+    printf "\t--customise\n"
+    printf "\t--synchronise-only\n"
+    printf "\t--force-download\n"
+    printf "\t--directory=/dir\n"
+    printf "\t--user=username\n"
+    printf "\t--minimal\n"
+    printf "\t--load-secrets\n"
+    printf "\t--sudo\n"
+    printf "\t--test\n"
+    printf "\t--debug\n"
+    printf "\t--offline\n"
+    printf "\t--help\n"
+    printf "\n"
 }
 
-################################################################################
-# main
-
-[ -n "$arg_help" ] && usage
-[ -n "$arg_sudo" ] && sudo_keep_alive
-[ -n "$arg_directory" ] && DIR=$arg_directory
-
-# back up profile
-[ -f $DIR/.profile ] && [ ! -f $DIR/.profile.old ] && mv -v $DIR/.profile $DIR/.profile.old
-[ -f $DIR/.bash_profile ] && [ ! -f $DIR/.bash_profile.old ] && mv -v $DIR/.bash_profile $DIR/.bash_profile.old
-
-# use gosu
-if ! which sudo > /dev/null 2>&1 && which gosu > /dev/null 2>&1; then
-    printf '#!/bin/bash\ngosu root $*\n' > /usr/bin/sudo
-    chmod +x /usr/bin/sudo
-fi
-
-# use colours in terminal
-if [[ $COLORTERM = gnome-* && $TERM = xterm ]] && infocmp gnome-256color > /dev/null 2>&1; then
-    export TERM="gnome-256color"
-elif infocmp xterm-256color > /dev/null 2>&1; then
-    export TERM="xterm-256color"
-fi
-
-if [ -z "$BASH_SOURCE" ] || [ -n "$arg_force_download" ]; then
-    # download from the GitHub repository
-    dotfiles_download
-elif [[ $program_dir == */projects/$GITLAB_ACCOUNT/dotfiles ]] || [[ $program_dir == */projects/dotfiles ]] || [[ $program_dir == /project ]]; then
-    # synchronise with the project content
-    dotfiles_synchronise
-fi
-# decrypt and load secrets
-[ -n "$arg_load_secrets" ] && dotfiles_load_secrets
-# perform installation and configuration
-dotfiles_setup $*
+main $*
 
 exit 0
