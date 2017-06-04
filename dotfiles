@@ -102,18 +102,18 @@ function dotfiles_download {
         -o $DIR/dotfiles.tar.gz
     tar -zxf $DIR/dotfiles.tar.gz -C $DIR
     cp -rf $DIR/$GITHUB_ACCOUNT-dotfiles-*/{.bash,}* $DIR
+    rm -rf $DIR/$GITHUB_ACCOUNT-dotfiles-*
+    rm -f $DIR/dotfiles.tar.gz
 
     if [ -n "$arg_extension_man" ]; then
         curl -L \
             "https://github.com/${GITHUB_ACCOUNT}/dotfiles-man/tarball/master" \
             -o $DIR/dotfiles-man.tar.gz
         tar -zxf $DIR/dotfiles-man.tar.gz -C $DIR
-        cp -rf $DIR/$GITHUB_ACCOUNT-dotfiles-man*/* $DIR
+        cp -rf $DIR/$GITHUB_ACCOUNT-dotfiles-man-*/* $DIR
+        rm -rf $DIR/$GITHUB_ACCOUNT-dotfiles-man-*
+        rm -f $DIR/dotfiles-man.tar.gz
     fi
-
-    rm -rf $DIR/$GITHUB_ACCOUNT-dotfiles*
-    rm -f $DIR/dotfiles*.tar.gz
-    rm -rf $DIR/tmp/*
 }
 
 function dotfiles_synchronise {
@@ -198,6 +198,7 @@ function dotfiles_setup {
 
     # cleanup
     rm -f $DIR/{LICENCE,README.md}
+    find $DIR/tmp -iname '.git*' -exec rm {} \;
 
     # set correct ownership
     [ -n "$arg_user" ] && sudo chown -R $arg_user:$arg_user $DIR
