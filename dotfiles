@@ -122,7 +122,7 @@ function dotfiles_synchronise {
     print_h3 "\nSynchronise dotfiles\n"
     rsync -rav \
         --include=/ \
-        --exclude=/.git* \
+        --exclude=/.git \
         --exclude=.gitignore \
         --exclude=.gitkeep \
         --exclude=Dockerfile \
@@ -131,7 +131,7 @@ function dotfiles_synchronise {
         --exclude=provision.sh \
         --exclude=README.md \
         --exclude=Vagrantfile \
-        $program_dir/{.bash,}* \
+        $program_dir/{.bash,.git,}* \
         $DIR \
     | grep -Ev "/$"
 
@@ -139,7 +139,7 @@ function dotfiles_synchronise {
         print_h3 "\nSynchronise dotfiles-man\n"
         rsync -rav \
             --include=/ \
-            --exclude=/.git* \
+            --exclude=/.git \
             --exclude=.gitignore \
             --exclude=.gitkeep \
             --exclude=LICENCE \
