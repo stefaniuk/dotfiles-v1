@@ -207,8 +207,8 @@ function dotfiles_setup {
 function dotfiles_bash {
 
     if [ $DIST = "macosx" ]; then
-        [ -z "$arg_offline" ] && [ ! -f $(brew --prefix)/bin/bash ] && $brew_install bash
-        if [ -f $(brew --prefix)/bin/bash ]; then
+        if [ -z "$arg_offline" ] && [ ! -f $(brew --prefix)/bin/bash ]; then
+            $brew_install bash
             sudo -E file_remove_str "\n$(brew --prefix)/bin/bash" /private/etc/shells --multiline
             sudo bash -c "echo $(brew --prefix)/bin/bash >> /private/etc/shells"
             sudo chsh -s $(brew --prefix)/bin/bash $USER 2> /dev/null
