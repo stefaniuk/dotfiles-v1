@@ -192,10 +192,6 @@ function dotfiles_setup {
     [ -n "$arg_test" ]      && ( os_test )
     dotfiles_bash
 
-    # copy dotfiles completion script
-    [ -f /etc/bash_completion ] && dir=/etc/bash_completion.d || dir=/usr/local/etc/bash_completion.d
-    sudo cp $DIR/lib/resources/dotfiles/dotfiles-completion.bash $dir/dotfiles-completion.bash
-
     # cleanup
     rm -f $DIR/{LICENCE,README.md}
     find $DIR/tmp -iname '.git*' -exec rm {} \;
