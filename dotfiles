@@ -28,6 +28,7 @@ arg_force_download=$(echo "$*" | grep -o -- "--force-download")
 arg_directory=$(echo "$*" | grep -Eo -- "--directory=[-_A-Za-z0-9/]+" | sed "s/--directory=//")
 arg_user=$(echo "$*" | grep -Eo -- "--user=[-_A-Za-z0-9/]+" | sed "s/--user=//")
 arg_load_secrets=$(echo "$*" | grep -o -- "--load-secrets")
+arg_extension_man=$(echo "$*" | grep -o -- "--extension-man")
 arg_sudo=$(echo "$*" | grep -o -- "--sudo")
 arg_test=$(echo "$*" | grep -o -- "--test")
 arg_offline=$(echo "$*" | grep -o -- "--offline")
@@ -71,6 +72,7 @@ function main {
     elif [[ $program_dir == */projects/$GITLAB_ACCOUNT/dotfiles ]] || [[ $program_dir == */projects/dotfiles ]] || [[ $program_dir == /project ]]; then
         # synchronise with the project content
         dotfiles_synchronise
+        [ -n "$arg_synchronise_only" ] && exit 0
     fi
     # decrypt and load secrets
     [ -n "$arg_load_secrets" ] && dotfiles_load_secrets
@@ -99,19 +101,28 @@ function dotfiles_download {
         "https://github.com/${GITHUB_ACCOUNT}/dotfiles/tarball/master" \
         -o $DIR/dotfiles.tar.gz
     tar -zxf $DIR/dotfiles.tar.gz -C $DIR
-    rm -f $DIR/dotfiles.tar.gz
     cp -rf $DIR/$GITHUB_ACCOUNT-dotfiles-*/{.bash,}* $DIR
-    rm -rf $DIR/$GITHUB_ACCOUNT-dotfiles-*
+
+    if [ -n "$arg_extension_man" ]; then
+        curl -L \
+            "https://github.com/${GITHUB_ACCOUNT}/dotfiles-man/tarball/master" \
+            -o $DIR/dotfiles-man.tar.gz
+        tar -zxf $DIR/dotfiles-man.tar.gz -C $DIR
+        cp -rf $DIR/$GITHUB_ACCOUNT-dotfiles-man*/* $DIR
+    fi
+
+    rm -rf $DIR/$GITHUB_ACCOUNT-dotfiles*
+    rm -f $DIR/dotfiles*.tar.gz
     rm -rf $DIR/tmp/*
 }
 
 function dotfiles_synchronise {
 
-    printf "Synchronise dotfiles\n\n"
-
+    print_h3 "\nSynchronise dotfiles\n"
     rsync -rav \
         --include=/ \
         --exclude=/.git* \
+        --exclude=.gitignore \
         --exclude=.gitkeep \
         --exclude=Dockerfile \
         --exclude=LICENCE \
@@ -120,12 +131,21 @@ function dotfiles_synchronise {
         --exclude=README.md \
         --exclude=Vagrantfile \
         $program_dir/{.bash,}* \
-        $DIR
+        $DIR \
+    | grep -Ev "/$"
 
-    printf "\n"
-
-    # synchronise only
-    [ -n "$arg_synchronise_only" ] && exit 0
+    if [ -n "$arg_extension_man" ] && [ -d $program_dir-man ]; then
+        print_h3 "\nSynchronise dotfiles-man\n"
+        rsync -rav \
+            --include=/ \
+            --exclude=/.git* \
+            --exclude=.gitignore \
+            --exclude=.gitkeep \
+            $program_dir-man/* \
+            $DIR \
+        | grep -Ev "/$"
+        printf "\n"
+    fi
 }
 
 function dotfiles_load_secrets {
@@ -470,6 +490,7 @@ function usage {
     printf "\t--user=username\n"
     printf "\t--minimal\n"
     printf "\t--load-secrets\n"
+    printf "\t--extension-man\n"
     printf "\t--sudo\n"
     printf "\t--test\n"
     printf "\t--debug\n"
