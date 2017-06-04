@@ -141,6 +141,8 @@ function dotfiles_synchronise {
             --exclude=/.git* \
             --exclude=.gitignore \
             --exclude=.gitkeep \
+            --exclude=LICENCE \
+            --exclude=README.md \
             $program_dir-man/* \
             $DIR \
         | grep -Ev "/$"
@@ -193,6 +195,9 @@ function dotfiles_setup {
     # copy dotfiles completion script
     [ -f /etc/bash_completion ] && dir=/etc/bash_completion.d || dir=/usr/local/etc/bash_completion.d
     sudo cp $DIR/lib/resources/dotfiles/dotfiles-completion.bash $dir/dotfiles-completion.bash
+
+    # cleanup
+    rm $DIR/{LICENCE,README.md}
 
     # set correct ownership
     [ -n "$arg_user" ] && sudo chown -R $arg_user:$arg_user $DIR
