@@ -15,6 +15,7 @@ BASH_PROMPT_SHOW_GIT=${BASH_PROMPT_SHOW_GIT:-true}
 
 DIR=~
 program_dir=$(cd "$(dirname "$0" 2> /dev/null)"; pwd)
+app_dir=/usr/local/dotfiles
 
 arg_debug=$(echo "$*" | grep -o -- "--debug"); [ -n "$arg_debug" ] && set -x
 arg_update=$(echo "$*" | grep -o -- "--update-os")
@@ -185,11 +186,23 @@ function dotfiles_setup {
 
     os_common
     os_initialise
-    [ -n "$arg_update" ]    && ( os_update )
-    [ -n "$arg_install" ]   && ( os_install_apps )
-    [ -n "$arg_config" ]    && ( os_config_apps )
-    [ -n "$arg_customise" ] && ( os_customise )
-    [ -n "$arg_test" ]      && ( os_test )
+    [ -n "$arg_update" ] && (
+        os_update
+    )
+    [ -n "$arg_install" ] && (
+        _app_dir_setup
+        os_install_apps
+    )
+    [ -n "$arg_config" ] && (
+        _app_dir_setup
+        os_config_apps
+    )
+    [ -n "$arg_customise" ] && (
+        os_customise
+    )
+    [ -n "$arg_test" ] && (
+        os_test
+    )
     dotfiles_bash
 
     # cleanup
@@ -466,6 +479,12 @@ function run_customise {
             fi
         )
     done
+}
+
+function _app_dir_setup {
+
+    sudo mkdir -p $app_dir
+    sudo chmod 777 $app_dir
 }
 
 function _is_on_list {

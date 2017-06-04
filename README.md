@@ -47,7 +47,6 @@ This project can be tested in a Docker container provided along with the source 
 TODO
 ----
 
- * Install applications in the `/usr/local` directory
  * Remap the Caps Lock
  * [Configure `htop`](http://www.thegeekstuff.com/2011/09/linux-htop-examples)
  * Version `dotfiles`
