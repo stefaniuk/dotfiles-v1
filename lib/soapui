@@ -16,17 +16,17 @@ function ubuntu-install-soapui {
         --url "http://cdn01.downloads.smartbear.com/soapui/$ver/SoapUI-$ver-linux-bin.tar.gz" \
         --file "SoapUI-$ver-linux-bin.tar.gz"
     tar -xf SoapUI-$ver-linux-bin.tar.gz
-    rm -rf $DIR/usr/applications/soapui
-    mv -fv SoapUI-$ver $DIR/usr/applications/soapui
+    rm -rf $app_dir/soapui
+    mv -fv SoapUI-$ver $app_dir/soapui
     rm SoapUI-$ver-linux-bin.tar.gz
-    cp $DIR/lib/resources/soapui/soapui.png $DIR/usr/applications/soapui
+    cp $DIR/lib/resources/soapui/soapui.png $app_dir/soapui
     cat <<EOF > ~/.local/share/applications/soapui.desktop
 [Desktop Entry]
 Version=1.0
 Name=SoapUI
 Type=Application
-Exec=$DIR/usr/applications/soapui/bin/soapui.sh
-Icon=$DIR/usr/applications/soapui/soapui.png
+Exec=$app_dir/soapui/bin/soapui.sh
+Icon=$app_dir/soapui/soapui.png
 Terminal=false
 Categories=Utility;
 EOF

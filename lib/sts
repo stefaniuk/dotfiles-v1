@@ -17,16 +17,16 @@ function ubuntu-install-sts {
         --url "http://download.springsource.com/release/STS/$ver_sts/dist/$(echo $ver_ecl | egrep -o 'e[0-9]+\.[0-9]+')/spring-tool-suite-$ver_sts-$ver_ecl-linux-gtk-x86_64.tar.gz" \
         --file "spring-tool-suite-$ver_sts-$ver_ecl-linux-gtk-x86_64.tar.gz"
     tar -xf spring-tool-suite-$ver_sts-$ver_ecl-linux-gtk-x86_64.tar.gz
-    rm -rf $DIR/usr/applications/spring-tool-suite
-    mv -f sts-bundle $DIR/usr/applications/spring-tool-suite
+    rm -rf $app_dir/spring-tool-suite
+    mv -f sts-bundle $app_dir/spring-tool-suite
     rm spring-tool-suite-$ver_sts-$ver_ecl-linux-gtk-x86_64.tar.gz
     cat <<EOF > ~/.local/share/applications/spring-tool-suite.desktop
 [Desktop Entry]
 Version=1.0
 Name=Spring Tool Suite
 Type=Application
-Exec=$DIR/usr/applications/spring-tool-suite/sts-$ver_sts/STS
-Icon=$DIR/usr/applications/spring-tool-suite/sts-$ver_sts/icon.xpm
+Exec=$app_dir/spring-tool-suite/sts-$ver_sts/STS
+Icon=$app_dir/spring-tool-suite/sts-$ver_sts/icon.xpm
 Terminal=false
 Categories=Utility;
 EOF

@@ -9,8 +9,8 @@ function install-gradle {
         --url "https://services.gradle.org/distributions/gradle-$ver-bin.zip" \
         --file "gradle-$ver-bin.zip"
     unzip gradle-$ver-bin.zip > /dev/null
-    rm -rf $DIR/usr/applications/gradle
-    mv -v gradle-$ver $DIR/usr/applications/gradle
+    rm -rf $app_dir/gradle
+    mv -v gradle-$ver $app_dir/gradle
     rm gradle-$ver-bin.zip
 }
 
@@ -18,6 +18,6 @@ function config-gradle {
 
     cat <<EOF > $DIR/etc/profile.d/gradle.sh
 #!/bin/bash
-export PATH=\$PATH:~/usr/applications/gradle/bin
+export PATH=\$PATH:$app_dir/gradle/bin
 EOF
 }

@@ -11,25 +11,25 @@ function macosx-install-boxcryptor {
 
 function ubuntu-install-boxcryptor {
 
-    rm -rf $DIR/usr/applications/boxcryptor
-    mkdir $DIR/usr/applications/boxcryptor
+    rm -rf $app_dir/boxcryptor
+    mkdir $app_dir/boxcryptor
     file_download \
         --url "https://www.boxcryptor.com/l/download-linux-portable" \
         --file "Boxcryptor_Portable_Linux64.tar.gz" \
-        --download-dir $DIR/usr/applications/boxcryptor
+        --download-dir $app_dir/boxcryptor
     (
-        cd $DIR/usr/applications/boxcryptor
+        cd $app_dir/boxcryptor
         tar -xf Boxcryptor_Portable_Linux64.tar.gz
         rm Boxcryptor_Portable_Linux64.tar.gz
     )
-    cp $DIR/lib/resources/boxcryptor/boxcryptor.png $DIR/usr/applications/boxcryptor
+    cp $DIR/lib/resources/boxcryptor/boxcryptor.png $app_dir/boxcryptor
     cat <<EOF > ~/.local/share/applications/boxcryptor.desktop
 [Desktop Entry]
 Version=1.0
 Name=Boxcryptor
 Type=Application
-Exec=$DIR/usr/applications/boxcryptor/Boxcryptor_Portable.sh
-Icon=$DIR/usr/applications/boxcryptor/boxcryptor.png
+Exec=$app_dir/boxcryptor/Boxcryptor_Portable.sh
+Icon=$app_dir/boxcryptor/boxcryptor.png
 Terminal=false
 Categories=Utility;
 EOF

@@ -9,8 +9,8 @@ function install-groovy {
         --url "https://dl.bintray.com/groovy/maven/apache-groovy-binary-$ver.zip" \
         --file "apache-groovy-binary-$ver.zip"
     unzip apache-groovy-binary-$ver.zip > /dev/null
-    rm -rf $DIR/usr/applications/groovy
-    mv -v groovy-$ver $DIR/usr/applications/groovy
+    rm -rf $app_dir/groovy
+    mv -v groovy-$ver $app_dir/groovy
     rm apache-groovy-binary-$ver.zip
 }
 
@@ -18,6 +18,6 @@ function config-groovy {
 
     cat <<EOF > $DIR/etc/profile.d/groovy.sh
 #!/bin/bash
-export PATH=\$PATH:~/usr/applications/groovy/bin
+export PATH=\$PATH:$app_dir/groovy/bin
 EOF
 }

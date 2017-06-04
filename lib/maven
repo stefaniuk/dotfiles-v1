@@ -9,8 +9,8 @@ function install-maven {
         --url "http://mirrors.ukfast.co.uk/sites/ftp.apache.org/maven/maven-3/$ver/binaries/apache-maven-$ver-bin.tar.gz" \
         --file "apache-maven-$ver-bin.tar.gz"
     tar -xf apache-maven-$ver-bin.tar.gz
-    rm -rf $DIR/usr/applications/maven
-    mv -v apache-maven-$ver $DIR/usr/applications/maven
+    rm -rf $app_dir/maven
+    mv -v apache-maven-$ver $app_dir/maven
     rm apache-maven-$ver-bin.tar.gz
 }
 
@@ -20,6 +20,6 @@ function config-maven {
     cp -fv $DIR/lib/resources/maven/settings*.xml $DIR/.m2
     cat <<EOF > $DIR/etc/profile.d/maven.sh
 #!/bin/bash
-export PATH=\$PATH:~/usr/applications/maven/bin
+export PATH=\$PATH:$app_dir/maven/bin
 EOF
 }

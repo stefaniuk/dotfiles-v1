@@ -9,8 +9,8 @@ function install-scala {
         --url "http://downloads.lightbend.com/scala/$ver/scala-$ver.tgz" \
         --file "scala-$ver.tgz"
     tar -xf scala-$ver.tgz
-    rm -rf $DIR/usr/applications/scala
-    mv -v scala-$ver $DIR/usr/applications/scala
+    rm -rf $app_dir/scala
+    mv -v scala-$ver $app_dir/scala
     rm scala-$ver.tgz
 }
 
@@ -18,6 +18,6 @@ function config-scala {
 
     cat <<EOF > $DIR/etc/profile.d/scala.sh
 #!/bin/bash
-export PATH=\$PATH:~/usr/applications/scala/bin
+export PATH=\$PATH:$app_dir/scala/bin
 EOF
 }
