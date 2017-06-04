@@ -210,12 +210,18 @@ function dotfiles_bash {
             sudo chsh -s $(brew --prefix)/bin/bash $USER 2> /dev/null
         fi
     fi
-    file_replace_str "USER_NAME=\"unknown\"" "USER_NAME=\"$USER_NAME\"" $DIR/.bash_exports
-    file_replace_str "USER_EMAIL=\"unknown\"" "USER_EMAIL=\"$USER_EMAIL\"" $DIR/.bash_exports
-    file_replace_str "GITHUB_ACCOUNT=\"unknown\"" "GITHUB_ACCOUNT=\"$GITHUB_ACCOUNT\"" $DIR/.bash_exports
-    file_replace_str "BITBUCKET_ACCOUNT=\"unknown\"" "BITBUCKET_ACCOUNT=\"$BITBUCKET_ACCOUNT\"" $DIR/.bash_exports
-    file_replace_str "GITLAB_ACCOUNT=\"unknown\"" "GITLAB_ACCOUNT=\"$GITLAB_ACCOUNT\"" $DIR/.bash_exports
-    file_replace_str "BASH_PROMPT_SHOW_GIT=\"true\"" "BASH_PROMPT_SHOW_GIT=\"$BASH_PROMPT_SHOW_GIT\"" $DIR/.bash_exports
+
+    rm -f $DIR/etc/profile.d/dotfiles-config
+    echo "export USER_NAME=\"$USER_NAME\"" >> $DIR/etc/profile.d/dotfiles-config
+    echo "export USER_EMAIL=\"$USER_EMAIL\"" >> $DIR/etc/profile.d/dotfiles-config
+    echo "export GITHUB_ACCOUNT=\"$GITHUB_ACCOUNT\"" >> $DIR/etc/profile.d/dotfiles-config
+    echo "export BITBUCKET_ACCOUNT=\"$BITBUCKET_ACCOUNT\"" >> $DIR/etc/profile.d/dotfiles-config
+    echo "export GITLAB_ACCOUNT=\"$GITLAB_ACCOUNT\"" >> $DIR/etc/profile.d/dotfiles-config
+    echo "export BASH_PROMPT_SHOW_GIT=\"$BASH_PROMPT_SHOW_GIT\"" >> $DIR/etc/profile.d/dotfiles-config
+    echo "export GIT_AUTHOR_NAME=\"\$USER_NAME\"" >> $DIR/etc/profile.d/dotfiles-config
+    echo "export GIT_COMMITTER_NAME=\"\$GIT_AUTHOR_NAME\"" >> $DIR/etc/profile.d/dotfiles-config
+    echo "export GIT_AUTHOR_EMAIL=\"\$USER_EMAIL\"" >> $DIR/etc/profile.d/dotfiles-config
+    echo "export GIT_COMMITTER_EMAIL=\"\$GIT_AUTHOR_EMAIL\"" >> $DIR/etc/profile.d/dotfiles-config
 }
 
 function os_common {

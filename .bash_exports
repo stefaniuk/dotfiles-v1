@@ -1,20 +1,5 @@
 #!/bin/sh
 
-# these variables are updated during the installation
-export DOTFILES_DIR=~
-export USER_NAME="unknown"
-export USER_EMAIL="unknown"
-export GITHUB_ACCOUNT="unknown" # your GitHub account name
-export BITBUCKET_ACCOUNT="unknown" # your Bitbucket account name
-export GITLAB_ACCOUNT="unknown" # your GitLab account name
-export BASH_PROMPT_SHOW_GIT="true" # enable/disable Bash prompt helper
-
-# tell `git` who you are
-export GIT_AUTHOR_NAME="$USER_NAME"
-export GIT_COMMITTER_NAME="$GIT_AUTHOR_NAME"
-export GIT_AUTHOR_EMAIL="$USER_EMAIL"
-export GIT_COMMITTER_EMAIL="$GIT_AUTHOR_EMAIL"
-
 # make `vim` or `vi` the default editor
 export EDITOR=$(which vim 2> /dev/null || which vi 2> /dev/null)
 
