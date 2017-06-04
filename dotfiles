@@ -515,7 +515,6 @@ function usage {
     printf "\t--force-download\n"
     printf "\t--directory=/dir\n"
     printf "\t--user=username\n"
-    printf "\t--minimal\n"
     printf "\t--load-secrets\n"
     printf "\t--extension-man\n"
     printf "\t--sudo\n"
