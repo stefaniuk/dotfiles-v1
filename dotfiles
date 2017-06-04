@@ -197,7 +197,7 @@ function dotfiles_setup {
     sudo cp $DIR/lib/resources/dotfiles/dotfiles-completion.bash $dir/dotfiles-completion.bash
 
     # cleanup
-    rm $DIR/{LICENCE,README.md}
+    rm -f $DIR/{LICENCE,README.md}
 
     # set correct ownership
     [ -n "$arg_user" ] && sudo chown -R $arg_user:$arg_user $DIR
@@ -206,7 +206,7 @@ function dotfiles_setup {
 function dotfiles_bash {
 
     if [ $DIST = "macosx" ]; then
-        [ -z "$arg_offline" ] && $brew_install bash
+        [ -z "$arg_offline" ] && [ ! -f $(brew --prefix)/bin/bash ] && $brew_install bash
         if [ -f $(brew --prefix)/bin/bash ]; then
             sudo -E file_remove_str "\n$(brew --prefix)/bin/bash" /private/etc/shells --multiline
             sudo bash -c "echo $(brew --prefix)/bin/bash >> /private/etc/shells"
