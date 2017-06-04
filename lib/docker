@@ -4,7 +4,7 @@
 
 function macosx-install-docker {
 
-    $cask_install docker
+    $cask_install docker-edge
 }
 
 # ### Ubuntu ###################################################################
