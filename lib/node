@@ -4,7 +4,7 @@
 
 function macosx-install-node {
 
-    $brew_install node
+    $brew_install node@6
 }
 
 # ### Ubuntu ###################################################################
