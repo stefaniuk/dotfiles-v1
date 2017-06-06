@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# ### common ###################################################################
+
+function install-aws {
+
+    file_download \
+        --url "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" \
+        --file "awscli-bundle.zip"
+    unzip awscli-bundle.zip > /dev/null
+    ./awscli-bundle/install -b /usr/local/bin/aws
+    rm -rf awscli-bundle*
+}
