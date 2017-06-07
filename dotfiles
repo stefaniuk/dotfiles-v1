@@ -6,6 +6,8 @@
 ################################################################################
 # variables
 
+SYSTEM_TIMEZONE=${SYSTEM_TIMEZONE:-Europe/London}
+SYSTEM_LOCALE=${SYSTEM_LOCALE:-en_GB.UTF-8}
 USER_NAME=${USER_NAME:-Daniel Stefaniuk}
 USER_EMAIL=${USER_EMAIL:-daniel.stefaniuk@gmail.com}
 GITHUB_ACCOUNT=${GITHUB_ACCOUNT:-stefaniuk}
@@ -203,7 +205,7 @@ function dotfiles_setup {
     [ -n "$arg_test" ] && (
         os_test
     )
-    dotfiles_bash
+    dotfiles_shell
 
     # cleanup
     rm -f $DIR/{LICENCE,README.md}
@@ -213,7 +215,7 @@ function dotfiles_setup {
     [ -n "$arg_user" ] && sudo chown -R $arg_user:$arg_user $DIR
 }
 
-function dotfiles_bash {
+function dotfiles_shell {
 
     if [ $DIST = "macosx" ]; then
         if [ -z "$arg_offline" ] && [ ! -f $(brew --prefix)/bin/bash ]; then
@@ -235,6 +237,18 @@ function dotfiles_bash {
     echo "export GIT_COMMITTER_NAME=\"\$GIT_AUTHOR_NAME\"" >> $DIR/etc/profile.d/dotfiles-config
     echo "export GIT_AUTHOR_EMAIL=\"\$USER_EMAIL\"" >> $DIR/etc/profile.d/dotfiles-config
     echo "export GIT_COMMITTER_EMAIL=\"\$GIT_AUTHOR_EMAIL\"" >> $DIR/etc/profile.d/dotfiles-config
+
+    if [ $DIST = "ubuntu" ]; then
+        # timezone
+        echo $SYSTEM_TIMEZONE | sudo tee /etc/timezone
+        sudo dpkg-reconfigure -f noninteractive tzdata
+        # locale
+        sudo locale-gen $SYSTEM_LOCALE
+        $apt_get_install \
+            aspell \
+            hunspell \
+            myspell-en-gb
+    fi
 }
 
 function os_common {
