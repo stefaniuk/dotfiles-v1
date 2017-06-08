@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# ### Mac OS X #################################################################
+
+function macosx-install-ffmpeg {
+
+    $brew_install ffmpeg --with-freetype
+}
