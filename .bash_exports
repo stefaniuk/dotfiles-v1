@@ -13,8 +13,8 @@ shopt -s cmdhist    # keep multi line commands together
 export HISTSIZE=4096
 export HISTFILESIZE=$HISTSIZE
 export HISTCONTROL=ignoredups:erasedups
-export HISTIGNORE="history*:pwd:ll:la:ls:lsd:cd ~:cd -:date:clear:exit"
-export PROMPT_COMMAND="prompt_command; history -n; history -w; history -c; history -r"
+export HISTIGNORE="history*:clear:exit"
+#export PROMPT_COMMAND="prompt_command; history -n; history -w; history -c; history -r"
 
 # prefer British English
 export LANG="en_GB.UTF-8"
