@@ -40,6 +40,7 @@ Testing
 
 This project can be tested in a Docker container provided along with the source code. To use this facility, please make sure that VirtualBox and Vagrant are installed and available on the command-line.
 
+    cd ./opt
     vagrant up
     vagrant ssh
     make build create start install bash
@@ -47,25 +48,26 @@ This project can be tested in a Docker container provided along with the source 
 TODO
 ----
 
- * Remap the Caps Lock
- * [Configure `htop`](http://www.thegeekstuff.com/2011/09/linux-htop-examples)
- * Version `dotfiles`
+* Tidy up installation process, i.e. `dependencies` and `system` bundles
+* Remap the Caps Lock
+* [Configure `htop`](http://www.thegeekstuff.com/2011/09/linux-htop-examples)
+* Version `dotfiles`
 
 See
 ---
 
 ###### Dotfiles
 
- * [Gediminas Morkevicius](https://github.com/l3pp4rd/dotfiles)
- * [Justin Force](https://github.com/justinforce/dotfiles)
- * [Keith Smiley](https://github.com/keith/dotfiles)
- * [Mathias Bynens](https://github.com/mathiasbynens/dotfiles)
- * [Nicolas Gallagher](https://github.com/necolas/dotfiles)
- * [Paul Irish](https://github.com/paulirish/dotfiles)
- * [Thoughtbot](https://github.com/thoughtbot/dotfiles)
+* [Gediminas Morkevicius](https://github.com/l3pp4rd/dotfiles)
+* [Justin Force](https://github.com/justinforce/dotfiles)
+* [Keith Smiley](https://github.com/keith/dotfiles)
+* [Mathias Bynens](https://github.com/mathiasbynens/dotfiles)
+* [Nicolas Gallagher](https://github.com/necolas/dotfiles)
+* [Paul Irish](https://github.com/paulirish/dotfiles)
+* [Thoughtbot](https://github.com/thoughtbot/dotfiles)
 
 ###### Projects
 
- * [bash-it](https://github.com/revans/bash-it)
- * [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh)
- * [prezto](https://github.com/sorin-ionescu/prezto)
+* [bash-it](https://github.com/revans/bash-it)
+* [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh)
+* [prezto](https://github.com/sorin-ionescu/prezto)
