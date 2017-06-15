@@ -69,6 +69,9 @@ function main {
         export TERM="xterm-256color"
     fi
 
+    # make dotfiles scripts available
+    export PATH=$PATH:$DIR/bin:$DIR/usr/bin:$program_dir/bin:$program_dir/usr/bin
+
     if [ -z "$BASH_SOURCE" ] || [ -n "$arg_force_download" ]; then
         # download from the GitHub repository
         dotfiles_download
@@ -137,7 +140,7 @@ function dotfiles_synchronise {
         $DIR \
     | grep -Ev "/$"
 
-    if [ -n "$arg_extension_man" ] && [ -d $program_dir-man ]; then
+    if [ -n "$arg_extension_man" ] && [ -d ${program_dir}-man ]; then
         print_h3 "\nSynchronise dotfiles-man\n"
         rsync -rav \
             --include=/ \
@@ -146,7 +149,7 @@ function dotfiles_synchronise {
             --exclude=.gitkeep \
             --exclude=LICENCE \
             --exclude=README.md \
-            $program_dir-man/* \
+            ${program_dir}-man/* \
             $DIR \
         | grep -Ev "/$"
         printf "\n"
@@ -165,9 +168,6 @@ function dotfiles_load_secrets {
 }
 
 function dotfiles_setup {
-
-    # make available custom scripts
-    export PATH=$PATH:$DIR/bin:$DIR/usr/bin
 
     # detect operating system
     source $DIR/.bash_system
