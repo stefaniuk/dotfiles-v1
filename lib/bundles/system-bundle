@@ -28,12 +28,3 @@ function ubuntu-install-system-bundle {
         locales \
         software-properties-common
 }
-
-# ### common ###################################################################
-
-function config-dependencies-bundle {
-
-    run_config \
-        locale \
-        timezone
-}

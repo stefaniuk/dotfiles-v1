@@ -37,7 +37,9 @@ log:
 install:
 	docker exec --interactive --tty \
 		$(NAME) \
-		./dotfiles
+		./dotfiles \
+			--install=dependencies-bundle,system-bundle \
+			--config
 
 test:
 	docker exec --interactive --tty \
