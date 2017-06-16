@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# ### Mac OS X #################################################################
+
+function macosx-install-openoffice {
+
+    $cask_install openoffice
+}
+
+# ### Ubuntu ###################################################################
+
+function ubuntu-install-openoffice {
+
+    $apt_add_repository ppa:libreoffice/ppa
+    $apt_get_update
+    $apt_get_install openoffice
+}
