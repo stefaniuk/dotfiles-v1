@@ -35,6 +35,7 @@ function config-atom {
         gulp-control \
         highlight-selected \
         language-docker \
+        language-nginx \
         markdown-pdf \
         open-recent \
         pdf-view \
