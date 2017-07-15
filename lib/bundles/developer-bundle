@@ -9,6 +9,7 @@ function macosx-install-developer-bundle {
         git-flow \
         gpg2 \
         gtypist \
+        httpie \
         jq
     run_install \
         github-desktop \
@@ -31,6 +32,7 @@ function ubuntu-install-developer-bundle {
         git-flow \
         gpgv2 \
         gtypist \
+        httpie \
         jq \
         nfs-kernel-server
     run_install \
