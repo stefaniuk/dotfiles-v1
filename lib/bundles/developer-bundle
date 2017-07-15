@@ -8,7 +8,8 @@ function macosx-install-developer-bundle {
         byobu \
         git-flow \
         gpg2 \
-        gtypist
+        gtypist \
+        jq
     run_install \
         github-desktop \
         iterm \
@@ -30,6 +31,7 @@ function ubuntu-install-developer-bundle {
         git-flow \
         gpgv2 \
         gtypist \
+        jq \
         nfs-kernel-server
     run_install \
         remmina \
