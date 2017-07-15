@@ -71,6 +71,8 @@ function install-developer-bundle {
         virtualbox \
         vscode \
         zsh
+    npm install -g \
+        http-console
 }
 
 function config-developer-bundle {
