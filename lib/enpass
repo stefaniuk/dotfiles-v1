@@ -11,6 +11,8 @@ function macosx-install-enpass {
 
 function ubuntu-install-enpass {
 
-    :
-    # TODO: Install enpass
+    sudo sh -c "wget -O - https://dl.sinew.in/keys/enpass-linux.key | apt-key add -"
+    sudo sh -c "echo 'deb http://repo.sinew.in/ stable main' > /etc/apt/sources.list.d/enpass.list"
+    $apt_get_update
+    $apt_get_install enpass
 }
