@@ -1,8 +1,0 @@
-[
-    { "keys": [ "shift+ctrl+alt+super+m" ], "command": "toggle_minimap" },
-    { "keys": [ "shift+ctrl+alt+super+h" ], "command": "toggle_tabs" },
-    { "keys": [ "shift+ctrl+alt+super+f" ], "command": "toggle_status_bar" },
-    { "keys": [ "shift+ctrl+alt+super+w" ], "command": "toggle_setting", "args": { "setting": "word_wrap" } },
-    { "keys": [ "shift+ctrl+alt+super+s" ], "command": "expand_tabs", "args" : { "set_translate_tabs" : true } },
-    { "keys": [ "shift+ctrl+alt+super+t" ], "command": "unexpand_tabs", "args" : { "set_translate_tabs" : true } }
-]

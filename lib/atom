@@ -24,23 +24,19 @@ function config-atom {
     cp -fv $DIR/lib/resources/atom/config.cson $DIR/.atom
     apm install \
         atom-beautify \
-        atom-typescript \
-        auto-detect-indentation \
+        atom-ide-ui \
         clipboard-plus \
-        color-picker \
-        editorconfig \
-        emmet \
         file-icons \
         git-plus \
-        gulp-control \
         highlight-selected \
-        language-docker \
-        language-nginx \
+        ide-java \
+        ide-php \
+        ide-python \
+        ide-typescript \
         markdown-pdf \
         open-recent \
         pdf-view \
         pigments \
-        platformio-ide-terminal \
         set-syntax \
         sort-lines
 }

@@ -4,6 +4,7 @@
   "command-palette":
     preserveLastSearch: true
   core:
+    autoHideMenuBar: true
     disabledPackages: [
       "welcome"
     ]
@@ -14,8 +15,9 @@
     ]
   editor:
     autoIndentOnPaste: false
-    fontSize: 12
+    fontSize: 20
     showInvisibles: true
+    softWrap: true
     tabLength: 4
   "file-icons":
     onChanges: true

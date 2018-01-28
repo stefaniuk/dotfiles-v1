@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# ### Ubuntu ###################################################################
+
+function ubuntu-config-gnome-terminal {
+
+    dconf load /org/gnome/terminal/legacy/ < $DIR/lib/resources/gnome-terminal/preferences.dconf
+}

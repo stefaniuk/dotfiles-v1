@@ -9,7 +9,3 @@ Host github.com
 Host bitbucket.org
     User git
     IdentityFile ~/.ssh/bitbucket-user
-
-Host gitlab.com
-    User git
-    IdentityFile ~/.ssh/gitlab-user

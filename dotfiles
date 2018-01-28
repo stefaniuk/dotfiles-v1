@@ -12,7 +12,6 @@ USER_NAME=${USER_NAME:-Daniel Stefaniuk}
 USER_EMAIL=${USER_EMAIL:-daniel.stefaniuk@gmail.com}
 GITHUB_ACCOUNT=${GITHUB_ACCOUNT:-stefaniuk}
 BITBUCKET_ACCOUNT=${BITBUCKET_ACCOUNT:-stefaniuk}
-GITLAB_ACCOUNT=${GITLAB_ACCOUNT:-stefaniuk}
 BASH_PROMPT_SHOW_GIT=${BASH_PROMPT_SHOW_GIT:-true}
 
 DIR=~
@@ -75,7 +74,7 @@ function main {
     if [ -z "$BASH_SOURCE" ] || [ -n "$arg_force_download" ]; then
         # download from the GitHub repository
         dotfiles_download
-    elif [[ $program_dir == */projects/$GITLAB_ACCOUNT/dotfiles ]] || [[ $program_dir == */projects/dotfiles ]] || [[ $program_dir == /project ]]; then
+    elif [[ $program_dir == */projects/$GITHUB_ACCOUNT/dotfiles ]] || [[ $program_dir == */projects/dotfiles ]] || [[ $program_dir == /project ]]; then
         # synchronise with the project content
         dotfiles_synchronise
         [ -n "$arg_synchronise_only" ] && exit 0
@@ -231,7 +230,6 @@ function dotfiles_shell {
     echo "export USER_EMAIL=\"$USER_EMAIL\"" >> $DIR/etc/profile.d/dotfiles-config
     echo "export GITHUB_ACCOUNT=\"$GITHUB_ACCOUNT\"" >> $DIR/etc/profile.d/dotfiles-config
     echo "export BITBUCKET_ACCOUNT=\"$BITBUCKET_ACCOUNT\"" >> $DIR/etc/profile.d/dotfiles-config
-    echo "export GITLAB_ACCOUNT=\"$GITLAB_ACCOUNT\"" >> $DIR/etc/profile.d/dotfiles-config
     echo "export BASH_PROMPT_SHOW_GIT=\"$BASH_PROMPT_SHOW_GIT\"" >> $DIR/etc/profile.d/dotfiles-config
     echo "export GIT_AUTHOR_NAME=\"\$USER_NAME\"" >> $DIR/etc/profile.d/dotfiles-config
     echo "export GIT_COMMITTER_NAME=\"\$GIT_AUTHOR_NAME\"" >> $DIR/etc/profile.d/dotfiles-config

@@ -11,9 +11,9 @@ function macosx-install-dropbox {
 
 function ubuntu-install-dropbox {
 
-    ver=$(www_get https://www.dropbox.com/en_GB/install-linux | grep '_amd64.deb' | grep -Eo '[0-9]+\.[0-9]+\.[0-9]+' | sortvr | head -n 1)
+    ver=$(www_get https://linux.dropboxstatic.com/packages/ubuntu/ | grep '_amd64.deb' | grep -Eo '[0-9]+\.[0-9]+\.[0-9]+' | sortvr | head -n 1)
     file_download \
-        --url "https://www.dropbox.com/download?dl=packages/ubuntu/dropbox_${ver}_amd64.deb" \
+        --url "https://linux.dropboxstatic.com/packages/ubuntu/dropbox_${ver}_amd64.deb" \
         --file "dropbox_${ver}_amd64.deb"
     sudo dpkg -i dropbox_${ver}_amd64.deb
     rm dropbox_${ver}_amd64.deb
