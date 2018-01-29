@@ -33,6 +33,9 @@ function config-atom {
         ide-php \
         ide-python \
         ide-typescript \
+        language-apache \
+        language-docker \
+        language-nginx \
         markdown-pdf \
         open-recent \
         pdf-view \
