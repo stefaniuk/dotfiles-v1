@@ -16,6 +16,13 @@ function ubuntu-install-virtualbox {
     sudo sh -c "echo 'deb http://download.virtualbox.org/virtualbox/debian $PSEUDO_NAME contrib' > /etc/apt/sources.list.d/virtualbox.list"
     $apt_get_update
     $apt_get_install virtualbox-5.2
+
+    ver=$(curl -sSL http://download.virtualbox.org/virtualbox/ | grep 'href' | egrep -o '[0-9]+\.[0-9]+\.[0-9]+' | sort -r | head -n 1)
+    file_download \
+        --url "http://download.virtualbox.org/virtualbox/$ver/Oracle_VM_VirtualBox_Extension_Pack-$ver.vbox-extpack" \
+        --file "Oracle_VM_VirtualBox_Extension_Pack-$ver.vbox-extpack"
+    echo "y" | sudo VBoxManage extpack install Oracle_VM_VirtualBox_Extension_Pack-$ver.vbox-extpack
+    rm Oracle_VM_VirtualBox_Extension_Pack-$ver.vbox-extpack
 }
 
 # ### common ###################################################################
