@@ -127,15 +127,13 @@ function dotfiles_synchronise {
     rsync -rav \
         --include=/ \
         --exclude=/.git \
+        --exclude=/opt/* \
         --exclude=.gitignore \
         --exclude=.gitkeep \
-        --exclude=Dockerfile \
         --exclude=LICENCE \
-        --exclude=Makefile \
-        --exclude=provision.sh \
         --exclude=README.md \
-        --exclude=Vagrantfile \
-        $program_dir/{.bash,.git,}* \
+        $program_dir/.{bash,git}* \
+        $program_dir/.*rc \
         $DIR \
     | grep -Ev "/$"
 
