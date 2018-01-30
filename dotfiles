@@ -132,8 +132,8 @@ function dotfiles_synchronise {
         --exclude=.gitkeep \
         --exclude=LICENCE \
         --exclude=README.md \
-        $program_dir/.{bash,git}* \
-        $program_dir/.*rc \
+        --exclude=*.test \
+        $program_dir/{.bash*,.git*,.*rc,} \
         $DIR \
     | grep -Ev "/$"
 
@@ -204,10 +204,13 @@ function dotfiles_setup {
 
     # cleanup
     rm -f $DIR/{LICENCE,README.md}
+    find $DIR/bin -iname '*.test' -exec rm {} \;
     find $DIR/tmp -iname '.git*' -exec rm {} \;
 
     # set correct ownership
     [ -n "$arg_user" ] && sudo chown -R $arg_user:$arg_user $DIR
+
+    print_h1 'Done!'
 }
 
 function dotfiles_shell {
