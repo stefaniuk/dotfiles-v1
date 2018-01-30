@@ -8,7 +8,7 @@ Supported operating systems are:
 * Mac OS X
 * Ubuntu
 
-Most of the scripts should work well with other Linux distributions. If the installation ends with a message _"Operating system not supported"_ see the [`system_detect` function](https://github.com/stefaniuk/dotfiles/blob/master/lib/resources/bash/.bash_system#L3) and examine the following [condition statement](https://github.com/stefaniuk/dotfiles/blob/master/dotfiles#L153-L156).
+Most of the scripts should work well with other Linux distributions. If the installation ends with a message _"Operating system not supported"_ see the [`system_detect` function](https://github.com/stefaniuk/dotfiles/blob/master/.bash_system#L3) and examine the following [condition statement](https://github.com/stefaniuk/dotfiles/blob/master/dotfiles#L179-L182).
 
 Installation
 ------------
