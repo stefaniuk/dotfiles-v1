@@ -209,6 +209,7 @@ function dotfiles_setup {
     find $DIR/tmp -iname '.git*' -exec rm {} \;
     if [ -n "$arg_minimal" ]; then
         rm -rf $DIR/{lib,opt,usr/bin,usr/etc}/*
+        rm .profile.old
     fi
 
     # set correct ownership
