@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# ### Ubuntu ###################################################################
+
+function ubuntu-customise-resolved {
+
+    # sudo systemctl disable systemd-resolved.service
+    # sudo service systemd-resolved stop
+
+    # /etc/NetworkManager/NetworkManager.conf
+    # [main]
+    # dns=default
+
+    # rm /etc/resolv.conf
+    # sudo service network-manager restart
+}
