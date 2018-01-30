@@ -27,9 +27,7 @@ EOF
 
 function ubuntu-install-java {
 
-    $apt_add_repository ppa:webupd8team/java
-    $apt_get_update
-    echo debconf shared/accepted-oracle-license-v1-1 select true | debconf-set-selections
-    echo debconf shared/accepted-oracle-license-v1-1 seen true | debconf-set-selections
-    $apt_get_install oracle-java8-installer oracle-java8-set-default
+    $apt_get_install \
+        openjdk-8-jdk \
+        openjdk-8-jre
 }
