@@ -25,6 +25,7 @@ arg_install_apps=$(echo "$*" | grep -o -- "--install=[-_,A-Za-z0-9]*" | sed "s/-
 arg_config=$(echo "$*" | grep -o -- "--config")
 arg_config_apps=$(echo "$*" | grep -o -- "--config=[-_,A-Za-z0-9]*" | sed "s/--config=//")
 arg_customise=$(echo "$*" | grep -o -- "--customise")
+arg_minimal=$(echo "$*" | grep -o -- "--minimal")
 arg_synchronise_only=$(echo "$*" | grep -o -- "--synchronise-only")
 arg_force_download=$(echo "$*" | grep -o -- "--force-download")
 arg_directory=$(echo "$*" | grep -Eo -- "--directory=[-_A-Za-z0-9/]+" | sed "s/--directory=//")
@@ -206,6 +207,9 @@ function dotfiles_setup {
     rm -f $DIR/{LICENCE,README.md}
     find $DIR/bin -iname '*.test' -exec rm {} \;
     find $DIR/tmp -iname '.git*' -exec rm {} \;
+    if [ -n "$arg_minimal" ]; then
+        rm -rf $DIR/{lib,opt,usr/bin,usr/etc}/*
+    fi
 
     # set correct ownership
     [ -n "$arg_user" ] && sudo chown -R $arg_user:$arg_user $DIR
@@ -525,6 +529,7 @@ function usage {
     printf "\t--install={dependencies|system|admin|developer|user}-bundle|all-bundles,app1,app2,...\n"
     printf "\t--config[=all,app1,app2,...]\n"
     printf "\t--customise\n"
+    printf "\t--minimal\n"
     printf "\t--synchronise-only\n"
     printf "\t--force-download\n"
     printf "\t--directory=/dir\n"
