@@ -13,6 +13,9 @@ function macosx-install-user-bundle {
 function ubuntu-install-user-bundle {
 
     $apt_get_install \
+        aspell \
+        hunspell \
+        myspell-en-gb \
         pandoc
     run_install \
         compiz

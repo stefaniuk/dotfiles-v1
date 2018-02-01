@@ -286,15 +286,10 @@ function os_initialise {
             sudo $DIR/bin/file_remove_str "Defaults[[:space:]]+env_reset" /etc/sudoers
             sudo $DIR/bin/file_remove_str "Defaults[[:space:]]+secure_path=\".*\"" /etc/sudoers
         fi
-        # timezone
+        # timezone and locale
         echo $SYSTEM_TIMEZONE | sudo tee /etc/timezone
         sudo dpkg-reconfigure -f noninteractive tzdata
-        # locale
         sudo locale-gen $SYSTEM_LOCALE
-        $apt_get_install \
-            aspell \
-            hunspell \
-            myspell-en-gb
     fi
 
     touch $DIR/tmp/.dotfiles-os-initialised
