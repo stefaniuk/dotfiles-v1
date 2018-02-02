@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # exit if script is sourced
-[ -n "$BASH_SOURCE" ] && [ "$(basename -- "$0")" != "dotfiles" ] && exit 1
+[ "${BASH_SOURCE[0]}" != "${0}" ] && exit 1
 
 ################################################################################
 # variables
@@ -72,7 +72,7 @@ function main {
     # make dotfiles scripts available
     export PATH=$PATH:$DIR/bin:$DIR/usr/bin:$program_dir/bin:$program_dir/usr/bin
 
-    if [ -z "$BASH_SOURCE" ] || [ -n "$arg_force_download" ]; then
+    if [ ! -t 1 ] || [ -n "$arg_force_download" ]; then
         # download from the GitHub repository
         dotfiles_download
     elif [[ $program_dir == */projects/$GITHUB_ACCOUNT/dotfiles ]] || [[ $program_dir == */projects/dotfiles ]] || [[ $program_dir == /project ]]; then
