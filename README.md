@@ -48,10 +48,12 @@ This project can be tested in a Docker container provided along with the source 
 TODO
 ----
 
+* Refactor `system_info`
+* Fix `system_test`
 * Tidy up installation process, i.e. `dependencies` and `system` bundles
-* Remap the Caps Lock
-* [Configure `htop`](http://www.thegeekstuff.com/2011/09/linux-htop-examples)
 * Version `dotfiles`
+* [Configure `htop`](http://www.thegeekstuff.com/2011/09/linux-htop-examples)
+* Remap the Caps Lock
 
 See
 ---
