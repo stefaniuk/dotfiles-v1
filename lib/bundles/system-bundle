@@ -23,8 +23,15 @@ function ubuntu-install-system-bundle {
         apt-transport-https \
         apt-utils \
         ca-certificates \
+        curl \
         debconf-utils \
         dialog \
+        iputils-ping \
         locales \
-        software-properties-common
+        netcat \
+        software-properties-common \
+        strace \
+        unzip \
+        vim \
+        wget
 }
