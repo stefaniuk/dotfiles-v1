@@ -29,7 +29,21 @@ function ubuntu-install-docker {
 
 function config-docker {
 
-    [ $OS == "linux" ] && sudo usermod -aG docker $USER
+    if [ $DIST == "ubuntu" ]; then
+        sudo usermod -aG docker $USER
+        sudo sed -i "s;ExecStart=/usr/bin/dockerd -H fd://;ExecStart=/usr/bin/dockerd;g" /lib/systemd/system/docker.service
+        sudo bash -c 'cat << EOF > /etc/docker/daemon.json
+{
+    "hosts": [ "fd://" ],
+    "max-concurrent-downloads": 3,
+    "max-concurrent-uploads": 1,
+    "debug": false
+}
+EOF'
+        sudo systemctl daemon-reload
+        sudo service docker restart
+    fi
+
     [ -f /etc/bash_completion ] && dir=/etc/bash_completion.d || dir=/usr/local/etc/bash_completion.d
     sudo curl -SL "https://raw.githubusercontent.com/docker/docker-ce/master/components/cli/contrib/completion/bash/docker" -o $dir/docker-ce-completion.bash
     sudo curl -SL "https://raw.githubusercontent.com/docker/compose/master/contrib/completion/bash/docker-compose" -o $dir/docker-compose-completion.bash
