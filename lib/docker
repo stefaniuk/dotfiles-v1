@@ -11,10 +11,10 @@ function macosx-install-docker {
 
 function ubuntu-install-docker {
 
-    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+    curl -sSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
     sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable edge"
-    sudo apt-get --yes update
-    sudo apt-get --yes --ignore-missing --no-install-recommends install docker-ce ||:
+    $apt_get_update
+    $apt_get_install docker-ce ||:
 
     ver=$(curl -sSL https://github.com/docker/compose | grep '/docker/compose/tree/' | egrep '/[0-9]+\.[0-9]+\.[0-9]+"' | egrep -o '[0-9]+\.[0-9]+\.[0-9]+' | head -n 1)
     sudo curl -sSL https://github.com/docker/compose/releases/download/$ver/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose

@@ -1,0 +1,45 @@
+#!/bin/bash
+
+# ### Ubuntu ###################################################################
+
+function ubuntu-install-nvidia-docker {
+
+    curl -sSL https://nvidia.github.io/nvidia-docker/gpgkey | sudo apt-key add -
+    curl -sSL https://nvidia.github.io/nvidia-docker/ubuntu16.04/amd64/nvidia-docker.list | sudo tee /etc/apt/sources.list.d/nvidia-docker.list
+    $apt_get_update
+
+    apt download \
+        libnvidia-container-tools \
+        libnvidia-container1 \
+        nvidia-container-runtime \
+        nvidia-docker2
+    echo n | sudo dpkg --install --ignore-depends=docker-ce \
+        libnvidia-container-tools*.deb \
+        libnvidia-container1*.deb \
+        nvidia-container-runtime*.deb \
+        nvidia-docker2*.deb
+    rm \
+        libnvidia-container-tools*.deb \
+        libnvidia-container1*.deb \
+        nvidia-container-runtime*.deb \
+        nvidia-docker2*.deb
+
+    # TODO: Merge config rather then overwrite
+    sudo bash -c 'cat << EOF > /etc/docker/daemon.json
+{
+    "hosts": [ "fd://" ],
+    "max-concurrent-downloads": 3,
+    "max-concurrent-uploads": 1,
+    "debug": false,
+    "runtimes": {
+        "nvidia": {
+            "path": "/usr/bin/nvidia-container-runtime",
+            "runtimeArgs": []
+        }
+    }
+}
+EOF'
+    sudo systemctl daemon-reload
+    sudo service docker restart
+    docker run --runtime=nvidia --rm nvidia/cuda nvidia-smi
+}
