@@ -8,6 +8,11 @@ function ubuntu-install-nvidia-docker {
     curl -sSL https://nvidia.github.io/nvidia-docker/ubuntu16.04/amd64/nvidia-docker.list | sudo tee /etc/apt/sources.list.d/nvidia-docker.list
     $apt_get_update
 
+    $apt_get_remove \
+        libnvidia-container-tools \
+        libnvidia-container1 \
+        nvidia-container-runtime \
+        nvidia-docker2
     apt download \
         libnvidia-container-tools \
         libnvidia-container1 \
@@ -18,11 +23,18 @@ function ubuntu-install-nvidia-docker {
         libnvidia-container1*.deb \
         nvidia-container-runtime*.deb \
         nvidia-docker2*.deb
+    echo "libnvidia-container-tools hold" | sudo dpkg --set-selections
+    echo "libnvidia-container1 hold" | sudo dpkg --set-selections
+    echo "nvidia-container-runtime hold" | sudo dpkg --set-selections
+    echo "nvidia-docker2 hold" | sudo dpkg --set-selections
     rm \
         libnvidia-container-tools*.deb \
         libnvidia-container1*.deb \
         nvidia-container-runtime*.deb \
         nvidia-docker2*.deb
+}
+
+function ubuntu-config-nvidia-docker {
 
     # TODO: Merge config rather then overwrite
     sudo bash -c 'cat << EOF > /etc/docker/daemon.json
