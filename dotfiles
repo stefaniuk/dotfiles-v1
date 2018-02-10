@@ -178,7 +178,7 @@ function dotfiles_setup {
         print_err "No network"
     fi
     # check operating system
-    if [ $DIST != "macosx" ] && [ $DIST != "ubuntu" ]; then
+    if [ $DIST != "macosx" ] && [ $DIST != "ubuntu" ] && [ $DIST != "raspbian" ]; then
         print_err "Operating system not supported"
     fi
 
