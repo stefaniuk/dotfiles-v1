@@ -39,6 +39,9 @@ config_already_processed=""
 if [ -z "$arg_config_apps" ] && [ -n "$arg_install_apps" ]; then
     arg_config_apps=$arg_install_apps
 fi
+if [ ! -t 1 ]; then
+    script_pipe=true
+fi
 
 ################################################################################
 # functions
@@ -69,7 +72,7 @@ function main {
     # make dotfiles scripts available
     export PATH=$PATH:$DIR/bin:$DIR/usr/bin:$program_dir/bin:$program_dir/usr/bin
 
-    if [ ! -t 1 ] || [ -n "$arg_force_download" ]; then
+    if [ -n "$script_pipe" ] || [ -n "$arg_force_download" ]; then
         # download from the GitHub repository
         dotfiles_download
     elif [[ $program_dir == */projects/$GITHUB_ACCOUNT/dotfiles ]] || [[ $program_dir == */projects/dotfiles ]] || [[ $program_dir == /project ]]; then
