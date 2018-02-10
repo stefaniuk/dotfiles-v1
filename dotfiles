@@ -39,7 +39,7 @@ config_already_processed=""
 if [ -z "$arg_config_apps" ] && [ -n "$arg_install_apps" ]; then
     arg_config_apps=$arg_install_apps
 fi
-if [ ! -t 1 ]; then
+if [[ "${BASH_SOURCE[0]}" != "${0}" ]]; then
     script_pipe=true
 fi
 
