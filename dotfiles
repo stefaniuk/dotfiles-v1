@@ -103,6 +103,7 @@ function sudo_keep_alive {
 
 function dotfiles_download {
 
+    print_h3 "\Download dotfiles\n"
     curl -L \
         "https://github.com/${GITHUB_ACCOUNT}/dotfiles/tarball/master" \
         -o $DIR/dotfiles.tar.gz
@@ -112,6 +113,7 @@ function dotfiles_download {
     rm -f $DIR/dotfiles.tar.gz
 
     if [ -n "$arg_extension_man" ]; then
+        print_h3 "\Download dotfiles-man\n"
         curl -L \
             "https://github.com/${GITHUB_ACCOUNT}/dotfiles-man/tarball/master" \
             -o $DIR/dotfiles-man.tar.gz
@@ -138,7 +140,7 @@ function dotfiles_synchronise {
         $DIR \
     | grep -Ev "/$"
 
-    if [ -n "$arg_extension_man" ] && [ -d ${program_dir}-man ]; then
+    if [ -n "$arg_extension_man" ]; then
         print_h3 "\nSynchronise dotfiles-man\n"
         rsync -rav \
             --include=/ \
@@ -150,7 +152,6 @@ function dotfiles_synchronise {
             ${program_dir}-man/* \
             $DIR \
         | grep -Ev "/$"
-        printf "\n"
     fi
 }
 
@@ -208,8 +209,9 @@ function dotfiles_setup {
     find $DIR/bin -iname '*.test' -exec rm {} \;
     find $DIR/tmp -iname '.git*' -exec rm {} \;
     if [ -n "$arg_minimal" ]; then
-        rm -rf $DIR/{lib,opt,usr/bin,usr/etc}/*
-        rm $DIR/.profile.old
+        rm -rf \
+            $DIR/{etc/profile.d,lib,opt,tmp,usr/bin,usr/etc}/* \
+            $DIR/.profile.old
     fi
 
     # set correct ownership
@@ -542,5 +544,3 @@ function usage {
 }
 
 main $*
-
-exit 0
