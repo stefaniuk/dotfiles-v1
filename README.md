@@ -46,6 +46,11 @@ This project can be tested in a Docker container provided along with the source 
     vagrant ssh
     make build create start install bash
 
+Extensions
+----------
+
+* [Manuals](https://github.com/stefaniuk/dotfiles-man)
+
 TODO
 ----
 
