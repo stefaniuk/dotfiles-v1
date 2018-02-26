@@ -1,0 +1,23 @@
+#!/bin/bash
+
+alias g="git"
+alias ga="git add"
+alias gb="git branch -vv"
+alias gb+="git branch -vv --all"
+alias gc="git commit"
+alias gc+="git commit --all"
+alias gco="git checkout"
+alias gco+="git checkout -b"
+alias gd="git diff"
+alias gd+="git diff --cached"
+alias gl="git log --graph --oneline --decorate"
+alias gl+="git log --graph --oneline --decorate --stat"
+alias gf="git fetch --prune"
+alias gp="git pull"
+alias gp+="git push --set-upstream origin"
+alias gm="git merge --no-ff"
+alias gs="git status --short"
+alias gr="git reset HEAD"
+alias gr+="git reset --hard HEAD"
+alias gr++="git reset --hard HEAD~1"
+alias git-prune='git fetch --prune && for branch in `git branch -vv | grep ": gone]" | awk "{print $1}"`; do git branch --delete $branch; done'

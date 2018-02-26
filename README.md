@@ -54,6 +54,7 @@ Extensions
 TODO
 ----
 
+* Provide functionality to toggle Bash completion and alias scripts in `etc/profile.d`
 * Refactor `system_info`
 * Fix `system_test`
 * Tidy up installation process, i.e. `dependencies` and `system` bundles

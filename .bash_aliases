@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # --- navigation ---------------------------------------------------------------
 
@@ -9,42 +9,6 @@ alias ~="cd ~"
 alias -- -="cd -"
 
 # --- shortcuts ----------------------------------------------------------------
-
-alias g="git"
-alias ga="git add"
-alias gb="git branch -vv"
-alias gb+="git branch -vv --all"
-alias gc="git commit"
-alias gc+="git commit --all"
-alias gco="git checkout"
-alias gco+="git checkout -b"
-alias gd="git diff"
-alias gd+="git diff --cached"
-alias gl="git log --graph --oneline --decorate"
-alias gl+="git log --graph --oneline --decorate --stat"
-alias gf="git fetch --prune"
-alias gp="git pull"
-alias gp+="git push --set-upstream origin"
-alias gm="git merge --no-ff"
-alias gs="git status --short"
-alias gr="git reset HEAD"
-alias gr+="git reset --hard HEAD"
-alias gr++="git reset --hard HEAD~1"
-alias git-prune='git fetch --prune && for branch in `git branch -vv | grep ": gone]" | awk "{print $1}"`; do git branch --delete $branch; done'
-
-alias d="docker"
-alias dim="docker images"
-alias dps="docker ps --all"
-alias dst="docker start"
-alias dto="docker top"
-alias dlo="docker logs --follow"
-alias dex="docker exec --interactive --tty"
-alias dat="docker attach"
-alias dip="docker inspect --format '{{ .NetworkSettings.IPAddress }}'"
-alias drc='docker rm --force $(docker ps --all --quiet) 2> /dev/null'
-alias drv='docker volume rm $(docker volume ls --quiet --filter dangling=true) 2> /dev/null'
-alias dri='docker rmi --force $(docker images | grep "<none>" | awk "{print $3}") 2> /dev/null'
-alias dri-own='docker rmi --force $(docker images | grep "$GITHUB_ACCOUNT" | awk "{print $3}") 2> /dev/null'
 
 alias tmux="TERM=screen-256color-bce tmux"
 
