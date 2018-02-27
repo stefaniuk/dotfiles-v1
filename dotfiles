@@ -108,6 +108,7 @@ function dotfiles_download {
         "https://github.com/${GITHUB_ACCOUNT}/dotfiles/tarball/master" \
         -o $DIR/dotfiles.tar.gz
     tar -zxf $DIR/dotfiles.tar.gz -C $DIR
+    rm -rf $DIR/etc/profile.d
     cp -rf $DIR/$GITHUB_ACCOUNT-dotfiles-*/{.bash,}* $DIR
     rm -rf $DIR/$GITHUB_ACCOUNT-dotfiles-*
     rm -f $DIR/dotfiles.tar.gz
@@ -118,6 +119,7 @@ function dotfiles_download {
             "https://github.com/${GITHUB_ACCOUNT}/dotfiles-man/tarball/master" \
             -o $DIR/dotfiles-man.tar.gz
         tar -zxf $DIR/dotfiles-man.tar.gz -C $DIR
+        rm -rf $DIR/man
         cp -rf $DIR/$GITHUB_ACCOUNT-dotfiles-man-*/* $DIR
         rm -rf $DIR/$GITHUB_ACCOUNT-dotfiles-man-*
         rm -f $DIR/dotfiles-man.tar.gz
