@@ -1,20 +1,32 @@
 #!/bin/bash
 
-alias jupy="docker run --detach --interactive --tty --rm \
-    --name jupyter-base \
-    --volume ~/tmp/jupyter:/home/jovyan/work \
-    --publish 127.0.0.1:8888:8888 \
-    jupyter/base-notebook \
-    start-notebook.sh --NotebookApp.password='sha1:6ce552e28780:c3a8d3fe8ca49f8d3f1a10050020806ae137f915'"
-alias jupy-ds="docker run --detach --interactive --tty --rm \
-    --name jupyter-datascience \
-    --volume ~/tmp/jupyter:/home/jovyan/work \
-    --publish 127.0.0.1:8888:8888 \
-    jupyter/datascience-notebook \
-    start-notebook.sh --NotebookApp.password='sha1:6ce552e28780:c3a8d3fe8ca49f8d3f1a10050020806ae137f915'"
-alias jupy-tf="docker run --detach --interactive --tty --rm \
-    --name jupyter-tensorflow \
-    --volume ~/tmp/jupyter:/home/jovyan/work \
-    --publish 127.0.0.1:8888:8888 \
-    jupyter/tensorflow-notebook \
-    start-notebook.sh --NotebookApp.password='sha1:6ce552e28780:c3a8d3fe8ca49f8d3f1a10050020806ae137f915'"
+alias jupy="
+    docker run --detach --interactive --tty --rm \
+        --user 1000 \
+        --name jupyter-base \
+        --volume ~/tmp/jupyter:/home/jovyan/work \
+        --publish 127.0.0.1:8888:8888 \
+        jupyter/base-notebook \
+        start-notebook.sh --NotebookApp.password='sha1:6ce552e28780:c3a8d3fe8ca49f8d3f1a10050020806ae137f915' ;\
+    docker logs -f jupyter-base
+"
+alias jupy-ds="
+    docker run --detach --interactive --tty --rm \
+        --user 1000 \
+        --name jupyter-datascience \
+        --volume ~/tmp/jupyter:/home/jovyan/work \
+        --publish 127.0.0.1:8888:8888 \
+        jupyter/datascience-notebook \
+        start-notebook.sh --NotebookApp.password='sha1:6ce552e28780:c3a8d3fe8ca49f8d3f1a10050020806ae137f915' ;\
+    docker logs -f jupyter-datascience
+"
+alias jupy-tf="
+    docker run --detach --interactive --tty --rm \
+        --user 1000 \
+        --name jupyter-tensorflow \
+        --volume ~/tmp/jupyter:/home/jovyan/work \
+        --publish 127.0.0.1:8888:8888 \
+        jupyter/tensorflow-notebook \
+        start-notebook.sh --NotebookApp.password='sha1:6ce552e28780:c3a8d3fe8ca49f8d3f1a10050020806ae137f915' ;\
+    docker logs -f jupyter-tensorflow
+"
