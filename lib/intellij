@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# ### Mac OS X #################################################################
+
+function macosx-install-intellij {
+
+    $cask_install intellij-idea-ce
+}
+
+# ### Ubuntu ###################################################################
+
+function ubuntu-install-intellij {
+
+    :
+}
