@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# ### Mac OS X #################################################################
+
+function macosx-install-gitkraken {
+
+    $cask_install gitkraken
+}
+
+# ### Ubuntu ###################################################################
+
+function ubuntu-install-gitkraken {
+
+    :
+}
