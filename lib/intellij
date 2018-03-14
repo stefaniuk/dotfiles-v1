@@ -11,5 +11,22 @@ function macosx-install-intellij {
 
 function ubuntu-install-intellij {
 
-    :
+    ver=$(www_get https://raw.githubusercontent.com/caskroom/homebrew-cask/master/Casks/intellij-idea-ce.rb | grep 'version' | grep -Eo '[0-9]+.[0-9]+.[0-9]+' | head -n 1)
+    file_download \
+        --url "https://download-cf.jetbrains.com/idea/ideaIC-$ver.tar.gz" \
+        --file "ideaIC-$ver.tar.gz"
+    tar -xf ideaIC-$ver.tar.gz
+    rm ideaIC-$ver.tar.gz
+    rm -rf $app_dir/intellij
+    mv -fv $(ls -d idea-IC-*) $app_dir/intellij
+    cat <<EOF > ~/.local/share/applications/intellij.desktop
+[Desktop Entry]
+Version=1.0
+Name=IntelliJ
+Type=Application
+Exec=$app_dir/intellij/bin/idea.sh
+Icon=$app_dir/intellij/bin/idea.png
+Terminal=false
+Categories=Utility;
+EOF
 }
