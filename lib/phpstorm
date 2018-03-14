@@ -11,5 +11,22 @@ function macosx-install-phpstorm {
 
 function ubuntu-install-phpstorm {
 
-    :
+    ver=$(www_get https://raw.githubusercontent.com/caskroom/homebrew-cask/master/Casks/phpstorm.rb | grep 'version' | grep -Eo '[0-9]+.[0-9]+.[0-9]+' | head -n 1)
+    file_download \
+        --url "https://download-cf.jetbrains.com/webide/PhpStorm-$ver.tar.gz" \
+        --file "PhpStorm-$ver.tar.gz"
+    tar -xf PhpStorm-$ver.tar.gz
+    rm PhpStorm-$ver.tar.gz
+    rm -rf $app_dir/phpstorm
+    mv -fv $(ls -d PhpStorm-*) $app_dir/phpstorm
+    cat <<EOF > ~/.local/share/applications/phpstorm.desktop
+[Desktop Entry]
+Version=1.0
+Name=PhpStorm
+Type=Application
+Exec=$app_dir/phpstorm/bin/phpstorm.sh
+Icon=$app_dir/phpstorm/bin/phpstorm.png
+Terminal=false
+Categories=Utility;
+EOF
 }
