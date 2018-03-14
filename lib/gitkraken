@@ -11,5 +11,9 @@ function macosx-install-gitkraken {
 
 function ubuntu-install-gitkraken {
 
-    :
+    file_download \
+        --url "https://release.gitkraken.com/linux/gitkraken-amd64.deb" \
+        --file "gitkraken-amd64.deb"
+    sudo dpkg -i gitkraken-amd64.deb
+    rm gitkraken-amd64.deb
 }
