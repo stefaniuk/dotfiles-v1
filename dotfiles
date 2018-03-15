@@ -9,7 +9,8 @@ USER_NAME=${USER_NAME:-Daniel Stefaniuk}
 USER_EMAIL=${USER_EMAIL:-daniel.stefaniuk@gmail.com}
 GITHUB_ACCOUNT=${GITHUB_ACCOUNT:-stefaniuk}
 BITBUCKET_ACCOUNT=${BITBUCKET_ACCOUNT:-stefaniuk}
-BASH_PROMPT_SHOW_GIT=${BASH_PROMPT_SHOW_GIT:-true}
+BASH_PROMPT_SHOW_GIT=${BASH_PROMPT_SHOW_GIT:-yes}
+BASH_PROMPT_RELOAD_HISTORY=${BASH_PROMPT_RELOAD_HISTORY:-no}
 
 DIR=~
 program_dir=$(cd "$(dirname "$0" 2> /dev/null)"; pwd)
@@ -230,6 +231,7 @@ function dotfiles_shell {
     echo "export GITHUB_ACCOUNT=\"$GITHUB_ACCOUNT\"" >> $DIR/etc/profile.d/dotfiles-config
     echo "export BITBUCKET_ACCOUNT=\"$BITBUCKET_ACCOUNT\"" >> $DIR/etc/profile.d/dotfiles-config
     echo "export BASH_PROMPT_SHOW_GIT=\"$BASH_PROMPT_SHOW_GIT\"" >> $DIR/etc/profile.d/dotfiles-config
+    echo "export BASH_PROMPT_RELOAD_HISTORY=\"$BASH_PROMPT_RELOAD_HISTORY\"" >> $DIR/etc/profile.d/dotfiles-config
     echo "export GIT_AUTHOR_NAME=\"\$USER_NAME\"" >> $DIR/etc/profile.d/dotfiles-config
     echo "export GIT_COMMITTER_NAME=\"\$GIT_AUTHOR_NAME\"" >> $DIR/etc/profile.d/dotfiles-config
     echo "export GIT_AUTHOR_EMAIL=\"\$USER_EMAIL\"" >> $DIR/etc/profile.d/dotfiles-config

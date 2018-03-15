@@ -14,7 +14,20 @@ export HISTSIZE=4096
 export HISTFILESIZE=$HISTSIZE
 export HISTCONTROL=ignoredups:erasedups
 export HISTIGNORE="history*:clear:exit"
-export PROMPT_COMMAND="prompt_command; history -n; history -w; history -c; history -r"
+if [[ ! "$BASH_PROMPT_RELOAD_HISTORY" =~ ^(true|yes|on|1|TRUE|YES|ON)$ ]]; then
+    export PROMPT_COMMAND="prompt_command" # use `reload` command to synchronise history
+else
+    export PROMPT_COMMAND="
+        prompt_command ;\
+        # append the history lines not already read from the history file to the current history list
+        history -n ;\
+        # write out the current history list to the history file
+        history -w ;\
+        # clear the history list
+        history -c ;\
+        # read the history file and append its contents to the history list
+        history -r"
+fi
 
 # prefer British English
 export LANG="en_GB.UTF-8"

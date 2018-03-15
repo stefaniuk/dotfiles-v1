@@ -47,9 +47,9 @@ else
     hostStyle="${yellow}"
 fi
 
-function __prompt_git_branch() {
+function __prompt_git_branch {
 
-    if [ "$BASH_PROMPT_SHOW_GIT" != "true" ] && [ "$BASH_PROMPT_SHOW_GIT" != "1" ]; then
+    if [[ ! "$BASH_PROMPT_SHOW_GIT" =~ ^(true|yes|on|1|TRUE|YES|ON)$ ]]; then
         return
     fi
 
@@ -67,9 +67,9 @@ function __prompt_git_branch() {
     fi
 }
 
-function __prompt_git_status() {
+function __prompt_git_status {
 
-    if [ "$BASH_PROMPT_SHOW_GIT" != "true" ] && [ "$BASH_PROMPT_SHOW_GIT" != "1" ]; then
+    if [[ ! "$BASH_PROMPT_SHOW_GIT" =~ ^(true|yes|on|1|TRUE|YES|ON)$ ]]; then
         return
     fi
 
@@ -104,7 +104,7 @@ function __prompt_git_status() {
     fi
 }
 
-function prompt_command() {
+function prompt_command {
 
     # code
     local code=$?
@@ -130,8 +130,6 @@ function prompt_command() {
     PS1+="${code}"                              # {code}
     PS1+="\[${reset}${white}\] \$ \[${reset}\]" # $
     export PS1
-
-    #echo -e "${reset}${white} on ${bold}${violet}${branchName}${reset}${blue}${s}";
 
     PS2="\[${white}\]→ \[${reset}\]"
     export PS2
