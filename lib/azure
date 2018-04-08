@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# ### Mac OS X #################################################################
+
+function macosx-install-azure {
+
+    $brew_install azure-cli
+}
+
+# ### Ubuntu ###################################################################
+
+function ubuntu-install-azure {
+
+    :
+}

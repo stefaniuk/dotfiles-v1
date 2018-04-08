@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# ### Mac OS X #################################################################
+
+function macosx-install-terraform {
+
+    $brew_install terraform
+}
+
+# ### Ubuntu ###################################################################
+
+function ubuntu-install-terraform {
+
+    :
+}
