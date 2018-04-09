@@ -11,5 +11,10 @@ function macosx-install-terraform {
 
 function ubuntu-install-terraform {
 
-    :
+    ver=$(www_get https://www.terraform.io/downloads.html | grep '_linux_amd64.zip' | grep -E '/[0-9]+\.[0-9]+\.[0-9]+' | grep -Eo '[0-9]+\.[0-9]+\.[0-9]+' | sortvr | head -n 1)
+    file_download \
+        --url "https://releases.hashicorp.com/terraform/$ver/terraform_${ver}_linux_amd64.zip" \
+        --file "terraform_${ver}_linux_amd64.zip"
+    sudo unzip -o terraform_${ver}_linux_amd64.zip -d /usr/local/bin
+    rm terraform_${ver}_linux_amd64.zip
 }

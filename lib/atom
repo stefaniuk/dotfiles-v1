@@ -36,6 +36,7 @@ function config-atom {
         language-apache \
         language-docker \
         language-nginx \
+        language-terraform \
         markdown-pdf \
         open-recent \
         pdf-view \
