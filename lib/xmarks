@@ -1,8 +1,0 @@
-#!/bin/bash
-
-# ### Mac OS X #################################################################
-
-function macosx-install-xmarks {
-
-    $cask_install xmarks-safari
-}
