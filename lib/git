@@ -20,4 +20,6 @@ function config-git {
 
     git config --global user.name "$USER_NAME"
     git config --global user.email "$USER_EMAIL"
+    file_replace_str "name = name" "name = $USER_NAME" $DIR/.gitconfig
+    file_replace_str "email = email" "email = $USER_EMAIL" $DIR/.gitconfig
 }
