@@ -22,4 +22,11 @@ for file in $(dirname $(modinfo -n vboxdrv))/*.ko; do
         /root/module-signing/MOK.der \
         "$file"
 done
-modprobe vboxdrv
+modprobe \
+    vboxdrv \
+    vboxguest \
+    vboxnetadp \
+    vboxnetflt \
+    vboxpci \
+    vboxsf \
+    vboxvideo
