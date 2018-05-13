@@ -11,9 +11,9 @@ function macosx-install-smartgit {
 
 function ubuntu-install-smartgit {
 
-    ver=$(www_get http://www.syntevo.com/smartgit/download | grep '.tar.gz' | grep -Eo '[0-9]+_[0-9]+_[0-9]+' | sortvr | head -n 1)
+    ver=$(www_get https://www.syntevo.com/smartgit/download | grep '.tar.gz' | grep -Eo '[0-9]+_[0-9]+_[0-9]+' | sortvr | head -n 1)
     file_download \
-        --url "http://www.syntevo.com/static/smart/download/smartgit/smartgit-linux-$ver.tar.gz" \
+        --url "https://www.syntevo.com/downloads/smartgit/smartgit-linux-$ver.tar.gz" \
         --file "smartgit-linux-$ver.tar.gz"
     tar -xf smartgit-linux-$ver.tar.gz
     rm -rf $app_dir/smartgit

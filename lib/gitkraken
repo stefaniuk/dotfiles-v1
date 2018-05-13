@@ -11,6 +11,8 @@ function macosx-install-gitkraken {
 
 function ubuntu-install-gitkraken {
 
+    $apt_get_install \
+        libgnome-keyring-dev
     file_download \
         --url "https://release.gitkraken.com/linux/gitkraken-amd64.deb" \
         --file "gitkraken-amd64.deb"
