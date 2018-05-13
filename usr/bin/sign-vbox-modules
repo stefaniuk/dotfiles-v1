@@ -1,0 +1,25 @@
+#!/bin/bash
+
+# SEE: https://stegard.net/2016/10/virtualbox-secure-boot-ubuntu-fail/
+
+# (1)
+
+mkdir /root/module-signing
+cd /root/module-signing
+openssl req -new -x509 \
+    -newkey rsa:2048 -keyout MOK.priv -outform DER -out MOK.der \
+    -nodes -days 36500 -subj "/CN=$USER_NAME/"
+chmod 600 MOK.priv
+mokutil --import /root/module-signing/MOK.der
+
+# (2)
+
+for file in $(dirname $(modinfo -n vboxdrv))/*.ko; do
+    echo "Signing $file"
+    /usr/src/linux-headers-$(uname -r)/scripts/sign-file \
+        sha256 \
+        /root/module-signing/MOK.priv \
+        /root/module-signing/MOK.der \
+        "$file"
+done
+modprobe vboxdrv
