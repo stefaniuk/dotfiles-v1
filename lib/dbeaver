@@ -11,10 +11,7 @@ function macosx-install-dbeaver {
 
 function ubuntu-install-dbeaver {
 
-    ver=$(www_get http://dbeaver.jkiss.org/files/ | grep -E '[0-9]+\.[0-9]+\.[0-9]+/' | grep -Eo '[0-9]+\.[0-9]+\.[0-9]+' | sortvr | head -n 1)
-    file_download \
-        --url "http://dbeaver.jkiss.org/files/$ver/dbeaver-ce_${ver}_amd64.deb" \
-        --file "dbeaver-ce_${ver}_amd64.deb"
-    sudo dpkg -i dbeaver-ce_${ver}_amd64.deb
-    rm dbeaver-ce_${ver}_amd64.deb
+    $apt_add_repository ppa:serge-rider/dbeaver-ce
+    $apt_get_update
+    $apt_get_install dbeaver-ce
 }
