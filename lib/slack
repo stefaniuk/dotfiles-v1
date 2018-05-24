@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# ### Mac OS X #################################################################
+
+function macosx-install-slack {
+
+    $cask_install slack
+}
+
+# ### Ubuntu ###################################################################
+
+function ubuntu-install-slack {
+
+    sudo snap install slack --classic
+}
