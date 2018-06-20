@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# ### Mac OS X #################################################################
+
+function macosx-install-vmware-horizon-client {
+
+    $cask_install vmware-horizon-client
+}
