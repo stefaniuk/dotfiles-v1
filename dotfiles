@@ -104,7 +104,7 @@ function sudo_keep_alive {
 
 function dotfiles_download {
 
-    print_h3 "\Download dotfiles\n"
+    print_h3 "\nDownload dotfiles\n"
     curl -L \
         "https://github.com/${GITHUB_ACCOUNT}/dotfiles/tarball/master" \
         -o $DIR/dotfiles.tar.gz
@@ -115,7 +115,7 @@ function dotfiles_download {
     rm -f $DIR/dotfiles.tar.gz
 
     if [ -n "$arg_extension_man" ]; then
-        print_h3 "\Download dotfiles-man\n"
+        print_h3 "\nDownload dotfiles-man\n"
         curl -L \
             "https://github.com/${GITHUB_ACCOUNT}/dotfiles-man/tarball/master" \
             -o $DIR/dotfiles-man.tar.gz
