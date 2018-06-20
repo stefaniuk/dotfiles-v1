@@ -249,10 +249,9 @@ function os_common {
         mas_upgrade="mas upgrade"
         mas_install="mas install"
         if ! which brew > /dev/null; then
-            #softwareupdate --install -all
-            if ! xcode-select -p | grep '/Applications/Xcode.app/Contents/Developer' > /dev/null; then
+            if ! xcode-select -p | grep '/Applications/Xcode.app/Contents/Developer' > /dev/null 2>&1; then
                 xcode-select --install
-                sudo xcodebuild -license accept
+                sudo xcodebuild -license accept > /dev/null 2>&1
             fi
             ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
             $brew_tap caskroom/cask
