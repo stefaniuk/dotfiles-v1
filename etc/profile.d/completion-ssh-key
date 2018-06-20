@@ -1,0 +1,11 @@
+#!/bin/bash
+
+_ssh-key()
+{
+    local cur="${COMP_WORDS[COMP_CWORD]}"
+    local prev="${COMP_WORDS[COMP_CWORD-1]}"
+    local opts=$(find $dir -type f ! -name '*.pub' ! -name '*.ppk' | sed "s;$dir/;;g")
+    COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
+}
+
+complete -F _ssh-key ssh-key
