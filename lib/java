@@ -4,23 +4,7 @@
 
 function macosx-install-java {
 
-    $cask_install java
-}
-
-function macosx-config-java {
-
-    $brew_install jenv
-    cat <<EOF > $DIR/etc/profile.d/java.sh
-#!/bin/bash
-export PATH=\$PATH:~/.jenv/bin
-eval "\$(jenv init -)"
-EOF
-    for version in $(ls -1 /Library/Java/JavaVirtualMachines); do
-        [ ! -x /Library/Java/JavaVirtualMachines/$version/Contents/Home/bin/java ] && continue
-        echo 'yyy' | jenv add /Library/Java/JavaVirtualMachines/$version/Contents/Home
-    done
-    jenv global 1.8
-    jenv sh-enable-plugin export
+    $cask_install java8
 }
 
 # ### Ubuntu ###################################################################
