@@ -5,9 +5,8 @@
 
 SYSTEM_TIMEZONE=${SYSTEM_TIMEZONE:-Europe/London}
 SYSTEM_LOCALE=${SYSTEM_LOCALE:-en_GB.UTF-8}
-USER_NAME=${USER_NAME:-Daniel Stefaniuk}
-USER_EMAIL=${USER_EMAIL:-daniel.stefaniuk@gmail.com}
 GITHUB_ACCOUNT=${GITHUB_ACCOUNT:-stefaniuk}
+GITLAB_ACCOUNT=${GITLAB_ACCOUNT:-stefaniuk}
 BITBUCKET_ACCOUNT=${BITBUCKET_ACCOUNT:-stefaniuk}
 BASH_PROMPT_SHOW_GIT=${BASH_PROMPT_SHOW_GIT:-yes}
 BASH_PROMPT_RELOAD_HISTORY=${BASH_PROMPT_RELOAD_HISTORY:-no}
@@ -52,6 +51,11 @@ function main {
     [ -n "$arg_help" ] && { usage; exit 0; }
     [ -n "$arg_sudo" ] && sudo_keep_alive
     [ -n "$arg_directory" ] && DIR=$arg_directory
+
+    if [ -z "$USER_NAME" ] || [ -z "$USER_EMAIL" ]; then
+        print_err "USER_NAME and USER_EMAIL variables are not set"
+        exit 1
+    fi
 
     # back up profile
     [ -f $DIR/.profile ] && [ ! -f $DIR/.profile.old ] && mv -v $DIR/.profile $DIR/.profile.old
@@ -582,6 +586,14 @@ function usage {
     printf "\t--debug\n"
     printf "\t--offline\n"
     printf "\t--help\n"
+    printf "\nVariables:\n"
+    printf "\tUSER_NAME=\"User Name\" (required)\n"
+    printf "\tUSER_EMAIL=user@email (required)\n"
+    printf "\tGITHUB_ACCOUNT=name\n"
+    printf "\tGITLAB_ACCOUNT=name\n"
+    printf "\tBITBUCKET_ACCOUNT=name\n"
+    printf "\tBASH_PROMPT_SHOW_GIT=true|yes|on|1|TRUE|YES|ON (default: yes)\n"
+    printf "\tBASH_PROMPT_RELOAD_HISTORY=true|yes|on|1|TRUE|YES|ON (default: no)\n"
     printf "\n"
 }
 

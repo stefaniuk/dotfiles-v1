@@ -5,25 +5,24 @@ The aim of the `dotfiles` project is to configure Bash to provide a better user 
 
 Supported operating systems are:
 
-* Mac OS X
+* macOS
 * Ubuntu
 * Raspbian
+* Limited support for other Linux non-Debian based distributions
 
-Most of the scripts should work well with other Linux distributions. If the installation ends with a message _"Operating system not supported"_ see the [`system_detect` function](https://github.com/stefaniuk/dotfiles/blob/master/.bash_system#L3) and examine the following [condition statement](https://github.com/stefaniuk/dotfiles/blob/master/dotfiles#L181-L184).
+Most of the scripts should work well with other Linux distributions. If the installation ends with a message _"Operating system not supported"_ see the [`system_detect` function](https://github.com/stefaniuk/dotfiles/blob/master/.bash_system#L3) and examine the following [condition statement](https://github.com/stefaniuk/dotfiles/blob/master/dotfiles#L188-L191).
 
 Installation
 ------------
 
 Most common installation on a workstation
 
-    USER_NAME="Daniel Stefaniuk"
-    USER_EMAIL="daniel.stefaniuk@gmail.com"
+    export USER_NAME="Daniel Stefaniuk"
+    export USER_EMAIL="daniel.stefaniuk@gmail.com"
     curl -L https://raw.githubusercontent.com/stefaniuk/dotfiles/master/dotfiles -o - | /bin/bash -s -- \
         --update-os \
-        --install=all-bundles \
+        --install=dependencies-bundle,system-bundle,admin-bundle \
         --config \
-        --customise \
-        --load-secrets \
         --sudo
 
 Minimal installation

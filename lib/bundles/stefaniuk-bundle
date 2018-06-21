@@ -31,6 +31,5 @@ function install-user-bundle {
         dropbox \
         enpass \
         evernote \
-        megasync \
-        xmarks
+        megasync
 }

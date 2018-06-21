@@ -11,7 +11,7 @@ function macosx-install-system-bundle {
         witch
     run_install \
         karabiner \
-        moom
+        spectacle
 }
 
 # ### Ubuntu ###################################################################
