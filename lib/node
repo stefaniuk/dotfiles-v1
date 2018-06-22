@@ -4,14 +4,14 @@
 
 function macosx-install-node {
 
-    $brew_install node@6
+    $brew_install node@10
 }
 
 # ### Ubuntu ###################################################################
 
 function ubuntu-install-node {
 
-    curl -SL https://deb.nodesource.com/setup_6.x | sudo -E bash -
+    curl -SL https://deb.nodesource.com/setup_10.x | sudo -E bash -
     $apt_get_install nodejs
 }
 

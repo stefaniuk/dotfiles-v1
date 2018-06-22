@@ -182,7 +182,7 @@ function dotfiles_setup {
     # check internet connection
     curl --silent --insecure --max-time 10 --retry 3 "https://google.com" > /dev/null
     if [[ $? -ne 0 ]]; then
-        $arg_offline=true
+        arg_offline=true
         print_err "No network"
     fi
     # check operating system
@@ -342,8 +342,10 @@ function os_install_apps {
     if should_install "developer-bundle" || should_install "all-bundles"; then
         run_install developer-bundle
     fi
-    if should_install "user-bundle" || should_install "all-bundles"; then
-        run_install user-bundle
+
+    # TODO: Allow to add a new bundle without having to modify the code
+    if should_install "accuracy-workstream-dev-bundle"; then
+        run_install accuracy-workstream-dev-bundle
     fi
 
     # install requested  applications

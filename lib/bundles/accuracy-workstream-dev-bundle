@@ -1,0 +1,27 @@
+#!/bin/bash
+
+# ### Mac OS X #################################################################
+
+function macosx-install-accuracy-workstream-dev-bundle {
+
+    run_install \
+        \
+        dependencies-bundle \
+        system-bundle \
+        admin-bundle \
+        developer-bundle \
+        \
+        phpstorm \
+        intellij \
+        slack \
+        vmware-horizon-client
+}
+
+function macosx-config-accuracy-workstream-dev-bundle {
+
+    run_config \
+        dependencies-bundle \
+        system-bundle \
+        admin-bundle \
+        developer-bundle
+}

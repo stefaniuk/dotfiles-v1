@@ -42,16 +42,34 @@ function ubuntu-install-developer-bundle {
 function install-developer-bundle {
 
     run_install \
+        directory-studio \
+        ant \
         atom \
         chrome \
         dbeaver \
-        gitkraken \
+        docker \
+        emacs \
+        go \
+        gradle \
+        groovy \
+        irssi \
         java \
+        maven \
         node \
+        node-packages \
+        packer \
+        pgadmin \
+        ruby-packages \
+        scala \
         smartgit \
+        soapui \
+        sts \
+        subl \
         tmux \
         vagrant \
-        virtualbox
+        virtualbox \
+        vscode \
+        zsh
     npm install -g \
         http-console
 }
@@ -59,11 +77,25 @@ function install-developer-bundle {
 function config-developer-bundle {
 
     run_config \
+        ant \
         atom \
+        docker \
         git \
+        go \
+        gradle \
+        groovy \
+        irssi \
         java \
+        maven \
         node \
+        node-packages \
+        packer \
+        ruby \
+        scala \
+        subl \
         tmux \
         vagrant \
-        virtualbox
+        virtualbox \
+        vscode \
+        zsh
 }
