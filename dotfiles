@@ -25,6 +25,7 @@ arg_customise=$(echo "$*" | grep -o -- "--customise")
 arg_minimal=$(echo "$*" | grep -o -- "--minimal")
 arg_synchronise_only=$(echo "$*" | grep -o -- "--synchronise-only")
 arg_force_download=$(echo "$*" | grep -o -- "--force-download")
+arg_force_initialise=$(echo "$*" | grep -o -- "--force-initialise")
 arg_directory=$(echo "$*" | grep -Eo -- "--directory=[-_A-Za-z0-9/]+" | sed "s/--directory=//")
 arg_user=$(echo "$*" | grep -Eo -- "--user=[-_A-Za-z0-9/]+" | sed "s/--user=//")
 arg_load_secrets=$(echo "$*" | grep -o -- "--load-secrets")
@@ -278,7 +279,7 @@ function os_common {
 
 function os_initialise {
 
-    [ -f $DIR/tmp/.dotfiles-os-initialised ] && return
+    [ -f $DIR/tmp/.dotfiles-os-initialised ] && [ -z "$arg_force_initialise" ] && return
 
     print_h1 "Initialising..."
 
@@ -581,6 +582,7 @@ function usage {
     printf "\t--minimal\n"
     printf "\t--synchronise-only\n"
     printf "\t--force-download\n"
+    printf "\t--force-initialise\n"
     printf "\t--directory=/dir\n"
     printf "\t--user=username\n"
     printf "\t--load-secrets\n"
