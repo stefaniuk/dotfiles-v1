@@ -110,7 +110,7 @@ function dotfiles_download {
 
     print_h3 "\nDownload dotfiles\n"
     curl -L \
-        "https://github.com/${GITHUB_ACCOUNT}/dotfiles/tarball/master" \
+        "https://github.com/${GITHUB_ACCOUNT}/dotfiles/tarball/master?$(date +%s)" \
         -o $DIR/dotfiles.tar.gz
     tar -zxf $DIR/dotfiles.tar.gz -C $DIR
     rm -rf $DIR/etc/profile.d
@@ -121,7 +121,7 @@ function dotfiles_download {
     if [ -n "$arg_extension_man" ]; then
         print_h3 "\nDownload dotfiles-man\n"
         curl -L \
-            "https://github.com/${GITHUB_ACCOUNT}/dotfiles-man/tarball/master" \
+            "https://github.com/${GITHUB_ACCOUNT}/dotfiles-man/tarball/master?$(date +%s)" \
             -o $DIR/dotfiles-man.tar.gz
         tar -zxf $DIR/dotfiles-man.tar.gz -C $DIR
         rm -rf $DIR/man
