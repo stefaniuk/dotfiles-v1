@@ -371,8 +371,10 @@ function os_config_apps {
     if should_config "developer-bundle" || should_config "all-bundles"; then
         run_config developer-bundle
     fi
-    if should_config "user-bundle" || should_config "all-bundles"; then
-        run_config user-bundle
+
+    # TODO: Allow to add a new bundle without having to modify the code
+    if should_config "accuracy-workstream-dev-bundle"; then
+        run_config accuracy-workstream-dev-bundle
     fi
 
     # config requested applications
