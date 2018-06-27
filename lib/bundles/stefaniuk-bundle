@@ -26,10 +26,6 @@ function ubuntu-install-user-bundle {
 function install-user-bundle {
 
     run_install \
-        blackvue \
-        boxcryptor \
         dropbox \
-        enpass \
-        evernote \
-        megasync
+        enpass
 }
