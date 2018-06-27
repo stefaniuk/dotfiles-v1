@@ -355,7 +355,7 @@ function os_install_apps {
         run_install accuracy-workstream-dev-bundle
     fi
     if should_install "stefaniuk-bundle"; then
-        run_install stefaniuk-dev-bundle
+        run_install stefaniuk-bundle
     fi
 
     # install requested  applications
@@ -387,7 +387,7 @@ function os_config_apps {
         run_config accuracy-workstream-dev-bundle
     fi
     if should_config "stefaniuk-bundle"; then
-        run_config stefaniuk-dev-bundle
+        run_config stefaniuk-bundle
     fi
 
     # config requested applications
