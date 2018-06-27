@@ -2,7 +2,7 @@
 
 # ### Mac OS X #################################################################
 
-function macosx-install-user-bundle {
+function macosx-install-stefaniuk-bundle {
 
     $brew_install \
         pandoc
@@ -10,7 +10,7 @@ function macosx-install-user-bundle {
 
 # ### Ubuntu ###################################################################
 
-function ubuntu-install-user-bundle {
+function ubuntu-install-stefaniuk-bundle {
 
     $apt_get_install \
         aspell \
@@ -23,7 +23,7 @@ function ubuntu-install-user-bundle {
 
 # ### common ###################################################################
 
-function install-user-bundle {
+function install-stefaniuk-bundle {
 
     run_install \
         dropbox \
