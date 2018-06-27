@@ -94,7 +94,7 @@ function main {
     dotfiles_setup $*
 
     if [ -z "$arg_user" ]; then
-        sudo chown -R $user_uid:$user_gid $DIR/{*,.*} 2> /dev/null
+        sudo chown -R $user_uid:$user_gid $DIR 2> /dev/null
     fi
 }
 
