@@ -14,6 +14,8 @@ BASH_PROMPT_RELOAD_HISTORY=${BASH_PROMPT_RELOAD_HISTORY:-no}
 DIR=~
 program_dir=$(cd "$(dirname "$0" 2> /dev/null)"; pwd)
 app_dir=/usr/local/dotfiles
+user_uid=$(id -u)
+user_gid=$(id -g)
 
 arg_debug=$(echo "$*" | grep -o -- "--debug"); [ -n "$arg_debug" ] && set -x
 arg_update=$(echo "$*" | grep -o -- "--update-os")
@@ -90,6 +92,10 @@ function main {
     [ -n "$arg_load_secrets" ] && dotfiles_load_secrets
     # perform installation and configuration
     dotfiles_setup $*
+
+    if [ -z "$arg_user" ]; then
+        sudo chown -R $user_uid:$user_guid $DIR/{*,.*} 2> /dev/null
+    fi
 }
 
 function sudo_keep_alive {
