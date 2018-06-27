@@ -354,6 +354,9 @@ function os_install_apps {
     if should_install "accuracy-workstream-dev-bundle"; then
         run_install accuracy-workstream-dev-bundle
     fi
+    if should_install "stefaniuk-bundle"; then
+        run_install stefaniuk-dev-bundle
+    fi
 
     # install requested  applications
     for app in $(find $DIR/lib -maxdepth 1 -type f \( ! -iname "*-bundle" \) -exec basename {} \;); do
@@ -382,6 +385,9 @@ function os_config_apps {
     # TODO: Allow to add a new bundle without having to modify the code
     if should_config "accuracy-workstream-dev-bundle"; then
         run_config accuracy-workstream-dev-bundle
+    fi
+    if should_config "stefaniuk-bundle"; then
+        run_config stefaniuk-dev-bundle
     fi
 
     # config requested applications
