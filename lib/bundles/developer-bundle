@@ -51,7 +51,8 @@ function install-developer-bundle {
         smartgit \
         tmux \
         vagrant \
-        virtualbox
+        virtualbox \
+        vscode
     npm install -g \
         http-console
 }
@@ -65,5 +66,6 @@ function config-developer-bundle {
         node \
         tmux \
         vagrant \
-        virtualbox
+        virtualbox \
+        vscode
 }
