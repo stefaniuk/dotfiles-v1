@@ -26,6 +26,7 @@ function config-atom {
         atom-beautify \
         atom-ide-ui \
         clipboard-plus \
+        compare-files \
         file-icons \
         git-plus \
         highlight-selected \
@@ -42,5 +43,6 @@ function config-atom {
         pdf-view \
         pigments \
         set-syntax \
-        sort-lines
+        sort-lines \
+        split-diff
 }
