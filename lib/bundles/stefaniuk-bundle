@@ -28,5 +28,6 @@ function install-stefaniuk-bundle {
     run_install \
         dropbox \
         enpass \
-        office
+        office \
+        utorrent
 }

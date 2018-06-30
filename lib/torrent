@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# ### Mac OS X #################################################################
+
+function macosx-install-torrent {
+
+    $cask_install qbittorrent
+}
+
+# ### Ubuntu ###################################################################
+
+function ubuntu-install-torrent {
+
+    :
+}
