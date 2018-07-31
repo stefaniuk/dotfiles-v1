@@ -9,7 +9,8 @@ function macosx-install-developer-bundle {
         gpg2 \
         gtypist \
         httpie \
-        jq
+        jq \
+        make
     run_install \
         iterm \
         remote-desktop
