@@ -65,8 +65,8 @@ function main {
         export TERM="xterm-256color"
     fi
 
-    # make sure the user is known
-    if [ -z "$USER_NAME" ] || [ -z "$USER_EMAIL" ]; then
+    # make sure user is known
+    if [ -z "$arg_minimal" ] && ([ -z "$USER_NAME" ] || [ -z "$USER_EMAIL" ]); then
         print_err "USER_NAME and USER_EMAIL variables are not set"
         exit 1
     fi
