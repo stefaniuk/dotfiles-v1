@@ -29,6 +29,6 @@ function install-stefaniuk-bundle {
         dropbox \
         enpass \
         office \
-        utorrent \
+        torrent \
         vlc
 }
