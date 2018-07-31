@@ -45,6 +45,7 @@ function install-developer-bundle {
         atom \
         chrome \
         dbeaver \
+        docker \
         gitkraken \
         java \
         node \
@@ -61,6 +62,7 @@ function config-developer-bundle {
 
     run_config \
         atom \
+        docker \
         git \
         java \
         node \
