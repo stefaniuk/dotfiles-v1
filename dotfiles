@@ -42,6 +42,9 @@ config_already_processed=""
 if [ -z "$arg_config_apps" ] && [ -n "$arg_install_apps" ]; then
     arg_config_apps=$arg_install_apps
 fi
+IFS=',' read -r -a arg_install_apps_arr <<< "$arg_install_apps"
+IFS=',' read -r -a arg_config_apps_arr <<< "$arg_config_apps"
+
 if [[ "${BASH_SOURCE[0]}" != "${0}" ]]; then
     script_pipe=true
 fi
@@ -55,6 +58,14 @@ function main {
     [ -n "$arg_sudo" ] && sudo_keep_alive
     [ -n "$arg_directory" ] && DIR=$arg_directory
 
+    # use colours in terminal
+    if [[ $COLORTERM = gnome-* && $TERM = xterm ]] && infocmp gnome-256color > /dev/null 2>&1; then
+        export TERM="gnome-256color"
+    elif infocmp xterm-256color > /dev/null 2>&1; then
+        export TERM="xterm-256color"
+    fi
+
+    # make sure the user is known
     if [ -z "$USER_NAME" ] || [ -z "$USER_EMAIL" ]; then
         print_err "USER_NAME and USER_EMAIL variables are not set"
         exit 1
@@ -68,13 +79,6 @@ function main {
     if ! which sudo > /dev/null 2>&1 && which gosu > /dev/null 2>&1; then
         printf '#!/bin/bash\ngosu root $*\n' > /usr/bin/sudo
         chmod +x /usr/bin/sudo
-    fi
-
-    # use colours in terminal
-    if [[ $COLORTERM = gnome-* && $TERM = xterm ]] && infocmp gnome-256color > /dev/null 2>&1; then
-        export TERM="gnome-256color"
-    elif infocmp xterm-256color > /dev/null 2>&1; then
-        export TERM="xterm-256color"
     fi
 
     # make dotfiles scripts available
