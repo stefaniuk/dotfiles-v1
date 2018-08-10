@@ -355,8 +355,8 @@ function os_install_apps {
     fi
 
     # TODO: Allow to add a new bundle without having to modify the code
-    if should_install "accuracy-workstream-dev-bundle"; then
-        run_install accuracy-workstream-dev-bundle
+    if should_install "a2si-accuracy-bundle"; then
+        run_install a2si-accuracy-bundle
     fi
     if should_install "stefaniuk-bundle"; then
         run_install stefaniuk-bundle
@@ -387,8 +387,8 @@ function os_config_apps {
     fi
 
     # TODO: Allow to add a new bundle without having to modify the code
-    if should_config "accuracy-workstream-dev-bundle"; then
-        run_config accuracy-workstream-dev-bundle
+    if should_config "a2si-accuracy-bundle"; then
+        run_config a2si-accuracy-bundle
     fi
     if should_config "stefaniuk-bundle"; then
         run_config stefaniuk-bundle

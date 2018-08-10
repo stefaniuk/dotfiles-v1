@@ -2,7 +2,7 @@
 
 # ### Mac OS X #################################################################
 
-function macosx-install-accuracy-workstream-dev-bundle {
+function macosx-install-a2si-accuracy-bundle {
 
     run_install \
         \
@@ -17,7 +17,7 @@ function macosx-install-accuracy-workstream-dev-bundle {
         vmware-horizon-client
 }
 
-function macosx-config-accuracy-workstream-dev-bundle {
+function macosx-config-a2si-accuracy-bundle {
 
     run_config \
         dependencies-bundle \

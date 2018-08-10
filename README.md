@@ -53,6 +53,8 @@ Extensions
 TODO
 ----
 
+* Better name handling for bundles installation and configuration
+* SSH key add function
 * Provide functionality to toggle Bash completion and alias scripts in `etc/profile.d`
 * Refactor `system_info`
 * Fix `system_test`
