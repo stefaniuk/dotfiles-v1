@@ -98,7 +98,7 @@ function main {
     dotfiles_setup $*
 
     if [ -z "$arg_user" ]; then
-        sudo chown -R $user_uid:$user_gid $DIR 2> /dev/null
+        sudo chown -R $user_uid:$user_gid $DIR ||:
     fi
 }
 
@@ -233,7 +233,7 @@ function dotfiles_setup {
     fi
 
     # set correct ownership
-    [ -n "$arg_user" ] && sudo chown -R $arg_user:$arg_user $DIR
+    [ -n "$arg_user" ] && sudo chown -R $arg_user:$arg_user $DIR ||:
 
     print_h1 'Done!'
 }
