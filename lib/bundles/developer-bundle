@@ -5,6 +5,7 @@
 function macosx-install-developer-bundle {
 
     $brew_install \
+        ctags \
         git-flow \
         gpg2 \
         gtypist \
@@ -27,6 +28,7 @@ function macosx-config-developer-bundle {
 function ubuntu-install-developer-bundle {
 
     $apt_get_install \
+        ctags \
         git-flow \
         gpgv2 \
         gtypist \
