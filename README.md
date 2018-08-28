@@ -53,6 +53,7 @@ Extensions
 TODO
 ----
 
+* Fix `dotfiles-man` installation, i.e. `~/dotfiles --extension-man`
 * Better name handling for bundles installation and configuration
 * SSH key add function
 * Provide functionality to toggle Bash completion and alias scripts in `etc/profile.d`
