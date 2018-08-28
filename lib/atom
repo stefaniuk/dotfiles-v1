@@ -42,6 +42,7 @@ function config-atom {
         open-recent \
         pdf-view \
         pigments \
+        save-workspace \
         set-syntax \
         sort-lines \
         split-diff
