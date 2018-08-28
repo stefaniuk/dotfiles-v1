@@ -23,10 +23,10 @@ function __get_ip() {
 }
 
 ip=
-[ -z "$ip" ] && ip=$(dig +short myip.opendns.com @resolver1.opendns.com)
-[ -z "$ip" ] && ip=$(__get_ip "http://myip.dnsomatic.com")
-[ -z "$ip" ] && ip=$(__get_ip "http://checkip.dyndns.org")
-[ -z "$ip" ] && ip=$(__get_ip "http://ipecho.net")
+[ -z "$ip" ] && ip=$(dig +short myip.opendns.com @resolver1.opendns.com) ||:
+[ -z "$ip" ] && ip=$(__get_ip "http://myip.dnsomatic.com") ||:
+[ -z "$ip" ] && ip=$(__get_ip "http://checkip.dyndns.org") ||:
+[ -z "$ip" ] && ip=$(__get_ip "http://ipecho.net") ||:
 [ -z "$ip" ] && ip="unknown"
 echo $ip
 
