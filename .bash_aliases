@@ -50,19 +50,6 @@ if which grc > /dev/null 2>&1; then
     unset dir file prog
 fi
 
-# gtypist
-if which gtypist > /dev/null 2>&1; then
-    alias gtypist="gtypist \
-        --personal-best \
-        --max-error=5.0 \
-        --term-cursor \
-        --silent \
-        --word-processor \
-        --show-errors \
-        --always-sure \
-        --scoring=cpm"
-fi
-
 # reload bash
 alias reload="exec $SHELL -l"
 # sync bash

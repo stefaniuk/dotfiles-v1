@@ -8,7 +8,6 @@ function macosx-install-developer-bundle {
         ctags \
         git-flow \
         gpg2 \
-        gtypist \
         httpie \
         jq \
         make
@@ -31,7 +30,6 @@ function ubuntu-install-developer-bundle {
         ctags \
         git-flow \
         gpgv2 \
-        gtypist \
         httpie \
         jq \
         nfs-kernel-server
