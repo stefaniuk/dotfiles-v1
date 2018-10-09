@@ -31,3 +31,7 @@
     autoToggle: false
   "tree-view":
     hideVcsIgnoredFiles: false
+".source.yaml":
+  editor:
+    showIndentGuide: false
+    tabLength: 2
