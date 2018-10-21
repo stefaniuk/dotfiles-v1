@@ -4,13 +4,11 @@
 
 function install-node-packages {
 
-    sudo npm install -g \
-        angular2-cli \
-        bower \
-        grunt-cli \
-        gulp-cli \
+    npm install -g \
+        @angular/cli \
+        create-react-app \
         json \
         typescript \
-        typings \
+        yarn \
         yo
 }
