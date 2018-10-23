@@ -38,6 +38,7 @@ function config-vscode {
     mkdir -p "$dir/Code/User"
     cp -fv $DIR/lib/resources/vscode/settings.json "$dir/Code/User"
 
+    code --install-extension dbaeumer.vscode-eslint
     code --install-extension eamodio.gitlens
     code --install-extension ms-python.python
     code --install-extension ms-vscode.cpptools
