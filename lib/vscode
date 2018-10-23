@@ -37,4 +37,11 @@ function config-vscode {
 
     mkdir -p "$dir/Code/User"
     cp -fv $DIR/lib/resources/vscode/settings.json "$dir/Code/User"
+
+    code --install-extension eamodio.gitlens
+    code --install-extension ms-python.python
+    code --install-extension ms-vscode.cpptools
+    code --install-extension ms-vscode.csharp
+    code --install-extension ms-vscode.go
+    code --install-extension msjsdiag.debugger-for-chrome
 }
