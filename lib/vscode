@@ -45,4 +45,5 @@ function config-vscode {
     code --install-extension ms-vscode.csharp
     code --install-extension ms-vscode.go
     code --install-extension msjsdiag.debugger-for-chrome
+    code --install-extension vscjava.vscode-spring-initializr
 }
