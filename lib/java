@@ -4,7 +4,7 @@
 
 function macosx-install-java {
 
-    $cask_install java8
+    $cask_install java
 }
 
 # ### Ubuntu ###################################################################

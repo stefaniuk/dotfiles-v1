@@ -45,5 +45,8 @@ function config-vscode {
     code --install-extension ms-vscode.csharp
     code --install-extension ms-vscode.go
     code --install-extension msjsdiag.debugger-for-chrome
+    code --install-extension pivotal.vscode-spring-boot
+    code --install-extension vscjava.vscode-spring-boot-dashboard
     code --install-extension vscjava.vscode-spring-initializr
+    code --install-extension vsmobile.vscode-react-native
 }
