@@ -17,25 +17,26 @@ app_dir=/usr/local/dotfiles
 user_uid=$(id -u)
 user_gid=$(id -g)
 
-arg_debug=$(echo "$*" | grep -o -- "--debug"); [ -n "$arg_debug" ] && set -x
-arg_update=$(echo "$*" | grep -o -- "--update-os")
-arg_install=$(echo "$*" | grep -o -- "--install")
-arg_install_apps=$(echo "$*" | grep -o -- "--install=[-_,A-Za-z0-9]*" | sed "s/--install=//")
-arg_config=$(echo "$*" | grep -o -- "--config")
 arg_config_apps=$(echo "$*" | grep -o -- "--config=[-_,A-Za-z0-9]*" | sed "s/--config=//")
+arg_config=$(echo "$*" | grep -o -- "--config")
 arg_customise=$(echo "$*" | grep -o -- "--customise")
-arg_minimal=$(echo "$*" | grep -o -- "--minimal")
-arg_synchronise_only=$(echo "$*" | grep -o -- "--synchronise-only")
+arg_debug=$(echo "$*" | grep -o -- "--debug"); [ -n "$arg_debug" ] && set -x
+arg_directory=$(echo "$*" | grep -Eo -- "--directory=[-_A-Za-z0-9/]+" | sed "s/--directory=//")
+arg_extension_man=$(echo "$*" | grep -o -- "--extension-man")
+arg_fix_file_ownership=$(echo "$*" | grep -o -- "--fix-file-ownership")
 arg_force_download=$(echo "$*" | grep -o -- "--force-download")
 arg_force_initialise=$(echo "$*" | grep -o -- "--force-initialise")
-arg_directory=$(echo "$*" | grep -Eo -- "--directory=[-_A-Za-z0-9/]+" | sed "s/--directory=//")
-arg_user=$(echo "$*" | grep -Eo -- "--user=[-_A-Za-z0-9/]+" | sed "s/--user=//")
-arg_load_secrets=$(echo "$*" | grep -o -- "--load-secrets")
-arg_extension_man=$(echo "$*" | grep -o -- "--extension-man")
-arg_sudo=$(echo "$*" | grep -o -- "--sudo")
-arg_test=$(echo "$*" | grep -o -- "--test")
-arg_offline=$(echo "$*" | grep -o -- "--offline")
 arg_help=$(echo "$*" | grep -o -- "--help")
+arg_install_apps=$(echo "$*" | grep -o -- "--install=[-_,A-Za-z0-9]*" | sed "s/--install=//")
+arg_install=$(echo "$*" | grep -o -- "--install")
+arg_load_secrets=$(echo "$*" | grep -o -- "--load-secrets")
+arg_minimal=$(echo "$*" | grep -o -- "--minimal")
+arg_offline=$(echo "$*" | grep -o -- "--offline")
+arg_sudo=$(echo "$*" | grep -o -- "--sudo")
+arg_synchronise_only=$(echo "$*" | grep -o -- "--synchronise-only")
+arg_test=$(echo "$*" | grep -o -- "--test")
+arg_update=$(echo "$*" | grep -o -- "--update-os")
+arg_user=$(echo "$*" | grep -Eo -- "--user=[-_A-Za-z0-9/]+" | sed "s/--user=//")
 
 install_already_processed=""
 config_already_processed=""
@@ -231,24 +232,27 @@ function dotfiles_setup {
     fi
 
     print_h1 "Finalising..."
+
     # set correct file ownership
-    [ -z "$arg_user" ] && sudo chown -R $user_uid:$user_gid $DIR 2>/dev/null ||:
-    [ -n "$arg_user" ] && sudo chown -R $arg_user:$arg_user $DIR 2>/dev/null ||:
+    if [ -n "$arg_fix_file_ownership" ]; then
+        [ -z "$arg_user" ] && sudo chown -R $user_uid:$user_gid $DIR 2>/dev/null ||:
+        [ -n "$arg_user" ] && sudo chown -R $arg_user:$arg_user $DIR 2>/dev/null ||:
+    fi
 }
 
 function dotfiles_shell {
 
     rm -f $DIR/etc/profile.d/dotfiles-config
-    echo "export USER_NAME=\"$USER_NAME\"" >> $DIR/etc/profile.d/dotfiles-config
-    echo "export USER_EMAIL=\"$USER_EMAIL\"" >> $DIR/etc/profile.d/dotfiles-config
-    echo "export GITHUB_ACCOUNT=\"$GITHUB_ACCOUNT\"" >> $DIR/etc/profile.d/dotfiles-config
-    echo "export BITBUCKET_ACCOUNT=\"$BITBUCKET_ACCOUNT\"" >> $DIR/etc/profile.d/dotfiles-config
-    echo "export BASH_PROMPT_SHOW_GIT=\"$BASH_PROMPT_SHOW_GIT\"" >> $DIR/etc/profile.d/dotfiles-config
     echo "export BASH_PROMPT_RELOAD_HISTORY=\"$BASH_PROMPT_RELOAD_HISTORY\"" >> $DIR/etc/profile.d/dotfiles-config
-    echo "export GIT_AUTHOR_NAME=\"\$USER_NAME\"" >> $DIR/etc/profile.d/dotfiles-config
-    echo "export GIT_COMMITTER_NAME=\"\$GIT_AUTHOR_NAME\"" >> $DIR/etc/profile.d/dotfiles-config
+    echo "export BASH_PROMPT_SHOW_GIT=\"$BASH_PROMPT_SHOW_GIT\"" >> $DIR/etc/profile.d/dotfiles-config
+    echo "export BITBUCKET_ACCOUNT=\"$BITBUCKET_ACCOUNT\"" >> $DIR/etc/profile.d/dotfiles-config
     echo "export GIT_AUTHOR_EMAIL=\"\$USER_EMAIL\"" >> $DIR/etc/profile.d/dotfiles-config
+    echo "export GIT_AUTHOR_NAME=\"\$USER_NAME\"" >> $DIR/etc/profile.d/dotfiles-config
     echo "export GIT_COMMITTER_EMAIL=\"\$GIT_AUTHOR_EMAIL\"" >> $DIR/etc/profile.d/dotfiles-config
+    echo "export GIT_COMMITTER_NAME=\"\$GIT_AUTHOR_NAME\"" >> $DIR/etc/profile.d/dotfiles-config
+    echo "export GITHUB_ACCOUNT=\"$GITHUB_ACCOUNT\"" >> $DIR/etc/profile.d/dotfiles-config
+    echo "export USER_EMAIL=\"$USER_EMAIL\"" >> $DIR/etc/profile.d/dotfiles-config
+    echo "export USER_NAME=\"$USER_NAME\"" >> $DIR/etc/profile.d/dotfiles-config
 }
 
 function os_common {
@@ -589,31 +593,32 @@ function usage {
     local file=$(basename $0 2> /dev/null)
     printf "\nUsage: ${file} [options]\n"
     printf "\nOptions:\n"
-    printf "\t--update-os\n"
-    printf "\t--install={dependencies|system|admin|developer|user}-bundle|all-bundles,app1,app2,...\n"
     printf "\t--config[=all,app1,app2,...]\n"
     printf "\t--customise\n"
-    printf "\t--minimal\n"
-    printf "\t--synchronise-only\n"
+    printf "\t--debug\n"
+    printf "\t--directory=/dir\n"
+    printf "\t--extension-man\n"
+    printf "\t--fix-file-ownership\n"
     printf "\t--force-download\n"
     printf "\t--force-initialise\n"
-    printf "\t--directory=/dir\n"
-    printf "\t--user=username\n"
-    printf "\t--load-secrets\n"
-    printf "\t--extension-man\n"
-    printf "\t--sudo\n"
-    printf "\t--test\n"
-    printf "\t--debug\n"
-    printf "\t--offline\n"
     printf "\t--help\n"
+    printf "\t--install={dependencies|system|admin|developer|user}-bundle|all-bundles,app1,app2,...\n"
+    printf "\t--load-secrets\n"
+    printf "\t--minimal\n"
+    printf "\t--offline\n"
+    printf "\t--sudo\n"
+    printf "\t--synchronise-only\n"
+    printf "\t--test\n"
+    printf "\t--update-os\n"
+    printf "\t--user=username\n"
     printf "\nVariables:\n"
-    printf "\tUSER_NAME=\"User Name\" (required)\n"
-    printf "\tUSER_EMAIL=user@email (required)\n"
+    printf "\tBASH_PROMPT_RELOAD_HISTORY=true|yes|on|1|TRUE|YES|ON (default: no)\n"
+    printf "\tBASH_PROMPT_SHOW_GIT=true|yes|on|1|TRUE|YES|ON (default: yes)\n"
+    printf "\tBITBUCKET_ACCOUNT=name\n"
     printf "\tGITHUB_ACCOUNT=name\n"
     printf "\tGITLAB_ACCOUNT=name\n"
-    printf "\tBITBUCKET_ACCOUNT=name\n"
-    printf "\tBASH_PROMPT_SHOW_GIT=true|yes|on|1|TRUE|YES|ON (default: yes)\n"
-    printf "\tBASH_PROMPT_RELOAD_HISTORY=true|yes|on|1|TRUE|YES|ON (default: no)\n"
+    printf "\tUSER_EMAIL=user@email (required)\n"
+    printf "\tUSER_NAME=\"User Name\" (required)\n"
     printf "\n"
 }
 

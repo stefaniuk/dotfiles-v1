@@ -4,7 +4,26 @@ _dotfiles()
 {
     local cur="${COMP_WORDS[COMP_CWORD]}"
     local prev="${COMP_WORDS[COMP_CWORD-1]}"
-    local opts="--update-os --install --config --test --synchronise-only --force-download --directory --minimal --sudo --help"
+    local opts="
+        --config
+        --customise
+        --debug
+        --directory
+        --extension-man
+        --fix-file-ownership
+        --force-download
+        --force-initialise
+        --help
+        --install
+        --load-secrets
+        --minimal
+        --offline
+        --sudo
+        --synchronise-only
+        --test
+        --update-os
+        --user=username
+    "
     COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
 }
 
