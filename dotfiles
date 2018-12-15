@@ -97,9 +97,7 @@ function main {
     # perform installation and configuration
     dotfiles_setup $*
 
-    if [ -z "$arg_user" ]; then
-        sudo chown -R $user_uid:$user_gid $DIR ||:
-    fi
+    print_h1 "Done!"
 }
 
 function sudo_keep_alive {
@@ -232,10 +230,10 @@ function dotfiles_setup {
             $DIR/.profile.old
     fi
 
-    # set correct ownership
-    [ -n "$arg_user" ] && sudo chown -R $arg_user:$arg_user $DIR ||:
-
-    print_h1 'Done!'
+    print_h1 "Finalising..."
+    # set correct file ownership
+    [ -z "$arg_user" ] && sudo chown -R $user_uid:$user_gid $DIR 2>/dev/null ||:
+    [ -n "$arg_user" ] && sudo chown -R $arg_user:$arg_user $DIR 2>/dev/null ||:
 }
 
 function dotfiles_shell {
