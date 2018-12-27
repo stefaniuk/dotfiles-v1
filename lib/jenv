@@ -1,0 +1,25 @@
+#!/bin/bash
+
+# ### Mac OS X #################################################################
+
+function macosx-install-jenv {
+
+    $brew_install jenv
+}
+
+# ### Ubuntu ###################################################################
+
+function ubuntu-install-jenv {
+
+    [ ! -d $DIR/.jenv ] \
+        && git clone https://github.com/gcuisinier/jenv.git $DIR/.jenv \
+        || (cd $DIR/.jenv; git pull)
+}
+
+# ### common ###################################################################
+
+function config-jenv {
+
+    echo 'export PATH="$HOME/.jenv/bin:$PATH"' > $DIR/etc/profile.d/jenv
+    echo 'eval "$(jenv init -)"' >> $DIR/etc/profile.d/jenv
+}
