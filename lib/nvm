@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# ### Mac OS X #################################################################
+
+function macosx-install-nvm {
+
+    $brew_install nvm
+}
+
+function macosx-config-nvm {
+
+    echo 'export NVM_DIR=~/.nvm' > $DIR/etc/profile.d/nvm
+    echo 'source $(brew --prefix nvm)/nvm.sh' >> $DIR/etc/profile.d/nvm
+}
