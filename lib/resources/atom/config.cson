@@ -29,6 +29,8 @@
     showPanel: true
   minimap:
     autoToggle: false
+  "spell-check":
+    addKnownWords: true
   "tree-view":
     hideVcsIgnoredFiles: false
 ".source.yaml":
