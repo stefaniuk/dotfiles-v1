@@ -1,6 +1,10 @@
 {
-    "editor.renderWhitespace": "all",
     "editor.fontSize": 16,
-    "workbench.colorTheme": "Solarized Dark",
-    "window.zoomLevel": 0
+    "editor.renderWhitespace": "all",
+    "files.eol": "\n",
+    "files.insertFinalNewline": true,
+    "files.trimTrailingWhitespace": true,
+    "window.title": "${activeEditorMedium}${separator}${rootName}",
+    "window.zoomLevel": 0,
+    "workbench.colorTheme": "Solarized Dark"
 }
