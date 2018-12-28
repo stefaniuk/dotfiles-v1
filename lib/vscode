@@ -38,15 +38,16 @@ function config-vscode {
     mkdir -p "$dir/Code/User"
     cp -fv $DIR/lib/resources/vscode/settings.json "$dir/Code/User"
 
-    code --install-extension dbaeumer.vscode-eslint
-    code --install-extension eamodio.gitlens
-    code --install-extension ms-python.python
-    code --install-extension ms-vscode.cpptools
-    code --install-extension ms-vscode.csharp
-    code --install-extension ms-vscode.go
-    code --install-extension msjsdiag.debugger-for-chrome
-    code --install-extension pivotal.vscode-spring-boot
-    code --install-extension vscjava.vscode-spring-boot-dashboard
-    code --install-extension vscjava.vscode-spring-initializr
-    code --install-extension vsmobile.vscode-react-native
+    code --force --install-extension dbaeumer.vscode-eslint
+    code --force --install-extension eamodio.gitlens
+    code --force --install-extension ms-python.python
+    code --force --install-extension ms-vscode.cpptools
+    code --force --install-extension ms-vscode.csharp
+    code --force --install-extension ms-vscode.go
+    code --force --install-extension msjsdiag.debugger-for-chrome
+    code --force --install-extension pivotal.vscode-spring-boot
+    code --force --install-extension vscjava.vscode-spring-boot-dashboard
+    code --force --install-extension vscjava.vscode-spring-initializr
+    code --force --install-extension vsmobile.vscode-react-native
+    code --force --install-extension redhat.java
 }
