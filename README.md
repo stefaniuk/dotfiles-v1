@@ -53,6 +53,7 @@ Extensions
 TODO
 ----
 
+* Script loading performance
 * Fix `dotfiles-man` installation, i.e. `~/dotfiles --extension-man`
 * Better name handling for bundles installation and configuration
 * SSH key add function
