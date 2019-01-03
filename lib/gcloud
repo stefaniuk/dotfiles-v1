@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# ### Mac OS X #################################################################
+
+function macosx-install-gcloud {
+
+    $cask_install google-cloud-sdk
+}
+
+# ### Ubuntu ###################################################################
+
+function ubuntu-install-gcloud {
+
+    :
+}
