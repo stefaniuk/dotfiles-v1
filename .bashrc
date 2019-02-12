@@ -1,5 +1,30 @@
 #!/bin/sh
 
+unset PROMPT_COMMAND
+source ~/etc/profile.d/dotfiles-config
+
+# reload bash
+alias reload="exec $SHELL -l"
+
+if [[ ! "$BASH_LOAD_DOTFILES" =~ ^(true|yes|on|1|TRUE|YES|ON)$ ]]; then
+    return
+fi
+
+#### functions #################################################################
+
+# Used to mesure command execution time in seconds
+function __measure_exec_time {
+    t1=$(gdate +%s.%N || date +%s.%N)
+    $*
+    t2=$(gdate +%s.%N || date +%s.%N)
+    runtime=$(printf "%05.2f" $(echo "$t2 - $t1" | bc -l))
+    if [[ "$BASH_MEASURE_EXEC_TIME" =~ ^(true|yes|on|1|TRUE|YES|ON)$ ]]; then
+        echo "${runtime}s : $*"
+    fi
+}
+
+#### initialisation ############################################################
+
 # must be interactive shell
 [[ "$-" != *i* ]] && return
 
@@ -22,8 +47,8 @@ shopt -s nocaseglob # case-insensitive globbing
 
 # bash completion
 [ -f /etc/bash_completion ] && bcpath=/etc || bcpath=/usr/local/etc
-if [ -r $bcpath/bash_completion ]; then
-    source $bcpath/bash_completion
+if [ -f $bcpath/bash_completion ]; then
+    __measure_exec_time source $bcpath/bash_completion
 fi
 unset bcpath
 
@@ -31,11 +56,11 @@ unset bcpath
 
 # load Bash configuration files
 for file in ~/.{path,bashrc.,bash_system,bash_prompt,bash_exports,bash_functions,bash_asserts,bash_aliases,bash_completion,bash_extra,bash_custom}*; do
-    [ -r $file ] && source $file
+    [ -f $file ] && __measure_exec_time source $file
 done
 # load Profile configuration files
 for file in ~/etc/profile.d/*; do
-    [ -r $file ] && source $file
+    [ -f $file ] && __measure_exec_time source $file
 done
 unset file
 
