@@ -15,11 +15,13 @@ fi
 
 # Used to mesure command execution time in seconds
 function __measure_exec_time {
-    t1=$(gdate +%s.%N || date +%s.%N)
-    $*
-    t2=$(gdate +%s.%N || date +%s.%N)
-    runtime=$(printf "%05.2f" $(echo "$t2 - $t1" | bc -l))
     if [[ "$BASH_MEASURE_EXEC_TIME" =~ ^(true|yes|y|on|1|TRUE|YES|Y|ON)$ ]]; then
+        t1=$(gdate +%s.%N || date +%s.%N)
+    fi
+    $*
+    if [[ "$BASH_MEASURE_EXEC_TIME" =~ ^(true|yes|y|on|1|TRUE|YES|Y|ON)$ ]]; then
+        t2=$(gdate +%s.%N || date +%s.%N)
+        runtime=$(printf "%05.2f" $(echo "$t2 - $t1" | bc -l))
         echo "${runtime}s : $*"
     fi
 }
