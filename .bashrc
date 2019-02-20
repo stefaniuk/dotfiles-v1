@@ -1,15 +1,15 @@
 #!/bin/sh
 
+# clear prompt command
+unset PROMPT_COMMAND
+# load default variables
+[ -f ~/etc/profile.d/dotfiles-config ] && source ~/etc/profile.d/dotfiles-config
 # set alias to allow to reload Bash
 alias reload="exec $SHELL -l"
 
 if [[ ! "$BASH_LOAD_DOTFILES" =~ ^(true|yes|y|on|1|TRUE|YES|Y|ON)$ ]]; then
     return
 fi
-
-unset PROMPT_COMMAND
-
-[ -f ~/etc/profile.d/dotfiles-config ] && source ~/etc/profile.d/dotfiles-config
 
 #### functions #################################################################
 
