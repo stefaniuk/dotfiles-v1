@@ -1,14 +1,15 @@
 #!/bin/sh
 
-unset PROMPT_COMMAND
-source ~/etc/profile.d/dotfiles-config
-
-# reload bash
+# set alias to allow to reload Bash
 alias reload="exec $SHELL -l"
 
-if [[ ! "$BASH_LOAD_DOTFILES" =~ ^(true|yes|on|1|TRUE|YES|ON)$ ]]; then
+if [[ ! "$BASH_LOAD_DOTFILES" =~ ^(true|yes|y|on|1|TRUE|YES|Y|ON)$ ]]; then
     return
 fi
+
+unset PROMPT_COMMAND
+
+[ -f ~/etc/profile.d/dotfiles-config ] && source ~/etc/profile.d/dotfiles-config
 
 #### functions #################################################################
 
@@ -18,7 +19,7 @@ function __measure_exec_time {
     $*
     t2=$(gdate +%s.%N || date +%s.%N)
     runtime=$(printf "%05.2f" $(echo "$t2 - $t1" | bc -l))
-    if [[ "$BASH_MEASURE_EXEC_TIME" =~ ^(true|yes|on|1|TRUE|YES|ON)$ ]]; then
+    if [[ "$BASH_MEASURE_EXEC_TIME" =~ ^(true|yes|y|on|1|TRUE|YES|Y|ON)$ ]]; then
         echo "${runtime}s : $*"
     fi
 }

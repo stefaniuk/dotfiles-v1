@@ -14,7 +14,7 @@ export HISTSIZE=4096
 export HISTFILESIZE=$HISTSIZE
 export HISTCONTROL=ignoredups:erasedups
 export HISTIGNORE="history*:clear:exit"
-if [[ ! "$BASH_PROMPT_RELOAD_HISTORY" =~ ^(true|yes|on|1|TRUE|YES|ON)$ ]]; then
+if [[ ! "$BASH_PROMPT_RELOAD_HISTORY" =~ ^(true|yes|y|on|1|TRUE|YES|Y|ON)$ ]]; then
     export PROMPT_COMMAND="__measure_exec_time prompt_command" # use `reload` command to synchronise history
 else
     export PROMPT_COMMAND="
