@@ -244,21 +244,21 @@ function dotfiles_setup {
 
 function dotfiles_shell {
 
-    rm -f $DIR/etc/profile.d/dotfiles-config
+    rm -f $DIR/.dotfiles_config
 
-    echo "export BASH_LOAD_DOTFILES=\"\${BASH_LOAD_DOTFILES:-$BASH_LOAD_DOTFILES}\"" >> $DIR/etc/profile.d/dotfiles-config
-    echo "export BASH_MEASURE_EXEC_TIME=\"\${BASH_MEASURE_EXEC_TIME:-$BASH_MEASURE_EXEC_TIME}\"" >> $DIR/etc/profile.d/dotfiles-config
-    echo "export BASH_PROMPT_RELOAD_HISTORY=\"\${BASH_PROMPT_RELOAD_HISTORY:-$BASH_PROMPT_RELOAD_HISTORY}\"" >> $DIR/etc/profile.d/dotfiles-config
-    echo "export BASH_PROMPT_SHOW_GIT=\"\${BASH_PROMPT_SHOW_GIT:-$BASH_PROMPT_SHOW_GIT}\"" >> $DIR/etc/profile.d/dotfiles-config
-    echo "export BITBUCKET_ACCOUNT=\"\${BITBUCKET_ACCOUNT:-$BITBUCKET_ACCOUNT}\"" >> $DIR/etc/profile.d/dotfiles-config
-    echo "export GITHUB_ACCOUNT=\"\${GITHUB_ACCOUNT:-$GITHUB_ACCOUNT}\"" >> $DIR/etc/profile.d/dotfiles-config
-    echo "export USER_EMAIL=\"\${USER_EMAIL:-$USER_EMAIL}\"" >> $DIR/etc/profile.d/dotfiles-config
-    echo "export USER_NAME=\"\${USER_NAME:-$USER_NAME}\"" >> $DIR/etc/profile.d/dotfiles-config
+    echo "export BASH_LOAD_DOTFILES=\"\${BASH_LOAD_DOTFILES:-$BASH_LOAD_DOTFILES}\"" >> $DIR/.dotfiles_config
+    echo "export BASH_MEASURE_EXEC_TIME=\"\${BASH_MEASURE_EXEC_TIME:-$BASH_MEASURE_EXEC_TIME}\"" >> $DIR/.dotfiles_config
+    echo "export BASH_PROMPT_RELOAD_HISTORY=\"\${BASH_PROMPT_RELOAD_HISTORY:-$BASH_PROMPT_RELOAD_HISTORY}\"" >> $DIR/.dotfiles_config
+    echo "export BASH_PROMPT_SHOW_GIT=\"\${BASH_PROMPT_SHOW_GIT:-$BASH_PROMPT_SHOW_GIT}\"" >> $DIR/.dotfiles_config
+    echo "export BITBUCKET_ACCOUNT=\"\${BITBUCKET_ACCOUNT:-$BITBUCKET_ACCOUNT}\"" >> $DIR/.dotfiles_config
+    echo "export GITHUB_ACCOUNT=\"\${GITHUB_ACCOUNT:-$GITHUB_ACCOUNT}\"" >> $DIR/.dotfiles_config
+    echo "export USER_EMAIL=\"\${USER_EMAIL:-$USER_EMAIL}\"" >> $DIR/.dotfiles_config
+    echo "export USER_NAME=\"\${USER_NAME:-$USER_NAME}\"" >> $DIR/.dotfiles_config
 
-    echo "export GIT_AUTHOR_EMAIL=\"\$USER_EMAIL\"" >> $DIR/etc/profile.d/dotfiles-config
-    echo "export GIT_AUTHOR_NAME=\"\$USER_NAME\"" >> $DIR/etc/profile.d/dotfiles-config
-    echo "export GIT_COMMITTER_EMAIL=\"\$GIT_AUTHOR_EMAIL\"" >> $DIR/etc/profile.d/dotfiles-config
-    echo "export GIT_COMMITTER_NAME=\"\$GIT_AUTHOR_NAME\"" >> $DIR/etc/profile.d/dotfiles-config
+    echo "export GIT_AUTHOR_EMAIL=\"\$USER_EMAIL\"" >> $DIR/.dotfiles_config
+    echo "export GIT_AUTHOR_NAME=\"\$USER_NAME\"" >> $DIR/.dotfiles_config
+    echo "export GIT_COMMITTER_EMAIL=\"\$GIT_AUTHOR_EMAIL\"" >> $DIR/.dotfiles_config
+    echo "export GIT_COMMITTER_NAME=\"\$GIT_AUTHOR_NAME\"" >> $DIR/.dotfiles_config
 }
 
 function os_common {

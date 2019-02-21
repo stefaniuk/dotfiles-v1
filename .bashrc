@@ -3,7 +3,7 @@
 # clear prompt command
 unset PROMPT_COMMAND
 # load default variables
-[ -f ~/etc/profile.d/dotfiles-config ] && source ~/etc/profile.d/dotfiles-config
+[ -f ~/.dotfiles_config ] && source ~/.dotfiles_config
 # set alias to allow to reload Bash
 alias reload="exec $SHELL -l"
 
