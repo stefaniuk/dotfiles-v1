@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # SOURCE: https://github.com/scop/bash-completion/blob/master/bash_completion
-# COMMIT: c263a3fc8ca098cb42eab88026e1ffa2fa809ec0
-#   DATE: 2018/12/06
+# COMMIT: 5ecb9d7e1372961f4f983b1fd0adaa273ac06bc4
+#   DATE: 2019/01/19
 #  PATCH: lines 2100-2114
 
 #                                                          -*- shell-script -*-
