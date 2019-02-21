@@ -1,6 +1,6 @@
 #!/bin/bash
 
-_ssh-key()
+__ssh-key()
 {
     local cur="${COMP_WORDS[COMP_CWORD]}"
     local prev="${COMP_WORDS[COMP_CWORD-1]}"
@@ -8,4 +8,4 @@ _ssh-key()
     COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
 }
 
-complete -F _ssh-key ssh-key
+complete -F __ssh-key ssh-key
