@@ -1,0 +1,21 @@
+#!/bin/bash
+
+function py {
+    if [ -f "$1" ]; then
+        docker run \
+            --interactive --tty --rm \
+            --volume $(cd "$(dirname "$1" 2> /dev/null)"; pwd):/tmp \
+            codeworksio/python:latest \
+            python /tmp/$(basename $1)
+    elif [ -n "$1" ]; then
+        docker run \
+            --interactive --tty --rm \
+            codeworksio/python:latest \
+            python -c "$1"
+    else
+        docker run \
+            --interactive --tty --rm \
+            codeworksio/python:latest \
+            python -c "import sys; print(sys.version_info)"
+    fi
+}
