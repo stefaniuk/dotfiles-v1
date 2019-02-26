@@ -1,21 +1,55 @@
 #!/bin/bash
 
-function py {
+PY_IMAGE="codeworksio/python:latest"
+PY_NAME="py"
+
+function py { # Run Python script or command inside a container
+
+    # Execute script
     if [ -f "$1" ]; then
-        docker run \
-            --interactive --tty --rm \
-            --volume $(cd "$(dirname "$1" 2> /dev/null)"; pwd):/tmp \
-            codeworksio/python:latest \
-            python /tmp/$(basename $1)
+        docker exec --interactive --tty \
+            --workdir /tmp \
+            $PY_NAME \
+            python /tmp/$1
+    # Execute command
     elif [ -n "$1" ]; then
-        docker run \
-            --interactive --tty --rm \
-            codeworksio/python:latest \
+        docker exec --interactive --tty \
+            --workdir /tmp \
+            $PY_NAME \
             python -c "$1"
+    # Show help
     else
-        docker run \
-            --interactive --tty --rm \
-            codeworksio/python:latest \
-            python -c "import sys; print(sys.version_info)"
+        echo
+        echo "    py [script|command]"
+        echo
+        docker exec --interactive --tty \
+            --workdir /tmp \
+            $PY_NAME \
+            python -c "import sys; print('    $PY_IMAGE', sys.version_info)"
+        echo
     fi
+}
+
+function py-create { # Create 'py' Docker container
+
+    if [ ! "$(docker ps --quiet --filter name=$PY_NAME)" ]; then
+        docker rm $PY_NAME 2>/dev/null ||:
+        docker run --detach --interactive --tty --rm --name $PY_NAME --hostname $PY_NAME \
+            --volume $(pwd):/tmp \
+            $PY_IMAGE \
+            /bin/bash --login
+    fi
+}
+
+function py-remove { # Remove 'py' Docker container
+
+    if [ "$(docker ps --quiet --filter name=$PY_NAME)" ]; then
+        docker stop $PY_NAME ||:
+    fi
+}
+
+function py-here { # Re-create 'py' Docker container
+
+    py-remove
+    py-create
 }
