@@ -53,13 +53,13 @@ Extensions
 TODO
 ----
 
+* Tidy up installation process and the bundles, e.g. `dependencies` and `system` bundles
 * Fix `dotfiles-man` installation, i.e. `~/dotfiles --extension-man`
 * Better name handling for bundles installation and configuration
 * SSH key add function
 * Provide functionality to toggle Bash completion and alias scripts in `etc/profile.d`
 * Refactor `system_info`
 * Fix `system_test`
-* Tidy up installation process, i.e. `dependencies` and `system` bundles
 * Version `dotfiles`
 * [Configure `htop`](http://www.thegeekstuff.com/2011/09/linux-htop-examples)
 * Remap the Caps Lock
