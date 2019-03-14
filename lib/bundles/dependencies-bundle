@@ -11,7 +11,7 @@ function macosx-install-dependencies-bundle {
         openssl \
         pcre \
         perl \
-        python3 \
+        python jupyter \
         rsync \
         unzip \
         wget \

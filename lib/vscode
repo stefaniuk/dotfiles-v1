@@ -42,6 +42,7 @@ function config-vscode {
     code --force --install-extension eamodio.gitlens
     code --force --install-extension editorconfig.editorconfig
     code --force --install-extension jmrog.vscode-nuget-package-manager
+    code --force --install-extension ms-python.anaconda-extension-pack
     code --force --install-extension ms-python.python
     code --force --install-extension ms-vscode.cpptools
     code --force --install-extension ms-vscode.csharp
