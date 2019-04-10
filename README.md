@@ -17,7 +17,7 @@ Installation
 
 Most common installation on a workstation
 
-    export USER_NAME="Daniel Stefaniuk"
+    export USER_NAME="Dan Stefaniuk"
     export USER_EMAIL="daniel.stefaniuk@gmail.com"
     curl -L https://raw.githubusercontent.com/stefaniuk/dotfiles/master/dotfiles -o - | /bin/bash -s -- \
         --update-os \
