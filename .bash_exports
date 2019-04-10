@@ -44,3 +44,6 @@ export LESS_TERMCAP_us="${yellow}"
 
 # don't clear the screen after quitting a manual page
 export MANPAGER="less -X"
+
+# configure GPG agent
+export GPG_TTY=$(tty)
