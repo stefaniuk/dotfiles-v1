@@ -22,4 +22,4 @@ alias gs="git status --short"
 alias gr="git reset HEAD"
 alias gr+="git reset --hard HEAD"
 alias gr++="git reset --hard HEAD~1"
-alias git-prune='git fetch --prune && for branch in `git branch -vv | grep ": gone]" | awk "{print $1}"`; do git branch --delete $branch; done'
+alias git-prune='git fetch --prune && for branch in `git branch -vv | grep ": gone]" | awk "{print \\$1}"`; do git branch --delete --force $branch; done'
