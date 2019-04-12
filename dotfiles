@@ -363,8 +363,8 @@ function os_install_apps {
     fi
 
     # TODO: Allow to add a new bundle without having to modify the code
-    if should_install "a2si-accuracy-bundle"; then
-        run_install a2si-accuracy-bundle
+    if should_install "a2si-bundle"; then
+        run_install a2si-bundle
     fi
     if should_install "stefaniuk-bundle"; then
         run_install stefaniuk-bundle
@@ -395,8 +395,8 @@ function os_config_apps {
     fi
 
     # TODO: Allow to add a new bundle without having to modify the code
-    if should_config "a2si-accuracy-bundle"; then
-        run_config a2si-accuracy-bundle
+    if should_config "a2si-bundle"; then
+        run_config a2si-bundle
     fi
     if should_config "stefaniuk-bundle"; then
         run_config stefaniuk-bundle
