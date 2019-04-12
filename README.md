@@ -21,13 +21,13 @@ Most common installation on a workstation
     export USER_EMAIL="daniel.stefaniuk@gmail.com"
     curl -L https://raw.githubusercontent.com/stefaniuk/dotfiles/master/dotfiles -o - | /bin/bash -s -- \
         --update-os \
-        --install=dependencies-bundle,system-bundle,admin-bundle \
+        --install=utils-bundle,developer-bundle,stefaniuk-bundle \
         --config \
         --sudo
 
 Minimal installation
 
-    curl -L https://raw.githubusercontent.com/stefaniuk/dotfiles/master/dotfiles -o - | /bin/bash -s
+    curl -L http://bit.ly/shell-dotfiles -o - | /bin/bash -s
 
 All files will be installed in the user's home directory.
 
@@ -53,7 +53,6 @@ Extensions
 TODO
 ----
 
-* Tidy up installation process and the bundles, e.g. `dependencies` and `system` bundles
 * Fix `dotfiles-man` installation, i.e. `~/dotfiles --extension-man`
 * Better name handling for bundles installation and configuration
 * SSH key add function
@@ -69,13 +68,13 @@ See
 
 ###### Dotfiles
 
-* [Gediminas Morkevicius](https://github.com/l3pp4rd/dotfiles)
-* [Justin Force](https://github.com/justinforce/dotfiles)
-* [Keith Smiley](https://github.com/keith/dotfiles)
 * [Mathias Bynens](https://github.com/mathiasbynens/dotfiles)
 * [Nicolas Gallagher](https://github.com/necolas/dotfiles)
 * [Paul Irish](https://github.com/paulirish/dotfiles)
 * [Thoughtbot](https://github.com/thoughtbot/dotfiles)
+* [Gediminas Morkevicius](https://github.com/l3pp4rd/dotfiles)
+* [Justin Force](https://github.com/justinforce/dotfiles)
+* [Keith Smiley](https://github.com/keith/dotfiles)
 
 ###### Projects
 

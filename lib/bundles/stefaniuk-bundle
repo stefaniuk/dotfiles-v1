@@ -4,7 +4,10 @@
 
 function macosx-install-stefaniuk-bundle {
 
+    run_install \
+        iina
     $brew_install \
+        google-drive \
         pandoc
 }
 
@@ -18,7 +21,8 @@ function ubuntu-install-stefaniuk-bundle {
         myspell-en-gb \
         pandoc
     run_install \
-        compiz
+        compiz \
+        vlc
 }
 
 # ### common ###################################################################
@@ -29,6 +33,5 @@ function install-stefaniuk-bundle {
         dropbox \
         enpass \
         office \
-        torrent \
-        vlc
+        torrent
 }

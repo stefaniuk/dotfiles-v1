@@ -64,7 +64,6 @@ function config-developer-bundle {
     run_config \
         atom \
         docker \
-        git \
         java \
         node \
         tmux \

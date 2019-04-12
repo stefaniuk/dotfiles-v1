@@ -349,14 +349,8 @@ function os_install_apps {
     print_h1 "Installing..."
 
     # install requested bundles
-    if should_install "dependencies-bundle" || should_install "all-bundles"; then
-        run_install dependencies-bundle
-    fi
-    if should_install "system-bundle" || should_install "all-bundles"; then
-        run_install system-bundle
-    fi
-    if should_install "admin-bundle" || should_install "all-bundles"; then
-        run_install admin-bundle
+    if should_install "utils-bundle" || should_install "all-bundles"; then
+        run_install utils-bundle
     fi
     if should_install "developer-bundle" || should_install "all-bundles"; then
         run_install developer-bundle
@@ -381,14 +375,8 @@ function os_config_apps {
     print_h1 "Configuring..."
 
     # config requested bundles
-    if should_config "dependencies-bundle" || should_config "all-bundles"; then
-        run_config dependencies-bundle
-    fi
-    if should_config "system-bundle" || should_config "all-bundles"; then
-        run_config system-bundle
-    fi
-    if should_config "admin-bundle" || should_config "all-bundles"; then
-        run_config admin-bundle
+    if should_config "utils-bundle" || should_config "all-bundles"; then
+        run_config utils-bundle
     fi
     if should_config "developer-bundle" || should_config "all-bundles"; then
         run_config developer-bundle

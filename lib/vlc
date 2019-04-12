@@ -1,15 +1,8 @@
 #!/bin/bash
 
-# ### Mac OS X #################################################################
-
-function macosx-install-vlc {
-
-    $cask_install vlc
-}
-
 # ### Ubuntu ###################################################################
 
 function ubuntu-install-vlc {
 
-    :
+    $apt_get_install vlc
 }

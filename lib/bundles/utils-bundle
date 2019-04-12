@@ -1,0 +1,121 @@
+#!/bin/bash
+
+# ### Mac OS X #################################################################
+
+function macosx-install-utils-bundle {
+
+    $brew_install \
+        bc \
+        binutils \
+        curl \
+        expect \
+        openssl \
+        pcre \
+        perl \
+        python jupyter \
+        rsync \
+        unzip \
+        wget \
+        xz
+    sudo easy_install \
+        Pygments
+
+    # Admin packages
+    $brew_install \
+        ack \
+        coreutils \
+        diffutils \
+        findutils \
+        grc \
+        htop \
+        lnav \
+        lsof \
+        netcat \
+        tcptraceroute \
+        tree
+    run_install \
+        tunnelblick
+
+    # System specific packages
+    $cask_install \
+        bettertouchtool \
+        keepingyouawake \
+        hammerspoon \
+        witch
+    run_install \
+        karabiner \
+        spectacle
+}
+
+# ### Ubuntu ###################################################################
+
+function ubuntu-install-utils-bundle {
+
+    $apt_get_install \
+        bc \
+        binutils \
+        curl \
+        expect \
+        openssl \
+        pcregrep \
+        perl \
+        python \
+        python-pygments \
+        rsync \
+        unzip \
+        wget \
+        xz-utils
+
+    # Admin packages
+    $apt_get_install \
+        ack-grep \
+        dnsutils \
+        grc \
+        heirloom-mailx \
+        htop \
+        iotop \
+        iputils-ping \
+        lnav \
+        lsof \
+        net-tools \
+        netcat \
+        nmap \
+        sshpass \
+        strace \
+        sysstat \
+        traceroute \
+        tree
+
+    # System specific packages
+    $apt_get_install \
+        apt-file \
+        apt-transport-https \
+        apt-utils \
+        ca-certificates \
+        debconf-utils \
+        dialog \
+        iputils-ping \
+        locales \
+        software-properties-common
+}
+
+# ### common ###################################################################
+
+function install-utils-bundle {
+
+    run_install \
+        bash \
+        git \
+        mc \
+        vim
+}
+
+function config-utils-bundle {
+
+    run_config \
+        bash \
+        git \
+        mc \
+        ssh \
+        vim
+}

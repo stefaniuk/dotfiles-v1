@@ -38,7 +38,7 @@ install:
 	docker exec --interactive --tty \
 		$(NAME) \
 		./dotfiles \
-			--install=dependencies-bundle,system-bundle \
+			--install=utils-bundle \
 			--config
 
 test:

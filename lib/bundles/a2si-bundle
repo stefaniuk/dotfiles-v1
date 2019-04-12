@@ -6,9 +6,7 @@ function macosx-install-a2si-bundle {
 
     run_install \
         \
-        dependencies-bundle \
-        system-bundle \
-        admin-bundle \
+        utils-bundle \
         developer-bundle \
         \
         phpstorm \
@@ -20,8 +18,6 @@ function macosx-install-a2si-bundle {
 function macosx-config-a2si-bundle {
 
     run_config \
-        dependencies-bundle \
-        system-bundle \
-        admin-bundle \
+        utils-bundle \
         developer-bundle
 }
