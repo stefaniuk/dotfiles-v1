@@ -1,12 +1,5 @@
 #!/bin/bash
 
-# ### Mac OS X #################################################################
-
-function macosx-install-enpass {
-
-    $cask_install enpass
-}
-
 # ### Ubuntu ###################################################################
 
 function ubuntu-install-enpass {
