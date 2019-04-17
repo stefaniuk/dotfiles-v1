@@ -5,11 +5,12 @@
 function macosx-install-nvm {
 
     $brew_install nvm
-    nvm install --latest-npm
 }
 
 function macosx-config-nvm {
 
     echo 'export NVM_DIR=~/.nvm' > $DIR/etc/profile.d/nvm
     echo 'source $(brew --prefix nvm)/nvm.sh' >> $DIR/etc/profile.d/nvm
+    source $DIR/etc/profile.d/nvm
+    nvm install --latest-npm
 }
