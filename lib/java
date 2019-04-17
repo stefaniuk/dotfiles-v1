@@ -4,7 +4,17 @@
 
 function macosx-install-java {
 
-    $cask_install java
+    $cask_install \
+        java8 \
+        java
+    run_install \
+        jenv
+}
+
+function macosx-config-java {
+
+    run_config \
+        jenv
 }
 
 # ### Ubuntu ###################################################################

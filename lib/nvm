@@ -5,6 +5,7 @@
 function macosx-install-nvm {
 
     $brew_install nvm
+    nvm install --latest-npm
 }
 
 function macosx-config-nvm {
