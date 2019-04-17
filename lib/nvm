@@ -4,7 +4,8 @@
 
 function macosx-install-nvm {
 
-    $brew_install nvm
+    $brew_install \
+        nvm
 }
 
 function macosx-config-nvm {
@@ -13,4 +14,7 @@ function macosx-config-nvm {
     echo 'source $(brew --prefix nvm)/nvm.sh' >> $DIR/etc/profile.d/nvm
     source $DIR/etc/profile.d/nvm
     nvm install --latest-npm
+
+    [ -f /etc/bash_completion ] && dir=/etc/bash_completion.d || dir=/usr/local/etc/bash_completion.d
+    sudo /bin/bash -c "npm completion > $dir/node-completion.bash"
 }

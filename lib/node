@@ -6,6 +6,10 @@ function macosx-install-node {
 
     run_install \
         nvm
+}
+
+function macosx-config-node {
+
     run_config \
         nvm
 }
@@ -19,9 +23,7 @@ function ubuntu-install-node {
     sudo npm update -g
 }
 
-# ### common ###################################################################
-
-function config-node {
+function ubuntu-config-node {
 
     [ -f /etc/bash_completion ] && dir=/etc/bash_completion.d || dir=/usr/local/etc/bash_completion.d
     sudo /bin/bash -c "npm completion > $dir/node-completion.bash"
