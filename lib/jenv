@@ -6,6 +6,9 @@ function macosx-install-jenv {
 
     $brew_install \
         jenv
+    for dir in $(ls -d /Library/Java/JavaVirtualMachines/*/Contents/Home/); do
+        jenv add $dir
+    done
 }
 
 # ### Ubuntu ###################################################################
@@ -23,5 +26,6 @@ function config-jenv {
 
     echo 'export PATH="$HOME/.jenv/bin:$PATH"' > $DIR/etc/profile.d/jenv
     echo 'eval "$(jenv init -)"' >> $DIR/etc/profile.d/jenv
+    source $DIR/etc/profile.d/jenv
     jenv enable-plugin export
 }
