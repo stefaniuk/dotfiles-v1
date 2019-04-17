@@ -7,8 +7,9 @@ function macosx-install-stefaniuk-bundle {
     run_install \
         iina
     $brew_install \
-        google-drive \
         pandoc
+    $cask_install \
+        google-backup-and-sync
 }
 
 # ### Ubuntu ###################################################################
