@@ -50,6 +50,7 @@ function install-developer-bundle {
         gitkraken \
         java \
         node \
+        packer \
         smartgit \
         tmux \
         vagrant \
@@ -66,6 +67,7 @@ function config-developer-bundle {
         docker \
         java \
         node \
+        packer \
         tmux \
         vagrant \
         virtualbox \
