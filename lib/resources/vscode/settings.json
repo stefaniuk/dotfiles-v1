@@ -1,10 +1,18 @@
 {
-    "editor.fontSize": 16,
+    "editor.fontSize": 18,
     "editor.renderWhitespace": "all",
     "files.eol": "\n",
     "files.insertFinalNewline": true,
     "files.trimTrailingWhitespace": true,
     "window.title": "${activeEditorMedium}${separator}${rootName}",
     "window.zoomLevel": 0,
-    "workbench.colorTheme": "Solarized Dark"
+    "workbench.colorTheme": "Solarized Dark",
+    "workbench.tree.indent": 24,
+    "breadcrumbs.enabled": true,
+    "files.autoSave": "onFocusChange",
+    "editor.suggestSelection": "recentlyUsedByPrefix",
+    "extensions.ignoreRecommendations": true,
+    "explorer.confirmDragAndDrop": false,
+    "explorer.autoReveal": false,
+    "java.configuration.checkProjectSettingsExclusions": false,
 }

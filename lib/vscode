@@ -43,6 +43,7 @@ function config-vscode {
     code --force --install-extension editorconfig.editorconfig
     code --force --install-extension felixfbecker.php-debug
     code --force --install-extension felixfbecker.php-intellisense
+    code --force --install-extension gabrielbb.vscode-lombok
     code --force --install-extension jmrog.vscode-nuget-package-manager
     code --force --install-extension marcostazi.vs-code-vagrantfile
     code --force --install-extension ms-python.anaconda-extension-pack
