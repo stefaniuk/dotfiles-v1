@@ -14,11 +14,15 @@ export HISTSIZE=4096
 export HISTFILESIZE=$HISTSIZE
 export HISTCONTROL=ignoredups:erasedups
 export HISTIGNORE="history*:clear:exit"
+
+prompt=
+if [[ "$BASH_MEASURE_EXEC_TIME" =~ ^(true|yes|y|on|1|TRUE|YES|Y|ON)$ ]]; then
+    prompt="__measure_exec_time"
+fi
 if [[ ! "$BASH_PROMPT_RELOAD_HISTORY" =~ ^(true|yes|y|on|1|TRUE|YES|Y|ON)$ ]]; then
-    export PROMPT_COMMAND="__measure_exec_time prompt_command" # use `reload` command to synchronise history
+    prompt="$prompt prompt_command" # use `reload` command to synchronise history
 else
-    export PROMPT_COMMAND="
-        __measure_exec_time prompt_command ;\
+    prompt="$prompt prompt_command ;\
         # append the history lines not already read from the history file to the current history list
         history -n ;\
         # write out the current history list to the history file
@@ -28,6 +32,7 @@ else
         # read the history file and append its contents to the history list
         history -r"
 fi
+export PROMPT_COMMAND="$prompt"
 
 # prefer British English
 export LANG="en_GB.UTF-8"
