@@ -27,7 +27,7 @@ Most common installation on a workstation
 
 Minimal installation
 
-    curl -L http://bit.ly/shell-dotfiles -o - | /bin/bash -s
+    curl -L http://bit.ly/shell-dotfiles -o - | /bin/bash -s -- --minimal
 
 All files will be installed in the user's home directory.
 
