@@ -53,6 +53,8 @@ Extensions
 TODO
 ----
 
+* Migrate to [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh)
+* Use [git-crypt](https://github.com/AGWA/git-crypt)
 * Fix `dotfiles-man` installation, i.e. `~/dotfiles --extension-man`
 * Better name handling for bundles installation and configuration
 * SSH key add function
