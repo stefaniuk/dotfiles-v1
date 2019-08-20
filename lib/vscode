@@ -51,9 +51,11 @@ function config-vscode {
     code --force --install-extension ms-vscode.cpptools
     code --force --install-extension ms-vscode.csharp
     code --force --install-extension ms-vscode.go
+    code --force --install-extension ms-vsliveshare.vsliveshare-pack
     code --force --install-extension msjsdiag.debugger-for-chrome
     code --force --install-extension pivotal.vscode-spring-boot
     code --force --install-extension redhat.java
+    code --force --install-extension streetsidesoftware.code-spell-checker
     code --force --install-extension vscjava.vscode-spring-boot-dashboard
     code --force --install-extension vscjava.vscode-spring-initializr
     code --force --install-extension vsmobile.vscode-react-native
