@@ -33,6 +33,13 @@ All files will be installed in the user's home directory.
 
 After reloading Bash `dotfiles` command should be available on the command-line. Below is a screenshot of an installation of an additional software package managed by the `dotfiles`.
 
+From the `refactor` branch
+
+    export USER_NAME="Dan Stefaniuk"
+    export USER_EMAIL="daniel.stefaniuk@gmail.com"
+    curl -L https://raw.githubusercontent.com/stefaniuk/dotfiles/refactor/dotfiles -o - | /bin/bash -s -- \
+        --minimal
+
 ![dotfiles](lib/resources/dotfiles/dotfiles.png)
 
 Testing

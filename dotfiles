@@ -13,7 +13,7 @@ BASH_PROMPT_RELOAD_HISTORY=${BASH_PROMPT_RELOAD_HISTORY:-no}
 BASH_MEASURE_EXEC_TIME=${BASH_MEASURE_EXEC_TIME:-no}
 BASH_LOAD_DOTFILES=${BASH_LOAD_DOTFILES:-yes}
 
-DIR=~
+DIR=~/.dotfiles/stefaniuk
 program_dir=$(cd "$(dirname "$0" 2> /dev/null)"; pwd)
 app_dir=/usr/local/dotfiles
 user_uid=$(id -u)
@@ -60,6 +60,7 @@ function main {
     [ -n "$arg_help" ] && { usage; exit 0; }
     [ -n "$arg_sudo" ] && sudo_keep_alive
     [ -n "$arg_directory" ] && DIR=$arg_directory
+    mkdir -p $DIR
 
     # use colours in terminal
     if [[ $COLORTERM = gnome-* && $TERM = xterm ]] && infocmp gnome-256color > /dev/null 2>&1; then
