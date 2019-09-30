@@ -38,16 +38,21 @@ function config-vscode {
     mkdir -p "$dir/Code/User"
     cp -fv $DIR/lib/resources/vscode/settings.json "$dir/Code/User"
 
+    code --force --install-extension coenraads.bracket-pair-colorizer
     code --force --install-extension dbaeumer.vscode-eslint
     code --force --install-extension eamodio.gitlens
     code --force --install-extension editorconfig.editorconfig
     code --force --install-extension felixfbecker.php-debug
     code --force --install-extension felixfbecker.php-intellisense
     code --force --install-extension gabrielbb.vscode-lombok
+    code --force --install-extension ginfuru.ginfuru-better-solarized-dark-theme
     code --force --install-extension jmrog.vscode-nuget-package-manager
     code --force --install-extension marcostazi.vs-code-vagrantfile
+    code --force --install-extension mauve.terraform
+    code --force --install-extension mhutchie.git-graph
     code --force --install-extension ms-python.anaconda-extension-pack
     code --force --install-extension ms-python.python
+    code --force --install-extension ms-vscode-remote.remote-containers
     code --force --install-extension ms-vscode.cpptools
     code --force --install-extension ms-vscode.csharp
     code --force --install-extension ms-vscode.go
@@ -58,5 +63,6 @@ function config-vscode {
     code --force --install-extension streetsidesoftware.code-spell-checker
     code --force --install-extension vscjava.vscode-spring-boot-dashboard
     code --force --install-extension vscjava.vscode-spring-initializr
+    code --force --install-extension vscode-icons-team.vscode-icons
     code --force --install-extension vsmobile.vscode-react-native
 }
