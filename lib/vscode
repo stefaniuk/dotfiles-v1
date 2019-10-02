@@ -47,6 +47,7 @@ function config-vscode {
     code --force --install-extension gabrielbb.vscode-lombok
     code --force --install-extension ginfuru.ginfuru-better-solarized-dark-theme
     code --force --install-extension jmrog.vscode-nuget-package-manager
+    code --force --install-extension johnpapa.vscode-peacock
     code --force --install-extension marcostazi.vs-code-vagrantfile
     code --force --install-extension mauve.terraform
     code --force --install-extension mhutchie.git-graph
@@ -58,11 +59,13 @@ function config-vscode {
     code --force --install-extension ms-vscode.go
     code --force --install-extension ms-vsliveshare.vsliveshare-pack
     code --force --install-extension msjsdiag.debugger-for-chrome
+    code --force --install-extension msjsdiag.vscode-react-native
+    code --force --install-extension oderwat.indent-rainbow
     code --force --install-extension pivotal.vscode-spring-boot
     code --force --install-extension redhat.java
+    code --force --install-extension ritwickdey.liveserver
     code --force --install-extension streetsidesoftware.code-spell-checker
     code --force --install-extension vscjava.vscode-spring-boot-dashboard
     code --force --install-extension vscjava.vscode-spring-initializr
     code --force --install-extension vscode-icons-team.vscode-icons
-    code --force --install-extension vsmobile.vscode-react-native
 }
